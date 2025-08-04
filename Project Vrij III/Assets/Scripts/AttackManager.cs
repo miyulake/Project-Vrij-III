@@ -26,6 +26,8 @@ public class AttackManager : MonoBehaviour
 
     public void Attack(AttackType type)
     {
+        if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Idle")) return;
+
         switch (type)
         {
             case AttackType.PUNCH_1:
