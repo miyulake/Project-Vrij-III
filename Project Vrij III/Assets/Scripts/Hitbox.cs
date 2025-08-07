@@ -5,7 +5,7 @@ public class Hitbox : MonoBehaviour
 {
     [SerializeField] private UnityEvent onHitEvent;
 
-    private void OnTriggerEnter(Collider col)
+    private void OnTriggerEnter2D(Collider2D col)
     {
         if (!col.TryGetComponent(out Hurtbox _)) return;
 

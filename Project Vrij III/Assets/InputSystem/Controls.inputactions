@@ -24,15 +24,6 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "MediumAttack",
-                    "type": "Button",
-                    "id": "e6610f0b-b96c-4778-8612-8c27d78d3c76",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "HeavyAttack",
                     "type": "Button",
                     "id": "317339b4-f23c-47ee-8476-e968cfc16cfc",
@@ -156,7 +147,7 @@
                 {
                     "name": "",
                     "id": "63d6033b-310e-404b-8206-5b909feadc64",
-                    "path": "<Keyboard>/z",
+                    "path": "<Mouse>/leftButton",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
@@ -166,19 +157,8 @@
                 },
                 {
                     "name": "",
-                    "id": "ca10fbcf-c14f-4409-ad59-764aee96a42f",
-                    "path": "<Keyboard>/x",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Keyboard&Mouse",
-                    "action": "MediumAttack",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "856c30f9-2a10-4b1c-8789-f27b012e0cfa",
-                    "path": "<Keyboard>/c",
+                    "path": "<Mouse>/rightButton",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
