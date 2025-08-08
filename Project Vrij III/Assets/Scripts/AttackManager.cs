@@ -1,16 +1,14 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class AttackManager : MonoBehaviour
 {
-    // HEAVY ATTACKS WITH "Right Mouse" + "Direction" AND LIGHT ATTACK STRING TOGETHER WITH "Left Mouse"
     public AttackManager Instance { get; private set; }
     [SerializeField] private Animator animator;
-    [SerializeField] private float bufferDuration = 0.3f;
-    private AttackType? bufferedAttack = null;
-    private float bufferTimer = 0f;
-    private readonly int idleHash = Animator.StringToHash("Idle");
-
+    [SerializeField] private float comboInputTime = 0.33f;
     private Controls controls;
+    private static readonly int idleHash = Animator.StringToHash("Idle");
+    private int comboIndex = 0;
+    private float comboTimer = 0f;
 
     private void Awake()
     {
@@ -19,42 +17,65 @@ public class AttackManager : MonoBehaviour
             Destroy(gameObject);
             return;
         }
+
         Instance = this;
         controls = new Controls();
 
-        controls.Player.LightAttack.performed  += ctx => Attack(AttackType.H_PUNCH_1);
-        controls.Player.HeavyAttack.performed  += ctx => Attack(AttackType.H_PUNCH_3);
+        controls.Player.LightAttack.performed += ctx => HandleComboAttack();
+        controls.Player.HeavyAttack.performed += ctx => PlaySpecialAttack(AttackType.H_PUNCH_3);
     }
+
     private void OnEnable() => controls.Enable();
     private void OnDisable() => controls.Disable();
 
-    private void Update() => CheckBuffer();
+    private void Update() => HandleComboTimer();
 
-    private void Attack(AttackType type)
+    private void HandleComboAttack()
     {
-        if (animator.GetCurrentAnimatorStateInfo(0).shortNameHash == idleHash) HandleAttackAnimation(type);
-        else
+        ++comboIndex;
+
+        if (comboIndex > 3) comboIndex = 1;
+        comboTimer = 0f;
+
+        PlayComboAttack(comboIndex);
+    }
+
+    private void HandleComboTimer()
+    {
+        if (comboIndex > 0)
         {
-            bufferedAttack = type;
-            bufferTimer = bufferDuration;
+            comboTimer += Time.deltaTime;
+            if (comboTimer >= comboInputTime)
+            {
+                comboTimer = 0f;
+                comboIndex = 0;
+            }
         }
     }
 
-    public void HandleAttackAnimation(AttackType type)
+    private void PlayComboAttack(int index)
     {
-        switch (type)
+        switch (index)
         {
-            /*
-            case AttackType.PUNCH_1:
+            case 1:
                 animator.Play("Hands_Punch", 0, 0);
                 break;
-            case AttackType.PUNCH_2:
+            case 2:
                 animator.Play("Hands_Punch2", 0, 0);
                 break;
-            case AttackType.PUNCH_3:
+            case 3:
                 animator.Play("Hands_Punch3", 0, 0);
                 break;
-            */
+        }
+        Debug.Log("Combo index: " + index);
+    }
+
+    private void PlaySpecialAttack(AttackType type)
+    {
+        if (animator.GetCurrentAnimatorStateInfo(0).shortNameHash != idleHash) return;
+
+        switch (type)
+        {
             case AttackType.H_PUNCH_1:
                 animator.Play("Hands_PunchH1", 0, 0);
                 break;
@@ -65,21 +86,6 @@ public class AttackManager : MonoBehaviour
                 animator.Play("Hands_PunchH3", 0, 0);
                 break;
         }
-        print("Used: " + type);
-    }
-
-    private void CheckBuffer()
-    {
-        if (bufferedAttack.HasValue)
-        {
-            bufferTimer -= Time.deltaTime;
-
-            if (bufferTimer <= 0f) bufferedAttack = null;
-            else if (animator.GetCurrentAnimatorStateInfo(0).shortNameHash == idleHash)
-            {
-                HandleAttackAnimation(bufferedAttack.Value);
-                bufferedAttack = null;
-            }
-        }
+        Debug.Log("Used special attack: " + type);
     }
 }
