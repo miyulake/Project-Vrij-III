@@ -7,6 +7,7 @@ public class AttackManager : MonoBehaviour
     [SerializeField] private float comboInputTime = 0.33f;
     private Controls controls;
     private static readonly int idleHash = Animator.StringToHash("Idle");
+    private static readonly int lastComboHash = Animator.StringToHash("Hands_Combo_Attack_3");
     private int comboIndex = 0;
     private float comboTimer = 0f;
 
@@ -21,23 +22,26 @@ public class AttackManager : MonoBehaviour
         Instance = this;
         controls = new Controls();
 
-        controls.Player.LightAttack.performed += ctx => HandleComboAttack();
-        controls.Player.HeavyAttack.performed += ctx => PlaySpecialAttack(AttackType.H_PUNCH_3);
+        controls.Player.AttackForward.performed += ctx => UseDirectionalAttack(AttackType.D_ATTACK_FORWARD);
+        controls.Player.AttackDownward.performed += ctx => UseDirectionalAttack(AttackType.D_ATTACK_DOWNWARD);
+        controls.Player.AttackUpward.performed += ctx => UseDirectionalAttack(AttackType.D_ATTACK_UPWARD);
+        controls.Player.ComboAttack.performed += ctx => HandleComboAttack();
     }
 
     private void OnEnable() => controls.Enable();
     private void OnDisable() => controls.Disable();
 
-    private void Update() => HandleComboTimer();
+    private void Update()
+    {
+        HandleComboTimer();
+    }
 
     private void HandleComboAttack()
     {
+        if (comboIndex == 3) return;
         ++comboIndex;
-
-        if (comboIndex > 3) comboIndex = 1;
         comboTimer = 0f;
-
-        PlayComboAttack(comboIndex);
+        animator.SetInteger("ComboIndex", comboIndex);
     }
 
     private void HandleComboTimer()
@@ -49,43 +53,28 @@ public class AttackManager : MonoBehaviour
             {
                 comboTimer = 0f;
                 comboIndex = 0;
+                animator.SetInteger("ComboIndex", comboIndex);
             }
         }
     }
 
-    private void PlayComboAttack(int index)
+    private void UseDirectionalAttack(AttackType type)
     {
-        switch (index)
-        {
-            case 1:
-                animator.Play("Hands_Punch", 0, 0);
-                break;
-            case 2:
-                animator.Play("Hands_Punch2", 0, 0);
-                break;
-            case 3:
-                animator.Play("Hands_Punch3", 0, 0);
-                break;
-        }
-        Debug.Log("Combo index: " + index);
-    }
-
-    private void PlaySpecialAttack(AttackType type)
-    {
-        if (animator.GetCurrentAnimatorStateInfo(0).shortNameHash != idleHash) return;
-
+        if (!IsInState(animator, idleHash)) return;
         switch (type)
         {
-            case AttackType.H_PUNCH_1:
-                animator.Play("Hands_PunchH1", 0, 0);
+            case AttackType.D_ATTACK_FORWARD:
+                animator.Play("Hands_Attack_Forward", 0, 0);
                 break;
-            case AttackType.H_PUNCH_2:
-                animator.Play("Hands_PunchH2", 0, 0);
+            case AttackType.D_ATTACK_DOWNWARD:
+                animator.Play("Hands_Attack_Downward", 0, 0);
                 break;
-            case AttackType.H_PUNCH_3:
-                animator.Play("Hands_PunchH3", 0, 0);
+            case AttackType.D_ATTACK_UPWARD:
+                animator.Play("Hands_Attack_Upward", 0, 0);
                 break;
         }
-        Debug.Log("Used special attack: " + type);
+        Debug.Log("Used directional attack: " + type);
     }
+
+    public static bool IsInState(Animator animator, int hash) => animator.GetCurrentAnimatorStateInfo(0).shortNameHash == hash;
 }

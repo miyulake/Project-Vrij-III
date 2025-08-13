@@ -15,18 +15,36 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "LightAttack",
+                    "name": "AttackForward",
                     "type": "Button",
-                    "id": "6c2ab1b8-8984-453a-af3d-a3c78ae1679a",
+                    "id": "317339b4-f23c-47ee-8476-e968cfc16cfc",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
                 },
                 {
-                    "name": "HeavyAttack",
+                    "name": "AttackDownward",
                     "type": "Button",
-                    "id": "317339b4-f23c-47ee-8476-e968cfc16cfc",
+                    "id": "14761289-8182-4af0-875e-2ed820f7efca",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "AttackUpward",
+                    "type": "Button",
+                    "id": "80ac487b-0311-4311-bec2-164e25051d19",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "ComboAttack",
+                    "type": "Button",
+                    "id": "6c2ab1b8-8984-453a-af3d-a3c78ae1679a",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -148,10 +166,10 @@
                     "name": "",
                     "id": "63d6033b-310e-404b-8206-5b909feadc64",
                     "path": "<Mouse>/leftButton",
-                    "interactions": "",
+                    "interactions": "Tap",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
-                    "action": "LightAttack",
+                    "action": "ComboAttack",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -159,12 +177,67 @@
                     "name": "",
                     "id": "856c30f9-2a10-4b1c-8789-f27b012e0cfa",
                     "path": "<Mouse>/rightButton",
+                    "interactions": "Tap(duration=0.16,pressPoint=0.2)",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "AttackForward",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "df0c490f-4c69-47c5-94cc-7a8e20f7bab4",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "Hold(duration=0.25,pressPoint=0.3)",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "AttackUpward",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "Two Modifiers",
+                    "id": "939c08ce-5433-4ed3-b8e7-7ef9c249f833",
+                    "path": "TwoModifiers",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "AttackDownward",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "modifier1",
+                    "id": "d0780363-9950-44c5-a04c-5341a2727131",
+                    "path": "<Mouse>/leftButton",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
-                    "action": "HeavyAttack",
+                    "action": "AttackDownward",
                     "isComposite": false,
-                    "isPartOfComposite": false
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "modifier2",
+                    "id": "6d21584c-617f-4c74-810b-d74d41923bc4",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "AttackDownward",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "binding",
+                    "id": "14792c56-9f66-4ee0-939b-8b963dbb838e",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "AttackDownward",
+                    "isComposite": false,
+                    "isPartOfComposite": true
                 }
             ]
         }

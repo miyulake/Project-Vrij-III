@@ -101,18 +101,36 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""LightAttack"",
+                    ""name"": ""AttackForward"",
                     ""type"": ""Button"",
-                    ""id"": ""6c2ab1b8-8984-453a-af3d-a3c78ae1679a"",
+                    ""id"": ""317339b4-f23c-47ee-8476-e968cfc16cfc"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""HeavyAttack"",
+                    ""name"": ""AttackDownward"",
                     ""type"": ""Button"",
-                    ""id"": ""317339b4-f23c-47ee-8476-e968cfc16cfc"",
+                    ""id"": ""14761289-8182-4af0-875e-2ed820f7efca"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""AttackUpward"",
+                    ""type"": ""Button"",
+                    ""id"": ""80ac487b-0311-4311-bec2-164e25051d19"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ComboAttack"",
+                    ""type"": ""Button"",
+                    ""id"": ""6c2ab1b8-8984-453a-af3d-a3c78ae1679a"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
@@ -234,10 +252,10 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""name"": """",
                     ""id"": ""63d6033b-310e-404b-8206-5b909feadc64"",
                     ""path"": ""<Mouse>/leftButton"",
-                    ""interactions"": """",
+                    ""interactions"": ""Tap"",
                     ""processors"": """",
                     ""groups"": "";Keyboard&Mouse"",
-                    ""action"": ""LightAttack"",
+                    ""action"": ""ComboAttack"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -245,12 +263,67 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""name"": """",
                     ""id"": ""856c30f9-2a10-4b1c-8789-f27b012e0cfa"",
                     ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": ""Tap(duration=0.16,pressPoint=0.2)"",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""AttackForward"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""df0c490f-4c69-47c5-94cc-7a8e20f7bab4"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": ""Hold(duration=0.25,pressPoint=0.3)"",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""AttackUpward"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""Two Modifiers"",
+                    ""id"": ""939c08ce-5433-4ed3-b8e7-7ef9c249f833"",
+                    ""path"": ""TwoModifiers"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""AttackDownward"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""modifier1"",
+                    ""id"": ""d0780363-9950-44c5-a04c-5341a2727131"",
+                    ""path"": ""<Mouse>/leftButton"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": "";Keyboard&Mouse"",
-                    ""action"": ""HeavyAttack"",
+                    ""action"": ""AttackDownward"",
                     ""isComposite"": false,
-                    ""isPartOfComposite"": false
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""modifier2"",
+                    ""id"": ""6d21584c-617f-4c74-810b-d74d41923bc4"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""AttackDownward"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""binding"",
+                    ""id"": ""14792c56-9f66-4ee0-939b-8b963dbb838e"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""AttackDownward"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
                 }
             ]
         }
@@ -321,8 +394,10 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         // Player
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
         m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
-        m_Player_LightAttack = m_Player.FindAction("LightAttack", throwIfNotFound: true);
-        m_Player_HeavyAttack = m_Player.FindAction("HeavyAttack", throwIfNotFound: true);
+        m_Player_AttackForward = m_Player.FindAction("AttackForward", throwIfNotFound: true);
+        m_Player_AttackDownward = m_Player.FindAction("AttackDownward", throwIfNotFound: true);
+        m_Player_AttackUpward = m_Player.FindAction("AttackUpward", throwIfNotFound: true);
+        m_Player_ComboAttack = m_Player.FindAction("ComboAttack", throwIfNotFound: true);
     }
 
     ~@Controls()
@@ -404,8 +479,10 @@ public partial class @Controls: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_Player;
     private List<IPlayerActions> m_PlayerActionsCallbackInterfaces = new List<IPlayerActions>();
     private readonly InputAction m_Player_Move;
-    private readonly InputAction m_Player_LightAttack;
-    private readonly InputAction m_Player_HeavyAttack;
+    private readonly InputAction m_Player_AttackForward;
+    private readonly InputAction m_Player_AttackDownward;
+    private readonly InputAction m_Player_AttackUpward;
+    private readonly InputAction m_Player_ComboAttack;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
     /// </summary>
@@ -422,13 +499,21 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         /// </summary>
         public InputAction @Move => m_Wrapper.m_Player_Move;
         /// <summary>
-        /// Provides access to the underlying input action "Player/LightAttack".
+        /// Provides access to the underlying input action "Player/AttackForward".
         /// </summary>
-        public InputAction @LightAttack => m_Wrapper.m_Player_LightAttack;
+        public InputAction @AttackForward => m_Wrapper.m_Player_AttackForward;
         /// <summary>
-        /// Provides access to the underlying input action "Player/HeavyAttack".
+        /// Provides access to the underlying input action "Player/AttackDownward".
         /// </summary>
-        public InputAction @HeavyAttack => m_Wrapper.m_Player_HeavyAttack;
+        public InputAction @AttackDownward => m_Wrapper.m_Player_AttackDownward;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/AttackUpward".
+        /// </summary>
+        public InputAction @AttackUpward => m_Wrapper.m_Player_AttackUpward;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/ComboAttack".
+        /// </summary>
+        public InputAction @ComboAttack => m_Wrapper.m_Player_ComboAttack;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -458,12 +543,18 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @Move.started += instance.OnMove;
             @Move.performed += instance.OnMove;
             @Move.canceled += instance.OnMove;
-            @LightAttack.started += instance.OnLightAttack;
-            @LightAttack.performed += instance.OnLightAttack;
-            @LightAttack.canceled += instance.OnLightAttack;
-            @HeavyAttack.started += instance.OnHeavyAttack;
-            @HeavyAttack.performed += instance.OnHeavyAttack;
-            @HeavyAttack.canceled += instance.OnHeavyAttack;
+            @AttackForward.started += instance.OnAttackForward;
+            @AttackForward.performed += instance.OnAttackForward;
+            @AttackForward.canceled += instance.OnAttackForward;
+            @AttackDownward.started += instance.OnAttackDownward;
+            @AttackDownward.performed += instance.OnAttackDownward;
+            @AttackDownward.canceled += instance.OnAttackDownward;
+            @AttackUpward.started += instance.OnAttackUpward;
+            @AttackUpward.performed += instance.OnAttackUpward;
+            @AttackUpward.canceled += instance.OnAttackUpward;
+            @ComboAttack.started += instance.OnComboAttack;
+            @ComboAttack.performed += instance.OnComboAttack;
+            @ComboAttack.canceled += instance.OnComboAttack;
         }
 
         /// <summary>
@@ -478,12 +569,18 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @Move.started -= instance.OnMove;
             @Move.performed -= instance.OnMove;
             @Move.canceled -= instance.OnMove;
-            @LightAttack.started -= instance.OnLightAttack;
-            @LightAttack.performed -= instance.OnLightAttack;
-            @LightAttack.canceled -= instance.OnLightAttack;
-            @HeavyAttack.started -= instance.OnHeavyAttack;
-            @HeavyAttack.performed -= instance.OnHeavyAttack;
-            @HeavyAttack.canceled -= instance.OnHeavyAttack;
+            @AttackForward.started -= instance.OnAttackForward;
+            @AttackForward.performed -= instance.OnAttackForward;
+            @AttackForward.canceled -= instance.OnAttackForward;
+            @AttackDownward.started -= instance.OnAttackDownward;
+            @AttackDownward.performed -= instance.OnAttackDownward;
+            @AttackDownward.canceled -= instance.OnAttackDownward;
+            @AttackUpward.started -= instance.OnAttackUpward;
+            @AttackUpward.performed -= instance.OnAttackUpward;
+            @AttackUpward.canceled -= instance.OnAttackUpward;
+            @ComboAttack.started -= instance.OnComboAttack;
+            @ComboAttack.performed -= instance.OnComboAttack;
+            @ComboAttack.canceled -= instance.OnComboAttack;
         }
 
         /// <summary>
@@ -597,18 +694,32 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnMove(InputAction.CallbackContext context);
         /// <summary>
-        /// Method invoked when associated input action "LightAttack" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// Method invoked when associated input action "AttackForward" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnLightAttack(InputAction.CallbackContext context);
+        void OnAttackForward(InputAction.CallbackContext context);
         /// <summary>
-        /// Method invoked when associated input action "HeavyAttack" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// Method invoked when associated input action "AttackDownward" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnHeavyAttack(InputAction.CallbackContext context);
+        void OnAttackDownward(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "AttackUpward" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnAttackUpward(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "ComboAttack" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnComboAttack(InputAction.CallbackContext context);
     }
 }
