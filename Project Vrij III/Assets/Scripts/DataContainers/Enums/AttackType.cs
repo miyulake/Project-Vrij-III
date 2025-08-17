@@ -1,6 +1,6 @@
 public enum AttackType
 {
-    D_ATTACK_FORWARD,
-    D_ATTACK_DOWNWARD,
-    D_ATTACK_UPWARD
+    ATTACK_FORWARD,
+    ATTACK_DOWNWARD,
+    ATTACK_UPWARD
 }

@@ -22,9 +22,9 @@ public class AttackManager : MonoBehaviour
         Instance = this;
         controls = new Controls();
 
-        controls.Player.AttackForward.performed += ctx => UseDirectionalAttack(AttackType.D_ATTACK_FORWARD);
-        controls.Player.AttackDownward.performed += ctx => UseDirectionalAttack(AttackType.D_ATTACK_DOWNWARD);
-        controls.Player.AttackUpward.performed += ctx => UseDirectionalAttack(AttackType.D_ATTACK_UPWARD);
+        controls.Player.AttackForward.performed += ctx => UseDirectionalAttack(AttackType.ATTACK_FORWARD);
+        controls.Player.AttackDownward.performed += ctx => UseDirectionalAttack(AttackType.ATTACK_DOWNWARD);
+        controls.Player.AttackUpward.performed += ctx => UseDirectionalAttack(AttackType.ATTACK_UPWARD);
         controls.Player.ComboAttack.performed += ctx => HandleComboAttack();
     }
 
@@ -63,13 +63,13 @@ public class AttackManager : MonoBehaviour
         if (!IsInState(animator, idleHash)) return;
         switch (type)
         {
-            case AttackType.D_ATTACK_FORWARD:
+            case AttackType.ATTACK_FORWARD:
                 animator.Play("Hands_Attack_Forward", 0, 0);
                 break;
-            case AttackType.D_ATTACK_DOWNWARD:
+            case AttackType.ATTACK_DOWNWARD:
                 animator.Play("Hands_Attack_Downward", 0, 0);
                 break;
-            case AttackType.D_ATTACK_UPWARD:
+            case AttackType.ATTACK_UPWARD:
                 animator.Play("Hands_Attack_Upward", 0, 0);
                 break;
         }

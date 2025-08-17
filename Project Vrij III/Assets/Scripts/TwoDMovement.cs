@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class TwoDMovement: MonoBehaviour
 {
+    public bool CanMove { get; set; } = true;
     [SerializeField] private Rigidbody2D rigidbodyTwoDee;
     [SerializeField] private float moveSpeed = 5;
     [SerializeField] private float acceleration = 10f;
@@ -20,8 +21,12 @@ public class TwoDMovement: MonoBehaviour
     private void OnEnable() => controls.Enable();
     private void OnDisable() => controls.Disable();
 
-
     private void FixedUpdate()
+    {
+        if (CanMove) GetMovement();
+    }
+
+    private void GetMovement()
     {
         var targetVelocity = inputDirection.normalized * moveSpeed;
 
