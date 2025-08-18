@@ -135,6 +135,15 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Shield"",
+                    ""type"": ""Button"",
+                    ""id"": ""d4385791-1ebb-4470-9d0a-79a1bce88d21"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -324,6 +333,17 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""action"": ""AttackDownward"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0549c0fc-889c-4b7b-80eb-4c85898779f8"",
+                    ""path"": ""<Keyboard>/leftCtrl"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""Shield"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -398,6 +418,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         m_Player_AttackDownward = m_Player.FindAction("AttackDownward", throwIfNotFound: true);
         m_Player_AttackUpward = m_Player.FindAction("AttackUpward", throwIfNotFound: true);
         m_Player_ComboAttack = m_Player.FindAction("ComboAttack", throwIfNotFound: true);
+        m_Player_Shield = m_Player.FindAction("Shield", throwIfNotFound: true);
     }
 
     ~@Controls()
@@ -483,6 +504,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_AttackDownward;
     private readonly InputAction m_Player_AttackUpward;
     private readonly InputAction m_Player_ComboAttack;
+    private readonly InputAction m_Player_Shield;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
     /// </summary>
@@ -514,6 +536,10 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Player/ComboAttack".
         /// </summary>
         public InputAction @ComboAttack => m_Wrapper.m_Player_ComboAttack;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/Shield".
+        /// </summary>
+        public InputAction @Shield => m_Wrapper.m_Player_Shield;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -555,6 +581,9 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @ComboAttack.started += instance.OnComboAttack;
             @ComboAttack.performed += instance.OnComboAttack;
             @ComboAttack.canceled += instance.OnComboAttack;
+            @Shield.started += instance.OnShield;
+            @Shield.performed += instance.OnShield;
+            @Shield.canceled += instance.OnShield;
         }
 
         /// <summary>
@@ -581,6 +610,9 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @ComboAttack.started -= instance.OnComboAttack;
             @ComboAttack.performed -= instance.OnComboAttack;
             @ComboAttack.canceled -= instance.OnComboAttack;
+            @Shield.started -= instance.OnShield;
+            @Shield.performed -= instance.OnShield;
+            @Shield.canceled -= instance.OnShield;
         }
 
         /// <summary>
@@ -721,5 +753,12 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnComboAttack(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Shield" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnShield(InputAction.CallbackContext context);
     }
 }

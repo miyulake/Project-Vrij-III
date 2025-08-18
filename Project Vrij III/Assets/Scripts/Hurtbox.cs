@@ -3,10 +3,7 @@ using UnityEngine;
 public class Hurtbox : MonoBehaviour
 {
     [SerializeField] private Entity entity;
-    public AttackInfo AttackInfo { get; set; }
 
     private void Start() => entity = GetComponentInParent<Entity>();
-
-    public void SetHitstunState(bool state) => entity.SetHitstunState(state);
-    public void SetHitstunDuration() => entity.SetHitstunDuration(AttackInfo.hitstunDuration);
+    public void ApplyHit(AttackInfo attackInfo) => entity.ReceiveHit(attackInfo); // Send attack info to Entity script
 }
