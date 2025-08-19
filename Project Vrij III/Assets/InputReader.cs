@@ -5,10 +5,10 @@ using UnityEngine;
 /// </summary>
 public class InputReader : MonoBehaviour
 {
-    private PlayerInputActions m_actions = null;
+    private Controls m_actions = null;
 
     //  Combat:
-    public bool lightAttack => m_actions.Player.LightAttack.triggered;
+/*    public bool lightAttack => m_actions.Player.LightAttack.triggered;
     public bool heavyAttack => m_actions.Player.HeavyAttack.triggered;
     public bool dashing     => m_actions.Player.Dash.triggered;
 
@@ -25,11 +25,11 @@ public class InputReader : MonoBehaviour
 
             return  mouse + joystick;
         }
-    }
+    }*/
 
     private void Awake()
     {
-        m_actions = new PlayerInputActions();
+        m_actions = new Controls();
     }
 
     private void Start()
