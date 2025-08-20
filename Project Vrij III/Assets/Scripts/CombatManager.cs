@@ -5,30 +5,39 @@ public class CombatManager : MonoBehaviour
     [SerializeField] private Animator animator;
     [SerializeField] private float comboInputTime = 0.33f;
     [SerializeField] private GameObject shield;
-    private Controls controls;
+
+    private InputReader input;
+    private StateManager stateManager;
     private Hitbox[] hitboxes;
+
     private static readonly int idleHash = Animator.StringToHash("Idle");
     private static readonly int blockHash = Animator.StringToHash("Shield");
+
     private int comboIndex = 0;
     private float comboTimer = 0f;
 
     private void Awake()
     {
-        controls = new Controls();
-        controls.Player.AttackForward.performed  += ctx => UseDirectionalAttack(AttackType.ATTACK_FORWARD);
-        controls.Player.AttackDownward.performed += ctx => UseDirectionalAttack(AttackType.ATTACK_DOWNWARD);
-        controls.Player.AttackUpward.performed   += ctx => UseDirectionalAttack(AttackType.ATTACK_UPWARD);
-        controls.Player.ComboAttack.performed    += ctx => HandleComboAttack();
-        controls.Player.Shield.performed         += ctx => HandleBlock(true);
-        controls.Player.Shield.canceled          += ctx => HandleBlock(false);
-
+        input = GetComponent<InputReader>();
+        stateManager = GetComponent<StateManager>();
         hitboxes = GetComponentsInChildren<Hitbox>(true);
     }
 
-    private void OnEnable() => controls.Enable();
-    private void OnDisable() => controls.Disable();
+    private void Update()
+    {
+        if (stateManager.CurrentState == EntityState.DEAD) return;
+        HandleComboTimer();
+        HandleInputs();
+    }
 
-    private void Update() => HandleComboTimer();
+    private void HandleInputs()
+    {
+        if (input.comboAttack) HandleComboAttack();
+        if (input.attackForward) UseDirectionalAttack(AttackType.ATTACK_FORWARD);
+        if (input.attackDownward) UseDirectionalAttack(AttackType.ATTACK_DOWNWARD);
+        if (input.attackUpward) UseDirectionalAttack(AttackType.ATTACK_UPWARD);
+        HandleBlock(input.blocking);
+    }
 
     private void HandleComboAttack()
     {
@@ -61,7 +70,9 @@ public class CombatManager : MonoBehaviour
 
     private void UseDirectionalAttack(AttackType type)
     {
-        if (!IsInState(animator, idleHash)) return;
+        if (!stateManager.IsIdle) return;
+        stateManager.SetState(EntityState.ATTACKING);
+
         switch (type)
         {
             case AttackType.ATTACK_FORWARD:
@@ -81,7 +92,7 @@ public class CombatManager : MonoBehaviour
 
     private void HandleBlock(bool isShielding)
     {
-        if (!IsInState(animator, idleHash) && !IsInState(animator, blockHash)) return;
+        if (!stateManager.IsState(EntityState.ATTACKING) || !stateManager.IsState(EntityState.HITSTUN))
         animator.SetBool("IsBlocking", isShielding);
         shield.SetActive(isShielding);
     }
@@ -91,10 +102,11 @@ public class CombatManager : MonoBehaviour
         var hash = Animator.StringToHash(attackName);
         if (AttackDatabase.Data.TryGetValue(hash, out var info))
         {
-            foreach (var hitbox in hitboxes) hitbox.SetAttackInfo(info);
+            foreach (var hitbox in hitboxes)
+                hitbox.SetAttackInfo(info);
         }
     }
 
-
-    public static bool IsInState(Animator animator, int hash) => animator.GetCurrentAnimatorStateInfo(0).shortNameHash == hash;
+    public static bool IsInState(Animator animator, int hash) =>
+        animator.GetCurrentAnimatorStateInfo(0).shortNameHash == hash;
 }

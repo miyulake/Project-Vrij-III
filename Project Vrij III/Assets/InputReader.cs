@@ -7,33 +7,14 @@ public class InputReader : MonoBehaviour
 {
     private Controls m_actions = null;
 
-    //  Combat:
-/*    public bool lightAttack => m_actions.Player.LightAttack.triggered;
-    public bool heavyAttack => m_actions.Player.HeavyAttack.triggered;
-    public bool dashing     => m_actions.Player.Dash.triggered;
+    public bool comboAttack => m_actions.Player.ComboAttack.triggered;
+    public bool attackForward => m_actions.Player.AttackForward.triggered;
+    public bool attackDownward => m_actions.Player.AttackDownward.triggered;
+    public bool attackUpward => m_actions.Player.AttackUpward.IsPressed();
+    public bool blocking     => m_actions.Player.Block.IsPressed();
+    public Vector2 movement => m_actions.Player.Move.ReadValue<Vector2>();
 
-    public bool holdingHeavyAttack => m_actions.Player.HeavyAttack.IsPressed();
+    private void Awake() => m_actions = new Controls();
 
-    //  Combat:
-    public Vector2 movement => m_actions.Player.Movement.ReadValue<Vector2>();
-    public Vector2 looking
-    {
-        get
-        {
-            var mouse       = 0.1f * m_actions.Player.MouseLooking.ReadValue<Vector2>();
-            var joystick    = m_actions.Player.JoystickLooking.ReadValue<Vector2>();
-
-            return  mouse + joystick;
-        }
-    }*/
-
-    private void Awake()
-    {
-        m_actions = new Controls();
-    }
-
-    private void Start()
-    {
-        m_actions.Enable();
-    }
+    private void Start() => m_actions.Enable();
 }

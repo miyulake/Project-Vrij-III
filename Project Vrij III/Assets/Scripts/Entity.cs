@@ -2,12 +2,19 @@ using UnityEngine;
 
 public class Entity : MonoBehaviour
 {
-
-    [SerializeField] private TwoDMovement movement;
-    [SerializeField] private ShakeController shake;
+    private StateManager state;
+    private TwoDMovement movement;
+    private ShakeController shake;
     private bool inHitstun = false;
     private float hitstunDuration = 0f;
     private float hitstunTimer = 0f;
+
+    private void Start()
+    {
+        state = GetComponent<StateManager>();
+        movement = GetComponent<TwoDMovement>();
+        shake = GetComponent<ShakeController>();
+    }
 
     private void Update()
     {
@@ -29,6 +36,7 @@ public class Entity : MonoBehaviour
 
     public void ReceiveHit(AttackInfo attackInfo)
     {
+        state.SetState(EntityState.HITSTUN);
         inHitstun = true;
         hitstunDuration = attackInfo.hitstunDuration;
         hitstunTimer = 0f;

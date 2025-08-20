@@ -3,5 +3,6 @@ public enum EntityState
     IDLE,
     ATTACKING,
     BLOCKING,
-    HIT
+    HITSTUN,
+    DEAD
 }
