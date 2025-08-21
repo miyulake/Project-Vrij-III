@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Entity : MonoBehaviour
 {
-    private StateManager state;
+    [SerializeField] private Animator animator;
     private TwoDMovement movement;
     private ShakeController shake;
     private bool inHitstun = false;
@@ -11,7 +11,6 @@ public class Entity : MonoBehaviour
 
     private void Start()
     {
-        state = GetComponent<StateManager>();
         movement = GetComponent<TwoDMovement>();
         shake = GetComponent<ShakeController>();
     }
@@ -36,7 +35,8 @@ public class Entity : MonoBehaviour
 
     public void ReceiveHit(AttackInfo attackInfo)
     {
-        state.SetState(EntityState.HITSTUN);
+        //state.SetState(EntityState.HITSTUN);
+        //AnimatorUtils.IsInState(animator, AnimationHashes.Stun)
         inHitstun = true;
         hitstunDuration = attackInfo.hitstunDuration;
         hitstunTimer = 0f;
