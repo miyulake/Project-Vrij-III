@@ -4,6 +4,7 @@ public class CombatManager : MonoBehaviour
 {
     [SerializeField] private Animator animator;
     [SerializeField] private float comboInputTime = 0.33f;
+    [SerializeField] private float attackHoldDuration = 0.2f;
     [SerializeField] private GameObject shield;
 
     private InputReader input;
@@ -11,6 +12,7 @@ public class CombatManager : MonoBehaviour
 
     private int comboIndex = 0;
     private float comboTimer = 0f;
+    private float attackHoldTime = 0f;
 
     private void Awake()
     {
@@ -22,15 +24,18 @@ public class CombatManager : MonoBehaviour
     {
         HandleComboTimer();
         HandleInputs();
+
+        if (input.AttackUpward) attackHoldTime += Time.deltaTime;
+        else attackHoldTime = 0f;
     }
 
     private void HandleInputs()
     {
-        if (input.comboAttack) HandleComboAttack();
-        if (input.attackForward) UseDirectionalAttack(AttackType.ATTACK_FORWARD);
-        if (input.attackDownward) UseDirectionalAttack(AttackType.ATTACK_DOWNWARD);
-        if (input.attackUpward) UseDirectionalAttack(AttackType.ATTACK_UPWARD);
-        HandleBlock(input.blocking);
+        if (input.ComboAttack) HandleComboAttack();
+        if (input.AttackForward) UseDirectionalAttack(AttackType.ATTACK_FORWARD);
+        if (input.AttackDownward) UseDirectionalAttack(AttackType.ATTACK_DOWNWARD);
+        if (attackHoldTime > attackHoldDuration) UseDirectionalAttack(AttackType.ATTACK_UPWARD);
+        HandleBlock(input.Blocking);
     }
 
     private void HandleComboAttack()
@@ -75,7 +80,7 @@ public class CombatManager : MonoBehaviour
 
     private void HandleBlock(bool isShielding)
     {
-        if (!AnimatorUtils.IsInAnyState(animator, AnimationHashes.Idle) ||
+        if (!AnimatorUtils.IsInAnyState(animator, AnimationHashes.Idle) &&
             !AnimatorUtils.IsInAnyState(animator, AnimationHashes.Block)) return;
         animator.SetBool("IsBlocking", isShielding);
         shield.SetActive(isShielding);
@@ -85,9 +90,6 @@ public class CombatManager : MonoBehaviour
     {
         var hash = Animator.StringToHash(attackName);
         if (AttackDatabase.Data.TryGetValue(hash, out var info))
-        {
-            foreach (var hitbox in hitboxes)
-                hitbox.SetAttackInfo(info);
-        }
+            foreach (var hitbox in hitboxes) hitbox.SetAttackInfo(info);
     }
 }

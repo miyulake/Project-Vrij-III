@@ -1,7 +1,10 @@
+using UnityEngine;
+
 [System.Serializable]
-public struct AttackInfo
+public class AttackInfo
 {
-    public float strength;
-    public float hitstunDuration;
-    public float shakeMagnitude;
+    public Vector2 knockback = new(0,0);
+    public ForceMode2D forceMode = ForceMode2D.Impulse;
+    public float hitstunDuration = 0;
+    public float shakeMagnitude = 0;
 }
