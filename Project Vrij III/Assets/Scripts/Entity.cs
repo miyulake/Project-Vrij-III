@@ -5,13 +5,8 @@ public class Entity : MonoBehaviour
 {
     [SerializeField] private Animator animator;
     [SerializeField] private Rigidbody2D rigidbodyTwoD;
-
-    // THIS SHOULD HAPPEN VIA THE HITBOX/ATTACKINFO
-    [SerializeField] private GameObject splatterPrefab;
     [SerializeField] private Transform backgroundLayer;
-    [SerializeField] private Color opponentColor;
-    //
-
+    [SerializeField] private Color playerColor = Color.red;
     private TwoDMovement movement;
     private ShakeController shake;
     private bool inHitstun = false;
@@ -57,10 +52,11 @@ public class Entity : MonoBehaviour
             rigidbodyTwoD.AddForce(force, attackInfo.forceMode);
 
             // TEST
-            SpawnPaint(Vector2.zero);
+            //SpawnPaint(Vector2.zero);
         }
     }
 
+    /*
     public void SpawnPaint(Vector3 hitPosition)
     {
         var spawnPos = new Vector3(hitPosition.x, hitPosition.y, backgroundLayer.position.z);
@@ -70,7 +66,7 @@ public class Entity : MonoBehaviour
         // This shouldn't be random and get assigned in the attack info
         //splat.transform.localRotation = Quaternion.Euler(0, 0, Random.Range(0f, 360f));a
         //splat.transform.localScale *= Random.Range(0.8f, 1.2f);
-    }
+    }*/
 
     private void FreezeEntity(bool freezeState) =>
         rigidbodyTwoD.constraints = freezeState

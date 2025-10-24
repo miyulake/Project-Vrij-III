@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class CombatManager : MonoBehaviour
 {
@@ -86,10 +87,9 @@ public class CombatManager : MonoBehaviour
         shield.SetActive(isShielding);
     }
 
-    public void ApplyAttackInfo(string attackName)
+    public void ApplyAttackInfo(AttackInfo attackInfo)
     {
-        var hash = Animator.StringToHash(attackName);
-        if (AttackDatabase.Data.TryGetValue(hash, out var info))
-            foreach (var hitbox in hitboxes) hitbox.SetAttackInfo(info);
+        if (attackInfo == null) return;
+        foreach (var hitbox in hitboxes) hitbox.SetAttackInfo(attackInfo);
     }
 }
