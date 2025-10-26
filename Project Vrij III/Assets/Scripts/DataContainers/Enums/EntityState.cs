@@ -4,5 +4,5 @@ public enum EntityState
     ATTACKING,
     BLOCKING,
     HITSTUN,
-    DEAD
+    GRABBED
 }

@@ -1,16 +1,15 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CombatManager : MonoBehaviour
 {
     [SerializeField] private Animator animator;
+    [SerializeField] private Rigidbody2D rigidbodyTwoD;
     [SerializeField] private float comboInputTime = 0.33f;
     [SerializeField] private float attackHoldDuration = 0.2f;
     [SerializeField] private GameObject shield;
-
     private InputReader input;
     private Hitbox[] hitboxes;
-
     private int comboIndex = 0;
     private float comboTimer = 0f;
     private float attackHoldTime = 0f;
@@ -23,6 +22,8 @@ public class CombatManager : MonoBehaviour
 
     private void Update()
     {
+        if (input.Restart) SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+
         HandleComboTimer();
         HandleInputs();
 
@@ -37,11 +38,17 @@ public class CombatManager : MonoBehaviour
         if (input.AttackDownward) UseDirectionalAttack(AttackType.ATTACK_DOWNWARD);
         if (attackHoldTime > attackHoldDuration) UseDirectionalAttack(AttackType.ATTACK_UPWARD);
         HandleBlock(input.Blocking);
+        if (input.Grabbing) UseGrab();
+        if (input.Snap) UseSnap();
     }
 
     private void HandleComboAttack()
     {
         if (comboIndex == 3) return;
+        if (AnimatorUtils.IsInAnyState(animator, AnimationHashes.Block)) return;
+
+        //rigidbodyTwoD.AddForce(Vector2.right, ForceMode2D.Impulse);
+
         ++comboIndex;
         comboTimer = 0f;
         animator.SetInteger("ComboIndex", comboIndex);
@@ -79,6 +86,18 @@ public class CombatManager : MonoBehaviour
         }
     }
 
+    private void UseGrab()
+    {
+        if (!AnimatorUtils.IsInAnyState(animator, AnimationHashes.Idle)) return;
+        animator.Play("Grab", 0, 0);
+    }
+
+    private void UseSnap()
+    {
+        if (!AnimatorUtils.IsInAnyState(animator, AnimationHashes.Idle)) return;
+        animator.Play(stateName: "Snap", 0, 0);
+    }
+
     private void HandleBlock(bool isShielding)
     {
         if (!AnimatorUtils.IsInAnyState(animator, AnimationHashes.Idle) &&
@@ -91,5 +110,9 @@ public class CombatManager : MonoBehaviour
     {
         if (attackInfo == null) return;
         foreach (var hitbox in hitboxes) hitbox.SetAttackInfo(attackInfo);
+
+        //var direction = transform.localScale.x >= 0 ? 1f : -1f;
+        //var appliedMomentum = new Vector2(attackInfo.momentum.x * direction, attackInfo.momentum.y);
+        //rigidbodyTwoD.AddForce(appliedMomentum, attackInfo.momentumForceMode);
     }
 }

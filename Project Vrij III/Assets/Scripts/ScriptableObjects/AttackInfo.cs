@@ -10,7 +10,11 @@ public class AttackInfo : ScriptableObject
 
     [Header("Attack Settings")]
     public Vector2 knockback = new(0,0);
-    public ForceMode2D forceMode = ForceMode2D.Impulse;
+    public ForceMode2D attackForceMode = ForceMode2D.Impulse;
     public float hitstunDuration = 0;
     public float shakeMagnitude = 0;
+
+    [Header("Player Settings")]
+    public Vector2 momentum = new(0,0);
+    public ForceMode2D momentumForceMode = ForceMode2D.Impulse;
 }

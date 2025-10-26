@@ -11,9 +11,10 @@ public class StateManager : MonoBehaviour
     }
 
     public bool IsState(EntityState state) => CurrentState == state;
+
     public bool IsIdle => CurrentState == EntityState.IDLE;
     public bool IsBlocking => CurrentState == EntityState.BLOCKING;
     public bool IsAttacking => CurrentState == EntityState.ATTACKING;
     public bool IsHitstun => CurrentState == EntityState.HITSTUN;
-    public bool IsDead => CurrentState == EntityState.DEAD;
+    public bool IsGrabbed => CurrentState == EntityState.GRABBED;
 }

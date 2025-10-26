@@ -27,10 +27,12 @@ public class Entity : MonoBehaviour
     private void HandleHitstun()
     {
         hitstunTimer += Time.deltaTime; // Get duration from the attack that the entity was hit with
+        //FreezeEntity(true);
+
         if (hitstunTimer >= hitstunDuration)
         {
             inHitstun = false;
-            if (movement != null) FreezeEntity(false);
+            //FreezeEntity(false);
             hitstunTimer = 0f;
         }
     }
@@ -49,7 +51,7 @@ public class Entity : MonoBehaviour
         if (rigidbodyTwoD != null)
         {
             var force = new Vector3(attackInfo.knockback.x, attackInfo.knockback.y);
-            rigidbodyTwoD.AddForce(force, attackInfo.forceMode);
+            rigidbodyTwoD.AddForce(force, attackInfo.attackForceMode);
 
             // TEST
             //SpawnPaint(Vector2.zero);
