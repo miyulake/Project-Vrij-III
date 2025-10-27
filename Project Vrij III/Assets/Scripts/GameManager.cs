@@ -1,8 +1,13 @@
 using UnityEngine;
 using TMPro;
+using UnityEngine.Timeline;
+using UnityEngine.InputSystem;
 
 public class GameManager : MonoBehaviour
 {
+    [Header("Game Settings")]
+    [SerializeField] private int frameRate = 60;
+
     [Header("Match Settings")]
     [SerializeField] private TextMeshProUGUI textMesh;
     [SerializeField] private int matchTime = 60;
@@ -11,6 +16,8 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        Application.targetFrameRate = frameRate;
+
         StartMatch();
         textMesh.text = matchTimer.ToString("0.00");
     }

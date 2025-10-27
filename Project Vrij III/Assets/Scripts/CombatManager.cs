@@ -8,16 +8,19 @@ public class CombatManager : MonoBehaviour
     [SerializeField] private float comboInputTime = 0.33f;
     [SerializeField] private float attackHoldDuration = 0.2f;
     [SerializeField] private GameObject shield;
+    [SerializeField] private int maxShieldStrength = 100;
+    private int currentShieldStrength;
     private InputReader input;
     private Hitbox[] hitboxes;
     private int comboIndex = 0;
     private float comboTimer = 0f;
     private float attackHoldTime = 0f;
 
-    private void Awake()
+    private void Start()
     {
         input = GetComponent<InputReader>();
         hitboxes = GetComponentsInChildren<Hitbox>(true);
+        currentShieldStrength = maxShieldStrength;
     }
 
     private void Update()
@@ -46,8 +49,6 @@ public class CombatManager : MonoBehaviour
     {
         if (comboIndex == 3) return;
         if (AnimatorUtils.IsInAnyState(animator, AnimationHashes.Block)) return;
-
-        //rigidbodyTwoD.AddForce(Vector2.right, ForceMode2D.Impulse);
 
         ++comboIndex;
         comboTimer = 0f;
@@ -110,9 +111,5 @@ public class CombatManager : MonoBehaviour
     {
         if (attackInfo == null) return;
         foreach (var hitbox in hitboxes) hitbox.SetAttackInfo(attackInfo);
-
-        //var direction = transform.localScale.x >= 0 ? 1f : -1f;
-        //var appliedMomentum = new Vector2(attackInfo.momentum.x * direction, attackInfo.momentum.y);
-        //rigidbodyTwoD.AddForce(appliedMomentum, attackInfo.momentumForceMode);
     }
 }

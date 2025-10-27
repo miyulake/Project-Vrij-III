@@ -950,7 +950,7 @@ GameObject:
   - component: {fileID: 587078521}
   - component: {fileID: 587078520}
   m_Layer: 0
-  m_Name: GameManager
+  m_Name: Game Manager
   m_TagString: Untagged
   m_Icon: {fileID: 2488908585195742037, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -968,6 +968,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b1f90e355e441f4eb4527f60c52e36a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  frameRate: 60
   textMesh: {fileID: 1337338058}
   matchTime: 60
 --- !u!4 &587078521
@@ -1153,7 +1154,9 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
-  m_Children: []
+  m_Children:
+  - {fileID: 1277074419}
+  - {fileID: 855042346}
   m_Father: {fileID: 1512575802}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &840522154
@@ -1224,7 +1227,7 @@ GameObject:
   - component: {fileID: 855042348}
   - component: {fileID: 855042347}
   m_Layer: 0
-  m_Name: Eye (1)
+  m_Name: Left Eye
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1243,7 +1246,7 @@ Transform:
   m_LocalScale: {x: -1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1512575802}
+  m_Father: {fileID: 840522152}
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: -90}
 --- !u!64 &855042347
 MeshCollider:
@@ -1962,7 +1965,7 @@ GameObject:
   - component: {fileID: 1277074421}
   - component: {fileID: 1277074420}
   m_Layer: 0
-  m_Name: Eye
+  m_Name: Right Eye
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1981,7 +1984,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1512575802}
+  m_Father: {fileID: 840522152}
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: -90}
 --- !u!64 &1277074420
 MeshCollider:
@@ -2405,8 +2408,6 @@ Transform:
   m_Children:
   - {fileID: 2090554623}
   - {fileID: 840522152}
-  - {fileID: 1277074419}
-  - {fileID: 855042346}
   - {fileID: 4560168052970086567}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2651,6 +2652,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f549a7b79cd92848b9b98bd7398bbe8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PlayerOne: 1
   animator: {fileID: 4560168052970086568}
   rigidbodyTwoD: {fileID: 1512575803}
   opponent: {fileID: 1914506015}
@@ -3098,6 +3100,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f549a7b79cd92848b9b98bd7398bbe8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PlayerOne: 0
   animator: {fileID: 0}
   rigidbodyTwoD: {fileID: 1914506018}
   opponent: {fileID: 1512575802}
