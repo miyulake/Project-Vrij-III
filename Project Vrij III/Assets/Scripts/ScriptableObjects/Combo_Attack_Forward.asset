@@ -12,10 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2197ea7da2b4ca46858e675a905be7e, type: 3}
   m_Name: Combo_Attack_Forward
   m_EditorClassIdentifier: 
-  paintSplatter: {fileID: 0}
-  paintScale: {x: 0, y: 0, z: 0}
-  paintRotation: {x: 0, y: 0, z: 0}
+  paintPrefab: {fileID: 0}
+  offsetPosition: {x: 0, y: 0, z: 0}
+  paintScale: {x: 1, y: 1, z: 1}
+  paintRotation: {x: 0, y: 0, z: 0, w: 0}
   knockback: {x: 5, y: 0}
-  forceMode: 1
+  attackForceMode: 1
   hitstunDuration: 0.5
   shakeMagnitude: 0.1
+  momentum: {x: 0, y: 0}
+  momentumForceMode: 1

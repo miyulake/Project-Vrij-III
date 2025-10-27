@@ -1,10 +1,11 @@
 using UnityEngine;
-using UnityEngine.UI;
 
 public class Entity : MonoBehaviour
 {
+    public bool PlayerOne { get; private set; } = true;
     [SerializeField] private Animator animator;
     [SerializeField] private Rigidbody2D rigidbodyTwoD;
+    [SerializeField] private Transform opponent;
     [SerializeField] private Transform backgroundLayer;
     [SerializeField] private Color playerColor = Color.red;
     private TwoDMovement movement;
@@ -22,6 +23,9 @@ public class Entity : MonoBehaviour
     private void Update()
     {
         if (inHitstun) HandleHitstun();
+
+        // Very bad and inefficient
+        FlipCharacter();
     }
 
     private void HandleHitstun()
@@ -54,21 +58,37 @@ public class Entity : MonoBehaviour
             rigidbodyTwoD.AddForce(force, attackInfo.attackForceMode);
 
             // TEST
-            //SpawnPaint(Vector2.zero);
+            if (attackInfo.paintPrefab != null) SpawnPaint(attackInfo);
         }
     }
 
-    /*
-    public void SpawnPaint(Vector3 hitPosition)
+    private void SpawnPaint(AttackInfo attackInfo)
     {
-        var spawnPos = new Vector3(hitPosition.x, hitPosition.y, backgroundLayer.position.z);
-        var paint = Instantiate(splatterPrefab, spawnPos, Quaternion.identity, backgroundLayer);
-        //paint.GetComponent<RawImage>().color = opponentColor; // idk set material color I guess
+        var spawnPos = new Vector3(transform.position.x, transform.position.y, backgroundLayer.position.z);
+        var paint = Instantiate
+            (attackInfo.paintPrefab, spawnPos + attackInfo.offsetPosition, attackInfo.paintRotation, backgroundLayer);
+        paint.transform.localScale = attackInfo.paintScale;
+        // idk set material color I guess
+        //paint.GetComponent<RawImage>().color = opponentColor; 
+    }
 
-        // This shouldn't be random and get assigned in the attack info
-        //splat.transform.localRotation = Quaternion.Euler(0, 0, Random.Range(0f, 360f));a
-        //splat.transform.localScale *= Random.Range(0.8f, 1.2f);
-    }*/
+    private void FlipCharacter()
+    {
+        if (PlayerOne)
+        {
+            if (transform.position.x > opponent.transform.position.x)
+                transform.localScale = new Vector3(-1, 1, 1);
+            else
+                transform.localScale = new Vector3(1, 1, 1);
+        }
+        else
+        {
+            if (transform.position.x < opponent.transform.position.x)
+                transform.localScale = new Vector3(1, 1, 1);
+            else
+                transform.localScale = new Vector3(-1, 1, 1);
+        }
+    }
 
     private void FreezeEntity(bool freezeState) =>
         rigidbodyTwoD.constraints = freezeState

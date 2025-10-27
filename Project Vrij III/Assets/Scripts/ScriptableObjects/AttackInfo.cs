@@ -4,9 +4,10 @@ using UnityEngine;
 public class AttackInfo : ScriptableObject
 {
     [Header("Paint Settings")]
-    public GameObject paintSplatter;
-    public Vector3 paintScale;
-    public Vector3 paintRotation;
+    public GameObject paintPrefab;
+    public Vector3 offsetPosition;
+    public Vector3 paintScale = new Vector3(1,1,1);
+    public Quaternion paintRotation;
 
     [Header("Attack Settings")]
     public Vector2 knockback = new(0,0);

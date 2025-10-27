@@ -14,7 +14,6 @@ public class ShakeController : MonoBehaviour
         {
             shakeTimer -= Time.deltaTime;
 
-            
             var durationSafe = Mathf.Max(shakeDuration, 0.0001f); // Avoid zero
             var progress = Mathf.Clamp01(1f - (shakeTimer / durationSafe)); // progress from 0 -> 1
             var currentMagnitude = shakeMagnitude * Mathf.Sqrt(1f - progress);
