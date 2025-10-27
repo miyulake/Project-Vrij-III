@@ -15,7 +15,9 @@ public class AttackInfo : ScriptableObject
     public float hitstunDuration = 0;
     public float shakeMagnitude = 0;
 
+    /*
     [Header("Player Settings")]
     public Vector2 momentum = new(0,0);
     public ForceMode2D momentumForceMode = ForceMode2D.Impulse;
+    */
 }

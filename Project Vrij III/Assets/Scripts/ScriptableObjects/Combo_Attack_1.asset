@@ -9,16 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d2197ea7da2b4ca46858e675a905be7e, type: 3}
+  m_Script: {fileID: 11500000, guid: 810deb8a5df7ff84ead00a86048f601b, type: 3}
   m_Name: Combo_Attack_1
   m_EditorClassIdentifier: 
   paintPrefab: {fileID: 4182030647486133465, guid: 10dc592366224954b9ed4c6a2e434ad6, type: 3}
   offsetPosition: {x: 1, y: 0, z: 0}
   paintScale: {x: 2, y: 1.75, z: 1}
-  paintRotation: {x: 0, y: 0, z: 0, w: 1}
+  paintRotation: {x: 0, y: 0, z: 0, w: 0}
   knockback: {x: 1, y: 0}
   attackForceMode: 1
   hitstunDuration: 0.3
   shakeMagnitude: 0.02
-  momentum: {x: 1, y: 0}
-  momentumForceMode: 1
