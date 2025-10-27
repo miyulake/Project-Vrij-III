@@ -10,6 +10,7 @@ public class Entity : MonoBehaviour
     [SerializeField] private Color playerColor = Color.red;
     private TwoDMovement movement;
     private ShakeController shake;
+    private bool isMirrored;
     private bool inHitstun = false;
     private float hitstunDuration = 0f;
     private float hitstunTimer = 0f;
@@ -18,14 +19,13 @@ public class Entity : MonoBehaviour
     {
         movement = GetComponent<TwoDMovement>();
         shake = GetComponent<ShakeController>();
+        if (!PlayerOne) isMirrored = true;
     }
 
     private void Update()
     {
         if (inHitstun) HandleHitstun();
-
-        // Very bad and inefficient
-        FlipCharacter();
+        UpdateFacingDirection();
     }
 
     private void HandleHitstun()
@@ -72,22 +72,11 @@ public class Entity : MonoBehaviour
         //paint.GetComponent<RawImage>().color = opponentColor; 
     }
 
-    private void FlipCharacter()
+    private void UpdateFacingDirection()
     {
-        if (PlayerOne)
-        {
-            if (transform.position.x > opponent.transform.position.x)
-                transform.localScale = new Vector3(-1, 1, 1);
-            else
-                transform.localScale = new Vector3(1, 1, 1);
-        }
-        else
-        {
-            if (transform.position.x < opponent.transform.position.x)
-                transform.localScale = new Vector3(1, 1, 1);
-            else
-                transform.localScale = new Vector3(-1, 1, 1);
-        }
+        var facingDirection = (PlayerOne ^ (transform.position.x > opponent.position.x)) ? 1 : -1;
+        if (Mathf.Sign(transform.localScale.x) != facingDirection)
+            transform.localScale = new Vector3(facingDirection, transform.localScale.y, transform.localScale.z);
     }
 
     private void FreezeEntity(bool freezeState) =>
