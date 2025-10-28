@@ -17,18 +17,15 @@ public class TwoDMovement : MonoBehaviour
     private void FixedUpdate()
     {
         inputDirection = inputReader.Movement;
-        GetMovement();
+        if (!AnimatorUtils.IsInAnyState(animator, AnimationHashes.Grab)) GetMovement();
     }
 
     private void GetMovement()
     {
         var targetVelocity = inputDirection.normalized * GetSpeed();
 
-        currentVelocity = Vector2.MoveTowards(
-            currentVelocity,
-            targetVelocity,
-            (inputDirection != Vector2.zero ? acceleration : deceleration) * Time.fixedDeltaTime
-            );
+        currentVelocity = Vector2.MoveTowards(currentVelocity, targetVelocity,
+            (inputDirection != Vector2.zero ? acceleration : deceleration) * Time.fixedDeltaTime);
 
         rigidbodyTwoD.MovePosition(rigidbodyTwoD.position + currentVelocity * Time.fixedDeltaTime);
     }
