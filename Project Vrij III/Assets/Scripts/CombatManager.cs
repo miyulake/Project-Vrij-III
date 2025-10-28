@@ -7,9 +7,6 @@ public class CombatManager : MonoBehaviour
     [SerializeField] private Rigidbody2D rigidbodyTwoD;
     [SerializeField] private float comboInputTime = 0.33f;
     [SerializeField] private float attackHoldDuration = 0.2f;
-    [SerializeField] private GameObject shield;
-    [SerializeField] private int maxShieldStrength = 100;
-    private int currentShieldStrength;
     private InputReader input;
     private Hitbox[] hitboxes;
     private int comboIndex = 0;
@@ -20,7 +17,6 @@ public class CombatManager : MonoBehaviour
     {
         input = GetComponent<InputReader>();
         hitboxes = GetComponentsInChildren<Hitbox>(true);
-        currentShieldStrength = maxShieldStrength;
     }
 
     private void Update()
@@ -96,7 +92,7 @@ public class CombatManager : MonoBehaviour
     private void UseSnap()
     {
         if (!AnimatorUtils.IsInAnyState(animator, AnimationHashes.Idle)) return;
-        animator.Play(stateName: "Snap", 0, 0);
+        animator.Play("Snap", 0, 0);
     }
 
     private void HandleBlock(bool isShielding)
@@ -104,7 +100,6 @@ public class CombatManager : MonoBehaviour
         if (!AnimatorUtils.IsInAnyState(animator, AnimationHashes.Idle) &&
             !AnimatorUtils.IsInAnyState(animator, AnimationHashes.Block)) return;
         animator.SetBool("IsBlocking", isShielding);
-        shield.SetActive(isShielding);
     }
 
     public void ApplyAttackInfo(AttackInfo attackInfo)

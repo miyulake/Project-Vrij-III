@@ -35,7 +35,6 @@ public class Entity : MonoBehaviour
     private void HandleHitstun()
     {
         hitstunTimer += Time.deltaTime; // Get duration from the attack that the entity was hit with
-
         if (hitstunTimer >= hitstunDuration)
         {
             inHitstun = false;
