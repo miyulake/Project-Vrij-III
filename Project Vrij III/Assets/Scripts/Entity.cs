@@ -8,7 +8,6 @@ public class Entity : MonoBehaviour
     [SerializeField] private Transform opponent;
     [SerializeField] private Transform backgroundLayer;
     [SerializeField] private Color playerColor = Color.red;
-    private TwoDMovement movement;
     private ShakeController shake;
     private bool inHitstun = false;
     private float hitstunDuration = 0f;
@@ -22,7 +21,6 @@ public class Entity : MonoBehaviour
 
     private void Start()
     {
-        movement = GetComponent<TwoDMovement>();
         shake = GetComponent<ShakeController>();
     }
 

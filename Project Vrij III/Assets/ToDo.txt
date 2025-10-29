@@ -1,0 +1,8 @@
+TO-DO:
+
+
+Hitbox problem
+(Hitboxes currently use the information of the previous attack if you are fast enough)
+Two options:
+- Make the animation use corresponding information properly
+- Spawn unique hitboxes during each attack
