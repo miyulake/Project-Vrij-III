@@ -88,7 +88,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
     ""name"": ""Controls"",
     ""maps"": [
         {
-            ""name"": ""Player Keyboard"",
+            ""name"": ""Player"",
             ""id"": ""df70fa95-8a34-4494-b137-73ab6b9c7d37"",
             ""actions"": [
                 {
@@ -388,306 +388,6 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             ]
         },
         {
-            ""name"": ""Player Controller"",
-            ""id"": ""032f3c57-d0d5-4978-9caa-674c0dfa9724"",
-            ""actions"": [
-                {
-                    ""name"": ""Move"",
-                    ""type"": ""Value"",
-                    ""id"": ""32ab6ffe-4ce4-45de-8cda-3c325ece52bd"",
-                    ""expectedControlType"": ""Vector2"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": true
-                },
-                {
-                    ""name"": ""AttackForward"",
-                    ""type"": ""Button"",
-                    ""id"": ""b2d2d379-fea3-4e5e-b97b-1868c6278770"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""AttackDownward"",
-                    ""type"": ""Button"",
-                    ""id"": ""ae340e43-f11b-4072-9ed9-611c3f5d4b19"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""AttackUpward"",
-                    ""type"": ""Button"",
-                    ""id"": ""9ba40977-687a-47cd-8090-c1a24e736c57"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""ComboAttack"",
-                    ""type"": ""Button"",
-                    ""id"": ""cca605a7-d923-4f6f-912f-381c9d1afb31"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Block"",
-                    ""type"": ""Button"",
-                    ""id"": ""44a693cd-77ab-4e5d-883c-ebc535b73789"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Grab"",
-                    ""type"": ""Button"",
-                    ""id"": ""89600777-c9ae-42bc-86b7-2e9ed5efe90c"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Snap"",
-                    ""type"": ""Button"",
-                    ""id"": ""c7671058-62ba-419f-8abf-79ccc8a39efd"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                }
-            ],
-            ""bindings"": [
-                {
-                    ""name"": """",
-                    ""id"": ""cf12654a-4084-46c5-89a9-93528f4f020b"",
-                    ""path"": ""<Gamepad>/leftStick"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Gamepad"",
-                    ""action"": ""Move"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""WASD"",
-                    ""id"": ""32166d44-6813-4eb4-b4be-57efb829fa07"",
-                    ""path"": ""Dpad"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Move"",
-                    ""isComposite"": true,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""up"",
-                    ""id"": ""2fb5efb7-5d30-4dae-b71f-cd387718965a"",
-                    ""path"": ""<Keyboard>/w"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Keyboard&Mouse"",
-                    ""action"": ""Move"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""up"",
-                    ""id"": ""c1171cfc-ddaa-4af5-840b-fca885bcb228"",
-                    ""path"": ""<Keyboard>/upArrow"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Keyboard&Mouse"",
-                    ""action"": ""Move"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""down"",
-                    ""id"": ""8f72c915-518d-4b52-9947-0d6a24a68b14"",
-                    ""path"": ""<Keyboard>/s"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Keyboard&Mouse"",
-                    ""action"": ""Move"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""down"",
-                    ""id"": ""0b082459-0b09-455b-ba83-e31c8d9f165b"",
-                    ""path"": ""<Keyboard>/downArrow"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Keyboard&Mouse"",
-                    ""action"": ""Move"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""left"",
-                    ""id"": ""793f1ae1-2a32-48d8-819a-4275f303a736"",
-                    ""path"": ""<Keyboard>/a"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Keyboard&Mouse"",
-                    ""action"": ""Move"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""left"",
-                    ""id"": ""2ab3ea36-c82e-4738-8f94-2cb7269a4ab1"",
-                    ""path"": ""<Keyboard>/leftArrow"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Keyboard&Mouse"",
-                    ""action"": ""Move"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""right"",
-                    ""id"": ""0c34c6b4-8b86-4722-b54c-2761d23a15ff"",
-                    ""path"": ""<Keyboard>/d"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Keyboard&Mouse"",
-                    ""action"": ""Move"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""right"",
-                    ""id"": ""87fdfca8-6e9c-4839-83f1-8b8428f34596"",
-                    ""path"": ""<Keyboard>/rightArrow"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Keyboard&Mouse"",
-                    ""action"": ""Move"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""54c4ae2b-a828-4b0c-a23c-dbd35b07d1b5"",
-                    ""path"": ""<Mouse>/leftButton"",
-                    ""interactions"": ""Tap"",
-                    ""processors"": """",
-                    ""groups"": "";Keyboard&Mouse"",
-                    ""action"": ""ComboAttack"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""7ca07821-e627-40c3-a780-2f89f20ffdac"",
-                    ""path"": ""<Mouse>/rightButton"",
-                    ""interactions"": ""Tap(duration=0.16,pressPoint=0.2)"",
-                    ""processors"": """",
-                    ""groups"": "";Keyboard&Mouse"",
-                    ""action"": ""AttackForward"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""044b15b8-7eca-4421-b95b-073021cee0e4"",
-                    ""path"": ""<Mouse>/rightButton"",
-                    ""interactions"": ""Hold(duration=0.25,pressPoint=0.3)"",
-                    ""processors"": """",
-                    ""groups"": "";Keyboard&Mouse"",
-                    ""action"": ""AttackUpward"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""Two Modifiers"",
-                    ""id"": ""e75db19c-fd2f-4b3b-b102-83d86fcea3cd"",
-                    ""path"": ""TwoModifiers"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""AttackDownward"",
-                    ""isComposite"": true,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""modifier1"",
-                    ""id"": ""864732c1-b68f-40ca-902e-3a9589f33636"",
-                    ""path"": ""<Mouse>/leftButton"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Keyboard&Mouse"",
-                    ""action"": ""AttackDownward"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""modifier2"",
-                    ""id"": ""63c3b735-0f54-469d-9caf-5f8eb5f611de"",
-                    ""path"": ""<Mouse>/rightButton"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Keyboard&Mouse"",
-                    ""action"": ""AttackDownward"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""binding"",
-                    ""id"": ""9b9456ab-7aea-4e38-9890-0dd9dc6f1a00"",
-                    ""path"": ""<Mouse>/leftButton"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Keyboard&Mouse"",
-                    ""action"": ""AttackDownward"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""a0cc13fa-d93f-44b8-b402-d9ce410329b9"",
-                    ""path"": ""<Keyboard>/leftShift"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Keyboard&Mouse"",
-                    ""action"": ""Block"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""f7f6e84c-6ebc-4b67-8fcc-5b35fb1866f7"",
-                    ""path"": ""<Keyboard>/space"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Keyboard&Mouse"",
-                    ""action"": ""Grab"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""55c1be2b-b5ce-42de-b6c4-69d1ec0b4412"",
-                    ""path"": ""<Mouse>/middleButton"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Keyboard&Mouse"",
-                    ""action"": ""Snap"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                }
-            ]
-        },
-        {
             ""name"": ""Debug"",
             ""id"": ""5a1e5da4-41d2-4c59-8884-e94914b324e6"",
             ""actions"": [
@@ -790,26 +490,16 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         }
     ]
 }");
-        // Player Keyboard
-        m_PlayerKeyboard = asset.FindActionMap("Player Keyboard", throwIfNotFound: true);
-        m_PlayerKeyboard_Move = m_PlayerKeyboard.FindAction("Move", throwIfNotFound: true);
-        m_PlayerKeyboard_AttackForward = m_PlayerKeyboard.FindAction("AttackForward", throwIfNotFound: true);
-        m_PlayerKeyboard_AttackDownward = m_PlayerKeyboard.FindAction("AttackDownward", throwIfNotFound: true);
-        m_PlayerKeyboard_AttackUpward = m_PlayerKeyboard.FindAction("AttackUpward", throwIfNotFound: true);
-        m_PlayerKeyboard_ComboAttack = m_PlayerKeyboard.FindAction("ComboAttack", throwIfNotFound: true);
-        m_PlayerKeyboard_Block = m_PlayerKeyboard.FindAction("Block", throwIfNotFound: true);
-        m_PlayerKeyboard_Grab = m_PlayerKeyboard.FindAction("Grab", throwIfNotFound: true);
-        m_PlayerKeyboard_Snap = m_PlayerKeyboard.FindAction("Snap", throwIfNotFound: true);
-        // Player Controller
-        m_PlayerController = asset.FindActionMap("Player Controller", throwIfNotFound: true);
-        m_PlayerController_Move = m_PlayerController.FindAction("Move", throwIfNotFound: true);
-        m_PlayerController_AttackForward = m_PlayerController.FindAction("AttackForward", throwIfNotFound: true);
-        m_PlayerController_AttackDownward = m_PlayerController.FindAction("AttackDownward", throwIfNotFound: true);
-        m_PlayerController_AttackUpward = m_PlayerController.FindAction("AttackUpward", throwIfNotFound: true);
-        m_PlayerController_ComboAttack = m_PlayerController.FindAction("ComboAttack", throwIfNotFound: true);
-        m_PlayerController_Block = m_PlayerController.FindAction("Block", throwIfNotFound: true);
-        m_PlayerController_Grab = m_PlayerController.FindAction("Grab", throwIfNotFound: true);
-        m_PlayerController_Snap = m_PlayerController.FindAction("Snap", throwIfNotFound: true);
+        // Player
+        m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
+        m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
+        m_Player_AttackForward = m_Player.FindAction("AttackForward", throwIfNotFound: true);
+        m_Player_AttackDownward = m_Player.FindAction("AttackDownward", throwIfNotFound: true);
+        m_Player_AttackUpward = m_Player.FindAction("AttackUpward", throwIfNotFound: true);
+        m_Player_ComboAttack = m_Player.FindAction("ComboAttack", throwIfNotFound: true);
+        m_Player_Block = m_Player.FindAction("Block", throwIfNotFound: true);
+        m_Player_Grab = m_Player.FindAction("Grab", throwIfNotFound: true);
+        m_Player_Snap = m_Player.FindAction("Snap", throwIfNotFound: true);
         // Debug
         m_Debug = asset.FindActionMap("Debug", throwIfNotFound: true);
         m_Debug_Restart = m_Debug.FindAction("Restart", throwIfNotFound: true);
@@ -817,8 +507,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
 
     ~@Controls()
     {
-        UnityEngine.Debug.Assert(!m_PlayerKeyboard.enabled, "This will cause a leak and performance issues, Controls.PlayerKeyboard.Disable() has not been called.");
-        UnityEngine.Debug.Assert(!m_PlayerController.enabled, "This will cause a leak and performance issues, Controls.PlayerController.Disable() has not been called.");
+        UnityEngine.Debug.Assert(!m_Player.enabled, "This will cause a leak and performance issues, Controls.Player.Disable() has not been called.");
         UnityEngine.Debug.Assert(!m_Debug.enabled, "This will cause a leak and performance issues, Controls.Debug.Disable() has not been called.");
     }
 
@@ -892,64 +581,64 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         return asset.FindBinding(bindingMask, out action);
     }
 
-    // Player Keyboard
-    private readonly InputActionMap m_PlayerKeyboard;
-    private List<IPlayerKeyboardActions> m_PlayerKeyboardActionsCallbackInterfaces = new List<IPlayerKeyboardActions>();
-    private readonly InputAction m_PlayerKeyboard_Move;
-    private readonly InputAction m_PlayerKeyboard_AttackForward;
-    private readonly InputAction m_PlayerKeyboard_AttackDownward;
-    private readonly InputAction m_PlayerKeyboard_AttackUpward;
-    private readonly InputAction m_PlayerKeyboard_ComboAttack;
-    private readonly InputAction m_PlayerKeyboard_Block;
-    private readonly InputAction m_PlayerKeyboard_Grab;
-    private readonly InputAction m_PlayerKeyboard_Snap;
+    // Player
+    private readonly InputActionMap m_Player;
+    private List<IPlayerActions> m_PlayerActionsCallbackInterfaces = new List<IPlayerActions>();
+    private readonly InputAction m_Player_Move;
+    private readonly InputAction m_Player_AttackForward;
+    private readonly InputAction m_Player_AttackDownward;
+    private readonly InputAction m_Player_AttackUpward;
+    private readonly InputAction m_Player_ComboAttack;
+    private readonly InputAction m_Player_Block;
+    private readonly InputAction m_Player_Grab;
+    private readonly InputAction m_Player_Snap;
     /// <summary>
-    /// Provides access to input actions defined in input action map "Player Keyboard".
+    /// Provides access to input actions defined in input action map "Player".
     /// </summary>
-    public struct PlayerKeyboardActions
+    public struct PlayerActions
     {
         private @Controls m_Wrapper;
 
         /// <summary>
         /// Construct a new instance of the input action map wrapper class.
         /// </summary>
-        public PlayerKeyboardActions(@Controls wrapper) { m_Wrapper = wrapper; }
+        public PlayerActions(@Controls wrapper) { m_Wrapper = wrapper; }
         /// <summary>
-        /// Provides access to the underlying input action "PlayerKeyboard/Move".
+        /// Provides access to the underlying input action "Player/Move".
         /// </summary>
-        public InputAction @Move => m_Wrapper.m_PlayerKeyboard_Move;
+        public InputAction @Move => m_Wrapper.m_Player_Move;
         /// <summary>
-        /// Provides access to the underlying input action "PlayerKeyboard/AttackForward".
+        /// Provides access to the underlying input action "Player/AttackForward".
         /// </summary>
-        public InputAction @AttackForward => m_Wrapper.m_PlayerKeyboard_AttackForward;
+        public InputAction @AttackForward => m_Wrapper.m_Player_AttackForward;
         /// <summary>
-        /// Provides access to the underlying input action "PlayerKeyboard/AttackDownward".
+        /// Provides access to the underlying input action "Player/AttackDownward".
         /// </summary>
-        public InputAction @AttackDownward => m_Wrapper.m_PlayerKeyboard_AttackDownward;
+        public InputAction @AttackDownward => m_Wrapper.m_Player_AttackDownward;
         /// <summary>
-        /// Provides access to the underlying input action "PlayerKeyboard/AttackUpward".
+        /// Provides access to the underlying input action "Player/AttackUpward".
         /// </summary>
-        public InputAction @AttackUpward => m_Wrapper.m_PlayerKeyboard_AttackUpward;
+        public InputAction @AttackUpward => m_Wrapper.m_Player_AttackUpward;
         /// <summary>
-        /// Provides access to the underlying input action "PlayerKeyboard/ComboAttack".
+        /// Provides access to the underlying input action "Player/ComboAttack".
         /// </summary>
-        public InputAction @ComboAttack => m_Wrapper.m_PlayerKeyboard_ComboAttack;
+        public InputAction @ComboAttack => m_Wrapper.m_Player_ComboAttack;
         /// <summary>
-        /// Provides access to the underlying input action "PlayerKeyboard/Block".
+        /// Provides access to the underlying input action "Player/Block".
         /// </summary>
-        public InputAction @Block => m_Wrapper.m_PlayerKeyboard_Block;
+        public InputAction @Block => m_Wrapper.m_Player_Block;
         /// <summary>
-        /// Provides access to the underlying input action "PlayerKeyboard/Grab".
+        /// Provides access to the underlying input action "Player/Grab".
         /// </summary>
-        public InputAction @Grab => m_Wrapper.m_PlayerKeyboard_Grab;
+        public InputAction @Grab => m_Wrapper.m_Player_Grab;
         /// <summary>
-        /// Provides access to the underlying input action "PlayerKeyboard/Snap".
+        /// Provides access to the underlying input action "Player/Snap".
         /// </summary>
-        public InputAction @Snap => m_Wrapper.m_PlayerKeyboard_Snap;
+        public InputAction @Snap => m_Wrapper.m_Player_Snap;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
-        public InputActionMap Get() { return m_Wrapper.m_PlayerKeyboard; }
+        public InputActionMap Get() { return m_Wrapper.m_Player; }
         /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Enable()" />
         public void Enable() { Get().Enable(); }
         /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Disable()" />
@@ -957,9 +646,9 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.enabled" />
         public bool enabled => Get().enabled;
         /// <summary>
-        /// Implicitly converts an <see ref="PlayerKeyboardActions" /> to an <see ref="InputActionMap" /> instance.
+        /// Implicitly converts an <see ref="PlayerActions" /> to an <see ref="InputActionMap" /> instance.
         /// </summary>
-        public static implicit operator InputActionMap(PlayerKeyboardActions set) { return set.Get(); }
+        public static implicit operator InputActionMap(PlayerActions set) { return set.Get(); }
         /// <summary>
         /// Adds <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
         /// </summary>
@@ -967,11 +656,11 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         /// <remarks>
         /// If <paramref name="instance" /> is <c>null</c> or <paramref name="instance"/> have already been added this method does nothing.
         /// </remarks>
-        /// <seealso cref="PlayerKeyboardActions" />
-        public void AddCallbacks(IPlayerKeyboardActions instance)
+        /// <seealso cref="PlayerActions" />
+        public void AddCallbacks(IPlayerActions instance)
         {
-            if (instance == null || m_Wrapper.m_PlayerKeyboardActionsCallbackInterfaces.Contains(instance)) return;
-            m_Wrapper.m_PlayerKeyboardActionsCallbackInterfaces.Add(instance);
+            if (instance == null || m_Wrapper.m_PlayerActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_PlayerActionsCallbackInterfaces.Add(instance);
             @Move.started += instance.OnMove;
             @Move.performed += instance.OnMove;
             @Move.canceled += instance.OnMove;
@@ -1004,8 +693,8 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         /// <remarks>
         /// Calling this method when <paramref name="instance" /> have not previously been registered has no side-effects.
         /// </remarks>
-        /// <seealso cref="PlayerKeyboardActions" />
-        private void UnregisterCallbacks(IPlayerKeyboardActions instance)
+        /// <seealso cref="PlayerActions" />
+        private void UnregisterCallbacks(IPlayerActions instance)
         {
             @Move.started -= instance.OnMove;
             @Move.performed -= instance.OnMove;
@@ -1034,12 +723,12 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         }
 
         /// <summary>
-        /// Unregisters <param cref="instance" /> and unregisters all input action callbacks via <see cref="PlayerKeyboardActions.UnregisterCallbacks(IPlayerKeyboardActions)" />.
+        /// Unregisters <param cref="instance" /> and unregisters all input action callbacks via <see cref="PlayerActions.UnregisterCallbacks(IPlayerActions)" />.
         /// </summary>
-        /// <seealso cref="PlayerKeyboardActions.UnregisterCallbacks(IPlayerKeyboardActions)" />
-        public void RemoveCallbacks(IPlayerKeyboardActions instance)
+        /// <seealso cref="PlayerActions.UnregisterCallbacks(IPlayerActions)" />
+        public void RemoveCallbacks(IPlayerActions instance)
         {
-            if (m_Wrapper.m_PlayerKeyboardActionsCallbackInterfaces.Remove(instance))
+            if (m_Wrapper.m_PlayerActionsCallbackInterfaces.Remove(instance))
                 UnregisterCallbacks(instance);
         }
 
@@ -1049,194 +738,21 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         /// <remarks>
         /// If <paramref name="instance" /> is <c>null</c>, calling this method will only unregister all existing callbacks but not register any new callbacks.
         /// </remarks>
-        /// <seealso cref="PlayerKeyboardActions.AddCallbacks(IPlayerKeyboardActions)" />
-        /// <seealso cref="PlayerKeyboardActions.RemoveCallbacks(IPlayerKeyboardActions)" />
-        /// <seealso cref="PlayerKeyboardActions.UnregisterCallbacks(IPlayerKeyboardActions)" />
-        public void SetCallbacks(IPlayerKeyboardActions instance)
+        /// <seealso cref="PlayerActions.AddCallbacks(IPlayerActions)" />
+        /// <seealso cref="PlayerActions.RemoveCallbacks(IPlayerActions)" />
+        /// <seealso cref="PlayerActions.UnregisterCallbacks(IPlayerActions)" />
+        public void SetCallbacks(IPlayerActions instance)
         {
-            foreach (var item in m_Wrapper.m_PlayerKeyboardActionsCallbackInterfaces)
+            foreach (var item in m_Wrapper.m_PlayerActionsCallbackInterfaces)
                 UnregisterCallbacks(item);
-            m_Wrapper.m_PlayerKeyboardActionsCallbackInterfaces.Clear();
+            m_Wrapper.m_PlayerActionsCallbackInterfaces.Clear();
             AddCallbacks(instance);
         }
     }
     /// <summary>
-    /// Provides a new <see cref="PlayerKeyboardActions" /> instance referencing this action map.
+    /// Provides a new <see cref="PlayerActions" /> instance referencing this action map.
     /// </summary>
-    public PlayerKeyboardActions @PlayerKeyboard => new PlayerKeyboardActions(this);
-
-    // Player Controller
-    private readonly InputActionMap m_PlayerController;
-    private List<IPlayerControllerActions> m_PlayerControllerActionsCallbackInterfaces = new List<IPlayerControllerActions>();
-    private readonly InputAction m_PlayerController_Move;
-    private readonly InputAction m_PlayerController_AttackForward;
-    private readonly InputAction m_PlayerController_AttackDownward;
-    private readonly InputAction m_PlayerController_AttackUpward;
-    private readonly InputAction m_PlayerController_ComboAttack;
-    private readonly InputAction m_PlayerController_Block;
-    private readonly InputAction m_PlayerController_Grab;
-    private readonly InputAction m_PlayerController_Snap;
-    /// <summary>
-    /// Provides access to input actions defined in input action map "Player Controller".
-    /// </summary>
-    public struct PlayerControllerActions
-    {
-        private @Controls m_Wrapper;
-
-        /// <summary>
-        /// Construct a new instance of the input action map wrapper class.
-        /// </summary>
-        public PlayerControllerActions(@Controls wrapper) { m_Wrapper = wrapper; }
-        /// <summary>
-        /// Provides access to the underlying input action "PlayerController/Move".
-        /// </summary>
-        public InputAction @Move => m_Wrapper.m_PlayerController_Move;
-        /// <summary>
-        /// Provides access to the underlying input action "PlayerController/AttackForward".
-        /// </summary>
-        public InputAction @AttackForward => m_Wrapper.m_PlayerController_AttackForward;
-        /// <summary>
-        /// Provides access to the underlying input action "PlayerController/AttackDownward".
-        /// </summary>
-        public InputAction @AttackDownward => m_Wrapper.m_PlayerController_AttackDownward;
-        /// <summary>
-        /// Provides access to the underlying input action "PlayerController/AttackUpward".
-        /// </summary>
-        public InputAction @AttackUpward => m_Wrapper.m_PlayerController_AttackUpward;
-        /// <summary>
-        /// Provides access to the underlying input action "PlayerController/ComboAttack".
-        /// </summary>
-        public InputAction @ComboAttack => m_Wrapper.m_PlayerController_ComboAttack;
-        /// <summary>
-        /// Provides access to the underlying input action "PlayerController/Block".
-        /// </summary>
-        public InputAction @Block => m_Wrapper.m_PlayerController_Block;
-        /// <summary>
-        /// Provides access to the underlying input action "PlayerController/Grab".
-        /// </summary>
-        public InputAction @Grab => m_Wrapper.m_PlayerController_Grab;
-        /// <summary>
-        /// Provides access to the underlying input action "PlayerController/Snap".
-        /// </summary>
-        public InputAction @Snap => m_Wrapper.m_PlayerController_Snap;
-        /// <summary>
-        /// Provides access to the underlying input action map instance.
-        /// </summary>
-        public InputActionMap Get() { return m_Wrapper.m_PlayerController; }
-        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Enable()" />
-        public void Enable() { Get().Enable(); }
-        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Disable()" />
-        public void Disable() { Get().Disable(); }
-        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.enabled" />
-        public bool enabled => Get().enabled;
-        /// <summary>
-        /// Implicitly converts an <see ref="PlayerControllerActions" /> to an <see ref="InputActionMap" /> instance.
-        /// </summary>
-        public static implicit operator InputActionMap(PlayerControllerActions set) { return set.Get(); }
-        /// <summary>
-        /// Adds <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
-        /// </summary>
-        /// <param name="instance">Callback instance.</param>
-        /// <remarks>
-        /// If <paramref name="instance" /> is <c>null</c> or <paramref name="instance"/> have already been added this method does nothing.
-        /// </remarks>
-        /// <seealso cref="PlayerControllerActions" />
-        public void AddCallbacks(IPlayerControllerActions instance)
-        {
-            if (instance == null || m_Wrapper.m_PlayerControllerActionsCallbackInterfaces.Contains(instance)) return;
-            m_Wrapper.m_PlayerControllerActionsCallbackInterfaces.Add(instance);
-            @Move.started += instance.OnMove;
-            @Move.performed += instance.OnMove;
-            @Move.canceled += instance.OnMove;
-            @AttackForward.started += instance.OnAttackForward;
-            @AttackForward.performed += instance.OnAttackForward;
-            @AttackForward.canceled += instance.OnAttackForward;
-            @AttackDownward.started += instance.OnAttackDownward;
-            @AttackDownward.performed += instance.OnAttackDownward;
-            @AttackDownward.canceled += instance.OnAttackDownward;
-            @AttackUpward.started += instance.OnAttackUpward;
-            @AttackUpward.performed += instance.OnAttackUpward;
-            @AttackUpward.canceled += instance.OnAttackUpward;
-            @ComboAttack.started += instance.OnComboAttack;
-            @ComboAttack.performed += instance.OnComboAttack;
-            @ComboAttack.canceled += instance.OnComboAttack;
-            @Block.started += instance.OnBlock;
-            @Block.performed += instance.OnBlock;
-            @Block.canceled += instance.OnBlock;
-            @Grab.started += instance.OnGrab;
-            @Grab.performed += instance.OnGrab;
-            @Grab.canceled += instance.OnGrab;
-            @Snap.started += instance.OnSnap;
-            @Snap.performed += instance.OnSnap;
-            @Snap.canceled += instance.OnSnap;
-        }
-
-        /// <summary>
-        /// Removes <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
-        /// </summary>
-        /// <remarks>
-        /// Calling this method when <paramref name="instance" /> have not previously been registered has no side-effects.
-        /// </remarks>
-        /// <seealso cref="PlayerControllerActions" />
-        private void UnregisterCallbacks(IPlayerControllerActions instance)
-        {
-            @Move.started -= instance.OnMove;
-            @Move.performed -= instance.OnMove;
-            @Move.canceled -= instance.OnMove;
-            @AttackForward.started -= instance.OnAttackForward;
-            @AttackForward.performed -= instance.OnAttackForward;
-            @AttackForward.canceled -= instance.OnAttackForward;
-            @AttackDownward.started -= instance.OnAttackDownward;
-            @AttackDownward.performed -= instance.OnAttackDownward;
-            @AttackDownward.canceled -= instance.OnAttackDownward;
-            @AttackUpward.started -= instance.OnAttackUpward;
-            @AttackUpward.performed -= instance.OnAttackUpward;
-            @AttackUpward.canceled -= instance.OnAttackUpward;
-            @ComboAttack.started -= instance.OnComboAttack;
-            @ComboAttack.performed -= instance.OnComboAttack;
-            @ComboAttack.canceled -= instance.OnComboAttack;
-            @Block.started -= instance.OnBlock;
-            @Block.performed -= instance.OnBlock;
-            @Block.canceled -= instance.OnBlock;
-            @Grab.started -= instance.OnGrab;
-            @Grab.performed -= instance.OnGrab;
-            @Grab.canceled -= instance.OnGrab;
-            @Snap.started -= instance.OnSnap;
-            @Snap.performed -= instance.OnSnap;
-            @Snap.canceled -= instance.OnSnap;
-        }
-
-        /// <summary>
-        /// Unregisters <param cref="instance" /> and unregisters all input action callbacks via <see cref="PlayerControllerActions.UnregisterCallbacks(IPlayerControllerActions)" />.
-        /// </summary>
-        /// <seealso cref="PlayerControllerActions.UnregisterCallbacks(IPlayerControllerActions)" />
-        public void RemoveCallbacks(IPlayerControllerActions instance)
-        {
-            if (m_Wrapper.m_PlayerControllerActionsCallbackInterfaces.Remove(instance))
-                UnregisterCallbacks(instance);
-        }
-
-        /// <summary>
-        /// Replaces all existing callback instances and previously registered input action callbacks associated with them with callbacks provided via <param cref="instance" />.
-        /// </summary>
-        /// <remarks>
-        /// If <paramref name="instance" /> is <c>null</c>, calling this method will only unregister all existing callbacks but not register any new callbacks.
-        /// </remarks>
-        /// <seealso cref="PlayerControllerActions.AddCallbacks(IPlayerControllerActions)" />
-        /// <seealso cref="PlayerControllerActions.RemoveCallbacks(IPlayerControllerActions)" />
-        /// <seealso cref="PlayerControllerActions.UnregisterCallbacks(IPlayerControllerActions)" />
-        public void SetCallbacks(IPlayerControllerActions instance)
-        {
-            foreach (var item in m_Wrapper.m_PlayerControllerActionsCallbackInterfaces)
-                UnregisterCallbacks(item);
-            m_Wrapper.m_PlayerControllerActionsCallbackInterfaces.Clear();
-            AddCallbacks(instance);
-        }
-    }
-    /// <summary>
-    /// Provides a new <see cref="PlayerControllerActions" /> instance referencing this action map.
-    /// </summary>
-    public PlayerControllerActions @PlayerController => new PlayerControllerActions(this);
+    public PlayerActions @Player => new PlayerActions(this);
 
     // Debug
     private readonly InputActionMap m_Debug;
@@ -1399,75 +915,11 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         }
     }
     /// <summary>
-    /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "Player Keyboard" which allows adding and removing callbacks.
+    /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "Player" which allows adding and removing callbacks.
     /// </summary>
-    /// <seealso cref="PlayerKeyboardActions.AddCallbacks(IPlayerKeyboardActions)" />
-    /// <seealso cref="PlayerKeyboardActions.RemoveCallbacks(IPlayerKeyboardActions)" />
-    public interface IPlayerKeyboardActions
-    {
-        /// <summary>
-        /// Method invoked when associated input action "Move" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
-        /// </summary>
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnMove(InputAction.CallbackContext context);
-        /// <summary>
-        /// Method invoked when associated input action "AttackForward" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
-        /// </summary>
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnAttackForward(InputAction.CallbackContext context);
-        /// <summary>
-        /// Method invoked when associated input action "AttackDownward" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
-        /// </summary>
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnAttackDownward(InputAction.CallbackContext context);
-        /// <summary>
-        /// Method invoked when associated input action "AttackUpward" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
-        /// </summary>
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnAttackUpward(InputAction.CallbackContext context);
-        /// <summary>
-        /// Method invoked when associated input action "ComboAttack" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
-        /// </summary>
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnComboAttack(InputAction.CallbackContext context);
-        /// <summary>
-        /// Method invoked when associated input action "Block" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
-        /// </summary>
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnBlock(InputAction.CallbackContext context);
-        /// <summary>
-        /// Method invoked when associated input action "Grab" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
-        /// </summary>
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnGrab(InputAction.CallbackContext context);
-        /// <summary>
-        /// Method invoked when associated input action "Snap" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
-        /// </summary>
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnSnap(InputAction.CallbackContext context);
-    }
-    /// <summary>
-    /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "Player Controller" which allows adding and removing callbacks.
-    /// </summary>
-    /// <seealso cref="PlayerControllerActions.AddCallbacks(IPlayerControllerActions)" />
-    /// <seealso cref="PlayerControllerActions.RemoveCallbacks(IPlayerControllerActions)" />
-    public interface IPlayerControllerActions
+    /// <seealso cref="PlayerActions.AddCallbacks(IPlayerActions)" />
+    /// <seealso cref="PlayerActions.RemoveCallbacks(IPlayerActions)" />
+    public interface IPlayerActions
     {
         /// <summary>
         /// Method invoked when associated input action "Move" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
