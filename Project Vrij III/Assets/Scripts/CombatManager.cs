@@ -95,11 +95,11 @@ public class CombatManager : MonoBehaviour
         animator.Play("Snap", 0, 0);
     }
 
-    private void HandleBlock(bool isShielding)
+    private void HandleBlock(bool isBlocking)
     {
         if (!AnimatorUtils.IsInAnyState(animator, AnimationHashes.Idle) &&
             !AnimatorUtils.IsInAnyState(animator, AnimationHashes.Block)) return;
-        animator.SetBool("IsBlocking", isShielding);
+        animator.SetBool("IsBlocking", isBlocking);
     }
 
     public void ApplyAttackInfo(AttackInfo attackInfo)

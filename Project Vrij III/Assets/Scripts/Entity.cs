@@ -2,16 +2,20 @@ using UnityEngine;
 
 public class Entity : MonoBehaviour
 {
+    public bool isBlocking = false; // Test variable
     [SerializeField] private bool PlayerOne = true;
     [SerializeField] private Animator animator;
     [SerializeField] private Rigidbody2D rigidbodyTwoD;
     [SerializeField] private Transform opponent;
     [SerializeField] private Transform backgroundLayer;
-    [SerializeField] private Color playerColor = Color.red;
+    [SerializeField] private Transform particleSpawn;
+    [SerializeField] private Color opponentColor = Color.red;
+    [SerializeField] private AudioSource playerAudio;
+    [SerializeField] private AudioClip blockSound;
     private ShakeController shake;
-    private bool inHitstun = false;
-    private float hitstunDuration = 0f;
-    private float hitstunTimer = 0f;
+    private bool inStun = false;
+    private float stunDuration = 0f;
+    private float stunTimer = 0f;
 
     private int FacingDirection
     {
@@ -19,50 +23,51 @@ public class Entity : MonoBehaviour
         get { return (PlayerOne ^ (transform.position.x > opponent.position.x)) ? 1 : -1; }
     }
 
-    private void Start()
-    {
-        shake = GetComponent<ShakeController>();
-    }
+    private void Start() => shake = GetComponent<ShakeController>();
 
     private void Update()
     {
-        if (inHitstun) HandleHitstun();
+        if (inStun) HandleStun();
         if (animator != null) UpdateFacingDirection();
     }
 
-    private void HandleHitstun()
+    private void HandleStun()
     {
-        hitstunTimer += Time.deltaTime; // Get duration from the attack that the entity was hit with
-        if (hitstunTimer >= hitstunDuration)
+        stunTimer += Time.deltaTime; // Get duration from the attack that the entity was hit with
+        if (stunTimer >= stunDuration)
         {
-            inHitstun = false;
-            hitstunTimer = 0f;
+            inStun = false;
+            stunTimer = 0f;
         }
     }
 
     public void ReceiveHit(AttackInfo attackInfo)
     {
-        //AnimatorUtils.IsInAnyState(animator, AnimationHashes.Stun);
+        //var isBlocking = AnimatorUtils.IsInAnyState(animator, AnimationHashes.Block);
 
-        inHitstun = true;
-        hitstunDuration = attackInfo.hitstunDuration;
-        hitstunTimer = 0f;
+        inStun = true;
+        stunDuration = isBlocking ? attackInfo.blockStunDuration : attackInfo.hitStunDuration;
+        stunTimer = 0f;
 
-        if (shake != null) shake.TriggerShake(transform, attackInfo.hitstunDuration, attackInfo.shakeMagnitude);
-        if (rigidbodyTwoD != null)
-        {
-            var force = new Vector3(attackInfo.knockback.x * FacingDirection, attackInfo.knockback.y);
-            rigidbodyTwoD.AddForce(force, attackInfo.attackForceMode);
+        var force = new Vector3(attackInfo.knockback.x * FacingDirection, attackInfo.knockback.y);
+        var appliedForce = isBlocking ? force * 0.1f : force;
+        var impactSound = isBlocking ? blockSound : attackInfo.hitSound;
 
-            if (attackInfo.paintPrefab != null) SpawnPaint(attackInfo);
-        }
+        shake.TriggerShake(transform, stunDuration, attackInfo.shakeMagnitude);
+        rigidbodyTwoD.AddForce(appliedForce, attackInfo.attackForceMode);
+        if (attackInfo.paintPrefab != null && !isBlocking) SpawnPaint(attackInfo);
+        if (attackInfo.hitParticle != null && !isBlocking) SpawnParticle(attackInfo);
+        playerAudio.PlayOneShot(impactSound);
     }
 
     private void SpawnPaint(AttackInfo attackInfo)
     {
-        var position = new Vector3(transform.position.x, transform.position.y, backgroundLayer.position.z);
+        var position = new Vector3(
+            transform.position.x,
+            transform.position.y,
+            backgroundLayer.position.z);
         var offset = new Vector3(
-            attackInfo.offsetPosition.x * FacingDirection, 
+            attackInfo.offsetPosition.x * FacingDirection,
             attackInfo.offsetPosition.y,
             attackInfo.offsetPosition.z);
         var scale = new Vector3(
@@ -72,8 +77,19 @@ public class Entity : MonoBehaviour
         var paint = Instantiate(attackInfo.paintPrefab, position + offset, attackInfo.paintRotation, backgroundLayer);
         paint.transform.localScale = scale;
 
-        // idk set material color I guess
-        //paint.GetComponent<RawImage>().color = opponentColor; 
+        // Set material color
+        var block = new MaterialPropertyBlock();
+        paint.GetComponent<Renderer>().GetPropertyBlock(block);
+        block.SetColor("_BaseColor", opponentColor);
+        paint.GetComponent<Renderer>().SetPropertyBlock(block);
+    }
+
+    private void SpawnParticle(AttackInfo attackInfo)
+    {
+        var scale = attackInfo.hitParticle.transform.localScale;
+        var appliedScale = new Vector3(scale.x * FacingDirection, scale.y, scale.z);
+        var particle = Instantiate(attackInfo.hitParticle, particleSpawn);
+        particle.transform.localScale = appliedScale;
     }
 
     private void UpdateFacingDirection()

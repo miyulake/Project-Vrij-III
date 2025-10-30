@@ -20,10 +20,7 @@ public class GameManager : MonoBehaviour
         textMesh.text = matchTimer.ToString("0.00");
     }
 
-    private void Update()
-    {
-        HandleMatchTimer();
-    }
+    private void Update() => HandleMatchTimer();
 
     private void HandleMatchTimer()
     {
