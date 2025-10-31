@@ -30,7 +30,7 @@ public class GameManager : MonoBehaviour
         if (matchTimer <= 0f)
         {
             matchTimer = 0f;
-            MatchEnded = true;
+            EndMatch();
         }
         textMesh.text = matchTimer.ToString("00");
     }
@@ -41,5 +41,11 @@ public class GameManager : MonoBehaviour
     {
         MatchEnded = false;
         matchTimer = matchTime;
+    }
+
+    public void EndMatch()
+    {
+        PaintManager.Instance.GetWinner();
+        MatchEnded = true;
     }
 }

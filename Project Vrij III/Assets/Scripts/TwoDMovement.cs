@@ -29,8 +29,10 @@ public class TwoDMovement : MonoBehaviour
         rigidbodyTwoD.linearVelocity = currentVelocity;
     }
 
-    private bool CanMove() =>
-        !AnimatorUtils.IsInAnyState(animator, AnimationHashes.Grab, AnimationHashes.Stun, AnimationHashes.BlockStun);
+    private bool CanMove() => !AnimatorUtils.IsInAnyState(animator, 
+        AnimationHashes.Grab, 
+        AnimationHashes.Stun, 
+        AnimationHashes.BlockStun);
 
     private float GetSpeed() => animator.GetBool("IsBlocking") ? blockSpeed : baseSpeed;
 }

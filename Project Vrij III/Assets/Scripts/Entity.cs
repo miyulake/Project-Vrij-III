@@ -4,7 +4,7 @@ public class Entity : MonoBehaviour
 {
     [SerializeField] private Animator animator;
     [SerializeField] private Rigidbody2D rigidbodyTwoD;
-    [SerializeField] private Transform opponent, backgroundLayer, particleSpawn;
+    [SerializeField] private Transform opponent, paintLayer, particleSpawn;
     [SerializeField] private Color opponentColor = Color.red;
     [SerializeField] private AudioSource playerAudio;
     [SerializeField] private AudioClip blockSound;
@@ -30,7 +30,7 @@ public class Entity : MonoBehaviour
 
     private void HandleStun()
     {
-        stunTimer += Time.deltaTime; // Get duration from the attack that the entity was hit with
+        stunTimer += Time.deltaTime;
         if (stunTimer >= stunDuration)
         {
             inStun = false;
@@ -72,7 +72,7 @@ public class Entity : MonoBehaviour
         var position = new Vector3(
             transform.position.x,
             transform.position.y,
-            backgroundLayer.position.z);
+            paintLayer.position.z);
         var offset = new Vector3(
             attackInfo.offsetPosition.x * -FacingDirection,
             attackInfo.offsetPosition.y,
@@ -81,7 +81,7 @@ public class Entity : MonoBehaviour
             attackInfo.paintScale.x * -FacingDirection,
             attackInfo.paintScale.y,
             attackInfo.paintScale.z);
-        var paint = Instantiate(attackInfo.paintPrefab, position + offset, Quaternion.identity, backgroundLayer);
+        var paint = Instantiate(attackInfo.paintPrefab, position + offset, Quaternion.identity, paintLayer);
         paint.transform.localScale = scale;
 
         // Set material color

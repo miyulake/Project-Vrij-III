@@ -33,18 +33,25 @@ public class CombatManager : MonoBehaviour
     private void HandleInputs()
     {
         if (input.ComboAttack) HandleComboAttack();
-        if (input.AttackForward) UseDirectionalAttack(AttackType.ATTACK_FORWARD);
-        if (input.AttackDownward) UseDirectionalAttack(AttackType.ATTACK_DOWNWARD);
-        if (attackHoldTime > attackHoldDuration) UseDirectionalAttack(AttackType.ATTACK_UPWARD);
+        else if (input.AttackForward) UseDirectionalAttack(AttackType.ATTACK_FORWARD);
+        else if (input.AttackDownward) UseDirectionalAttack(AttackType.ATTACK_DOWNWARD);
+        else if (attackHoldTime > attackHoldDuration) UseDirectionalAttack(AttackType.ATTACK_UPWARD);
+
         HandleBlock(input.Blocking);
+
         if (input.Grabbing) UseGrab();
-        if (input.Snap) UseSnap();
+        else if (input.Snap) UseSnap();
     }
 
     private void HandleComboAttack()
     {
         if (comboIndex == 3) return;
         if (AnimatorUtils.IsInAnyState(animator, AnimationHashes.Block)) return;
+
+        if (!AnimatorUtils.IsInAnyState(animator, AnimationHashes.Idle) &&
+        !AnimatorUtils.IsInAnyState(animator, AnimationHashes.comboOne) &&
+        !AnimatorUtils.IsInAnyState(animator, AnimationHashes.comboTwo) &&
+        !AnimatorUtils.IsInAnyState(animator, AnimationHashes.comboThree)) return;
 
         ++comboIndex;
         comboTimer = 0f;
