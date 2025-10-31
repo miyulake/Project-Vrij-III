@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class ShakeController : MonoBehaviour
 {
-    private Transform shakeTarget;
+    [SerializeField] private Transform shakeTarget;
     private float shakeDuration;
     private float shakeMagnitude;
     private float shakeTimer;
@@ -10,28 +10,31 @@ public class ShakeController : MonoBehaviour
 
     private void Update()
     {
-        if (shakeTimer > 0f && shakeTarget != null)
+        if (shakeTarget == null) return;
+
+        if (shakeTimer > 0f)
         {
             shakeTimer -= Time.deltaTime;
 
-            var durationSafe = Mathf.Max(shakeDuration, 0.0001f); // Avoid zero
-            var progress = Mathf.Clamp01(1f - (shakeTimer / durationSafe)); // progress from 0 -> 1
+            var durationSafe = Mathf.Max(shakeDuration, 0.0001f);
+            var progress = Mathf.Clamp01(1f - (shakeTimer / durationSafe));
             var currentMagnitude = shakeMagnitude * Mathf.Sqrt(1f - progress);
             var offsetX = Random.Range(-1f, 1f) * currentMagnitude;
             var offsetY = Random.Range(-1f, 1f) * currentMagnitude;
             var shakeOffset = new Vector3(offsetX, offsetY, 0f);
-            shakeTarget.position = originalPosition + shakeOffset;
 
-            if (shakeTimer <= 0f) shakeTarget.position = originalPosition; // Reset
+            shakeTarget.localPosition = originalPosition + shakeOffset;
+            if (shakeTimer <= 0f) shakeTarget.localPosition = originalPosition;
         }
     }
 
-    public void TriggerShake(Transform target, float duration, float magnitude)
+    public void TriggerShake(float duration, float magnitude)
     {
-        shakeTarget = target;
+        if (shakeTarget == null) return;
+
+        originalPosition = shakeTarget.localPosition;
         shakeDuration = duration;
         shakeTimer = duration;
         shakeMagnitude = magnitude;
-        originalPosition = target.position;
     }
 }

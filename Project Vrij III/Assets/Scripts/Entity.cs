@@ -4,9 +4,7 @@ public class Entity : MonoBehaviour
 {
     [SerializeField] private Animator animator;
     [SerializeField] private Rigidbody2D rigidbodyTwoD;
-    [SerializeField] private Transform opponent;
-    [SerializeField] private Transform backgroundLayer;
-    [SerializeField] private Transform particleSpawn;
+    [SerializeField] private Transform opponent, backgroundLayer, particleSpawn;
     [SerializeField] private Color opponentColor = Color.red;
     [SerializeField] private AudioSource playerAudio;
     [SerializeField] private AudioClip blockSound;
@@ -27,6 +25,7 @@ public class Entity : MonoBehaviour
     {
         if (inStun) HandleStun();
         if (animator != null) UpdateFacingDirection();
+        animator.SetBool("InStun", inStun);
     }
 
     private void HandleStun()
@@ -44,7 +43,6 @@ public class Entity : MonoBehaviour
     {
         if (attackInfo == null || animator == null || rigidbodyTwoD == null) return;
 
-        //var isBlocking = AnimatorUtils.IsInAnyState(animator, AnimationHashes.Block);
         var isBlocking = animator.GetBool("IsBlocking");
         var isGuardBreak = isBlocking && attackInfo.ignoresBlock;
         var isHit = !isBlocking || isGuardBreak;
@@ -54,19 +52,20 @@ public class Entity : MonoBehaviour
         stunTimer = 0f;
 
         var knockback = new Vector2(attackInfo.knockback.x * -FacingDirection, attackInfo.knockback.y);
-        var appliedKnockback = isHit ? knockback : knockback * 0.1f;
-        shake.TriggerShake(transform, stunDuration, attackInfo.shakeMagnitude);
-        rigidbodyTwoD.AddForce(appliedKnockback, attackInfo.attackForceMode);
+        if (!isHit) knockback *= 0.5f; // Half knockback on block
+
+        rigidbodyTwoD.linearVelocity = Vector2.zero; // reset any previous velocity
+        rigidbodyTwoD.AddForce(knockback, attackInfo.attackForceMode);
+
+        shake.TriggerShake(stunDuration, attackInfo.shakeMagnitude);
 
         if (attackInfo.paintPrefab != null && isHit) SpawnPaint(attackInfo);
         if (attackInfo.hitParticle != null && isHit) SpawnParticle(attackInfo);
 
-        var stunAnimation = isHit ? "Stun" : "Block_Stun";
-        animator.Play(stunAnimation, 0, 0);
-
-        var impactSound = isHit ? attackInfo.hitSound : blockSound;
-        playerAudio.PlayOneShot(impactSound);
+        animator.Play(isHit ? "Stun" : "Block_Stun", 0, 0);
+        playerAudio.PlayOneShot(isHit ? attackInfo.hitSound : blockSound);
     }
+
 
     private void SpawnPaint(AttackInfo attackInfo)
     {

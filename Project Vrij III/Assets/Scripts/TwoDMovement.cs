@@ -17,24 +17,20 @@ public class TwoDMovement : MonoBehaviour
     private void FixedUpdate()
     {
         inputDirection = CanMove() ? inputReader.Movement : Vector2.zero;
-        GetMovement();
+        Movement();
     }
-
-    private void GetMovement()
+    
+    private void Movement()
     {
         var targetVelocity = inputDirection * GetSpeed();
         var accelerationRate = inputDirection.magnitude > 0 ? acceleration : deceleration;
 
-        currentVelocity = Vector2.MoveTowards(currentVelocity, targetVelocity, accelerationRate * Time.fixedDeltaTime);
-        currentVelocity = Vector2.ClampMagnitude(currentVelocity, GetSpeed());
-
+        currentVelocity = Vector2.MoveTowards(rigidbodyTwoD.linearVelocity, targetVelocity, accelerationRate * Time.fixedDeltaTime);
         rigidbodyTwoD.linearVelocity = currentVelocity;
     }
 
-    private bool CanMove() => 
-        !AnimatorUtils.IsInAnyState(animator, AnimationHashes.Grab) ||
-        !AnimatorUtils.IsInAnyState(animator, AnimationHashes.Stun) ||
-        !AnimatorUtils.IsInAnyState(animator, AnimationHashes.BlockStun);
+    private bool CanMove() =>
+        !AnimatorUtils.IsInAnyState(animator, AnimationHashes.Grab, AnimationHashes.Stun, AnimationHashes.BlockStun);
 
     private float GetSpeed() => animator.GetBool("IsBlocking") ? blockSpeed : baseSpeed;
 }
