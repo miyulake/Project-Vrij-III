@@ -15,6 +15,7 @@ public class AttackInfo : ScriptableObject
     public float hitStunDuration = 0;
     public float blockStunDuration = 0;
     public float shakeMagnitude = 0;
+    public bool ignoresBlock;
 
     [Header("Feedback Settings")]
     public GameObject hitParticle;

@@ -2,8 +2,6 @@ using UnityEngine;
 
 public class Entity : MonoBehaviour
 {
-    public bool isBlocking = false; // Test variable
-    [SerializeField] private bool PlayerOne = true;
     [SerializeField] private Animator animator;
     [SerializeField] private Rigidbody2D rigidbodyTwoD;
     [SerializeField] private Transform opponent;
@@ -20,7 +18,7 @@ public class Entity : MonoBehaviour
     private int FacingDirection
     {
         // Returns +1 or -1 depending on direction
-        get { return (PlayerOne ^ (transform.position.x > opponent.position.x)) ? 1 : -1; }
+        get { return transform.position.x < opponent.position.x ? 1 : -1; }
     }
 
     private void Start() => shake = GetComponent<ShakeController>();
@@ -41,22 +39,32 @@ public class Entity : MonoBehaviour
         }
     }
 
+    // We are reversing FacingDirection to get the direction of the attack which is always opposite
     public void ReceiveHit(AttackInfo attackInfo)
     {
+        if (attackInfo == null || animator == null || rigidbodyTwoD == null) return;
+
         //var isBlocking = AnimatorUtils.IsInAnyState(animator, AnimationHashes.Block);
+        var isBlocking = animator.GetBool("IsBlocking");
+        var isGuardBreak = isBlocking && attackInfo.ignoresBlock;
+        var isHit = !isBlocking || isGuardBreak;
 
         inStun = true;
-        stunDuration = isBlocking ? attackInfo.blockStunDuration : attackInfo.hitStunDuration;
+        stunDuration = isHit ? attackInfo.hitStunDuration : attackInfo.blockStunDuration;
         stunTimer = 0f;
 
-        var force = new Vector3(attackInfo.knockback.x * FacingDirection, attackInfo.knockback.y);
-        var appliedForce = isBlocking ? force * 0.1f : force;
-        var impactSound = isBlocking ? blockSound : attackInfo.hitSound;
-
+        var knockback = new Vector2(attackInfo.knockback.x * -FacingDirection, attackInfo.knockback.y);
+        var appliedKnockback = isHit ? knockback : knockback * 0.1f;
         shake.TriggerShake(transform, stunDuration, attackInfo.shakeMagnitude);
-        rigidbodyTwoD.AddForce(appliedForce, attackInfo.attackForceMode);
-        if (attackInfo.paintPrefab != null && !isBlocking) SpawnPaint(attackInfo);
-        if (attackInfo.hitParticle != null && !isBlocking) SpawnParticle(attackInfo);
+        rigidbodyTwoD.AddForce(appliedKnockback, attackInfo.attackForceMode);
+
+        if (attackInfo.paintPrefab != null && isHit) SpawnPaint(attackInfo);
+        if (attackInfo.hitParticle != null && isHit) SpawnParticle(attackInfo);
+
+        var stunAnimation = isHit ? "Stun" : "Block_Stun";
+        animator.Play(stunAnimation, 0, 0);
+
+        var impactSound = isHit ? attackInfo.hitSound : blockSound;
         playerAudio.PlayOneShot(impactSound);
     }
 
@@ -67,14 +75,14 @@ public class Entity : MonoBehaviour
             transform.position.y,
             backgroundLayer.position.z);
         var offset = new Vector3(
-            attackInfo.offsetPosition.x * FacingDirection,
+            attackInfo.offsetPosition.x * -FacingDirection,
             attackInfo.offsetPosition.y,
             attackInfo.offsetPosition.z);
         var scale = new Vector3(
-            attackInfo.paintScale.x * FacingDirection,
+            attackInfo.paintScale.x * -FacingDirection,
             attackInfo.paintScale.y,
             attackInfo.paintScale.z);
-        var paint = Instantiate(attackInfo.paintPrefab, position + offset, attackInfo.paintRotation, backgroundLayer);
+        var paint = Instantiate(attackInfo.paintPrefab, position + offset, Quaternion.identity, backgroundLayer);
         paint.transform.localScale = scale;
 
         // Set material color
@@ -87,14 +95,15 @@ public class Entity : MonoBehaviour
     private void SpawnParticle(AttackInfo attackInfo)
     {
         var scale = attackInfo.hitParticle.transform.localScale;
-        var appliedScale = new Vector3(scale.x * FacingDirection, scale.y, scale.z);
+        var appliedScale = new Vector3(scale.x * -FacingDirection, scale.y, scale.z);
         var particle = Instantiate(attackInfo.hitParticle, particleSpawn);
         particle.transform.localScale = appliedScale;
     }
 
     private void UpdateFacingDirection()
     {
-        if (Mathf.Sign(transform.localScale.x) != FacingDirection && AnimatorUtils.IsInAnyState(animator, AnimationHashes.Idle))
+        if (AnimatorUtils.IsInAnyState(animator, AnimationHashes.Idle) ||
+            AnimatorUtils.IsInAnyState(animator, AnimationHashes.Block))
             transform.localScale = new Vector3(FacingDirection, transform.localScale.y, transform.localScale.z);
     }
 

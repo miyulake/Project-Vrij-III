@@ -16,20 +16,25 @@ public class TwoDMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        inputDirection = inputReader.Movement;
-        if (!AnimatorUtils.IsInAnyState(animator, AnimationHashes.Grab)) GetMovement();
+        inputDirection = CanMove() ? inputReader.Movement : Vector2.zero;
+        GetMovement();
     }
 
     private void GetMovement()
     {
-        var targetVelocity = inputDirection.normalized * GetSpeed();
+        var targetVelocity = inputDirection * GetSpeed();
+        var accelerationRate = inputDirection.magnitude > 0 ? acceleration : deceleration;
 
-        currentVelocity = Vector2.MoveTowards(currentVelocity, targetVelocity,
-            (inputDirection != Vector2.zero ? acceleration : deceleration) * Time.fixedDeltaTime);
+        currentVelocity = Vector2.MoveTowards(currentVelocity, targetVelocity, accelerationRate * Time.fixedDeltaTime);
+        currentVelocity = Vector2.ClampMagnitude(currentVelocity, GetSpeed());
 
-        rigidbodyTwoD.MovePosition(rigidbodyTwoD.position + currentVelocity * Time.fixedDeltaTime);
+        rigidbodyTwoD.linearVelocity = currentVelocity;
     }
 
-    private float GetSpeed() => AnimatorUtils.IsInAnyState(animator, AnimationHashes.Block) ? blockSpeed : baseSpeed;
-    // Should lock down movement and apply attack momentum, but not enough time
+    private bool CanMove() => 
+        !AnimatorUtils.IsInAnyState(animator, AnimationHashes.Grab) ||
+        !AnimatorUtils.IsInAnyState(animator, AnimationHashes.Stun) ||
+        !AnimatorUtils.IsInAnyState(animator, AnimationHashes.BlockStun);
+
+    private float GetSpeed() => animator.GetBool("IsBlocking") ? blockSpeed : baseSpeed;
 }

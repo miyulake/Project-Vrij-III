@@ -1,27 +1,25 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 /// <summary>
 /// Class for ease of access to relevant input data.
 /// </summary>
 public class InputReader : MonoBehaviour
 {
-    private Controls controls = null;
+    private PlayerInput playerInput;
 
     // Player input
-    public bool ComboAttack    => controls.Player.ComboAttack.triggered;
-    public bool AttackForward  => controls.Player.AttackForward.triggered;
-    public bool AttackDownward => controls.Player.AttackDownward.triggered;
-    public bool AttackUpward   => controls.Player.AttackUpward.IsPressed();
-    public bool Blocking       => controls.Player.Block.IsPressed();
-    public bool Grabbing       => controls.Player.Grab.triggered;
-    public bool Snap           => controls.Player.Snap.triggered;
-    public Vector2 Movement    => controls.Player.Move.ReadValue<Vector2>();
+    public bool ComboAttack    => playerInput.actions["ComboAttack"].triggered;
+    public bool AttackForward  => playerInput.actions["AttackForward"].triggered;
+    public bool AttackDownward => playerInput.actions["AttackDownward"].triggered;
+    public bool AttackUpward   => playerInput.actions["AttackUpward"].IsPressed();
+    public bool Blocking       => playerInput.actions["Block"].IsPressed();
+    public bool Grabbing       => playerInput.actions["Grab"].triggered;
+    public bool Snap           => playerInput.actions["Snap"].triggered;
+    public Vector2 Movement    => playerInput.actions["Move"].ReadValue<Vector2>();
 
     // Debug input
-    public bool Restart => controls.Debug.Restart.triggered;
+    public bool Restart => playerInput.actions["Restart"].triggered;
 
-    private void Awake() => controls = new Controls();
-
-    private void OnEnable() => controls.Enable();
-    private void OnDisable () => controls.Disable();
+    private void Awake() => playerInput = GetComponent<PlayerInput>();
 }

@@ -4,6 +4,8 @@ public static class AnimationHashes
 {
     public static readonly int Idle            = Animator.StringToHash("Idle");
     public static readonly int Block           = Animator.StringToHash("Block_Loop");
+    public static readonly int BlockStun       = Animator.StringToHash("Block_Stun");
+    public static readonly int Stun            = Animator.StringToHash("Stun");
     public static readonly int Grab            = Animator.StringToHash("Grab");
     public static readonly int Snap            = Animator.StringToHash("Snap");
     public static readonly int comboOne        = Animator.StringToHash("Combo_Attack_1");
