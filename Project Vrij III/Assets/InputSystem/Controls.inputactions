@@ -202,6 +202,17 @@
                 },
                 {
                     "name": "",
+                    "id": "cbd08091-7ff5-462e-b2d5-5d2bcc67e4d7",
+                    "path": "<Gamepad>/buttonWest",
+                    "interactions": "Tap",
+                    "processors": "",
+                    "groups": ";Gamepad",
+                    "action": "ComboAttack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "856c30f9-2a10-4b1c-8789-f27b012e0cfa",
                     "path": "<Mouse>/rightButton",
                     "interactions": "Tap(duration=0.16,pressPoint=0.2)",
@@ -213,11 +224,33 @@
                 },
                 {
                     "name": "",
+                    "id": "3c592fb6-f34c-4963-9011-d1d257c93dbb",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "Tap(duration=0.16,pressPoint=0.2)",
+                    "processors": "",
+                    "groups": ";Gamepad",
+                    "action": "AttackForward",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "df0c490f-4c69-47c5-94cc-7a8e20f7bab4",
                     "path": "<Mouse>/rightButton",
                     "interactions": "Hold(duration=0.25,pressPoint=0.3)",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
+                    "action": "AttackUpward",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d5c8ff34-74ea-4a94-b521-ed8719060179",
+                    "path": "<Gamepad>/buttonNorth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Gamepad",
                     "action": "AttackUpward",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -268,11 +301,33 @@
                 },
                 {
                     "name": "",
+                    "id": "4e79db6f-0608-4418-b9d7-73ec1c869378",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Gamepad",
+                    "action": "AttackDownward",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "0549c0fc-889c-4b7b-80eb-4c85898779f8",
                     "path": "<Keyboard>/leftShift",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
+                    "action": "Block",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "9f4c68ea-c97f-4924-9cbb-8dbd40d9db11",
+                    "path": "<Gamepad>/rightTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Gamepad",
                     "action": "Block",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -290,11 +345,33 @@
                 },
                 {
                     "name": "",
+                    "id": "3bf46002-ef63-4b3e-a44d-d39d1b3cc166",
+                    "path": "<Gamepad>/rightShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Gamepad",
+                    "action": "Grab",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "02325631-3fab-4de6-9361-2d3354df10ec",
                     "path": "<Mouse>/middleButton",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
+                    "action": "Snap",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d66076d9-b082-4347-8327-9985e629e579",
+                    "path": "<Gamepad>/leftShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Gamepad",
                     "action": "Snap",
                     "isComposite": false,
                     "isPartOfComposite": false
