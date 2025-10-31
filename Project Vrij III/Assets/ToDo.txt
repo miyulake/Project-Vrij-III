@@ -1,8 +1,8 @@
 TO-DO:
 
+SHOULD
+- Fix grab (It does nothing currently)
+- Create result screen (Count the color pixels)
 
-Hitbox problem
-(Hitboxes currently use the information of the previous attack if you are fast enough)
-Two options:
-- Make the animation use corresponding information properly
-- Spawn unique hitboxes during each attack
+COULD
+- Create buffer system

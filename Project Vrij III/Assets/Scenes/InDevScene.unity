@@ -2266,7 +2266,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   frameRate: 60
   textMesh: {fileID: 1337338058}
-  matchTime: 10
+  matchTime: 60
 --- !u!4 &587078521
 Transform:
   m_ObjectHideFlags: 0
