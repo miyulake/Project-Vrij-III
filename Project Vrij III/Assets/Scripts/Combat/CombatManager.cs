@@ -47,11 +47,11 @@ public class CombatManager : MonoBehaviour
     {
         if (comboIndex == 3) return;
         if (AnimatorUtils.IsInAnyState(animator, AnimationHashes.Block)) return;
-
-        if (!AnimatorUtils.IsInAnyState(animator, AnimationHashes.Idle) &&
-        !AnimatorUtils.IsInAnyState(animator, AnimationHashes.comboOne) &&
-        !AnimatorUtils.IsInAnyState(animator, AnimationHashes.comboTwo) &&
-        !AnimatorUtils.IsInAnyState(animator, AnimationHashes.comboThree)) return;
+        if (!AnimatorUtils.IsInAnyState(animator,
+            AnimationHashes.Idle,
+            AnimationHashes.comboOne,
+            AnimationHashes.comboTwo,
+            AnimationHashes.comboThree)) return;
 
         ++comboIndex;
         comboTimer = 0f;

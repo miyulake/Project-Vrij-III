@@ -6,3 +6,5 @@ SHOULD
 
 COULD
 - Create buffer system
+- Fix the stupid jab combo
+- Fix guard break moves not allowing combo follow ups (IsBlocking stays on in the animator)
