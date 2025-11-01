@@ -208,7 +208,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0eb27713535a47e4da1216bc9ff0556a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shakeTarget: {fileID: 0}
+  shakeTarget: {fileID: 5321265424112484859}
 --- !u!50 &688357696079452988
 Rigidbody2D:
   serializedVersion: 5
@@ -267,11 +267,11 @@ AudioSource:
   m_GameObject: {fileID: 7003087331913717888}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 2670935093248195568, guid: 99f42ec0f47be074fb1c85a96cfb1ad9, type: 2}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 0.85
+  m_Volume: 1
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -280,9 +280,9 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 50
   Pan2D: 0
-  rolloffMode: 0
+  rolloffMode: 1
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0

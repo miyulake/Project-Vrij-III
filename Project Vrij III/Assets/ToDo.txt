@@ -1,10 +1,10 @@
 TO-DO:
 
 SHOULD
-- Fix grab (It does nothing currently)
 - Create result screen (Count the color pixels)
+- Add paint to each attack
 
 COULD
 - Create buffer system
-- Fix the stupid jab combo
+- Fix the stupid jab combo (its slightly better now :3)
 - Fix guard break moves not allowing combo follow ups (IsBlocking stays on in the animator)

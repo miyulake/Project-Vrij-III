@@ -18,7 +18,7 @@ MonoBehaviour:
   paintRotation: {x: 0, y: 0, z: 0, w: 0}
   knockback: {x: 0, y: 0}
   attackForceMode: 1
-  hitStunDuration: 1
+  hitStunDuration: 0.66
   blockStunDuration: 0
   shakeMagnitude: 0
   ignoresBlock: 1

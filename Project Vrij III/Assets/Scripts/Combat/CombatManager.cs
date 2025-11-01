@@ -45,13 +45,8 @@ public class CombatManager : MonoBehaviour
 
     private void HandleComboAttack()
     {
-        if (comboIndex == 3) return;
-        if (AnimatorUtils.IsInAnyState(animator, AnimationHashes.Block)) return;
-        if (!AnimatorUtils.IsInAnyState(animator,
-            AnimationHashes.Idle,
-            AnimationHashes.comboOne,
-            AnimationHashes.comboTwo,
-            AnimationHashes.comboThree)) return;
+        if (comboIndex == 3 || !AnimatorUtils.IsInAnyState(animator, 
+            AnimationHashes.Idle, AnimationHashes.comboOne, AnimationHashes.comboTwo)) return;
 
         ++comboIndex;
         comboTimer = 0f;
