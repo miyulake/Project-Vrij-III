@@ -1,3 +1,4 @@
+using NUnit.Framework.Internal;
 using UnityEngine;
 
 public class Entity : MonoBehaviour
@@ -10,6 +11,7 @@ public class Entity : MonoBehaviour
     [SerializeField] private AudioClip blockSound;
     private ShakeController shake;
     private bool inStun = false;
+    private bool guardBroken = false;
     private float stunDuration = 0f;
     private float stunTimer = 0f;
 
@@ -30,9 +32,11 @@ public class Entity : MonoBehaviour
 
     private void HandleStun()
     {
+        animator.SetBool("IsBlocking", !guardBroken); // TEST HACK
         stunTimer += Time.deltaTime;
         if (stunTimer >= stunDuration)
         {
+            guardBroken = false; // TEST HACK
             inStun = false;
             stunTimer = 0f;
         }
@@ -46,6 +50,8 @@ public class Entity : MonoBehaviour
         var isBlocking = animator.GetBool("IsBlocking");
         var isGuardBreak = isBlocking && attackInfo.ignoresBlock;
         var isHit = !isBlocking || isGuardBreak;
+
+        guardBroken = isHit; // TEST HACK
 
         inStun = true;
         stunDuration = isHit ? attackInfo.hitStunDuration : attackInfo.blockStunDuration;
