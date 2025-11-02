@@ -484,6 +484,17 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""4cd76076-205e-4073-adeb-864c4760631e"",
+                    ""path"": ""<Keyboard>/leftCtrl"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""Snap"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""d66076d9-b082-4347-8327-9985e629e579"",
                     ""path"": ""<Gamepad>/leftShoulder"",
                     ""interactions"": """",
