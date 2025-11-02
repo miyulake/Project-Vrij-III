@@ -3,11 +3,13 @@ using UnityEngine;
 public class PaintManager : MonoBehaviour
 {
     public static PaintManager Instance;
+    public int Player1Percentage { get; private set; }
+    public int Player2Percentage { get; private set; }
     [SerializeField] private RenderTexture paintTexture;
 
     private void Awake() => Instance = this;
 
-    public void GetCoverage(out int p1Percentage, out int p2Percentage)
+    public void GetCoverage()
     {
         var texture = new Texture2D(paintTexture.width, paintTexture.height, TextureFormat.RGB24, false);
 
@@ -26,15 +28,15 @@ public class PaintManager : MonoBehaviour
             else if (px.b > px.r && px.b > px.g) p2Count++; // Blue-dominant pixel
         }
 
-        p1Percentage = Mathf.RoundToInt(p1Count / (float)pixels.Length * 100f);
-        p2Percentage = Mathf.RoundToInt(p2Count / (float)pixels.Length * 100f);
+        Player1Percentage = Mathf.RoundToInt(p1Count / (float)pixels.Length * 100f);
+        Player2Percentage = Mathf.RoundToInt(p2Count / (float)pixels.Length * 100f);
 
-        Debug.Log($"Player 1: {p1Percentage}%, Player 2: {p2Percentage}%");
+        Debug.Log($"Player 1: {Player1Percentage}%, Player 2: {Player2Percentage}%");
     }
 
     public int GetWinner()
     {
-        GetCoverage(out int p1Percentage, out int p2Percentage);
-        return (p1Percentage > p2Percentage) ? 1 : 2;
+        GetCoverage();
+        return (Player1Percentage > Player2Percentage) ? 1 : 2;
     }
 }

@@ -3,14 +3,18 @@ using TMPro;
 
 public class GameManager : MonoBehaviour
 {
+    public static GameManager Instance;
+    public bool MatchEnded { get; private set; } = false;
+
     [Header("Game Settings")]
     [SerializeField] private int frameRate = 60;
 
     [Header("Match Settings")]
     [SerializeField] private TextMeshProUGUI textMesh;
     [SerializeField] private int matchTime = 60;
-    public bool MatchEnded { get; private set; } = false;
     private float matchTimer;
+
+    private void Awake() => Instance = this;
 
     private void Start()
     {
