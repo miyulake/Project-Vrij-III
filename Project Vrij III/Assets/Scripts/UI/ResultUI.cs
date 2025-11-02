@@ -1,9 +1,13 @@
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class ResultUI : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI p1Text, p2Text;
+    [SerializeField] private Slider p1Slider, p2Slider;
+    [SerializeField] private AnimationCurve resultCurve;
+    [SerializeField] private float curveDuration = 1f;
 
     private void Update()
     {
@@ -12,7 +16,12 @@ public class ResultUI : MonoBehaviour
 
     private void SetUI()
     {
-        p1Text.text = $"{PaintManager.Instance.Player1Percentage}%";
-        p2Text.text = $"{PaintManager.Instance.Player2Percentage}%";
+        var paintManager = PaintManager.Instance;
+
+        p1Text.text = $"{paintManager.Player1Percentage}%";
+        p1Slider.value = paintManager.Player1Percentage;
+
+        p2Text.text = $"{paintManager.Player2Percentage}%";
+        p2Slider.value = paintManager.Player2Percentage;
     }
 }
