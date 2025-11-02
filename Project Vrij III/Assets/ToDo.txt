@@ -1,10 +1,10 @@
 TO-DO:
 
 SHOULD
-- Create result screen (Count the color pixels)
+- Add result screen UI
 - Add paint to each attack
 
 COULD
+- Add round start UI
 - Create buffer system
 - Fix the stupid jab combo (its slightly better now :3)
-- Fix guard break moves not allowing combo follow ups (IsBlocking stays on in the animator)
