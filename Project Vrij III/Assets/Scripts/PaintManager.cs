@@ -7,27 +7,34 @@ public class PaintManager : MonoBehaviour
 
     private void Awake() => Instance = this;
 
-    public int GetWinner()
+    public void GetCoverage(out int p1Percentage, out int p2Percentage)
     {
-        Texture2D tex = new Texture2D(paintTexture.width, paintTexture.height, TextureFormat.RGB24, false);
+        var texture = new Texture2D(paintTexture.width, paintTexture.height, TextureFormat.RGB24, false);
 
         RenderTexture.active = paintTexture;
-        tex.ReadPixels(new Rect(0, 0, paintTexture.width, paintTexture.height), 0, 0);
-        tex.Apply();
+        texture.ReadPixels(new Rect(0, 0, paintTexture.width, paintTexture.height), 0, 0);
+        texture.Apply();
         RenderTexture.active = null;
 
-        Color32[] pixels = tex.GetPixels32();
-        int p1Count = 0;
-        int p2Count = 0;
+        var pixels = texture.GetPixels32();
+        var p1Count = 0;
+        var p2Count = 0;
 
         foreach (var px in pixels)
         {
-            if (px.r > 200 && px.g < 50 && px.b < 50) p1Count++;
-            else if (px.b > 200 && px.r < 50 && px.g < 50) p2Count++;
+            if (px.r > px.g && px.r > px.b) p1Count++; // Red-dominant pixel
+            else if (px.b > px.r && px.b > px.g) p2Count++; // Blue-dominant pixel
         }
 
-        Debug.Log($"Player 1: {p1Count}, Player 2: {p2Count}");
+        p1Percentage = Mathf.RoundToInt(p1Count / (float)pixels.Length * 100f);
+        p2Percentage = Mathf.RoundToInt(p2Count / (float)pixels.Length * 100f);
 
-        return (p1Count > p2Count) ? 1 : 2;
+        Debug.Log($"Player 1: {p1Percentage}%, Player 2: {p2Percentage}%");
+    }
+
+    public int GetWinner()
+    {
+        GetCoverage(out int p1Percentage, out int p2Percentage);
+        return (p1Percentage > p2Percentage) ? 1 : 2;
     }
 }
