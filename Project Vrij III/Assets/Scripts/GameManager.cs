@@ -1,10 +1,13 @@
-using UnityEngine;
 using TMPro;
+using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.InputSystem;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
     public bool MatchEnded { get; private set; } = false;
+    [SerializeField] private UnityEvent onMatchEnd;
 
     [Header("Game Settings")]
     [SerializeField] private int frameRate = 60;
@@ -49,7 +52,8 @@ public class GameManager : MonoBehaviour
 
     public void EndMatch()
     {
-        PaintManager.Instance.GetWinner();
+        onMatchEnd.Invoke();
+        PaintManager.Instance.GetWinner(); // Double calling it :(
         MatchEnded = true;
     }
 }

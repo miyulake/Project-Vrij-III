@@ -32,6 +32,8 @@ public class CombatManager : MonoBehaviour
 
     private void HandleInputs()
     {
+        if (GameManager.Instance.MatchEnded) return; // RETARDED
+
         if (input.ComboAttack) HandleComboAttack();
         else if (input.AttackForward) UseDirectionalAttack(AttackType.ATTACK_FORWARD);
         else if (input.AttackDownward) UseDirectionalAttack(AttackType.ATTACK_DOWNWARD);

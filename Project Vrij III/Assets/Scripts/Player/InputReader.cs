@@ -8,7 +8,7 @@ public class InputReader : MonoBehaviour
 {
     private PlayerInput playerInput;
 
-    // Player input
+    // Gameplay input
     public bool ComboAttack    => playerInput.actions["ComboAttack"].triggered;
     public bool AttackForward  => playerInput.actions["AttackForward"].triggered;
     public bool AttackDownward => playerInput.actions["AttackDownward"].triggered;
@@ -18,8 +18,9 @@ public class InputReader : MonoBehaviour
     public bool Snap           => playerInput.actions["Snap"].triggered;
     public Vector2 Movement    => playerInput.actions["Move"].ReadValue<Vector2>();
 
-    // Debug input
+    // Menu input
     public bool Restart => playerInput.actions["Restart"].triggered;
+    public bool Pause => playerInput.actions["Pause"].triggered;
 
     private void Awake() => playerInput = GetComponent<PlayerInput>();
 }

@@ -978,7 +978,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 1614
+  m_VersionIndex: 1617
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -1734,7 +1734,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 546
+  m_VersionIndex: 549
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -2277,6 +2277,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1263538929350565015}
+  - component: {fileID: 7146224859893508143}
   - component: {fileID: 2350177017459875102}
   - component: {fileID: 8812033994180164608}
   - component: {fileID: 1124541093006300074}
@@ -2314,6 +2315,19 @@ Transform:
   - {fileID: 8671425812700350725}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7146224859893508143
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6338980175089848948}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 455bf6fead3ac0442abda704259bbd5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pauseMenu: {fileID: 0}
 --- !u!114 &2350177017459875102
 MonoBehaviour:
   m_ObjectHideFlags: 0

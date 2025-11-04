@@ -16,6 +16,8 @@ public class TwoDMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (GameManager.Instance.MatchEnded) return; // RETARDED
+
         inputDirection = CanMove() ? inputReader.Movement : Vector2.zero;
         Movement();
     }
