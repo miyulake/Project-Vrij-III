@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 810deb8a5df7ff84ead00a86048f601b, type: 3}
   m_Name: Attack_Downward
   m_EditorClassIdentifier: 
-  paintPrefab: {fileID: 0}
-  offsetPosition: {x: 0, y: 0, z: 0}
-  paintScale: {x: 1, y: 1, z: 1}
+  paintPrefab: {fileID: 4182030647486133465, guid: e67ef2ca55de1db418fcd7a65aee31bf, type: 3}
+  offsetPosition: {x: 0.5, y: -1.5, z: 0}
+  paintScale: {x: 5.5, y: 5.5, z: 1}
   paintRotation: {x: 0, y: 0, z: 0, w: 0}
   knockback: {x: 10, y: -10}
   attackForceMode: 1
