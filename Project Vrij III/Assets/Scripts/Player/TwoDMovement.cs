@@ -6,7 +6,7 @@ public class TwoDMovement : MonoBehaviour
     [SerializeField] private Animator animator;
     [Range(0, 10)] [SerializeField] private float baseSpeed = 5;
     [Range(0, 10)] [SerializeField] private float blockSpeed = 2;
-    [Range(0, 100)] [SerializeField] private float acceleration = 50f;
+    [Range(0, 500)] [SerializeField] private float acceleration = 50f;
     [Range(0, 100)] [SerializeField] private float deceleration = 50f;
     private InputReader inputReader;
     private Vector2 inputDirection;
@@ -16,7 +16,11 @@ public class TwoDMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (GameManager.Instance.MatchEnded) return; // RETARDED
+        if (GameManager.Instance.MatchEnded)
+        {
+            inputDirection = Vector2.zero;
+            return; // RETARDED
+        }
 
         inputDirection = CanMove() ? inputReader.Movement : Vector2.zero;
         Movement();

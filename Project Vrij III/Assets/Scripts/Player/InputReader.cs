@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Users;
 
 /// <summary>
 /// Class for ease of access to relevant input data.
@@ -22,5 +23,16 @@ public class InputReader : MonoBehaviour
     public bool Restart => playerInput.actions["Restart"].triggered;
     public bool Pause => playerInput.actions["Pause"].triggered;
 
-    private void Awake() => playerInput = GetComponent<PlayerInput>();
+
+    private void Awake()
+    {
+        playerInput = GetComponent<PlayerInput>();
+
+        var gamepads = Gamepad.all;
+        if (playerInput.playerIndex < gamepads.Count)
+        {
+            InputUser.PerformPairingWithDevice(gamepads[playerInput.playerIndex], playerInput.user);
+        }
+        playerInput.ActivateInput();
+    }
 }

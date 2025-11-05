@@ -2402,7 +2402,7 @@ MonoBehaviour:
     m_ActionId: 93d63757-477e-43c8-9d84-f0891643182b
     m_ActionName: 'Debug/Restart[/Keyboard/f1]'
   m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: Keyboard&Mouse
+  m_DefaultControlScheme: 
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
@@ -2483,7 +2483,7 @@ MonoBehaviour:
   animator: {fileID: 6195598802881134326}
   baseSpeed: 10
   blockSpeed: 3
-  acceleration: 100
+  acceleration: 250
   deceleration: 50
 --- !u!114 &4912225395047523420
 MonoBehaviour:

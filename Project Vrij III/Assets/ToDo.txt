@@ -1,9 +1,5 @@
 TO-DO:
 
-SHOULD
-- Add result screen UI
-- Add paint to each attack
-
 COULD
 - Add round start UI
 - Create buffer system

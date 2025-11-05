@@ -1,0 +1,21 @@
+https://docs.google.com/forms/d/e/1FAIpQLSfow7tKpAgXaSVeF5kDXxvPcpmnKETdB5-dciTObq_SP_g2EA/viewform?usp=sharing&ouid=112193844824939679208
+
+3 matches is enough
+
+Visuals:
+Result bar should be gray and not match the background
+It should not look like one of the player colors
+Result bar is confusing (the result isnt very clear)
+
+QOL:
+A buffer system should be added
+Everything is too frame perfect
+Blocken mag een snellere animatie hebben
+Uppercut kan sneller registreren OF de start up cancellable maken
+
+Movement:
+Movement acceleration is too low and should be snappier
+like other fighting games this improves the footsies
+
+Paint mechanic beter als de fights langer zijn
+(net zoals splatoon)
