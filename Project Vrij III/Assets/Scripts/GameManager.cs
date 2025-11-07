@@ -53,7 +53,7 @@ public class GameManager : MonoBehaviour
     public void EndMatch()
     {
         onMatchEnd.Invoke();
-        PaintManager.Instance.GetWinner(); // Double calling it :(
+        PaintManager.Instance.GetCoverageResult();
         MatchEnded = true;
     }
 }

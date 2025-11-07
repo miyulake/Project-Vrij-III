@@ -3,40 +3,64 @@ using UnityEngine;
 public class PaintManager : MonoBehaviour
 {
     public static PaintManager Instance;
+
+    public string WinText { get; private set; }
     public int Player1Percentage { get; private set; }
     public int Player2Percentage { get; private set; }
+
     [SerializeField] private RenderTexture paintTexture;
+    [Range(32, 512)] [SerializeField] private int sampleSize = 64;
+    private RenderTexture smallTexture;
+    private Texture2D paintCopy;
 
-    private void Awake() => Instance = this;
-
-    public void GetCoverage()
+    private void Awake() 
     {
-        var texture = new Texture2D(paintTexture.width, paintTexture.height, TextureFormat.RGB24, false);
+        Instance = this;
 
-        RenderTexture.active = paintTexture;
-        texture.ReadPixels(new Rect(0, 0, paintTexture.width, paintTexture.height), 0, 0);
-        texture.Apply();
+        var adjustedAspect = paintTexture.width / paintTexture.height;
+        smallTexture = new RenderTexture(sampleSize, sampleSize / adjustedAspect, 0, RenderTextureFormat.ARGB32)
+        {
+            filterMode = FilterMode.Point
+        };
+        paintCopy = new Texture2D(sampleSize, sampleSize / adjustedAspect, TextureFormat.RGB24, false);
+    } 
+
+    public void GetCoverageResult()
+    {
+        Graphics.Blit(paintTexture, smallTexture);
+        RenderTexture.active = smallTexture;
+        paintCopy.ReadPixels(new Rect(0, 0, sampleSize, smallTexture.height), 0, 0);
+        paintCopy.Apply(false);
         RenderTexture.active = null;
 
-        var pixels = texture.GetPixels32();
-        var p1Count = 0;
-        var p2Count = 0;
+        var pixels = paintCopy.GetPixels32();
+        var p1Count = 0; var p2Count = 0;
 
-        foreach (var px in pixels)
+        for (int i = 0; i < pixels.Length; i++)
         {
-            if (px.r > px.g && px.r > px.b) p1Count++; // Red-dominant pixel
-            else if (px.b > px.r && px.b > px.g) p2Count++; // Blue-dominant pixel
+            var px = pixels[i];
+            if      (px.r > px.g && px.r > px.b) p1Count++;
+            else if (px.b > px.r && px.b > px.g) p2Count++;
         }
 
         Player1Percentage = Mathf.RoundToInt(p1Count / (float)pixels.Length * 100f);
         Player2Percentage = Mathf.RoundToInt(p2Count / (float)pixels.Length * 100f);
 
-        Debug.Log($"Player 1: {Player1Percentage}%, Player 2: {Player2Percentage}%");
+        WinText = (p1Count > p2Count) ? "Red Wins!" : (p2Count > p1Count) ? "Blue Wins!" : "Draw!";
+        Debug.Log($"Player 1: {p1Count} pixels, Player 2: {p2Count} pixels");
     }
 
-    public int GetWinner()
+    private void OnDestroy()
     {
-        GetCoverage();
-        return (Player1Percentage > Player2Percentage) ? 1 : 2;
+        if (smallTexture != null) smallTexture.Release();
     }
+
+    // For debugging purposes
+    /*
+    private void OnGUI()
+    {
+        if (smallTexture != null)
+            GUI.DrawTexture(new Rect(75, 10, 128, 128), smallTexture, ScaleMode.ScaleToFit, false);
+    }
+    */
 }

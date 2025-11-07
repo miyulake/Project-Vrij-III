@@ -23,11 +23,7 @@ public class ResultUI : MonoBehaviour
     private void BeginResult()
     {
         hasRun = true;
-
-        p1Percent.text = $"{PaintManager.Instance.Player1Percentage}%";
-        p2Percent.text = $"{PaintManager.Instance.Player2Percentage}%";
         winner.text = "";
-
         resultCurveTime = 0f;
         isAnimating = true;
     }
@@ -44,7 +40,9 @@ public class ResultUI : MonoBehaviour
         if (time >= 1f)
         {
             isAnimating = false;
-            winner.text = $"Player {PaintManager.Instance.GetWinner()} Wins!";
+            p1Percent.text = $"{PaintManager.Instance.Player1Percentage}%";
+            p2Percent.text = $"{PaintManager.Instance.Player2Percentage}%";
+            winner.text = PaintManager.Instance.WinText;
         }
     }
 }
