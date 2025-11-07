@@ -1,8 +1,8 @@
 public enum EntityState
 {
     IDLE,
-    ATTACKING,
-    BLOCKING,
+    ATTACK,
+    BLOCK,
     HITSTUN,
-    GRABBED
+    GRAB
 }

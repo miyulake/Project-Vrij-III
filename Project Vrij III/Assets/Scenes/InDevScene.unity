@@ -1808,7 +1808,6 @@ GameObject:
   m_Component:
   - component: {fileID: 937984530}
   - component: {fileID: 937984529}
-  - component: {fileID: 937984528}
   - component: {fileID: 937984527}
   m_Layer: 0
   m_Name: Paint Camera
@@ -1861,14 +1860,6 @@ MonoBehaviour:
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
   m_Version: 2
---- !u!81 &937984528
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 937984526}
-  m_Enabled: 1
 --- !u!20 &937984529
 Camera:
   m_ObjectHideFlags: 0
@@ -2170,31 +2161,31 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Left Mouse / Left Button (x3)
+  m_text: 'Left Mouse / Left Button <color=Green>(x3)</color>
 
-    <color=yellow>Jab Combo</color>
+    <color=yellow>Jab
+    Combo</color>
 
 
-    Right
-    Mouse / Right Button
+    Right Mouse / Right Button
 
     <color=yellow>Forward Punch</color>
 
 
-    Left Mouse
-    + Right Mouse / Bottom Button
+    Left
+    Mouse + Right Mouse / Bottom Button
 
     <color=yellow>Downwards Slam</color>
 
 
     Right
-    Mouse / Top Button (Hold)
+    Mouse / Top Button <color=Green>(Hold)</color>
 
     <color=yellow>Uppercut</color>
 
 
-    Escape /
-    Start Button
+    Escape
+    / Start Button
 
     <color=yellow>Pause & Unpause</color>'
   m_isRightToLeft: 0
