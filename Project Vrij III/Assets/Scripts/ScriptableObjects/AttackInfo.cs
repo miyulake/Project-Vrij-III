@@ -7,7 +7,6 @@ public class AttackInfo : ScriptableObject
     public GameObject paintPrefab;
     public Vector3 offsetPosition;
     public Vector3 paintScale = new(1,1,1);
-    public Quaternion paintRotation = new(0,0,0,0);
 
     [Header("Attack Settings")]
     public Vector2 knockback = new(0,0);

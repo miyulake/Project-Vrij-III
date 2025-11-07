@@ -1360,7 +1360,7 @@ MonoBehaviour:
         m_CallState: 2
   frameRate: 60
   textMesh: {fileID: 1337338058}
-  matchTime: 60
+  matchTime: 10
 --- !u!4 &587078521
 Transform:
   m_ObjectHideFlags: 0

@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class TwoDMovement : MonoBehaviour
@@ -18,8 +19,8 @@ public class TwoDMovement : MonoBehaviour
     {
         if (GameManager.Instance.MatchEnded)
         {
-            inputDirection = Vector2.zero;
-            return; // RETARDED
+            rigidbodyTwoD.constraints = RigidbodyConstraints2D.FreezeAll;
+            return; // HACK
         }
 
         inputDirection = CanMove() ? inputReader.Movement : Vector2.zero;

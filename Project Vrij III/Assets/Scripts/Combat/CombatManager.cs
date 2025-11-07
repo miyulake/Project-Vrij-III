@@ -32,7 +32,7 @@ public class CombatManager : MonoBehaviour
 
     private void HandleInputs()
     {
-        if (GameManager.Instance.MatchEnded) return; // RETARDED
+        if (GameManager.Instance.MatchEnded) return; // HACK
 
         if (input.ComboAttack) HandleComboAttack();
         else if (input.AttackForward) UseDirectionalAttack(AttackType.ATTACK_FORWARD);
