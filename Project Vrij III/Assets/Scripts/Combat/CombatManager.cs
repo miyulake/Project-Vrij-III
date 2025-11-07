@@ -21,13 +21,10 @@ public class CombatManager : MonoBehaviour
 
     private void Update()
     {
-        if (input.Restart) SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        if (input.Restart) SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); // Debug
 
         HandleComboTimer();
         HandleInputs();
-
-        if (input.AttackUpward) attackHoldTime += Time.deltaTime;
-        else attackHoldTime = 0f;
     }
 
     private void HandleInputs()
@@ -37,12 +34,17 @@ public class CombatManager : MonoBehaviour
         if (input.ComboAttack) HandleComboAttack();
         else if (input.AttackForward) UseDirectionalAttack(AttackType.ATTACK_FORWARD);
         else if (input.AttackDownward) UseDirectionalAttack(AttackType.ATTACK_DOWNWARD);
-        else if (attackHoldTime > attackHoldDuration) UseDirectionalAttack(AttackType.ATTACK_UPWARD);
-
-        HandleBlock(input.Blocking);
+        else if (input.AttackUpward)
+        {
+            attackHoldTime += Time.deltaTime;
+            if (attackHoldTime > attackHoldDuration) UseDirectionalAttack(AttackType.ATTACK_UPWARD);
+        }
+        else attackHoldTime = 0f;
 
         if (input.Grabbing) UseGrab();
         else if (input.Snap) UseSnap();
+
+        HandleBlock(input.Blocking);
     }
 
     private void HandleComboAttack()
