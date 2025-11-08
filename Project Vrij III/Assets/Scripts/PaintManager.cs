@@ -46,7 +46,11 @@ public class PaintManager : MonoBehaviour
         Player1Percentage = Mathf.RoundToInt(p1Count / (float)pixels.Length * 100f);
         Player2Percentage = Mathf.RoundToInt(p2Count / (float)pixels.Length * 100f);
 
-        WinText = (p1Count > p2Count) ? "Red Wins!" : (p2Count > p1Count) ? "Blue Wins!" : "Draw!";
+        WinText = 
+            (Player1Percentage > Player2Percentage) ? "Red Wins!"  :
+            (Player2Percentage > Player1Percentage) ? "Blue Wins!" :
+            "Draw!";
+
         Debug.Log($"Player 1: {p1Count} pixels, Player 2: {p2Count} pixels");
     }
 
