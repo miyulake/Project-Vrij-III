@@ -15,10 +15,9 @@ MonoBehaviour:
   paintPrefab: {fileID: 0}
   offsetPosition: {x: 0, y: 0, z: 0}
   paintScale: {x: 1, y: 1, z: 1}
-  paintRotation: {x: 0, y: 0, z: 0, w: 0}
   knockback: {x: 0, y: 0}
   attackForceMode: 1
-  hitStunDuration: 0.8
+  hitStunDuration: 0.7
   blockStunDuration: 0
   shakeMagnitude: 0
   ignoresBlock: 1
