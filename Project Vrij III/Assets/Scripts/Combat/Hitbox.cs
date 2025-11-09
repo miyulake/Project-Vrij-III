@@ -1,31 +1,13 @@
 using UnityEngine;
-using UnityEngine.Events;
 
 public class Hitbox : MonoBehaviour
 {
-    [SerializeField] private UnityEvent onHitEvent;
-    [SerializeField] private UnityEvent onStayEvent;
-    [SerializeField] private UnityEvent onExitEvent;
-    private AttackInfo currentAttackInfo;
+    public MoveData MoveData { private get; set; }
+    [SerializeField] private int m_OwnerId;
 
     private void OnTriggerEnter2D(Collider2D col)
     {
-        if (!col.TryGetComponent(out Hurtbox hurtbox)) return;
-        hurtbox.ApplyHit(currentAttackInfo);
-        onHitEvent.Invoke();
+        if (!col.TryGetComponent(out Hurtbox hurtbox) && m_OwnerId == hurtbox.ownerId) return;
+        //hurtbox.ApplyMove(MoveData);
     }
-
-    private void OnTriggerStay2D(Collider2D col)
-    {
-        if (!col.TryGetComponent(out Hurtbox _)) return;
-        onStayEvent.Invoke();
-    }
-
-    private void OnTriggerExit2D(Collider2D col)
-    {
-        if (!col.TryGetComponent(out Hurtbox _)) return;
-        onExitEvent.Invoke();
-    }
-
-    public void SetAttackInfo(AttackInfo info) => currentAttackInfo = info;
 }

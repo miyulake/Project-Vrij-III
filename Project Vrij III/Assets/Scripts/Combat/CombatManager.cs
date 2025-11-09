@@ -111,6 +111,6 @@ public class CombatManager : MonoBehaviour
     public void ApplyAttackInfo(AttackInfo attackInfo)
     {
         if (attackInfo == null) return;
-        foreach (var hitbox in hitboxes) hitbox.SetAttackInfo(attackInfo);
+        //foreach (var hitbox in hitboxes) hitbox.SetAttackInfo(attackInfo);
     }
 }
