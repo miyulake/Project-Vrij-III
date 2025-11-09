@@ -13,7 +13,7 @@ public class InputReader : MonoBehaviour
     public bool ComboAttack    => playerInput.actions["ComboAttack"].triggered;
     public bool AttackForward  => playerInput.actions["AttackForward"].triggered;
     public bool AttackDownward => playerInput.actions["AttackDownward"].triggered;
-    public bool AttackUpward   => playerInput.actions["AttackUpward"].IsPressed();
+    public bool AttackUpward   => playerInput.actions["AttackUpward"].triggered;
     public bool Blocking       => playerInput.actions["Block"].IsPressed();
     public bool Grabbing       => playerInput.actions["Grab"].triggered;
     public bool Snap           => playerInput.actions["Snap"].triggered;

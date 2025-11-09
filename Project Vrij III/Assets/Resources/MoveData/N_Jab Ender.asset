@@ -17,12 +17,12 @@ MonoBehaviour:
   input: 0
   startFromIdle: 0
   frames:
-    startup: 10
-    active: 0
-    recovery: 10
+    startup: 5
+    active: 4
+    recovery: 31
     cancel:
-      start: 15
-      end: 20
+      start: 10
+      end: 40
   hit:
     stun: 0
     damage: 0

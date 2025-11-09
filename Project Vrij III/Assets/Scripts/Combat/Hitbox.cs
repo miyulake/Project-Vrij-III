@@ -7,7 +7,11 @@ public class Hitbox : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D col)
     {
-        if (!col.TryGetComponent(out Hurtbox hurtbox) && m_OwnerId == hurtbox.ownerId) return;
-        //hurtbox.ApplyMove(MoveData);
+        if (!col.TryGetComponent(out Hurtbox hurtbox)) return;
+
+        if (m_OwnerId != hurtbox.ownerId)
+        {
+            //hurtbox.ApplyMove(MoveData);
+        }
     }
 }

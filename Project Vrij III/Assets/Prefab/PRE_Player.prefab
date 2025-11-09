@@ -770,15 +770,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed57a0dae0d0d8c4d8af5d3b1c66d401, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onHitEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  onStayEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  onExitEvent:
-    m_PersistentCalls:
-      m_Calls: []
+  m_OwnerId: 0
 --- !u!70 &5474621346064482885
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -2412,7 +2404,7 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 93d63757-477e-43c8-9d84-f0891643182b
     m_ActionName: 'Debug/Restart[/Keyboard/f1]'
-  m_NeverAutoSwitchControlSchemes: 0
+  m_NeverAutoSwitchControlSchemes: 1
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
@@ -2508,6 +2500,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 405ba09d6b9b50c4d82c94090b6e795b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ownerId: 0
   entity: {fileID: 8536211551046000458}
 --- !u!114 &4409906264581131718
 MonoBehaviour:
@@ -2985,15 +2978,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed57a0dae0d0d8c4d8af5d3b1c66d401, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onHitEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  onStayEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  onExitEvent:
-    m_PersistentCalls:
-      m_Calls: []
+  m_OwnerId: 0
 --- !u!70 &942657570072929050
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

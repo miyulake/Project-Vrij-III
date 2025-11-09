@@ -17,12 +17,12 @@ MonoBehaviour:
   input: 0
   startFromIdle: 1
   frames:
-    startup: 10
-    active: 0
-    recovery: 20
+    startup: 7
+    active: 2
+    recovery: 15
     cancel:
-      start: 20
-      end: 30
+      start: 24
+      end: 24
   hit:
     stun: 0
     damage: 0
@@ -37,7 +37,7 @@ MonoBehaviour:
     knockback: {x: 0, y: 0}
   cancelOptions:
   - move: {fileID: 11400000, guid: fa31a0f6e9b5b5e4c980eeaca48795f3, type: 2}
-    crossfadeDuration: 0.25
+    crossfadeDuration: 0.2
   paintData:
     paintPrefab: {fileID: 0}
     offsetPosition: {x: 0, y: 0, z: 0}

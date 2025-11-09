@@ -1,4 +1,5 @@
 {
+    "version": 1,
     "name": "Controls",
     "maps": [
         {
@@ -277,7 +278,7 @@
                     "name": "",
                     "id": "df0c490f-4c69-47c5-94cc-7a8e20f7bab4",
                     "path": "<Mouse>/rightButton",
-                    "interactions": "Hold(duration=0.25,pressPoint=0.3)",
+                    "interactions": "Hold(duration=0.2,pressPoint=0.25)",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
                     "action": "AttackUpward",

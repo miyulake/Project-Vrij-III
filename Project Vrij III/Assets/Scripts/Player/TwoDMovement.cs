@@ -15,7 +15,7 @@ public class TwoDMovement : MonoBehaviour
 
     private void Start() => inputReader = GetComponent<InputReader>();
 
-    private void FixedUpdate()
+    private void Update()
     {
         if (GameManager.Instance.MatchEnded)
         {
