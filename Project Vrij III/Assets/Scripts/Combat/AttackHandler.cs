@@ -1,10 +1,10 @@
 ﻿using UnityEngine;
 
-public class FighterController : MonoBehaviour
+public class AttackHandler : MonoBehaviour
 {
     [SerializeField] private Animator m_Animator;
     [SerializeField] private float m_GenericCrossfade = 0.1f;
-    [Range(1, 10)] [SerializeField] private int bufferFrames = 10;
+    [Range(1, 10)] [SerializeField] private int m_BufferFrames = 10;
 
     private InputReader m_InputReader;
     private Hitbox[] m_Hitboxes;
@@ -106,7 +106,7 @@ public class FighterController : MonoBehaviour
     private void CheckPostMoveBuffer()
     {
         // Only allow buffering during the buffer window of the current move
-        if (m_BufferedMove != null || m_CurrentFrame < m_CurrentMove.frames.TotalFrames() - bufferFrames) return;
+        if (m_BufferedMove != null || m_CurrentFrame < m_CurrentMove.frames.TotalFrames() - m_BufferFrames) return;
 
         for (int i = 0; i < m_AllMoves.Length; i++)
         {

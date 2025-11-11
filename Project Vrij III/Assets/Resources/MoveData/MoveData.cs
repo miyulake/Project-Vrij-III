@@ -20,9 +20,10 @@ public class MoveData : ScriptableObject
     [Header("Cancels")]
     public CancelOption[] cancelOptions;
 
-    [Header("Audio Visual")]
+    [Header("Paint")]
     public PaintData paintData;
-    public EffectData effectData;
+
+    [Header("Animation")]
     public string animationName;
 }
 
