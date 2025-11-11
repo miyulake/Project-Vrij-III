@@ -13,8 +13,7 @@ public class Entity : MonoBehaviour
     private ShakeController m_Shake;
     private float m_StunTimer;
     private float m_StunDuration;
-    private Vector3 GetAdjustedScale(Vector3 scale) => 
-        new(scale.x * -FacingDirection, scale.y, 1);
+    
     private int FacingDirection => 
         transform.position.x < m_Opponent.position.x ? 1 : -1; // Returns 1 or -1 depending on direction
 
@@ -122,6 +121,9 @@ public class Entity : MonoBehaviour
         m_RigidbodyTwoD.linearVelocity = Vector2.zero;
         m_RigidbodyTwoD.AddForce(knockback, ForceMode2D.Impulse);
     }
+
+    private Vector3 GetAdjustedScale(Vector3 scale) =>
+        new(scale.x * -FacingDirection, scale.y, 1);
 
     private void SpawnPaint(MoveData move)
     {
