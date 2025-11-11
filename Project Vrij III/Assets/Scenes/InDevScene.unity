@@ -6248,7 +6248,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 7035095444429754699, guid: 99f42ec0f47be074fb1c85a96cfb1ad9, type: 2}
   m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 0}
+  m_Resource: {fileID: 8300000, guid: 7cb6dbf588baadc4a958ff549f4c04dd, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -6356,7 +6356,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2074157913}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d6369dfa24cd39848831584a9cf8a3a2, type: 3}
   m_Name: 
@@ -10317,6 +10317,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::FighterController
   m_Animator: {fileID: 6195598803802786216}
   m_GenericCrossfade: 0.1
+  bufferFrames: 10
 --- !u!4 &8823230819012175399
 Transform:
   m_ObjectHideFlags: 0

@@ -12,7 +12,7 @@ public class MusicRandomizer : MonoBehaviour
     {
         if (music.Length == 0) return;
 
-        int newIndex = Random.Range(0, music.Length);
+        var newIndex = Random.Range(0, music.Length);
         musicIndex = newIndex;
 
         musicSource.clip = music[musicIndex];
