@@ -31,6 +31,7 @@ public class Entity : MonoBehaviour
     private void Update()
     {
         if (m_InputReader.Restart) SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        if (m_StateManager.CurrentState == EntityState.DEAD) return;
         if (m_StateManager.IsInNeutral()) HandleBlock(m_InputReader.Blocking);
         if (m_StateManager.IsInStun()) HandleStun();
         UpdateFacingDirection();

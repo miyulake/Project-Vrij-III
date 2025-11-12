@@ -6,5 +6,5 @@ public enum EntityState
     BLOCK,
     HITSTUN,
     BLOCKSTUN,
-    GRAB
+    DEAD
 }

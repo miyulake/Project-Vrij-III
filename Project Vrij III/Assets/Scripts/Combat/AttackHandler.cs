@@ -27,8 +27,8 @@ public class AttackHandler : MonoBehaviour
 
     private void Update()
     {
-        // If we are hit reset everything and return
-        if (m_StateManager.IsInStun())
+        // If we are hit or dead reset everything and return
+        if (m_StateManager.IsInStun() || m_StateManager.CurrentState == EntityState.DEAD)
         {
             EndMove();
             return;

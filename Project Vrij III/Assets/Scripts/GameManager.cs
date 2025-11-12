@@ -1,30 +1,30 @@
-using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.InputSystem;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager Instance;
+    public static GameManager Instance { get; private set; }
     public bool MatchEnded { get; private set; } = false;
-    [SerializeField] private UnityEvent onMatchEnd;
+    [SerializeField] private UnityEvent m_OnMatchEnd;
+    private StateManager[] m_Entities;
 
     [Header("Game Settings")]
-    [SerializeField] private int frameRate = 60;
+    [SerializeField] private int m_FrameRate = 60;
 
     [Header("Match Settings")]
-    [SerializeField] private TextMeshProUGUI textMesh;
-    [SerializeField] private int matchTime = 60;
-    private float matchTimer;
+    [SerializeField] private TextMeshProUGUI m_TextMesh;
+    [SerializeField] private int m_MatchTime = 60;
+    private float m_MatchTimer;
 
     private void Awake() => Instance = this;
 
     private void Start()
     {
-        Application.targetFrameRate = frameRate;
-
+        Application.targetFrameRate = m_FrameRate;
         StartMatch();
-        textMesh.text = matchTimer.ToString("0.00");
+        m_TextMesh.text = m_MatchTimer.ToString("0.00");
+        m_Entities = FindObjectsByType<StateManager>(FindObjectsSortMode.None);
     }
 
     private void Update() => HandleMatchTimer();
@@ -33,13 +33,13 @@ public class GameManager : MonoBehaviour
     {
         if (MatchEnded) return;
 
-        matchTimer -= Time.deltaTime;
-        if (matchTimer <= 0f)
+        m_MatchTimer -= Time.deltaTime;
+        if (m_MatchTimer <= 0f)
         {
-            matchTimer = 0f;
+            m_MatchTimer = 0f;
             EndMatch();
         }
-        textMesh.text = matchTimer.ToString("00");
+        m_TextMesh.text = m_MatchTimer.ToString("00");
     }
 
     public void SetMatchState(bool matchState) => MatchEnded = matchState;
@@ -47,13 +47,19 @@ public class GameManager : MonoBehaviour
     public void StartMatch()
     {
         MatchEnded = false;
-        matchTimer = matchTime;
+        m_MatchTimer = m_MatchTime;
     }
 
     public void EndMatch()
     {
-        onMatchEnd.Invoke();
+        m_OnMatchEnd.Invoke();
         PaintManager.Instance.GetCoverageResult();
         MatchEnded = true;
+    }
+
+    public void KillEntities()
+    {
+        for (int i = 0; i < m_Entities.Length; i++)
+            m_Entities[i].SetState(EntityState.DEAD);
     }
 }
