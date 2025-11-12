@@ -52,7 +52,8 @@ public class AttackHandler : MonoBehaviour
             return;
         }
 
-        ++m_CurrentFrame;
+        // Only count up the current frame when unpaused
+        if (Time.timeScale > 0.01f) ++m_CurrentFrame; 
 
         CheckPostMoveBuffer();
         HandleCancelBuffering();
