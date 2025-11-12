@@ -5,9 +5,9 @@ using TMPro;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
+    public StateManager[] Entities { get; private set; }
     public bool MatchEnded { get; private set; } = false;
     [SerializeField] private UnityEvent m_OnMatchEnd;
-    private StateManager[] m_Entities;
 
     [Header("Game Settings")]
     [SerializeField] private int m_FrameRate = 60;
@@ -24,7 +24,7 @@ public class GameManager : MonoBehaviour
         Application.targetFrameRate = m_FrameRate;
         StartMatch();
         m_TextMesh.text = m_MatchTimer.ToString("0.00");
-        m_Entities = FindObjectsByType<StateManager>(FindObjectsSortMode.None);
+        Entities = FindObjectsByType<StateManager>(FindObjectsSortMode.None);
     }
 
     private void Update() => HandleMatchTimer();
@@ -59,7 +59,7 @@ public class GameManager : MonoBehaviour
 
     public void KillEntities()
     {
-        for (int i = 0; i < m_Entities.Length; i++)
-            m_Entities[i].SetState(EntityState.DEAD);
+        for (int i = 0; i < Entities.Length; i++)
+            Entities[i].SetState(EntityState.DEAD);
     }
 }

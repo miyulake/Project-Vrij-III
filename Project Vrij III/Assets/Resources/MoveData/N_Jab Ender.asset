@@ -46,7 +46,7 @@ MonoBehaviour:
     sound: {fileID: 8300000, guid: 90f656be44d71dd4aa3ef3f961772a9d, type: 3}
   cancelOptions:
   - move: {fileID: 11400000, guid: 4a1b73a3356eade4ca8ee5198f4b3406, type: 2}
-    crossfadeDuration: 0.1
+    crossfadeDuration: 0.2
   paintData:
     paintPrefab: {fileID: 4182030647486133465, guid: 10dc592366224954b9ed4c6a2e434ad6, type: 3}
     offsetPosition: {x: 2, y: -0.75, z: 0}

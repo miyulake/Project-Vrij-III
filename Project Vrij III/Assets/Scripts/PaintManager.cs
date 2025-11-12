@@ -2,38 +2,37 @@ using UnityEngine;
 
 public class PaintManager : MonoBehaviour
 {
-    public static PaintManager Instance;
-
+    public static PaintManager Instance { get; private set; }
     public string WinText { get; private set; }
     public int Player1Percentage { get; private set; }
     public int Player2Percentage { get; private set; }
 
-    [SerializeField] private RenderTexture paintTexture;
-    [Range(32, 512)] [SerializeField] private int sampleSize = 64;
-    private RenderTexture smallTexture;
-    private Texture2D paintCopy;
+    [SerializeField] private RenderTexture m_PaintTexture;
+    [Range(32, 512)] [SerializeField] private int m_SampleSize = 128;
+    private RenderTexture m_SmallTexture;
+    private Texture2D m_PaintCopy;
 
     private void Awake() 
     {
         Instance = this;
 
-        var adjustedAspect = paintTexture.width / paintTexture.height;
-        smallTexture = new RenderTexture(sampleSize, sampleSize / adjustedAspect, 0, RenderTextureFormat.ARGB32)
+        var adjustedAspect = m_PaintTexture.width / m_PaintTexture.height;
+        m_SmallTexture = new RenderTexture(m_SampleSize, m_SampleSize / adjustedAspect, 0, RenderTextureFormat.ARGB32)
         {
             filterMode = FilterMode.Point
         };
-        paintCopy = new Texture2D(sampleSize, sampleSize / adjustedAspect, TextureFormat.RGB24, false);
+        m_PaintCopy = new Texture2D(m_SampleSize, m_SampleSize / adjustedAspect, TextureFormat.RGB24, false);
     } 
 
     public void GetCoverageResult()
     {
-        Graphics.Blit(paintTexture, smallTexture);
-        RenderTexture.active = smallTexture;
-        paintCopy.ReadPixels(new Rect(0, 0, sampleSize, smallTexture.height), 0, 0);
-        paintCopy.Apply(false);
+        Graphics.Blit(m_PaintTexture, m_SmallTexture);
+        RenderTexture.active = m_SmallTexture;
+        m_PaintCopy.ReadPixels(new Rect(0, 0, m_SampleSize, m_SmallTexture.height), 0, 0);
+        m_PaintCopy.Apply(false);
         RenderTexture.active = null;
 
-        var pixels = paintCopy.GetPixels32();
+        var pixels = m_PaintCopy.GetPixels32();
         var p1Count = 0; var p2Count = 0;
 
         for (int i = 0; i < pixels.Length; i++)
@@ -56,15 +55,15 @@ public class PaintManager : MonoBehaviour
 
     private void OnDestroy()
     {
-        if (smallTexture != null) smallTexture.Release();
+        if (m_SmallTexture != null) m_SmallTexture.Release();
     }
 
     // For debugging purposes
     /*
     private void OnGUI()
     {
-        if (smallTexture != null)
-            GUI.DrawTexture(new Rect(75, 10, 128, 128), smallTexture, ScaleMode.ScaleToFit, false);
+        if (m_SmallTexture != null)
+            GUI.DrawTexture(new Rect(75, 10, 128, 128), m_SmallTexture, ScaleMode.ScaleToFit, false);
     }
     */
 }

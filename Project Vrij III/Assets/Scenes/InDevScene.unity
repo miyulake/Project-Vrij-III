@@ -341,8 +341,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c3a63c2bcdd6874da44ea7bcc82f7eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  paintTexture: {fileID: 8400000, guid: f4154191a92b8344e879214d2d2f458a, type: 2}
-  sampleSize: 128
+  m_PaintTexture: {fileID: 8400000, guid: f4154191a92b8344e879214d2d2f458a, type: 2}
+  m_SampleSize: 128
 --- !u!1 &136777671
 GameObject:
   m_ObjectHideFlags: 0
