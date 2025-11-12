@@ -832,7 +832,7 @@ MonoBehaviour:
   m_Opponent: {fileID: 0}
   m_PaintLayer: {fileID: 0}
   m_ParticleSpawn: {fileID: 3112636467991651300}
-  m_OpponentColor: {r: 1, g: 0, b: 0, a: 1}
+  m_OpponentColor: {r: 0, g: 0, b: 1, a: 1}
   m_FighterAudio: {fileID: 5116616940603786591}
 --- !u!114 &420104190912164710
 MonoBehaviour:
@@ -892,8 +892,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 275b41ef90266aa439044c2546422235, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  throwAnchor: {fileID: 1362705945310003443}
   opponent: {fileID: 0}
+  throwAnchor: {fileID: 1362705945310003443}
 --- !u!114 &6727671721480798848
 MonoBehaviour:
   m_ObjectHideFlags: 0

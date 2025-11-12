@@ -7,6 +7,7 @@ public class AttackHandler : MonoBehaviour
     [Range(1, 10)] [SerializeField] private int m_BufferFrames = 10;
 
     private InputReader m_InputReader;
+    private StateManager m_StateManager;
     private Hitbox[] m_Hitboxes;
     private MoveData[] m_AllMoves;
 
@@ -19,12 +20,19 @@ public class AttackHandler : MonoBehaviour
     private void Start()
     {
         m_InputReader = GetComponent<InputReader>();
+        m_StateManager = GetComponent<StateManager>();
         m_Hitboxes = GetComponentsInChildren<Hitbox>(true);
         m_AllMoves = Resources.LoadAll<MoveData>("MoveData");
     }
 
     private void Update()
     {
+        // If we are hit reset everything and return
+        if (m_StateManager.IsInStun())
+        {
+            EndMove();
+            return;
+        }
         // No current move -> check idle start or buffer
         if (m_CurrentMove == null)
         {
@@ -50,7 +58,15 @@ public class AttackHandler : MonoBehaviour
         HandleCancelBuffering();
         HandleCancelExecution();
 
-        if (m_CurrentFrame > m_CurrentMove.frames.TotalFrames()) EndMove();
+        // Track what state we are in based on the current frame
+        if (m_CurrentFrame > m_CurrentMove.frames.TotalFrames()) 
+        {
+            EndMove();
+            m_StateManager.SetState(EntityState.IDLE);
+            return;
+        }
+        if (m_CurrentMove.frames.IsRecovering(m_CurrentFrame) && m_StateManager.CurrentState != EntityState.RECOVER)  
+            m_StateManager.SetState(EntityState.RECOVER);
     }
 
     /// <summary>
@@ -60,6 +76,7 @@ public class AttackHandler : MonoBehaviour
     {
         if (move == null) return;
 
+        m_StateManager.SetState(EntityState.ATTACK);
         m_CurrentMove = move;
         m_CurrentFrame = 0;
 
@@ -80,7 +97,6 @@ public class AttackHandler : MonoBehaviour
     private void EndMove()
     {
         m_CurrentMove = null;
-        //m_BufferedMove = null;
         m_BufferedCrossfade = 0f;
     }
 

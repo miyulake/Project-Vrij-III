@@ -13,7 +13,7 @@ public class ThrowLogic : MonoBehaviour
     private void HandleThrow()
     {
         // Using gameObject to make sure the opponent doesn't teleport on player entering grab state
-        if (throwAnchor.activeSelf && opponent.CurrentState == FighterState.HITSTUN)
+        if (throwAnchor.activeSelf && opponent.CurrentState == EntityState.HITSTUN)
         {
             playerCollider.enabled = false;
             opponent.transform.position = throwAnchor.transform.position;

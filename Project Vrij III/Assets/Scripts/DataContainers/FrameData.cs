@@ -7,8 +7,8 @@ public class FrameData
     public FrameRange cancel;
 
     public int TotalFrames() => startup + active + recovery;
-
     public bool IsActive(int frame) => frame > startup && frame <= startup + active;
+    public bool IsRecovering(int frame) => frame > startup + active;
 }
 
 [System.Serializable]

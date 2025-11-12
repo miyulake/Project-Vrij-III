@@ -1,21 +1,25 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Entity : MonoBehaviour
 {
     public int iD = 0;
+
     [SerializeField] private Animator m_Animator;
     [SerializeField] private Rigidbody2D m_RigidbodyTwoD;
     [SerializeField] private Transform m_Opponent, m_PaintLayer, m_ParticleSpawn;
     [SerializeField] private Color m_OpponentColor = Color.red;
     [SerializeField] private AudioSource m_FighterAudio;
+
     private InputReader m_InputReader;
     private StateManager m_StateManager;
     private ShakeController m_Shake;
+
     private float m_StunTimer;
     private float m_StunDuration;
     
     private int FacingDirection => 
-        transform.position.x < m_Opponent.position.x ? 1 : -1; // Returns 1 or -1 depending on direction
+        transform.position.x < m_Opponent.position.x ? 1 : -1; // Returns 1 or -1 depending on facing direction
 
     private void Start()
     {
@@ -26,8 +30,9 @@ public class Entity : MonoBehaviour
 
     private void Update()
     {
-        if (IsInNeutral()) HandleBlock(m_InputReader.Blocking);
-        if (IsInStun()) HandleStun();
+        if (m_InputReader.Restart) SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        if (m_StateManager.IsInNeutral()) HandleBlock(m_InputReader.Blocking);
+        if (m_StateManager.IsInStun()) HandleStun();
         UpdateFacingDirection();
         UpdateAnimator();
     }
@@ -35,9 +40,9 @@ public class Entity : MonoBehaviour
     private void HandleBlock(bool isBlocking)
     {
         if (isBlocking)
-            m_StateManager.SetState(FighterState.BLOCK);
-        else if (m_StateManager.CurrentState == FighterState.BLOCK)
-            m_StateManager.SetState(FighterState.IDLE);
+            m_StateManager.SetState(EntityState.BLOCK);
+        else if (m_StateManager.CurrentState == EntityState.BLOCK)
+            m_StateManager.SetState(EntityState.IDLE);
     }
 
     public void ReceiveMove(MoveData move)
@@ -54,29 +59,29 @@ public class Entity : MonoBehaviour
                 ApplyHit(move.hit);
                 SpawnPaint(move);
                 m_Animator.Play("Stun", 0, 0);
-                m_StateManager.SetState(FighterState.HITSTUN);
+                m_StateManager.SetState(EntityState.HITSTUN);
                 break;
 
             case ContactType.BLOCK:
                 ApplyHit(move.block);
                 m_Animator.Play("Block_Stun", 0, 0);
-                m_StateManager.SetState(FighterState.BLOCKSTUN);
+                m_StateManager.SetState(EntityState.BLOCKSTUN);
                 break;
 
             case ContactType.COUNTERHIT:
                 ApplyHit(move.counterHit);
                 SpawnPaint(move);
                 m_Animator.Play("Stun");
-                m_StateManager.SetState(FighterState.HITSTUN);
+                m_StateManager.SetState(EntityState.HITSTUN);
                 break;
         }
     }
 
     private ContactType CheckContactType(MoveData move)
     {
-        var isBlocking = m_StateManager.CurrentState == FighterState.BLOCK || 
-            m_StateManager.CurrentState == FighterState.BLOCKSTUN;
-        var isAttacking = m_StateManager.CurrentState == FighterState.ATTACK;
+        var isBlocking = m_StateManager.CurrentState == EntityState.BLOCK || 
+            m_StateManager.CurrentState == EntityState.BLOCKSTUN;
+        var isAttacking = m_StateManager.CurrentState == EntityState.ATTACK;
         var isUnblockable = move.moveType == MoveType.GRAB || move.moveFlags == MoveFlags.UNBLOCKABLE;
 
         if (isAttacking) return ContactType.COUNTERHIT;
@@ -107,7 +112,9 @@ public class Entity : MonoBehaviour
         if (m_StunTimer >= m_StunDuration)
         {
             m_StunTimer = 0f;
-            m_StateManager.ExitStun();
+            // Check if player is still blocking after stun
+            if (m_InputReader.Blocking) m_StateManager.SetState(EntityState.BLOCK);
+            else m_StateManager.SetState(EntityState.IDLE);
         }
     }
 
@@ -160,21 +167,13 @@ public class Entity : MonoBehaviour
 
     private void UpdateFacingDirection()
     {
-        if (IsInNeutral()) transform.localScale =
+        if (m_StateManager.IsInNeutral()) transform.localScale = 
                 new Vector3(FacingDirection, transform.localScale.y, transform.localScale.z);
     }
 
     private void UpdateAnimator()
     {
-        m_Animator.SetBool("InStun", IsInStun());
-        m_Animator.SetBool("IsBlocking", m_StateManager.CurrentState == FighterState.BLOCK);
+        m_Animator.SetBool("InStun", m_StateManager.IsInStun());
+        m_Animator.SetBool("IsBlocking", m_StateManager.CurrentState == EntityState.BLOCK);
     }
-
-    private bool IsInNeutral() =>
-        m_StateManager.CurrentState == FighterState.IDLE ||
-        m_StateManager.CurrentState == FighterState.BLOCK;
-
-    private bool IsInStun() =>
-        m_StateManager.CurrentState == FighterState.HITSTUN ||
-        m_StateManager.CurrentState == FighterState.BLOCKSTUN;
 }
