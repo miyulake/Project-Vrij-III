@@ -20,9 +20,8 @@ public class TwoDMovement : MonoBehaviour
         if (GameManager.Instance.MatchEnded)
         {
             rigidbodyTwoD.constraints = RigidbodyConstraints2D.FreezeAll;
-            return; // HACK
+            return;
         }
-
         inputDirection = CanMove() ? inputReader.Movement : Vector2.zero;
         Movement();
     }

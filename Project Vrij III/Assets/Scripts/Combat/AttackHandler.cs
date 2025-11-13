@@ -3,7 +3,8 @@
 public class AttackHandler : MonoBehaviour
 {
     [SerializeField] private Animator m_Animator;
-    [SerializeField] private float m_GenericCrossfade = 0.1f;
+    [Header("Buffer Settings")]
+    [SerializeField] private float m_BufferCrossfade = 0.1f;
     [Range(1, 10)] [SerializeField] private int m_BufferFrames = 10;
 
     private InputReader m_InputReader;
@@ -25,10 +26,24 @@ public class AttackHandler : MonoBehaviour
         m_AllMoves = Resources.LoadAll<MoveData>("MoveData");
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
-        // If we are hit or dead reset everything and return
-        if (m_StateManager.IsInStun() || m_StateManager.CurrentState == EntityState.DEAD)
+        // Only go through logic if the game is unpaused
+        if (Time.timeScale < 0.99f) return;
+
+        TickLogic();
+    }
+
+    // Not perfect, but can fix 1 frame inconsistencies
+    private void Update() => HandleHitboxActivation();
+
+    /// <summary>
+    /// Used in fixed update to ensure time step syncs with 60fps
+    /// </summary>
+    private void TickLogic()
+    {
+        // If we are hit or the match ended reset everything and return
+        if (m_StateManager.IsInStun() || GameManager.Instance.MatchEnded)
         {
             EndMove();
             return;
@@ -36,25 +51,14 @@ public class AttackHandler : MonoBehaviour
         // No current move -> check idle start or buffer
         if (m_CurrentMove == null)
         {
-            // Check buffer first at the end of a move
-            if (m_BufferedMove != null)
-            {
-                StartMove(m_BufferedMove, m_GenericCrossfade);
-                return;
-            }
-            // Check input and perform move from idle
             var idleMove = CheckForInitialInput();
-            if (idleMove != null)
-            {
-                StartMove(idleMove);
-                return;
-            }
+            if (idleMove != null) StartMove(idleMove);
             return;
         }
+        
+        ++m_CurrentFrame;
 
-        // Only count up the current frame when unpaused
-        if (Time.timeScale > 0.01f) ++m_CurrentFrame; 
-
+        //HandleHitboxActivation();
         CheckPostMoveBuffer();
         HandleCancelBuffering();
         HandleCancelExecution();
@@ -99,6 +103,32 @@ public class AttackHandler : MonoBehaviour
     {
         m_CurrentMove = null;
         m_BufferedCrossfade = 0f;
+        for (int i = 0; i < m_Hitboxes.Length; i++)
+            m_Hitboxes[i].gameObject.SetActive(false);
+
+        // Check buffer at the end of the current move
+        if (m_BufferedMove != null)
+        {
+            StartMove(m_BufferedMove, m_BufferCrossfade);
+            m_BufferedMove = null;
+        }
+    }
+
+    /// <summary>
+    /// Activate hitboxes during the active frames of the current move
+    /// </summary>
+    private void HandleHitboxActivation()
+    {
+        if (m_CurrentMove == null) return;
+
+        var isActive = m_CurrentMove.frames.IsActive(m_CurrentFrame);
+        var activeIndices = m_CurrentMove.hitboxIndices;
+
+        for (int i = 0; i < m_Hitboxes.Length; i++)
+        {
+            var shouldBeActive = isActive && activeIndices != null && System.Array.IndexOf(activeIndices, i) >= 0;
+            m_Hitboxes[i].gameObject.SetActive(shouldBeActive);
+        }
     }
 
     /// <summary>
@@ -106,7 +136,7 @@ public class AttackHandler : MonoBehaviour
     /// </summary>
     private MoveData CheckForInitialInput()
     {
-        if (!AnimatorUtils.IsInAnyState(m_Animator, AnimationHashes.Idle)) return null;
+        if (m_StateManager.CurrentState != EntityState.IDLE) return null;
 
         for (int i = 0; i < m_AllMoves.Length; i++)
         {

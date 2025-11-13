@@ -1,23 +1,31 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class Entity : MonoBehaviour
 {
     public int iD = 0;
-
+    [Space]
     [SerializeField] private Animator m_Animator;
     [SerializeField] private Rigidbody2D m_RigidbodyTwoD;
-    [SerializeField] private Transform m_Opponent, m_PaintLayer, m_ParticleSpawn;
-    [SerializeField] private Color m_OpponentColor = Color.red;
+    [SerializeField] private Transform m_Opponent, m_ParticleSpawn;
+    [SerializeField] private Slider m_HealthBar;
     [SerializeField] private AudioSource m_FighterAudio;
+
+    [Header("Paint Settings")]
+    [SerializeField] private Transform m_PaintLayer;
+    [SerializeField] private Color m_OpponentColor = Color.red;
+
+    [Header("Health Settings")]
+    [SerializeField] private int m_MaxHealth = 100;
+    private int m_CurrentHealth;
 
     private InputReader m_InputReader;
     private StateManager m_StateManager;
     private ShakeController m_Shake;
 
-    private float m_StunTimer;
-    private float m_StunDuration;
-    
+    private int m_StunFrames;
+
     private int FacingDirection => 
         transform.position.x < m_Opponent.position.x ? 1 : -1; // Returns 1 or -1 depending on facing direction
 
@@ -26,16 +34,31 @@ public class Entity : MonoBehaviour
         m_InputReader = GetComponent<InputReader>();
         m_StateManager = GetComponent<StateManager>();
         m_Shake = GetComponent<ShakeController>();
+        m_CurrentHealth = m_MaxHealth;
+        m_HealthBar.value = m_MaxHealth;
+    }
+
+    private void FixedUpdate()
+    {
+        // Only go through logic if the game is unpaused
+        if (Time.timeScale < 0.99f) return;
+
+        TickLogic();
+        if (m_StateManager.IsInNeutral()) HandleBlock(m_InputReader.Blocking);
     }
 
     private void Update()
     {
         if (m_InputReader.Restart) SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        if (m_StateManager.CurrentState == EntityState.DEAD) return;
-        if (m_StateManager.IsInNeutral()) HandleBlock(m_InputReader.Blocking);
-        if (m_StateManager.IsInStun()) HandleStun();
+        if (GameManager.Instance.MatchEnded) return;
         UpdateFacingDirection();
         UpdateAnimator();
+    }
+
+    private void TickLogic()
+    {
+        if (GameManager.Instance.MatchEnded) return;
+        if (m_StateManager.IsInStun()) HandleStun();
     }
 
     private void HandleBlock(bool isBlocking)
@@ -57,23 +80,33 @@ public class Entity : MonoBehaviour
         switch (contactType)
         {
             case ContactType.HIT:
-                ApplyHit(move.hit);
-                SpawnPaint(move);
-                m_Animator.Play("Stun", 0, 0);
                 m_StateManager.SetState(EntityState.HITSTUN);
+                ApplyHit(move.hit);
+                
+                if (GameManager.Instance.usePaint) SpawnPaint(move);
+                else ApplyDamage(move.hit);
+
+                m_Animator.Play("Stun", 0, 0);
                 break;
 
             case ContactType.BLOCK:
-                ApplyHit(move.block);
-                m_Animator.Play("Block_Stun", 0, 0);
                 m_StateManager.SetState(EntityState.BLOCKSTUN);
+                ApplyHit(move.block);
+
+                if (!GameManager.Instance.usePaint) ApplyDamage(move.block);
+
+                m_Animator.Play("Block_Stun", 0, 0);
                 break;
 
             case ContactType.COUNTERHIT:
-                ApplyHit(move.counterHit);
-                SpawnPaint(move);
-                m_Animator.Play("Stun");
                 m_StateManager.SetState(EntityState.HITSTUN);
+                ApplyHit(move.counterHit);
+                ApplyDamage(move.counterHit);
+
+                if (GameManager.Instance.usePaint) SpawnPaint(move);
+                else ApplyDamage(move.counterHit);
+
+                m_Animator.Play("Stun");
                 break;
         }
     }
@@ -87,32 +120,27 @@ public class Entity : MonoBehaviour
 
         if (isAttacking) return ContactType.COUNTERHIT;
         if (isBlocking && !isUnblockable) return ContactType.BLOCK;
-
         return ContactType.HIT;
     }
 
     private void ApplyHit(ContactData contact)
     {
-        var duration = contact.stun / 60f;
-        StartStun(duration);
+        StartStun(contact.stun);
         ApplyKnockback(contact);
         SpawnParticle(contact);
-        m_Shake.TriggerShake(m_StunDuration, contact.shakeMagnitude);
+
+        var stunDuration = contact.stun / 60f;
+        m_Shake.TriggerShake(stunDuration, contact.shakeMagnitude);
         m_FighterAudio.PlayOneShot(contact.sound);
     }
 
-    private void StartStun(float duration)
-    {
-        m_StunDuration = duration;
-        m_StunTimer = 0f;
-    }
+    private void StartStun(int frames) => m_StunFrames = frames;
 
     private void HandleStun()
     {
-        m_StunTimer += Time.deltaTime;
-        if (m_StunTimer >= m_StunDuration)
+        --m_StunFrames;
+        if (m_StunFrames <= 0)
         {
-            m_StunTimer = 0f;
             // Check if player is still blocking after stun
             if (m_InputReader.Blocking) m_StateManager.SetState(EntityState.BLOCK);
             else m_StateManager.SetState(EntityState.IDLE);
@@ -128,6 +156,19 @@ public class Entity : MonoBehaviour
         // Reset any previous velocity
         m_RigidbodyTwoD.linearVelocity = Vector2.zero;
         m_RigidbodyTwoD.AddForce(knockback, ForceMode2D.Impulse);
+    }
+
+    private void ApplyDamage(ContactData contact)
+    {
+        m_CurrentHealth -= contact.damage;
+        m_HealthBar.value = m_CurrentHealth;
+
+        if (m_CurrentHealth <= 0)
+        {
+            m_StateManager.SetState(EntityState.DEAD);
+            // We died so end the match
+            GameManager.Instance.EndMatch();
+        }
     }
 
     private Vector3 GetAdjustedScale(Vector3 scale) =>

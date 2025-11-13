@@ -19,9 +19,13 @@ public class MoveData : ScriptableObject
 
     [Header("Cancels")]
     public CancelOption[] cancelOptions;
+    public FrameRange blockCancelWindow;
 
     [Header("Paint")]
     public PaintData paintData;
+
+    [Header("Active Hitboxes")]
+    public int[] hitboxIndices;
 
     [Header("Animation")]
     public string animationName;

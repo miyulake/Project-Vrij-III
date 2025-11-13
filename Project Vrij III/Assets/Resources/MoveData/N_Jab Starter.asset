@@ -17,29 +17,29 @@ MonoBehaviour:
   input: 0
   startFromIdle: 1
   frames:
-    startup: 7
-    active: 2
-    recovery: 15
+    startup: 8
+    active: 1
+    recovery: 16
     cancel:
-      start: 24
-      end: 24
+      start: 25
+      end: 25
   hit:
-    stun: 25
-    damage: 0
+    stun: 24
+    damage: 2
     knockback: {x: 4, y: 0}
     shakeMagnitude: 0.02
     particleEffect: {fileID: 3432958286849152088, guid: 7ad1ce79196b5b84ebab3617e0ec2c3c, type: 3}
     sound: {fileID: 8300000, guid: 41c59cfb8a724174196704011dc50ef2, type: 3}
   block:
-    stun: 6
+    stun: 16
     damage: 0
     knockback: {x: 2, y: 0}
     shakeMagnitude: 0.01
     particleEffect: {fileID: 0}
     sound: {fileID: 8300000, guid: 88b8eee774e8cf5458405ec3d6c92590, type: 3}
   counterHit:
-    stun: 25
-    damage: 0
+    stun: 24
+    damage: 3
     knockback: {x: 4, y: 0}
     shakeMagnitude: 0.02
     particleEffect: {fileID: 3432958286849152088, guid: 7ad1ce79196b5b84ebab3617e0ec2c3c, type: 3}
@@ -47,8 +47,12 @@ MonoBehaviour:
   cancelOptions:
   - move: {fileID: 11400000, guid: fa31a0f6e9b5b5e4c980eeaca48795f3, type: 2}
     crossfadeDuration: 0.2
+  blockCancelWindow:
+    start: 0
+    end: 0
   paintData:
     paintPrefab: {fileID: 4182030647486133465, guid: 10dc592366224954b9ed4c6a2e434ad6, type: 3}
     offsetPosition: {x: 1, y: -0.5, z: 0}
     paintScale: {x: 2, y: 1.5, z: 0}
+  hitboxIndices: 00000000
   animationName: Combo_Attack_1

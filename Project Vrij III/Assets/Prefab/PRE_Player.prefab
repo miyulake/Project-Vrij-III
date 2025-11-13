@@ -690,10 +690,11 @@ GameObject:
   - component: {fileID: 4538461412856120102}
   - component: {fileID: 3353341615664399293}
   - component: {fileID: 8395209802988917830}
-  - component: {fileID: 1280255728880952227}
   - component: {fileID: 420104190912164710}
+  - component: {fileID: 1280255728880952227}
   - component: {fileID: 1801499076957440997}
   - component: {fileID: 26763770555577647}
+  - component: {fileID: 3649434061026812996}
   - component: {fileID: 8387632929233602559}
   - component: {fileID: 6727671721480798848}
   - component: {fileID: 8517446882342732937}
@@ -814,6 +815,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cefdac100f27b1d4498d167a1132887e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &420104190912164710
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2661417437704909611}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c19f79a32b7094649922707c1deced6a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FighterController
+  m_Animator: {fileID: 752103092993127942}
+  m_BufferCrossfade: 0.1
+  m_BufferFrames: 10
 --- !u!114 &1280255728880952227
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -830,25 +846,12 @@ MonoBehaviour:
   m_Animator: {fileID: 752103092993127942}
   m_RigidbodyTwoD: {fileID: 5857387183413530615}
   m_Opponent: {fileID: 0}
-  m_PaintLayer: {fileID: 0}
   m_ParticleSpawn: {fileID: 3112636467991651300}
-  m_OpponentColor: {r: 0, g: 0, b: 1, a: 1}
+  m_HealthBar: {fileID: 0}
   m_FighterAudio: {fileID: 5116616940603786591}
---- !u!114 &420104190912164710
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2661417437704909611}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c19f79a32b7094649922707c1deced6a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::FighterController
-  m_Animator: {fileID: 752103092993127942}
-  m_GenericCrossfade: 0.1
-  m_BufferFrames: 10
+  m_PaintLayer: {fileID: 0}
+  m_OpponentColor: {r: 0, g: 0, b: 1, a: 1}
+  m_MaxHealth: 100
 --- !u!114 &1801499076957440997
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -880,6 +883,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   entity: {fileID: 1280255728880952227}
+--- !u!114 &3649434061026812996
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2661417437704909611}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21c99404cbde38f47a12c995240d4b35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EntityVisuals
+  M_EyeMeshes:
+  - {fileID: 782663718256898033}
+  - {fileID: 1617305766093429003}
+  m_DeadMaterial: {fileID: 2100000, guid: 4905789540b1c844ab2afaf3c81e9701, type: 2}
 --- !u!114 &8387632929233602559
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1562,7 +1581,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 1710
+  m_VersionIndex: 1713
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -1694,6 +1713,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed57a0dae0d0d8c4d8af5d3b1c66d401, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Entity: {fileID: 1280255728880952227}
 --- !u!70 &3107905714193689731
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -1904,6 +1924,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed57a0dae0d0d8c4d8af5d3b1c66d401, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Entity: {fileID: 1280255728880952227}
 --- !u!70 &8988353681240012734
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -2854,7 +2875,7 @@ Animator:
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
+  m_AnimatePhysics: 1
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
@@ -3304,7 +3325,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 642
+  m_VersionIndex: 645
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []

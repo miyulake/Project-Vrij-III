@@ -5,8 +5,12 @@ using TMPro;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
-    public StateManager[] Entities { get; private set; }
     public bool MatchEnded { get; private set; } = false;
+
+    [Header("Game Mode")]
+    public bool usePaint = true;
+
+    [Header("Events")]
     [SerializeField] private UnityEvent m_OnMatchEnd;
 
     [Header("Game Settings")]
@@ -23,8 +27,6 @@ public class GameManager : MonoBehaviour
     {
         Application.targetFrameRate = m_FrameRate;
         StartMatch();
-        m_TextMesh.text = m_MatchTimer.ToString("0.00");
-        Entities = FindObjectsByType<StateManager>(FindObjectsSortMode.None);
     }
 
     private void Update() => HandleMatchTimer();
@@ -48,6 +50,7 @@ public class GameManager : MonoBehaviour
     {
         MatchEnded = false;
         m_MatchTimer = m_MatchTime;
+        m_TextMesh.text = m_MatchTimer.ToString("00");
     }
 
     public void EndMatch()
@@ -55,11 +58,5 @@ public class GameManager : MonoBehaviour
         m_OnMatchEnd.Invoke();
         PaintManager.Instance.GetCoverageResult();
         MatchEnded = true;
-    }
-
-    public void KillEntities()
-    {
-        for (int i = 0; i < Entities.Length; i++)
-            Entities[i].SetState(EntityState.DEAD);
     }
 }
