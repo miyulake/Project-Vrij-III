@@ -80,32 +80,25 @@ public class Entity : MonoBehaviour
         {
             case ContactType.HIT:
                 m_StateManager.SetState(EntityState.HITSTUN);
-                ApplyHit(move.hit);
+                ApplyHit(move.hit, contactType);
                 
                 if (GameManager.Instance.usePaint) SpawnPaint(move);
                 else ApplyDamage(move.hit);
-
-                m_Animator.Play("Stun", 0, 0);
                 break;
 
             case ContactType.BLOCK:
                 m_StateManager.SetState(EntityState.BLOCKSTUN);
-                ApplyHit(move.block);
+                ApplyHit(move.block, contactType);
 
                 if (!GameManager.Instance.usePaint) ApplyDamage(move.block);
-
-                m_Animator.Play("Block_Stun", 0, 0);
                 break;
 
             case ContactType.COUNTERHIT:
                 m_StateManager.SetState(EntityState.HITSTUN);
-                ApplyHit(move.counterHit);
-                ApplyDamage(move.counterHit);
+                ApplyHit(move.counterHit, contactType);
 
                 if (GameManager.Instance.usePaint) SpawnPaint(move);
                 else ApplyDamage(move.counterHit);
-
-                m_Animator.Play("Stun");
                 break;
         }
     }
@@ -122,18 +115,18 @@ public class Entity : MonoBehaviour
         return ContactType.HIT;
     }
 
-    private void ApplyHit(ContactData contact)
+    private void ApplyHit(ContactData contact, ContactType type)
     {
-        StartStun(contact.stun);
+        m_StunFrames = contact.stun;
         ApplyKnockback(contact);
         SpawnParticle(contact);
 
-        var stunDuration = contact.stun / 60f;
+        var stunDuration = contact.stun * Time.fixedDeltaTime;
         m_Shake.TriggerShake(stunDuration, contact.shakeMagnitude);
+
+        m_Animator.Play(type == ContactType.BLOCK ? "Block_Stun" : "Stun", 0, 0);
         m_FighterAudio.PlayOneShot(contact.sound);
     }
-
-    private void StartStun(int frames) => m_StunFrames = frames;
 
     private void HandleStun()
     {
@@ -190,10 +183,11 @@ public class Entity : MonoBehaviour
         paint.transform.localScale = GetAdjustedScale(move.paintData.paintScale);
 
         // Set material color
+        var renderer = paint.GetComponent<Renderer>();
         var block = new MaterialPropertyBlock();
-        paint.GetComponent<Renderer>().GetPropertyBlock(block);
+        renderer.GetPropertyBlock(block);
         block.SetColor("_BaseColor", m_OpponentColor);
-        paint.GetComponent<Renderer>().SetPropertyBlock(block);
+        renderer.SetPropertyBlock(block);
     }
 
     private void SpawnParticle(ContactData contact)

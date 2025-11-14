@@ -4,31 +4,48 @@ using TMPro;
 
 public class ResultUI : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI winner;
-    [SerializeField] private TextMeshProUGUI p1Percent, p2Percent;
+    [SerializeField] private TextMeshProUGUI m_Winner;
+
+    [Header("Normal Results")]
+    [SerializeField] private StateManager m_PlayerOne;
+    [SerializeField] private StateManager m_PlayerTwo;
+
+    [Header("Paint Results")]
+    [SerializeField] private TextMeshProUGUI p1Percent;
+    [SerializeField] private TextMeshProUGUI p2Percent;
     [SerializeField] private Slider p1Slider, p2Slider;
     [SerializeField] private AnimationCurve resultCurve;
     [SerializeField] private float resultCurveDuration = 1f;
-
     private float resultCurveTime;
     private bool isAnimating = false;
     private bool hasRun = false;
 
     private void Update()
     {
-        if (GameManager.Instance.MatchEnded && !isAnimating && !hasRun) BeginResult();
-        if (isAnimating) AnimateResult();
+        if (GameManager.Instance.usePaint)
+        {
+            if (GameManager.Instance.MatchEnded && !isAnimating && !hasRun) BeginPaintResult();
+            if (isAnimating) AnimatePaintResult();
+        }
     }
 
-    private void BeginResult()
+    public void DisplayNormalResult()
+    {
+        m_Winner.text = 
+            (m_PlayerOne.CurrentState != EntityState.DEAD && m_PlayerTwo.CurrentState == EntityState.DEAD) ? "Red Wins!"  :
+            (m_PlayerOne.CurrentState == EntityState.DEAD && m_PlayerTwo.CurrentState != EntityState.DEAD) ? "Blue Wins!" :
+            "Draw";
+    }
+
+    private void BeginPaintResult()
     {
         hasRun = true;
-        winner.text = "";
+        m_Winner.text = "";
         resultCurveTime = 0f;
         isAnimating = true;
     }
 
-    private void AnimateResult()
+    private void AnimatePaintResult()
     {
         resultCurveTime += Time.deltaTime;
         var time = Mathf.Clamp01(resultCurveTime / resultCurveDuration);
@@ -42,7 +59,7 @@ public class ResultUI : MonoBehaviour
             isAnimating = false;
             p1Percent.text = $"{PaintManager.Instance.Player1Percentage}%";
             p2Percent.text = $"{PaintManager.Instance.Player2Percentage}%";
-            winner.text = PaintManager.Instance.WinText;
+            m_Winner.text = PaintManager.Instance.WinMessage;
         }
     }
 }

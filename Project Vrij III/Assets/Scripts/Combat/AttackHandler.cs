@@ -251,7 +251,9 @@ public class AttackHandler : MonoBehaviour
     /// <summary>
     /// Helper function for the Entity class
     /// </summary>
+    /*
     public bool CanBlockCancel() => 
         m_CurrentFrame >= m_CurrentMove.blockCancelWindow.start && 
         m_CurrentFrame < m_CurrentMove.blockCancelWindow.end;
+    */
 }

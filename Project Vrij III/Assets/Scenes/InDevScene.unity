@@ -1320,12 +1320,12 @@ GameObject:
   - component: {fileID: 360690973}
   - component: {fileID: 360690972}
   m_Layer: 5
-  m_Name: Attack Info P1
+  m_Name: Attack P1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &360690971
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1683,7 +1683,19 @@ MonoBehaviour:
   m_OnMatchEnd:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1323876374}
+      - m_Target: {fileID: 1947052116}
+        m_TargetAssemblyTypeName: ResultUI, Assembly-CSharp
+        m_MethodName: DisplayNormalResult
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 1328393634}
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
         m_Mode: 6
@@ -1887,7 +1899,7 @@ GameObject:
   - component: {fileID: 787699967}
   - component: {fileID: 787699968}
   m_Layer: 5
-  m_Name: Result Slider P1
+  m_Name: Paint Slider P1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1908,7 +1920,8 @@ RectTransform:
   - {fileID: 795456939}
   - {fileID: 1414565766}
   - {fileID: 196032755}
-  m_Father: {fileID: 1323876375}
+  - {fileID: 1193008832}
+  m_Father: {fileID: 1328393635}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -3224,7 +3237,7 @@ GameObject:
   - component: {fileID: 1146718660}
   - component: {fileID: 1146718659}
   m_Layer: 5
-  m_Name: Winner Display
+  m_Name: Win Message
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3359,7 +3372,7 @@ GameObject:
   - component: {fileID: 1150246064}
   - component: {fileID: 1150246065}
   m_Layer: 5
-  m_Name: Result Slider P2
+  m_Name: Paint Slider P2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3380,7 +3393,8 @@ RectTransform:
   - {fileID: 718707619}
   - {fileID: 1165837069}
   - {fileID: 1801981583}
-  m_Father: {fileID: 1323876375}
+  - {fileID: 1979895669}
+  m_Father: {fileID: 1328393635}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -3855,14 +3869,14 @@ RectTransform:
   m_GameObject: {fileID: 1193008831}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1323876375}
+  m_Father: {fileID: 787699967}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -425, y: -400.00003}
+  m_AnchoredPosition: {x: -34.99997, y: -0.000030517578}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1193008833
@@ -5125,7 +5139,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1323876375
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5138,12 +5152,46 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1146718661}
+  - {fileID: 1328393635}
+  m_Father: {fileID: 1177561868}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &1328393634
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1328393635}
+  m_Layer: 5
+  m_Name: Paint Result
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &1328393635
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1328393634}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
   - {fileID: 787699967}
   - {fileID: 1150246064}
-  - {fileID: 1979895669}
-  - {fileID: 1193008832}
-  - {fileID: 1146718661}
-  m_Father: {fileID: 1177561868}
+  m_Father: {fileID: 1323876375}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -5298,12 +5346,12 @@ GameObject:
   - component: {fileID: 1339951345}
   - component: {fileID: 1339951344}
   m_Layer: 5
-  m_Name: Damage Info P1
+  m_Name: Damage P1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1339951343
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5838,12 +5886,12 @@ GameObject:
   - component: {fileID: 1633310265}
   - component: {fileID: 1633310264}
   m_Layer: 5
-  m_Name: Combo Info P1
+  m_Name: Combo P1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1633310263
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6895,7 +6943,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 751ab7c02838cda439940de987fdf70c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  winner: {fileID: 1146718659}
+  m_Winner: {fileID: 1146718659}
+  m_PlayerOne: {fileID: 1124541091545670900}
+  m_PlayerTwo: {fileID: 1294490554}
   p1Percent: {fileID: 1193008833}
   p2Percent: {fileID: 1979895670}
   p1Slider: {fileID: 787699968}
@@ -6995,14 +7045,14 @@ RectTransform:
   m_GameObject: {fileID: 1979895668}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1323876375}
+  m_Father: {fileID: 1150246064}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 425, y: -400.00003}
+  m_AnchoredPosition: {x: 34.99997, y: -0.000030517578}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1979895670

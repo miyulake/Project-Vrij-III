@@ -3,7 +3,7 @@ using UnityEngine;
 public class PaintManager : MonoBehaviour
 {
     public static PaintManager Instance { get; private set; }
-    public string WinText { get; private set; }
+    public string WinMessage { get; private set; }
     public int Player1Percentage { get; private set; }
     public int Player2Percentage { get; private set; }
 
@@ -45,7 +45,7 @@ public class PaintManager : MonoBehaviour
         Player1Percentage = Mathf.RoundToInt(p1Count / (float)pixels.Length * 100f);
         Player2Percentage = Mathf.RoundToInt(p2Count / (float)pixels.Length * 100f);
 
-        WinText = 
+        WinMessage = 
             (Player1Percentage > Player2Percentage) ? "Red Wins!"  :
             (Player2Percentage > Player1Percentage) ? "Blue Wins!" :
             "Draw!";

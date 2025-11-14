@@ -19,7 +19,7 @@ public class MoveData : ScriptableObject
 
     [Header("Cancels")]
     public CancelOption[] cancelOptions;
-    public FrameRange blockCancelWindow;
+    //public FrameRange blockCancelWindow;
 
     [Header("Paint")]
     public PaintData paintData;

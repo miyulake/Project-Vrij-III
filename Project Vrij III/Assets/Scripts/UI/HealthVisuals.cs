@@ -17,10 +17,7 @@ public class HealthVisuals : MonoBehaviour
         m_DamageHealthP2.value = m_HealthP2.value;
     }
 
-    private void Update()
-    {
-        UpdateDamageBars();
-    }
+    private void Update() => UpdateDamageBars();
 
     private void UpdateDamageBars()
     {
