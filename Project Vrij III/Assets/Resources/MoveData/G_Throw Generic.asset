@@ -17,9 +17,9 @@ MonoBehaviour:
   input: 4
   startFromIdle: 1
   frames:
-    startup: 20
+    startup: 19
     active: 1
-    recovery: 39
+    recovery: 40
     cancel:
       start: 0
       end: 0
