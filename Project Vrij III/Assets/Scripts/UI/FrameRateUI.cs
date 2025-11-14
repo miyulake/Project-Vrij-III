@@ -19,7 +19,7 @@ public class FrameRateUI : MonoBehaviour
         if (accumulatedTime >= updateInterval)
         {
             averageFrameRate = framesCounted / accumulatedTime;
-            framerateTextMesh.text = Mathf.RoundToInt(averageFrameRate).ToString();
+            framerateTextMesh.text = $"{Mathf.RoundToInt(averageFrameRate)} fps";
 
             accumulatedTime = 0f;
             framesCounted = 0;
