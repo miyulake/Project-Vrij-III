@@ -29,7 +29,7 @@ public class AttackHandler : MonoBehaviour
     private void FixedUpdate()
     {
         // Only go through logic if the game is unpaused
-        if (Time.timeScale < 0.99f) return;
+        if (GameManager.Instance.IsPaused()) return;
 
         TickLogic();
     }
@@ -77,7 +77,7 @@ public class AttackHandler : MonoBehaviour
     /// <summary>
     /// Plays animation according to MoveData
     /// </summary>
-    public void StartMove(MoveData move, float crossfade = 0f)
+    private void StartMove(MoveData move, float crossfade = 0f)
     {
         if (move == null) return;
 
@@ -247,4 +247,11 @@ public class AttackHandler : MonoBehaviour
     {
         for (int i = 0; i < m_Hitboxes.Length; i++) m_Hitboxes[i].MoveData = move;
     }
+
+    /// <summary>
+    /// Helper function for the Entity class
+    /// </summary>
+    public bool CanBlockCancel() => 
+        m_CurrentFrame >= m_CurrentMove.blockCancelWindow.start && 
+        m_CurrentFrame < m_CurrentMove.blockCancelWindow.end;
 }

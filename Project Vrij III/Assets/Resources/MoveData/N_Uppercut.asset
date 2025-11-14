@@ -46,8 +46,8 @@ MonoBehaviour:
     sound: {fileID: 8300000, guid: c34be07ffd0974a4c984603354aff490, type: 3}
   cancelOptions: []
   blockCancelWindow:
-    start: 0
-    end: 0
+    start: 20
+    end: 40
   paintData:
     paintPrefab: {fileID: 4182030647486133465, guid: 199c361af2d798740b1b393ca19ce4ba, type: 3}
     offsetPosition: {x: 0.25, y: 1.5, z: 0}

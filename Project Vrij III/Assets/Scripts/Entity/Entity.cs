@@ -25,7 +25,6 @@ public class Entity : MonoBehaviour
     private ShakeController m_Shake;
 
     private int m_StunFrames;
-
     private int FacingDirection => 
         transform.position.x < m_Opponent.position.x ? 1 : -1; // Returns 1 or -1 depending on facing direction
 
@@ -41,7 +40,7 @@ public class Entity : MonoBehaviour
     private void FixedUpdate()
     {
         // Only go through logic if the game is unpaused
-        if (Time.timeScale < 0.99f) return;
+        if (GameManager.Instance.IsPaused()) return;
 
         TickLogic();
         if (m_StateManager.IsInNeutral()) HandleBlock(m_InputReader.Blocking);

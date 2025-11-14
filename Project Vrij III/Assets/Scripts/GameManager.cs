@@ -56,7 +56,9 @@ public class GameManager : MonoBehaviour
     public void EndMatch()
     {
         m_OnMatchEnd.Invoke();
-        PaintManager.Instance.GetCoverageResult();
+        if (usePaint) PaintManager.Instance.GetCoverageResult();
         MatchEnded = true;
     }
+
+    public bool IsPaused() => Time.timeScale < 0.99f;
 }
