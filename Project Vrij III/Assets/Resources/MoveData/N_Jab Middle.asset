@@ -47,9 +47,6 @@ MonoBehaviour:
   cancelOptions:
   - move: {fileID: 11400000, guid: a83a3da976c96654d81f28062a69153a, type: 2}
     crossfadeDuration: 0.2
-  blockCancelWindow:
-    start: 0
-    end: 0
   paintData:
     paintPrefab: {fileID: 4182030647486133465, guid: 10dc592366224954b9ed4c6a2e434ad6, type: 3}
     offsetPosition: {x: 1.5, y: -0.25, z: 0}

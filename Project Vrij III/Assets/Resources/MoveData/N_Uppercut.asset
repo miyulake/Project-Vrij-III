@@ -19,12 +19,12 @@ MonoBehaviour:
   frames:
     startup: 40
     active: 3
-    recovery: 17
+    recovery: 15
     cancel:
       start: 0
       end: 0
   hit:
-    stun: 55
+    stun: 50
     damage: 15
     knockback: {x: 5, y: 10}
     shakeMagnitude: 0.125
@@ -38,16 +38,13 @@ MonoBehaviour:
     particleEffect: {fileID: 0}
     sound: {fileID: 8300000, guid: 88b8eee774e8cf5458405ec3d6c92590, type: 3}
   counterHit:
-    stun: 55
+    stun: 50
     damage: 18
     knockback: {x: 5, y: 10}
     shakeMagnitude: 0.125
     particleEffect: {fileID: 3432958286849152088, guid: 7ad1ce79196b5b84ebab3617e0ec2c3c, type: 3}
     sound: {fileID: 8300000, guid: c34be07ffd0974a4c984603354aff490, type: 3}
   cancelOptions: []
-  blockCancelWindow:
-    start: 20
-    end: 40
   paintData:
     paintPrefab: {fileID: 4182030647486133465, guid: 199c361af2d798740b1b393ca19ce4ba, type: 3}
     offsetPosition: {x: 0.25, y: 1.5, z: 0}

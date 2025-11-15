@@ -24,7 +24,7 @@ MonoBehaviour:
       start: 0
       end: 0
   hit:
-    stun: 50
+    stun: 49
     damage: 1
     knockback: {x: 0, y: 0}
     shakeMagnitude: 0
@@ -45,9 +45,6 @@ MonoBehaviour:
     particleEffect: {fileID: 6710139492206580332, guid: 95b8d3d65b5d7f1409c4ed1723887826, type: 3}
     sound: {fileID: 8300000, guid: 20ebc85dae045da4da7f645f22a5e0f5, type: 3}
   cancelOptions: []
-  blockCancelWindow:
-    start: 0
-    end: 0
   paintData:
     paintPrefab: {fileID: 0}
     offsetPosition: {x: 0, y: 0, z: 0}

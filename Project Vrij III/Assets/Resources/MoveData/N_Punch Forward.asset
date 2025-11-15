@@ -38,7 +38,7 @@ MonoBehaviour:
     particleEffect: {fileID: 0}
     sound: {fileID: 8300000, guid: 88b8eee774e8cf5458405ec3d6c92590, type: 3}
   counterHit:
-    stun: 30
+    stun: 33
     damage: 12
     knockback: {x: 25, y: 0}
     shakeMagnitude: 0.15
