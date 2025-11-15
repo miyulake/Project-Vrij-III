@@ -39,11 +39,10 @@ public class Entity : MonoBehaviour
 
     private void FixedUpdate()
     {
-        // Only go through logic if the game is unpaused
-        if (GameManager.Instance.IsPaused()) return;
+        // Only go through logic if the game is still going or unpaused
+        if (GameManager.Instance.MatchEnded || GameManager.Instance.IsPaused()) return;
 
         TickLogic();
-        if (m_StateManager.IsInNeutral()) HandleBlock(m_InputReader.Blocking);
     }
 
     private void Update()
@@ -56,7 +55,7 @@ public class Entity : MonoBehaviour
 
     private void TickLogic()
     {
-        if (GameManager.Instance.MatchEnded) return;
+        if (m_StateManager.IsInNeutral()) HandleBlock(m_InputReader.Blocking);
         if (m_StateManager.IsInStun()) HandleStun();
     }
 
@@ -76,31 +75,23 @@ public class Entity : MonoBehaviour
 
     private void ApplyContact(MoveData move, ContactType contactType)
     {
-        switch (contactType)
+        ContactData contact = contactType switch
         {
-            case ContactType.HIT:
-                m_StateManager.SetState(EntityState.HITSTUN);
-                ApplyHit(move.hit, contactType);
-                
-                if (GameManager.Instance.usePaint) SpawnPaint(move);
-                else ApplyDamage(move.hit);
-                break;
+            ContactType.HIT        => move.hit,
+            ContactType.BLOCK      => move.block,
+            ContactType.COUNTERHIT => move.counterHit,
+            _                      => move.hit
+        };
 
-            case ContactType.BLOCK:
-                m_StateManager.SetState(EntityState.BLOCKSTUN);
-                ApplyHit(move.block, contactType);
+        if (contactType == ContactType.BLOCK) 
+            m_StateManager.SetState(EntityState.BLOCKSTUN);
+        else 
+            m_StateManager.SetState(EntityState.HITSTUN);
 
-                if (!GameManager.Instance.usePaint) ApplyDamage(move.block);
-                break;
+        ApplyHit(contact, contactType);
 
-            case ContactType.COUNTERHIT:
-                m_StateManager.SetState(EntityState.HITSTUN);
-                ApplyHit(move.counterHit, contactType);
-
-                if (GameManager.Instance.usePaint) SpawnPaint(move);
-                else ApplyDamage(move.counterHit);
-                break;
-        }
+        if (GameManager.Instance.usePaint) SpawnPaint(move);
+        else ApplyDamage(contact);
     }
 
     private ContactType CheckContactType(MoveData move)

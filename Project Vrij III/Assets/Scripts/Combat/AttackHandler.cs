@@ -28,14 +28,11 @@ public class AttackHandler : MonoBehaviour
 
     private void FixedUpdate()
     {
-        // Only go through logic if the game is unpaused
-        if (GameManager.Instance.IsPaused()) return;
+        // Only go through logic if the game is still going or unpaused
+        if (GameManager.Instance.MatchEnded || GameManager.Instance.IsPaused()) return;
 
         TickLogic();
     }
-
-    // Not perfect, but can fix 1 frame inconsistencies
-    private void Update() => HandleHitboxActivation();
 
     /// <summary>
     /// Used in fixed update to ensure time step syncs with 60fps
@@ -43,12 +40,13 @@ public class AttackHandler : MonoBehaviour
     private void TickLogic()
     {
         // If we are hit or the match ended reset everything and return
-        if (m_StateManager.IsInStun() || GameManager.Instance.MatchEnded)
+        if (m_StateManager.IsInStun())
         {
             EndMove();
             return;
         }
-        // No current move -> check idle start or buffer
+
+        // No current move = check idle start or buffer
         if (m_CurrentMove == null)
         {
             var idleMove = CheckForInitialInput();
@@ -56,22 +54,24 @@ public class AttackHandler : MonoBehaviour
             return;
         }
         
-        ++m_CurrentFrame;
-
-        //HandleHitboxActivation();
+        // Check logic
+        HandleHitboxActivation();
         CheckPostMoveBuffer();
         HandleCancelBuffering();
         HandleCancelExecution();
 
         // Track what state we are in based on the current frame
-        if (m_CurrentFrame > m_CurrentMove.frames.TotalFrames()) 
+        if (m_CurrentFrame >= m_CurrentMove.frames.TotalFrames()) 
         {
             EndMove();
-            m_StateManager.SetState(EntityState.IDLE);
-            return;
+            // If a buffered move didn't start, return to idle
+            if (m_CurrentMove == null) m_StateManager.SetState(EntityState.IDLE);
         }
-        if (m_CurrentMove.frames.IsRecovering(m_CurrentFrame) && m_StateManager.CurrentState != EntityState.RECOVER)  
+        else if (m_CurrentMove.frames.IsRecovering(m_CurrentFrame) && m_StateManager.CurrentState != EntityState.RECOVER)  
             m_StateManager.SetState(EntityState.RECOVER);
+
+        // Advance frame
+        ++m_CurrentFrame;
     }
 
     /// <summary>
@@ -83,7 +83,7 @@ public class AttackHandler : MonoBehaviour
 
         m_StateManager.SetState(EntityState.ATTACK);
         m_CurrentMove = move;
-        m_CurrentFrame = 0;
+        m_CurrentFrame = 1; // Account for frame 0 of logic
 
         if (!string.IsNullOrEmpty(move.animationName))
         {
@@ -97,12 +97,10 @@ public class AttackHandler : MonoBehaviour
     }
 
     /// <summary>
-    /// Resets move variables
+    /// Resets move variables. If a buffered move exists, start it immediately
     /// </summary>
     private void EndMove()
     {
-        m_CurrentMove = null;
-        m_BufferedCrossfade = 0f;
         for (int i = 0; i < m_Hitboxes.Length; i++)
             m_Hitboxes[i].gameObject.SetActive(false);
 
@@ -110,8 +108,12 @@ public class AttackHandler : MonoBehaviour
         if (m_BufferedMove != null)
         {
             StartMove(m_BufferedMove, m_BufferCrossfade);
-            m_BufferedMove = null;
+            return;
         }
+
+        // No buffered move = clear current move
+        m_CurrentMove = null;
+        m_BufferedCrossfade = 0f;
     }
 
     /// <summary>
@@ -140,9 +142,8 @@ public class AttackHandler : MonoBehaviour
 
         for (int i = 0; i < m_AllMoves.Length; i++)
         {
-            var move = m_AllMoves[i];
-            if (!move.startFromIdle) continue;
-            if (WasInputPressed(move.input)) return move;
+            if (!m_AllMoves[i].startFromIdle) continue;
+            if (WasInputPressed(m_AllMoves[i].input)) return m_AllMoves[i];
         }
         return null;
     }
@@ -247,13 +248,4 @@ public class AttackHandler : MonoBehaviour
     {
         for (int i = 0; i < m_Hitboxes.Length; i++) m_Hitboxes[i].MoveData = move;
     }
-
-    /// <summary>
-    /// Helper function for the Entity class
-    /// </summary>
-    /*
-    public bool CanBlockCancel() => 
-        m_CurrentFrame >= m_CurrentMove.blockCancelWindow.start && 
-        m_CurrentFrame < m_CurrentMove.blockCancelWindow.end;
-    */
 }
