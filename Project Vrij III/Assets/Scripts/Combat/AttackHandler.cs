@@ -61,7 +61,7 @@ public class AttackHandler : MonoBehaviour
         HandleCancelExecution();
 
         // Track what state we are in based on the current frame
-        if (m_CurrentFrame >= m_CurrentMove.frames.TotalFrames()) 
+        if (m_CurrentFrame >= m_CurrentMove.frames.TotalFrames()) // Shouldn't it be after the total frames???
         {
             EndMove();
             // If a buffered move didn't start, return to idle
@@ -123,7 +123,7 @@ public class AttackHandler : MonoBehaviour
     {
         if (m_CurrentMove == null) return;
 
-        var isActive = m_CurrentMove.frames.IsActive(m_CurrentFrame);
+        var isActive = m_CurrentMove.frames.IsActive(m_CurrentFrame - 2); // Terrible hack
         var activeIndices = m_CurrentMove.hitboxIndices;
 
         for (int i = 0; i < m_Hitboxes.Length; i++)
