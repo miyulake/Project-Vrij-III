@@ -6548,7 +6548,7 @@ GameObject:
   - component: {fileID: 1890154912}
   - component: {fileID: 1890154913}
   m_Layer: 5
-  m_Name: Health Player 2
+  m_Name: Health P2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6987,12 +6987,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d23dc769cda7ac240a50d8f92ab687f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HealthVisuals
-  m_P1: {fileID: 1124541091545670900}
-  m_P2: {fileID: 1294490554}
-  m_HealthP1: {fileID: 1221367758}
-  m_DamageHealthP1: {fileID: 730599629}
-  m_HealthP2: {fileID: 1890154913}
-  m_DamageHealthP2: {fileID: 1122812917}
+  m_PlayerOneUI:
+    state: {fileID: 1124541091545670900}
+    health: {fileID: 1221367758}
+    damageHealth: {fileID: 730599629}
+  m_PlayerTwoUI:
+    state: {fileID: 1294490554}
+    health: {fileID: 1890154913}
+    damageHealth: {fileID: 1122812917}
   m_DrainCurve:
     serializedVersion: 2
     m_Curve:
@@ -7017,7 +7019,9 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  m_Duration: 0.33
+  m_DrainDuration: 0.5
+  m_ShakeDuration: 0.2
+  m_ShakeStrength: 10
 --- !u!1 &1979895668
 GameObject:
   m_ObjectHideFlags: 0

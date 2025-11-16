@@ -3,47 +3,97 @@ using UnityEngine.UI;
 
 public class HealthVisuals : MonoBehaviour
 {
-    [SerializeField] private StateManager m_P1, m_P2;
-    [SerializeField] private Slider m_HealthP1, m_DamageHealthP1;
-    [SerializeField] private Slider m_HealthP2, m_DamageHealthP2;
+    [SerializeField] private HealthUI m_PlayerOneUI;
+    [SerializeField] private HealthUI m_PlayerTwoUI;
+
     [SerializeField] private AnimationCurve m_DrainCurve;
-    [SerializeField] private float m_Duration = 0.5f;
-    private float m_StartP1, m_TargetP1, m_TimerP1;
-    private float m_StartP2, m_TargetP2, m_TimerP2;
+    [SerializeField] private float m_DrainDuration = 0.5f;
+
+    [SerializeField] private float m_ShakeDuration = 0.2f;
+    [SerializeField] private float m_ShakeStrength = 10f;
 
     private void Start()
     {
-        m_DamageHealthP1.value = m_HealthP1.value;
-        m_DamageHealthP2.value = m_HealthP2.value;
+        m_PlayerOneUI.Initialize();
+        m_PlayerTwoUI.Initialize();
     }
 
-    private void Update() => UpdateDamageBars();
-
-    private void UpdateDamageBars()
+    private void Update()
     {
-        // Player 1
-        if (m_DamageHealthP1.value > m_HealthP1.value && !m_P1.IsInStun())
+        m_PlayerOneUI.UpdateAll(Time.deltaTime, m_DrainDuration, m_ShakeDuration, m_ShakeStrength, m_DrainCurve);
+        m_PlayerTwoUI.UpdateAll(Time.deltaTime, m_DrainDuration, m_ShakeDuration, m_ShakeStrength, m_DrainCurve);
+    }
+
+    [System.Serializable]
+    private class HealthUI
+    {
+        public StateManager state;
+        public Slider health;
+        public Slider damageHealth;
+
+        private float start;
+        private float target;
+        private float timer;
+
+        private float lastHealth;
+        private float shakeTimer;
+        private Vector2 originalPos;
+        private RectTransform barTransform;
+
+        public void Initialize()
         {
-            if (m_HealthP1.value != m_TargetP1)
-            {
-                m_StartP1 = m_DamageHealthP1.value;
-                m_TargetP1 = m_HealthP1.value;
-                m_TimerP1 = 0;
-            }
-            m_TimerP1 += Time.deltaTime;
-            m_DamageHealthP1.value = Mathf.Lerp(m_StartP1, m_TargetP1, m_DrainCurve.Evaluate(Mathf.Clamp01(m_TimerP1 / m_Duration)));
+            barTransform = (RectTransform)health.transform;
+            originalPos = barTransform.anchoredPosition;
+            lastHealth = health.value;
+            damageHealth.value = health.value;
         }
-        // Player 2
-        if (m_DamageHealthP2.value > m_HealthP2.value && !m_P2.IsInStun())
+
+        public void UpdateAll(float deltaTime, float drainDuration, float shakeDuration, float shakeStrength, AnimationCurve drainCurve)
         {
-            if (m_HealthP2.value != m_TargetP2)
+            UpdateDamage(deltaTime, drainDuration, drainCurve);
+            UpdateShake(deltaTime, shakeDuration, shakeStrength);
+            DetectHealthChange(shakeDuration);
+        }
+
+        private void UpdateDamage(float deltaTime, float drainDuration, AnimationCurve drainCurve)
+        {
+            if (damageHealth.value > health.value && !state.IsInStun())
             {
-                m_StartP2 = m_DamageHealthP2.value;
-                m_TargetP2 = m_HealthP2.value;
-                m_TimerP2 = 0;
+                if (health.value != target)
+                {
+                    start = damageHealth.value;
+                    target = health.value;
+                    timer = 0;
+                }
+
+                timer += deltaTime;
+                var time = Mathf.Clamp01(timer / drainDuration);
+                damageHealth.value = Mathf.Lerp(start, target, drainCurve.Evaluate(time));
             }
-            m_TimerP2 += Time.deltaTime;
-            m_DamageHealthP2.value = Mathf.Lerp(m_StartP2, m_TargetP2, m_DrainCurve.Evaluate(Mathf.Clamp01(m_TimerP2 / m_Duration)));
+        }
+
+        private void UpdateShake(float deltaTime, float shakeDuration, float shakeStrength)
+        {
+            if (shakeTimer > 0)
+            {
+                shakeTimer -= deltaTime;
+
+                var time = shakeTimer / shakeDuration;
+                var offset = Random.insideUnitCircle * (time * shakeStrength);
+
+                barTransform.anchoredPosition = originalPos + offset;
+
+                if (shakeTimer <= 0) barTransform.anchoredPosition = originalPos;
+            }
+        }
+
+        private void DetectHealthChange(float shakeDuration)
+        {
+            if (health.value != lastHealth)
+            {
+                shakeTimer = shakeDuration;
+                lastHealth = health.value;
+            }
         }
     }
 }
