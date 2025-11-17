@@ -21,7 +21,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int m_MatchTime = 60;
     private float m_MatchTimer;
 
-    private void Awake() => Instance = this;
+    private void Awake() 
+    {
+        Instance = this;
+        Time.fixedDeltaTime = 1f / m_FrameRate;
+    }
 
     private void Start()
     {

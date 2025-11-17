@@ -55,13 +55,13 @@ public class AttackHandler : MonoBehaviour
         }
         
         // Check logic
-        HandleHitboxActivation();
+        //HandleHitboxActivation();
         CheckPostMoveBuffer();
         HandleCancelBuffering();
         HandleCancelExecution();
 
         // Track what state we are in based on the current frame
-        if (m_CurrentFrame >= m_CurrentMove.frames.TotalFrames()) // Shouldn't it be after the total frames???
+        if (m_CurrentFrame > m_CurrentMove.frames.TotalFrames()) // NOTE: >= Hack I think?
         {
             EndMove();
             // If a buffered move didn't start, return to idle
@@ -83,7 +83,7 @@ public class AttackHandler : MonoBehaviour
 
         m_StateManager.SetState(EntityState.ATTACK);
         m_CurrentMove = move;
-        m_CurrentFrame = 1; // Account for frame 0 of logic
+        m_CurrentFrame = 1; // NOTE: Account for frame 0 of logic
 
         if (!string.IsNullOrEmpty(move.animationName))
         {
@@ -123,7 +123,7 @@ public class AttackHandler : MonoBehaviour
     {
         if (m_CurrentMove == null) return;
 
-        var isActive = m_CurrentMove.frames.IsActive(m_CurrentFrame - 2); // Terrible hack
+        var isActive = m_CurrentMove.frames.IsActive(m_CurrentFrame);
         var activeIndices = m_CurrentMove.hitboxIndices;
 
         for (int i = 0; i < m_Hitboxes.Length; i++)
