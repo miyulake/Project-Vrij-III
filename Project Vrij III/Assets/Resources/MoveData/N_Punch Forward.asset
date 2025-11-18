@@ -25,7 +25,7 @@ MonoBehaviour:
       end: 0
   hit:
     stun: 24
-    damage: 9
+    damage: 7
     knockback: {x: 15, y: 0}
     shakeMagnitude: 0.125
     particleEffect: {fileID: 3432958286849152088, guid: 7ad1ce79196b5b84ebab3617e0ec2c3c, type: 3}
@@ -39,7 +39,7 @@ MonoBehaviour:
     sound: {fileID: 8300000, guid: 88b8eee774e8cf5458405ec3d6c92590, type: 3}
   counterHit:
     stun: 35
-    damage: 12
+    damage: 10
     knockback: {x: 25, y: 0}
     shakeMagnitude: 0.15
     particleEffect: {fileID: 3432958286849152088, guid: 7ad1ce79196b5b84ebab3617e0ec2c3c, type: 3}
