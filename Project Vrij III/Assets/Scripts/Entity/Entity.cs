@@ -24,7 +24,12 @@ public class Entity : MonoBehaviour
     private StateManager m_StateManager;
     private ShakeController m_Shake;
 
+    public int ComboHits { get; private set; }
+    public int ComboDamage { get; private set; }
+    private string m_HitText;
+
     private int m_StunFrames;
+
     private int FacingDirection => 
         transform.position.x < m_Opponent.position.x ? 1 : -1; // Returns 1 or -1 depending on facing direction
 
@@ -83,10 +88,8 @@ public class Entity : MonoBehaviour
             _                      => move.hit
         };
 
-        if (contactType == ContactType.BLOCK) 
-            m_StateManager.SetState(EntityState.BLOCKSTUN);
-        else 
-            m_StateManager.SetState(EntityState.HITSTUN);
+        if (contactType == ContactType.BLOCK) m_StateManager.SetState(EntityState.BLOCKSTUN);
+        else m_StateManager.SetState(EntityState.HITSTUN);
 
         ApplyHit(contact, contactType);
 
@@ -115,6 +118,8 @@ public class Entity : MonoBehaviour
         var stunDuration = contact.stun * Time.fixedDeltaTime;
         m_Shake.TriggerShake(stunDuration, contact.shakeMagnitude);
 
+        if (type != ContactType.BLOCK) SetComboInfo(contact);
+
         m_Animator.Play(type == ContactType.BLOCK ? "Block_Stun" : "Stun", 0, 0);
         m_FighterAudio.PlayOneShot(contact.sound);
     }
@@ -124,6 +129,7 @@ public class Entity : MonoBehaviour
         --m_StunFrames;
         if (m_StunFrames <= 0)
         {
+            ResetComboInfo();
             // Check if player is still blocking after stun
             if (m_InputReader.Blocking) m_StateManager.SetState(EntityState.BLOCK);
             else m_StateManager.SetState(EntityState.IDLE);
@@ -201,5 +207,19 @@ public class Entity : MonoBehaviour
     {
         m_Animator.SetBool("InStun", m_StateManager.IsInStun());
         m_Animator.SetBool("IsBlocking", m_StateManager.CurrentState == EntityState.BLOCK);
+    }
+
+    private void SetComboInfo(ContactData contact)
+    {
+        // SET ATTACK INFO TEXT, EXAMPLE = COUNTER HIT
+        ++ComboHits;
+        ComboDamage += contact.damage;
+    }
+
+    private void ResetComboInfo()
+    {
+        m_HitText = "";
+        ComboHits = 0;
+        ComboDamage = 0;
     }
 }
