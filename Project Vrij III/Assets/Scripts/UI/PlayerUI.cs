@@ -22,7 +22,7 @@ public class PlayerUI : MonoBehaviour
         //public void SetAttackUI() => attackText.text = "";
         public void SetComboUI()
         {
-            if (opponentState.CurrentState == EntityState.HITSTUN)
+            if (opponentState.CurrentState == EntityState.HITSTUN && opponent.ComboHits > 1)
             {
                 comboText.text =
                     $"{opponent.ComboHits} Hit Combo \n {opponent.ComboDamage} Damage";
