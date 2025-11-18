@@ -24,7 +24,7 @@ MonoBehaviour:
       start: 0
       end: 0
   hit:
-    stun: 49
+    stun: 51
     damage: 2
     knockback: {x: 0, y: 0}
     shakeMagnitude: 0
@@ -38,7 +38,7 @@ MonoBehaviour:
     particleEffect: {fileID: 0}
     sound: {fileID: 0}
   counterHit:
-    stun: 63
+    stun: 65
     damage: 4
     knockback: {x: 0, y: 0}
     shakeMagnitude: 0

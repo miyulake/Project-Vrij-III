@@ -24,21 +24,21 @@ MonoBehaviour:
       start: 22
       end: 22
   hit:
-    stun: 23
+    stun: 25
     damage: 2
     knockback: {x: 4, y: 0}
     shakeMagnitude: 0.04
     particleEffect: {fileID: 3432958286849152088, guid: 7ad1ce79196b5b84ebab3617e0ec2c3c, type: 3}
     sound: {fileID: 8300000, guid: cf0a43e233eb901439dfa973d80a7014, type: 3}
   block:
-    stun: 9
+    stun: 11
     damage: 0
     knockback: {x: 2, y: 0}
     shakeMagnitude: 0.02
     particleEffect: {fileID: 0}
     sound: {fileID: 8300000, guid: 88b8eee774e8cf5458405ec3d6c92590, type: 3}
   counterHit:
-    stun: 23
+    stun: 25
     damage: 4
     knockback: {x: 4, y: 0}
     shakeMagnitude: 0.04
