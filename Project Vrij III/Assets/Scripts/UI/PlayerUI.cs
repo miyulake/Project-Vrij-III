@@ -20,7 +20,6 @@ public class PlayerUI : MonoBehaviour
         public StateManager opponentState;
         public Entity opponent;
         public TextMeshProUGUI attackText, comboText;
-        public UIEffectTweener effectTweener;
 
         private bool m_InCombo;
         private float m_ComboTimer;

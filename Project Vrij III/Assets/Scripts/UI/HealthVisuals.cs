@@ -29,7 +29,7 @@ public class HealthVisuals : MonoBehaviour
     {
         public StateManager state;
         public Slider health;
-        public Slider damageHealth;
+        public Slider ghostHealth;
 
         private float start;
         private float target;
@@ -45,30 +45,30 @@ public class HealthVisuals : MonoBehaviour
             barTransform = (RectTransform)health.transform;
             originalPos = barTransform.anchoredPosition;
             lastHealth = health.value;
-            damageHealth.value = health.value;
+            ghostHealth.value = health.value;
         }
 
         public void UpdateAll(float deltaTime, float drainDuration, float shakeDuration, float shakeStrength, AnimationCurve drainCurve)
         {
-            UpdateDamage(deltaTime, drainDuration, drainCurve);
+            UpdateGhostHealth(deltaTime, drainDuration, drainCurve);
             UpdateShake(deltaTime, shakeDuration, shakeStrength);
             DetectHealthChange(shakeDuration);
         }
 
-        private void UpdateDamage(float deltaTime, float drainDuration, AnimationCurve drainCurve)
+        private void UpdateGhostHealth(float deltaTime, float drainDuration, AnimationCurve drainCurve)
         {
-            if (damageHealth.value > health.value && !state.IsInStun())
+            if (ghostHealth.value > health.value && !state.IsInStun())
             {
                 if (health.value != target)
                 {
-                    start = damageHealth.value;
+                    start = ghostHealth.value;
                     target = health.value;
                     timer = 0;
                 }
 
                 timer += deltaTime;
                 var time = Mathf.Clamp01(timer / drainDuration);
-                damageHealth.value = Mathf.Lerp(start, target, drainCurve.Evaluate(time));
+                ghostHealth.value = Mathf.Lerp(start, target, drainCurve.Evaluate(time));
             }
         }
 
