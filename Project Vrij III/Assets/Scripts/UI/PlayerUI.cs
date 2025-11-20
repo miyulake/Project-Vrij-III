@@ -1,6 +1,5 @@
-using UnityEngine;
 using TMPro;
-using Coffee.UIEffects;
+using UnityEngine;
 
 public class PlayerUI : MonoBehaviour
 {
@@ -10,44 +9,37 @@ public class PlayerUI : MonoBehaviour
 
     private void Update()
     {
-        m_PlayerOneUI.HandleComboUI(m_DisplayDuration);
-        m_PlayerTwoUI.HandleComboUI(m_DisplayDuration);
+        m_PlayerOneUI.UpdateUI(PlayerManager.Instance.playerTwo.State, PlayerManager.Instance.playerTwo.Entity, 
+            m_DisplayDuration);
+        m_PlayerTwoUI.UpdateUI(PlayerManager.Instance.playerOne.State, PlayerManager.Instance.playerOne.Entity, 
+            m_DisplayDuration);
     }
 
     [System.Serializable]
     private class CombatUI
     {
-        public StateManager opponentState;
-        public Entity opponent;
         public TextMeshProUGUI attackText, comboText;
+        private float m_DisplayTimer;
 
-        private bool m_InCombo;
-        private float m_ComboTimer;
-
-        public void HandleComboUI(float timer)
+        public void UpdateUI(StateManager opponentState, Entity opponent, float timer)
         {
-            if (opponentState.CurrentState == EntityState.RECOVER) attackText.text = "Punish";
-            else if (opponentState.CurrentState == EntityState.ATTACK) attackText.text = "Counter";
-
-            if (opponentState.CurrentState == EntityState.HITSTUN && opponent.ComboHits > 1)
+            if (opponentState.CurrentState == EntityState.HITSTUN)
             {
-                m_ComboTimer = 0;
+                m_DisplayTimer = 0;
 
-                comboText.text =
-                    $"{opponent.ComboHits} Hit Combo \n {opponent.ComboDamage} Damage";
+                if (opponent.HitType == ContactType.COUNTER) attackText.text = "Counter";
+                else if (opponent.HitType == ContactType.PUNISH) attackText.text = "Punish";
 
-                m_InCombo = true;
+                if (opponent.RecievedComboHits > 1)
+                    comboText.text = $"{opponent.RecievedComboHits} Hit Combo\n{opponent.RecievedComboDamage} Damage";
+
+                return;
             }
-            else m_InCombo = false;
-
-            if (!m_InCombo)
+            m_DisplayTimer += Time.deltaTime;
+            if (m_DisplayTimer >= timer)
             {
-                m_ComboTimer += Time.deltaTime;
-                if (m_ComboTimer >= timer)
-                {
-                    attackText.text = "";
-                    comboText.text = "";
-                }
+                attackText.text = "";
+                comboText.text = "";
             }
         }
     }

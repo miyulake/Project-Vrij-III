@@ -1,6 +1,7 @@
 public enum ContactType
 {
-    HIT,
+    NORMAL,
     BLOCK,
-    COUNTERHIT
+    COUNTER,
+    PUNISH
 }

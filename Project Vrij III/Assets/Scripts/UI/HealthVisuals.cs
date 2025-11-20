@@ -5,12 +5,7 @@ public class HealthVisuals : MonoBehaviour
 {
     [SerializeField] private HealthUI m_PlayerOneUI;
     [SerializeField] private HealthUI m_PlayerTwoUI;
-
-    [SerializeField] private AnimationCurve m_DrainCurve;
-    [SerializeField] private float m_DrainDuration = 0.5f;
-
-    [SerializeField] private float m_ShakeDuration = 0.2f;
-    [SerializeField] private float m_ShakeStrength = 10f;
+    [SerializeField] private HealthUIConfig m_Config;
 
     private void Start()
     {
@@ -20,14 +15,22 @@ public class HealthVisuals : MonoBehaviour
 
     private void Update()
     {
-        m_PlayerOneUI.UpdateAll(Time.deltaTime, m_DrainDuration, m_ShakeDuration, m_ShakeStrength, m_DrainCurve);
-        m_PlayerTwoUI.UpdateAll(Time.deltaTime, m_DrainDuration, m_ShakeDuration, m_ShakeStrength, m_DrainCurve);
+        m_PlayerOneUI.UpdateAll(Time.deltaTime, m_Config, PlayerManager.Instance.playerOne.State);
+        m_PlayerTwoUI.UpdateAll(Time.deltaTime, m_Config, PlayerManager.Instance.playerTwo.State);
+    }
+
+    [System.Serializable]
+    private class HealthUIConfig
+    {
+        public float drainDuration = 0.5f;
+        public float shakeDuration = 0.2f;
+        public float shakeStrength = 10f;
+        public AnimationCurve drainCurve;
     }
 
     [System.Serializable]
     private class HealthUI
     {
-        public StateManager state;
         public Slider health;
         public Slider ghostHealth;
 
@@ -48,14 +51,14 @@ public class HealthVisuals : MonoBehaviour
             ghostHealth.value = health.value;
         }
 
-        public void UpdateAll(float deltaTime, float drainDuration, float shakeDuration, float shakeStrength, AnimationCurve drainCurve)
+        public void UpdateAll(float deltaTime, HealthUIConfig config, StateManager state)
         {
-            UpdateGhostHealth(deltaTime, drainDuration, drainCurve);
-            UpdateShake(deltaTime, shakeDuration, shakeStrength);
-            DetectHealthChange(shakeDuration);
+            UpdateGhostHealth(deltaTime, config, state);
+            UpdateShake(deltaTime, config.shakeDuration, config.shakeStrength);
+            DetectHealthChange(config.shakeDuration);
         }
 
-        private void UpdateGhostHealth(float deltaTime, float drainDuration, AnimationCurve drainCurve)
+        private void UpdateGhostHealth(float deltaTime, HealthUIConfig config, StateManager state)
         {
             if (ghostHealth.value > health.value && !state.IsInStun())
             {
@@ -67,8 +70,8 @@ public class HealthVisuals : MonoBehaviour
                 }
 
                 timer += deltaTime;
-                var time = Mathf.Clamp01(timer / drainDuration);
-                ghostHealth.value = Mathf.Lerp(start, target, drainCurve.Evaluate(time));
+                var time = Mathf.Clamp01(timer / config.drainDuration);
+                ghostHealth.value = Mathf.Lerp(start, target, config.drainCurve.Evaluate(time));
             }
         }
 

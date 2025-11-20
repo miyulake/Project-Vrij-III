@@ -6,60 +6,62 @@ public class ResultUI : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI m_Winner;
 
-    [Header("Normal Results")]
-    [SerializeField] private StateManager m_PlayerOne;
-    [SerializeField] private StateManager m_PlayerTwo;
-
     [Header("Paint Results")]
-    [SerializeField] private TextMeshProUGUI p1Percent;
-    [SerializeField] private TextMeshProUGUI p2Percent;
-    [SerializeField] private Slider p1Slider, p2Slider;
+    [SerializeField] private TextMeshProUGUI playerOnePercent;
+    [SerializeField] private TextMeshProUGUI playerTwoPercent;
+    [SerializeField] private Slider playerOneSlider, playerTwoSlider;
     [SerializeField] private AnimationCurve resultCurve;
     [SerializeField] private float resultCurveDuration = 1f;
-    private float resultCurveTime;
-    private bool isAnimating = false;
-    private bool hasRun = false;
+    private float startTime;
+    private bool started = false;
 
     private void Update()
     {
-        if (GameManager.Instance.usePaint)
+        if (!GameManager.Instance.usePaint || !GameManager.Instance.MatchEnded) return;
+
+        if (!started)
         {
-            if (GameManager.Instance.MatchEnded && !isAnimating && !hasRun) BeginPaintResult();
-            if (isAnimating) AnimatePaintResult();
+            BeginPaintResult();
+            return;
         }
+        AnimatePaintResult();
     }
 
     public void DisplayNormalResult()
     {
+        var playerOneState = PlayerManager.Instance.playerOne.State;   
+        var playerTwoState = PlayerManager.Instance.playerTwo.State;
+
         m_Winner.text = 
-            (m_PlayerOne.CurrentState != EntityState.DEAD && m_PlayerTwo.CurrentState == EntityState.DEAD) ? "Red Wins!"  :
-            (m_PlayerOne.CurrentState == EntityState.DEAD && m_PlayerTwo.CurrentState != EntityState.DEAD) ? "Blue Wins!" :
+            (playerOneState.CurrentState != EntityState.DEAD && playerTwoState.CurrentState == EntityState.DEAD) ? "Red Wins!"  :
+            (playerOneState.CurrentState == EntityState.DEAD && playerTwoState.CurrentState != EntityState.DEAD) ? "Blue Wins!" :
             "Draw";
     }
 
     private void BeginPaintResult()
     {
-        hasRun = true;
+        started = true;
         m_Winner.text = "";
-        resultCurveTime = 0f;
-        isAnimating = true;
+        startTime = Time.time;
+        playerOneSlider.value = 0;
+        playerTwoSlider.value = 0;
     }
 
     private void AnimatePaintResult()
     {
-        resultCurveTime += Time.deltaTime;
-        var time = Mathf.Clamp01(resultCurveTime / resultCurveDuration);
+        var time = Mathf.Clamp01((Time.time - startTime) / resultCurveDuration);
         var curve = resultCurve.Evaluate(time);
 
-        p1Slider.value = Mathf.Lerp(0, PaintManager.Instance.Player1Percentage, curve);
-        p2Slider.value = Mathf.Lerp(0, PaintManager.Instance.Player2Percentage, curve);
+        var paintManager = PaintManager.Instance;
+        var playerOneResult = paintManager.PlayerOnePercentage;
+        var playerTwoResult = paintManager.PlayerTwoPercentage;
 
-        if (time >= 1f)
-        {
-            isAnimating = false;
-            p1Percent.text = $"{PaintManager.Instance.Player1Percentage}%";
-            p2Percent.text = $"{PaintManager.Instance.Player2Percentage}%";
-            m_Winner.text = PaintManager.Instance.WinMessage;
-        }
+        playerOneSlider.value = playerOneResult * curve;
+        playerTwoSlider.value = playerTwoResult * curve;
+
+        playerOnePercent.text = $"{Mathf.RoundToInt(playerOneSlider.value)}%";
+        playerTwoPercent.text = $"{Mathf.RoundToInt(playerTwoSlider.value)}%";
+
+        if (time >= 1f) m_Winner.text = paintManager.WinMessage;
     }
 }

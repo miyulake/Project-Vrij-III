@@ -24,9 +24,9 @@ public class Entity : MonoBehaviour
     private StateManager m_StateManager;
     private ShakeController m_Shake;
 
-    public int ComboHits { get; private set; }
-    public int ComboDamage { get; private set; }
-    private string m_HitText;
+    public ContactType HitType { get; private set; }
+    public int RecievedComboHits { get; private set; }
+    public int RecievedComboDamage { get; private set; }
 
     private int m_StunFrames;
 
@@ -80,12 +80,15 @@ public class Entity : MonoBehaviour
 
     private void ApplyContact(MoveData move, ContactType contactType)
     {
+        HitType = contactType;
+
         ContactData contact = contactType switch
         {
-            ContactType.HIT        => move.hit,
-            ContactType.BLOCK      => move.block,
-            ContactType.COUNTERHIT => move.counterHit,
-            _                      => move.hit
+            ContactType.NORMAL        => move.hit,
+            ContactType.BLOCK         => move.block,
+            ContactType.COUNTER       => move.counterHit,
+            ContactType.PUNISH        => move.hit,
+            _                         => move.hit
         };
 
         if (contactType == ContactType.BLOCK) m_StateManager.SetState(EntityState.BLOCKSTUN);
@@ -100,13 +103,16 @@ public class Entity : MonoBehaviour
     private ContactType CheckContactType(MoveData move)
     {
         var isBlocking = m_StateManager.CurrentState == EntityState.BLOCK || 
-            m_StateManager.CurrentState == EntityState.BLOCKSTUN;
+                             m_StateManager.CurrentState == EntityState.BLOCKSTUN;
         var isAttacking = m_StateManager.CurrentState == EntityState.ATTACK;
-        var isUnblockable = move.moveType == MoveType.GRAB || move.moveFlags == MoveFlags.UNBLOCKABLE;
+        var isRecovering = m_StateManager.CurrentState == EntityState.RECOVER;
+        var isUnblockable = move.moveType == MoveType.GRAB || 
+                                move.moveFlags == MoveFlags.UNBLOCKABLE;
 
-        if (isAttacking) return ContactType.COUNTERHIT;
+        if (isAttacking) return ContactType.COUNTER;
+        if (isRecovering) return ContactType.PUNISH;
         if (isBlocking && !isUnblockable) return ContactType.BLOCK;
-        return ContactType.HIT;
+        return ContactType.NORMAL;
     }
 
     private void ApplyHit(ContactData contact, ContactType type)
@@ -212,14 +218,13 @@ public class Entity : MonoBehaviour
     private void SetComboInfo(ContactData contact)
     {
         // SET ATTACK INFO TEXT, EXAMPLE = COUNTER HIT
-        ++ComboHits;
-        ComboDamage += contact.damage;
+        ++RecievedComboHits;
+        RecievedComboDamage += contact.damage;
     }
 
     private void ResetComboInfo()
     {
-        m_HitText = "";
-        ComboHits = 0;
-        ComboDamage = 0;
+        RecievedComboHits = 0;
+        RecievedComboDamage = 0;
     }
 }
