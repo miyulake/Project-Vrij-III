@@ -8,7 +8,7 @@ public class ThrowLogic : MonoBehaviour
 
     private void Start() => playerCollider = GetComponent<CapsuleCollider2D>();
 
-    private void Update() => HandleThrow(); // The worst solution of all time award
+    private void Update() => HandleThrow(); // REFACTOR THIS
 
     private void HandleThrow()
     {

@@ -9,10 +9,8 @@ public class PlayerUI : MonoBehaviour
 
     private void Update()
     {
-        m_PlayerOneUI.UpdateUI(PlayerManager.Instance.playerTwo.State, PlayerManager.Instance.playerTwo.Entity, 
-            m_DisplayDuration);
-        m_PlayerTwoUI.UpdateUI(PlayerManager.Instance.playerOne.State, PlayerManager.Instance.playerOne.Entity, 
-            m_DisplayDuration);
+        m_PlayerOneUI.UpdateUI(PlayerManager.Instance.playerTwo, m_DisplayDuration);
+        m_PlayerTwoUI.UpdateUI(PlayerManager.Instance.playerOne, m_DisplayDuration);
     }
 
     [System.Serializable]
@@ -21,20 +19,27 @@ public class PlayerUI : MonoBehaviour
         public TextMeshProUGUI attackText, comboText;
         private float m_DisplayTimer;
 
-        public void UpdateUI(StateManager opponentState, Entity opponent, float timer)
+        public void UpdateUI(EntityManager manager, float timer)
         {
-            if (opponentState.CurrentState == EntityState.HITSTUN)
+            if (manager.Entity.RecievedComboHits == 1) // Reset on first hit and set after
+            {
+                attackText.text = "";
+                comboText.text = "";
+            }
+
+            if (manager.State.CurrentState == EntityState.HITSTUN)
             {
                 m_DisplayTimer = 0;
 
-                if (opponent.HitType == ContactType.COUNTER) attackText.text = "Counter";
-                else if (opponent.HitType == ContactType.PUNISH) attackText.text = "Punish";
+                if (manager.Entity.HitType == ContactType.COUNTER) attackText.text = "Counter";
+                else if (manager.Entity.HitType == ContactType.PUNISH) attackText.text = "Punish";
 
-                if (opponent.RecievedComboHits > 1)
-                    comboText.text = $"{opponent.RecievedComboHits} Hit Combo\n{opponent.RecievedComboDamage} Damage";
+                if (manager.Entity.RecievedComboHits > 1)
+                    comboText.text = $"{manager.Entity.RecievedComboHits} Hit Combo\n{manager.Entity.RecievedComboDamage} Damage";
 
                 return;
             }
+
             m_DisplayTimer += Time.deltaTime;
             if (m_DisplayTimer >= timer)
             {

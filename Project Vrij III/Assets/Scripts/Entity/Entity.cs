@@ -1,6 +1,4 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 public class Entity : MonoBehaviour
 {
@@ -9,7 +7,6 @@ public class Entity : MonoBehaviour
     [SerializeField] private Animator m_Animator;
     [SerializeField] private Rigidbody2D m_RigidbodyTwoD;
     [SerializeField] private Transform m_Opponent, m_ParticleSpawn;
-    [SerializeField] private Slider m_HealthBar;
     [SerializeField] private AudioSource m_FighterAudio;
 
     [Header("Paint Settings")]
@@ -18,18 +15,16 @@ public class Entity : MonoBehaviour
 
     [Header("Health Settings")]
     [SerializeField] private int m_MaxHealth = 100;
-    private int m_CurrentHealth;
 
-    private InputReader m_InputReader;
-    private StateManager m_StateManager;
-    private ShakeController m_Shake;
-
+    public int CurrentHealth { get; private set; }
     public ContactType HitType { get; private set; }
     public int RecievedComboHits { get; private set; }
     public int RecievedComboDamage { get; private set; }
 
+    private InputReader m_InputReader;
+    private StateManager m_StateManager;
+    private ShakeController m_Shake;
     private int m_StunFrames;
-
     private int FacingDirection => 
         transform.position.x < m_Opponent.position.x ? 1 : -1; // Returns 1 or -1 depending on facing direction
 
@@ -38,8 +33,7 @@ public class Entity : MonoBehaviour
         m_InputReader = GetComponent<InputReader>();
         m_StateManager = GetComponent<StateManager>();
         m_Shake = GetComponent<ShakeController>();
-        m_CurrentHealth = m_MaxHealth;
-        m_HealthBar.value = m_MaxHealth;
+        CurrentHealth = m_MaxHealth;
     }
 
     private void FixedUpdate()
@@ -154,10 +148,9 @@ public class Entity : MonoBehaviour
 
     private void ApplyDamage(ContactData contact)
     {
-        m_CurrentHealth -= contact.damage;
-        m_HealthBar.value = m_CurrentHealth;
+        CurrentHealth -= contact.damage;
 
-        if (m_CurrentHealth <= 0)
+        if (CurrentHealth <= 0)
         {
             m_StateManager.SetState(EntityState.DEAD);
             // We died so end the match
@@ -216,7 +209,6 @@ public class Entity : MonoBehaviour
 
     private void SetComboInfo(ContactData contact)
     {
-        // SET ATTACK INFO TEXT, EXAMPLE = COUNTER HIT
         ++RecievedComboHits;
         RecievedComboDamage += contact.damage;
     }

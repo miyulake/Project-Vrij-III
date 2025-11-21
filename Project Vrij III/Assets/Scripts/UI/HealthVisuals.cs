@@ -15,8 +15,8 @@ public class HealthVisuals : MonoBehaviour
 
     private void Update()
     {
-        m_PlayerOneUI.UpdateAll(Time.deltaTime, m_Config, PlayerManager.Instance.playerOne.State);
-        m_PlayerTwoUI.UpdateAll(Time.deltaTime, m_Config, PlayerManager.Instance.playerTwo.State);
+        m_PlayerOneUI.UpdateAll(Time.deltaTime, m_Config, PlayerManager.Instance.playerOne);
+        m_PlayerTwoUI.UpdateAll(Time.deltaTime, m_Config, PlayerManager.Instance.playerTwo);
     }
 
     [System.Serializable]
@@ -51,16 +51,23 @@ public class HealthVisuals : MonoBehaviour
             ghostHealth.value = health.value;
         }
 
-        public void UpdateAll(float deltaTime, HealthUIConfig config, StateManager state)
+        public void UpdateAll(float deltaTime, HealthUIConfig config, EntityManager manager)
         {
-            UpdateGhostHealth(deltaTime, config, state);
+            health.value = manager.Entity.CurrentHealth;
+            UpdateGhostHealth(deltaTime, config, manager);
             UpdateShake(deltaTime, config.shakeDuration, config.shakeStrength);
             DetectHealthChange(config.shakeDuration);
         }
 
-        private void UpdateGhostHealth(float deltaTime, HealthUIConfig config, StateManager state)
+        private void UpdateGhostHealth(float deltaTime, HealthUIConfig config, EntityManager manager)
         {
-            if (ghostHealth.value > health.value && !state.IsInStun())
+            if (manager.Entity.RecievedComboHits == 1)
+            {
+                ghostHealth.value = health.value;
+                return;
+            }
+
+            if (ghostHealth.value > health.value && !manager.State.IsInStun())
             {
                 if (health.value != target)
                 {
