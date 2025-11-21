@@ -13,9 +13,6 @@ public class Entity : MonoBehaviour
     [SerializeField] private Transform m_PaintLayer;
     [SerializeField] private Color m_OpponentColor = Color.red;
 
-    [Header("Health Settings")]
-    [SerializeField] private int m_MaxHealth = 100;
-
     public int CurrentHealth { get; private set; }
     public ContactType HitType { get; private set; }
     public int RecievedComboHits { get; private set; }
@@ -33,7 +30,7 @@ public class Entity : MonoBehaviour
         m_InputReader = GetComponent<InputReader>();
         m_StateManager = GetComponent<StateManager>();
         m_Shake = GetComponent<ShakeController>();
-        CurrentHealth = m_MaxHealth;
+        CurrentHealth = GameManager.Instance.maxHealth;
     }
 
     private void FixedUpdate()

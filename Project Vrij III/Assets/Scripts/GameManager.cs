@@ -18,7 +18,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int m_FrameRate = 60;
 
     [Header("Match Settings")]
-    [SerializeField] private TextMeshProUGUI m_TextMesh;
+    public int maxHealth = 100;
+    [SerializeField] private TextMeshProUGUI m_TimerTextMesh;
     [SerializeField] private int m_MatchTime = 60;
     private float m_MatchTimer;
 
@@ -46,7 +47,7 @@ public class GameManager : MonoBehaviour
             m_MatchTimer = 0f;
             EndMatch();
         }
-        m_TextMesh.text = m_MatchTimer.ToString("00");
+        m_TimerTextMesh.text = m_MatchTimer.ToString("00");
     }
 
     public void SetMatchState(bool matchState) => MatchEnded = matchState;
@@ -55,7 +56,7 @@ public class GameManager : MonoBehaviour
     {
         MatchEnded = false;
         m_MatchTimer = m_MatchTime;
-        m_TextMesh.text = m_MatchTimer.ToString("00");
+        m_TimerTextMesh.text = m_MatchTimer.ToString("00");
     }
 
     public void EndMatch()

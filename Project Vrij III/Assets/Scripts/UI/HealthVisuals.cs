@@ -47,8 +47,8 @@ public class HealthVisuals : MonoBehaviour
         {
             barTransform = (RectTransform)health.transform;
             originalPos = barTransform.anchoredPosition;
+            SliderSetup();
             lastHealth = health.value;
-            ghostHealth.value = health.value;
         }
 
         public void UpdateAll(float deltaTime, HealthUIConfig config, EntityManager manager)
@@ -104,6 +104,14 @@ public class HealthVisuals : MonoBehaviour
                 shakeTimer = shakeDuration;
                 lastHealth = health.value;
             }
+        }
+
+        private void SliderSetup()
+        {
+            health.maxValue = GameManager.Instance.maxHealth;
+            health.value = health.maxValue;
+            ghostHealth.maxValue = health.maxValue;
+            ghostHealth.value = health.value;
         }
     }
 }
