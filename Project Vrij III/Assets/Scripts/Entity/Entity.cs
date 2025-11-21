@@ -3,6 +3,10 @@ using UnityEngine;
 public class Entity : MonoBehaviour
 {
     public int iD = 0;
+    public int CurrentHealth { get; private set; }
+    public ContactType HitType { get; private set; }
+    public int RecievedComboHits { get; private set; }
+    public int RecievedComboDamage { get; private set; }
     [Space]
     [SerializeField] private Animator m_Animator;
     [SerializeField] private Rigidbody2D m_RigidbodyTwoD;
@@ -13,14 +17,17 @@ public class Entity : MonoBehaviour
     [SerializeField] private Transform m_PaintLayer;
     [SerializeField] private Color m_OpponentColor = Color.red;
 
-    public int CurrentHealth { get; private set; }
-    public ContactType HitType { get; private set; }
-    public int RecievedComboHits { get; private set; }
-    public int RecievedComboDamage { get; private set; }
+    [Header("Turn Settings")]
+    [SerializeField] private AnimationCurve m_TurnCurve;
+    [Range(0.05f, 0.25f)] [SerializeField] private float m_TurnDuration = 0.2f;
+    private int m_CurrentFacing = 1; 
+    private float m_TurnTime = -1f;
+    private float m_StartY;
 
     private InputReader m_InputReader;
     private StateManager m_StateManager;
     private ShakeController m_Shake;
+
     private int m_StunFrames;
     private int FacingDirection => 
         transform.position.x < m_Opponent.position.x ? 1 : -1; // Returns 1 or -1 depending on facing direction
@@ -44,7 +51,9 @@ public class Entity : MonoBehaviour
     private void Update()
     {
         if (GameManager.Instance.MatchEnded) return;
-        UpdateFacingDirection();
+        //UpdateFacingDirection();
+        CheckTurnNeeded();
+        UpdateTurnRotation();
         UpdateAnimator();
     }
 
@@ -197,6 +206,41 @@ public class Entity : MonoBehaviour
         if (m_StateManager.IsInNeutral()) transform.localScale = 
                 new Vector3(FacingDirection, transform.localScale.y, transform.localScale.z);
     }
+
+    private void CheckTurnNeeded()
+    {
+        if (!m_StateManager.IsInNeutral()) return;
+
+        if (FacingDirection != m_CurrentFacing)
+        {
+            m_CurrentFacing = FacingDirection;
+            m_TurnTime = 0f;
+            m_StartY = transform.localEulerAngles.y;
+        }
+    }
+
+    private void UpdateTurnRotation()
+    {
+        if (m_TurnTime < 0f) return;
+
+        m_TurnTime += Time.deltaTime;
+
+        var time = Mathf.Clamp01(m_TurnTime / m_TurnDuration);
+        var targetY = m_CurrentFacing == 1 ? 0f : 180f;
+        var newY = Mathf.Lerp(m_StartY, targetY, m_TurnCurve.Evaluate(time));
+
+        transform.localRotation = Quaternion.Euler(0f, newY, 0f);
+
+        if (!m_StateManager.IsInNeutral())
+        {
+            m_CurrentFacing = FacingDirection;
+            transform.localRotation = Quaternion.Euler(0f, m_CurrentFacing == 1 ? 0f : 180f, 0f);
+            m_TurnTime = 1f;
+        }
+
+        if (time >= 1f) m_TurnTime = -1f;
+    }
+
 
     private void UpdateAnimator()
     {
