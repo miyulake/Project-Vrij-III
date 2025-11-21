@@ -52,7 +52,6 @@ public class Entity : MonoBehaviour
 
     private void Update()
     {
-        if (m_InputReader.Restart) SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         if (GameManager.Instance.MatchEnded) return;
         UpdateFacingDirection();
         UpdateAnimator();

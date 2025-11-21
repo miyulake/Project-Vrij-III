@@ -11,7 +11,8 @@ public class GameManager : MonoBehaviour
     public bool usePaint = true;
 
     [Header("Events")]
-    [SerializeField] private UnityEvent m_OnMatchEnd;
+    [SerializeField] private UnityEvent m_OnPaintMatchEnd;
+    [SerializeField] private UnityEvent m_OnNormalMatchEnd;
 
     [Header("Game Settings")]
     [SerializeField] private int m_FrameRate = 60;
@@ -59,8 +60,12 @@ public class GameManager : MonoBehaviour
 
     public void EndMatch()
     {
-        m_OnMatchEnd.Invoke();
-        if (usePaint) PaintManager.Instance.GetCoverageResult();
+        if (usePaint)
+        {
+            m_OnPaintMatchEnd.Invoke();
+            PaintManager.Instance.GetCoverageResult();
+        }
+        else m_OnNormalMatchEnd.Invoke();
         MatchEnded = true;
     }
 

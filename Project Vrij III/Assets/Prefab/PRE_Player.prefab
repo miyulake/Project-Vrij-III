@@ -696,7 +696,6 @@ GameObject:
   - component: {fileID: 3649434061026812996}
   - component: {fileID: 8387632929233602559}
   - component: {fileID: 6727671721480798848}
-  - component: {fileID: 8517446882342732937}
   - component: {fileID: 3353341615664399293}
   - component: {fileID: 4538461412856120102}
   - component: {fileID: 5857387183413530615}
@@ -861,19 +860,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shakeTarget: {fileID: 7506461674159890301}
---- !u!114 &8517446882342732937
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2661417437704909611}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 455bf6fead3ac0442abda704259bbd5c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pauseMenu: {fileID: 0}
 --- !u!114 &3353341615664399293
 MonoBehaviour:
   m_ObjectHideFlags: 0
