@@ -29,7 +29,7 @@ public class AttackHandler : MonoBehaviour
     private void FixedUpdate()
     {
         // Only go through logic if the game is still going or unpaused
-        if (RoundManager.Instance.RoundEnded || GameManager.Instance.IsPaused()) return;
+        if (RoundManager.Instance.CurrentState != RoundState.GAMEPLAY || GameManager.Instance.IsPaused()) return;
 
         TickLogic();
     }

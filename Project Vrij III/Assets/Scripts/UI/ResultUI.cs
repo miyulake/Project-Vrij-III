@@ -17,7 +17,7 @@ public class ResultUI : MonoBehaviour
 
     private void Update()
     {
-        if (!GameManager.Instance.usePaint || !RoundManager.Instance.RoundEnded) return;
+        if (!GameManager.Instance.usePaint || RoundManager.Instance.CurrentState != RoundState.RESULT) return;
 
         if (!started)
         {

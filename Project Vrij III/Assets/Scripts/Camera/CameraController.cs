@@ -29,15 +29,15 @@ public class CameraController : MonoBehaviour
         switch (RoundManager.Instance.CurrentState)
         {
             case RoundState.INTRO:
-                MoveCamera(m_IntroSetup);
+                MoveCamera(m_IntroSetup, RoundManager.Instance.introDuration);
                 break;
 
             case RoundState.GAMEPLAY:
-                
+                // CREATE FUNCTION TO SMOOTHLY FOLLOW PLAYERS
                 break;
 
             case RoundState.KNOCKOUT:
-                MoveCamera(m_KnockoutSetup);
+                MoveCamera(m_KnockoutSetup, RoundManager.Instance.knockoutDuration);
                 break;
 
             case RoundState.RESULT:
@@ -60,11 +60,11 @@ public class CameraController : MonoBehaviour
         m_StartOrthoSize = m_MainCamera.orthographicSize;
     }
 
-    private void MoveCamera(CameraSetup setup)
+    private void MoveCamera(CameraSetup setup, float duration = 2f)
     {
         m_Time += Time.deltaTime;
 
-        var time = Mathf.Clamp01(m_Time / setup.duration);
+        var time = Mathf.Clamp01(m_Time / duration);
 
         if (setup.target != null)
         {
@@ -82,6 +82,5 @@ public class CameraController : MonoBehaviour
         public Transform target;
         public float orthoSize;
         public AnimationCurve curve;
-        public float duration;
     }
 }

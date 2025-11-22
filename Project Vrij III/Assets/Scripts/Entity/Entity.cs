@@ -45,14 +45,14 @@ public class Entity : MonoBehaviour
     private void FixedUpdate()
     {
         // Only go through logic if the game is still going or unpaused
-        if (RoundManager.Instance.RoundEnded || GameManager.Instance.IsPaused()) return;
+        if (RoundManager.Instance.CurrentState != RoundState.GAMEPLAY || GameManager.Instance.IsPaused()) return;
 
         TickLogic();
     }
 
     private void Update()
     {
-        if (RoundManager.Instance.RoundEnded) return;
+        if (RoundManager.Instance.CurrentState != RoundState.GAMEPLAY) return;
         CheckTurnNeeded();
         UpdateTurnRotation();
         UpdateAnimator();
@@ -160,8 +160,8 @@ public class Entity : MonoBehaviour
         if (CurrentHealth <= 0)
         {
             m_StateManager.SetState(EntityState.DEAD);
-            // We died so end the match
-            RoundManager.Instance.EndRound();
+            // We died so end the round
+            RoundManager.Instance.SetState(RoundState.KNOCKOUT);
         }
     }
 

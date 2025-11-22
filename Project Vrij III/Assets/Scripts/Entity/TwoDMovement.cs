@@ -17,15 +17,16 @@ public class TwoDMovement : MonoBehaviour
 
     private void Update()
     {
-        if (RoundManager.Instance.RoundEnded)
+        if (RoundManager.Instance.CurrentState != RoundState.GAMEPLAY)
         {
-            rigidbodyTwoD.constraints = RigidbodyConstraints2D.FreezeAll;
+            rigidbodyTwoD.linearVelocity = Vector2.zero;
             return;
         }
+
         inputDirection = CanMove() ? inputReader.Movement : Vector2.zero;
         Movement();
     }
-    
+
     private void Movement()
     {
         var targetVelocity = inputDirection * GetSpeed();
@@ -35,9 +36,9 @@ public class TwoDMovement : MonoBehaviour
         rigidbodyTwoD.linearVelocity = currentVelocity;
     }
 
-    private bool CanMove() => !AnimatorUtils.IsInAnyState(animator, 
-        AnimationHashes.Grab, 
-        AnimationHashes.Stun, 
+    private bool CanMove() => !AnimatorUtils.IsInAnyState(animator,
+        AnimationHashes.Grab,
+        AnimationHashes.Stun,
         AnimationHashes.BlockStun);
 
     private float GetSpeed() => animator.GetBool("IsBlocking") ? blockSpeed : baseSpeed;

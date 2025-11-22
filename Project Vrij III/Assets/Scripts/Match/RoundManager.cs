@@ -6,12 +6,14 @@ public class RoundManager : MonoBehaviour
 {
     public static RoundManager Instance { get; private set; }
     public RoundState CurrentState { get; private set; } = RoundState.INTRO;
-    public bool RoundEnded { get; private set; } = false;
-
-    [SerializeField] private float m_IntroDuration = 3f;
     private float m_StateTimer = 0f;
 
+    [Header("Sequence Settings")]
+    public float introDuration = 2f;
+    public float knockoutDuration = 2f;
+
     [Header("Round Settings")]
+    [Range(1, 5)] [SerializeField] private int m_RoundsNeededToWin = 3;
     [SerializeField] private TextMeshProUGUI m_TimerTextMesh;
     [SerializeField] private int m_RoundDuration = 60;
     private float m_RoundTimer;
@@ -24,13 +26,9 @@ public class RoundManager : MonoBehaviour
 
     private void Start() => StartRound();
 
-    private void Update()
-    {
-        HandleRoundState();
-        HandleRoundTimer();
-    }
+    private void Update() => HandleRoundState();
 
-    private void SetState(RoundState newState)
+    public void SetState(RoundState newState)
     {
         CurrentState = newState;
         m_StateTimer = 0f;
@@ -40,40 +38,41 @@ public class RoundManager : MonoBehaviour
 
     private void HandleRoundState()
     {
-        m_StateTimer += Time.deltaTime;
+        if (CurrentState != RoundState.RESULT) m_StateTimer += Time.deltaTime;
 
         switch (CurrentState)
         {
             case RoundState.INTRO:
-                if (m_StateTimer >= m_IntroDuration) SetState(RoundState.GAMEPLAY);
+                if (m_StateTimer >= introDuration) SetState(RoundState.GAMEPLAY);
                 break;
 
             case RoundState.GAMEPLAY:
-
+                HandleRoundTimer();
+                // DO GAMEPLAY LOGIC
                 break;
 
             case RoundState.KNOCKOUT:
-
+                //if (GameManager.Instance.usePaint) SetState(RoundState.RESULT); // Instant result when using paint
+                if (m_StateTimer >= knockoutDuration) SetState(RoundState.RESULT);
                 break;
 
             case RoundState.RESULT:
-
+                GetMatchResult();
                 break;
         }
     }
 
-    private void StartRound()
+    public void StartRound()
     {
-        RoundEnded = false;
         m_RoundTimer = m_RoundDuration;
         m_TimerTextMesh.text = m_RoundTimer.ToString("00");
 
         CameraController.Instance.SetStartSetup();
 
-        SetState(RoundState.INTRO); 
+        SetState(RoundState.INTRO);
     }
 
-    public void EndRound()
+    private void GetMatchResult()
     {
         if (GameManager.Instance.usePaint)
         {
@@ -81,22 +80,17 @@ public class RoundManager : MonoBehaviour
             PaintManager.Instance.GetCoverageResult();
         }
         else m_OnNormalRoundEnd.Invoke();
-
-        RoundEnded = true;
-
-        SetState(RoundState.RESULT);
     }
 
     private void HandleRoundTimer()
     {
-        if (RoundEnded) return;
-
         m_RoundTimer -= Time.deltaTime;
         if (m_RoundTimer <= 0f)
         {
             m_RoundTimer = 0f;
-            EndRound();
+            // Round timed out so end it
+            SetState(RoundState.KNOCKOUT);
         }
-        m_TimerTextMesh.text = m_RoundTimer.ToString("00");
+        m_TimerTextMesh.text = Mathf.CeilToInt(m_RoundTimer).ToString("00");
     }
 }
