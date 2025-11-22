@@ -7,4 +7,6 @@ public class PlayerManager : MonoBehaviour
     public EntityManager playerTwo;
 
     private void Awake() => Instance = this;
+
+    public EntityManager GetOpponent(EntityManager player) => player == playerOne ? playerTwo : playerOne;
 }

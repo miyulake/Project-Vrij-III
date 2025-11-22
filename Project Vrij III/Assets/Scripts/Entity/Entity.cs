@@ -10,7 +10,7 @@ public class Entity : MonoBehaviour
     [Space]
     [SerializeField] private Animator m_Animator;
     [SerializeField] private Rigidbody2D m_RigidbodyTwoD;
-    [SerializeField] private Transform m_Opponent, m_ParticleSpawn;
+    [SerializeField] private Transform m_ParticleSpawn;
     [SerializeField] private AudioSource m_FighterAudio;
 
     [Header("Paint Settings")]
@@ -24,18 +24,20 @@ public class Entity : MonoBehaviour
     private float m_TurnTime = -1f;
     private float m_StartY;
 
-    private InputReader m_InputReader;
+    private EntityManager m_EntityManager;
     private StateManager m_StateManager;
+    private InputReader m_InputReader;
     private ShakeController m_Shake;
 
     private int m_StunFrames;
     private int FacingDirection => 
-        transform.position.x < m_Opponent.position.x ? 1 : -1; // Returns 1 or -1 depending on facing direction
+        transform.position.x < m_EntityManager.OpponentTransform.position.x ? 1 : -1; // Returns 1 or -1 depending on facing direction
 
     private void Start()
     {
-        m_InputReader = GetComponent<InputReader>();
+        m_EntityManager = GetComponent<EntityManager>();
         m_StateManager = GetComponent<StateManager>();
+        m_InputReader = GetComponent<InputReader>();
         m_Shake = GetComponent<ShakeController>();
         CurrentHealth = GameManager.Instance.maxHealth;
     }

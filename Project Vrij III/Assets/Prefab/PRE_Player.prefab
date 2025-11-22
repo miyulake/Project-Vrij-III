@@ -779,7 +779,6 @@ MonoBehaviour:
   iD: 0
   m_Animator: {fileID: 752103092993127942}
   m_RigidbodyTwoD: {fileID: 5857387183413530615}
-  m_Opponent: {fileID: 0}
   m_ParticleSpawn: {fileID: 3112636467991651300}
   m_FighterAudio: {fileID: 5116616940603786591}
   m_PaintLayer: {fileID: 0}
@@ -868,7 +867,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 275b41ef90266aa439044c2546422235, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Opponent: {fileID: 0}
   m_ThrowAnchor: {fileID: 1362705945310003443}
   m_TurnCurve:
     serializedVersion: 2
