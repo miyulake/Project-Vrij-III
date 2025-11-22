@@ -2,81 +2,78 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
+    public static CameraController Instance { get; private set; }
     [SerializeField] private Transform m_Start;
     [SerializeField] private float m_OrthoSize;
+
     [SerializeField] private CameraSetup m_IntroSetup;
-    [SerializeField] private CameraSetup m_GameplaySetup;
-    [SerializeField] private CameraSetup m_KOSetup;
+    [SerializeField] private CameraSetup m_KnockoutSetup;
     [SerializeField] private CameraSetup m_ResultSetup;
 
     private Camera m_MainCamera;
-    private CameraMode m_CameraMode;
     private Vector3 m_StartPosition;
     private Quaternion m_StartRotation;
     private float m_StartOrthoSize;
     private float m_Time;
 
-    private void Start()
+    private void Awake()
     {
+        Instance = this;
         m_MainCamera = Camera.main;
-        StartSetup();
-        SetMode(CameraMode.INTRO); // TEST
     }
 
     private void Update() => HandleCamera();
 
     private void HandleCamera()
     {
-        switch (m_CameraMode)
+        switch (RoundManager.Instance.CurrentState)
         {
-            case CameraMode.INTRO:
+            case RoundState.INTRO:
                 MoveCamera(m_IntroSetup);
                 break;
 
-            case CameraMode.GAMEPLAY:
-                MoveCamera(m_GameplaySetup);
+            case RoundState.GAMEPLAY:
+                
                 break;
 
-            case CameraMode.KO:
-                MoveCamera(m_KOSetup);
+            case RoundState.KNOCKOUT:
+                MoveCamera(m_KnockoutSetup);
                 break;
 
-            case CameraMode.RESULT:
+            case RoundState.RESULT:
                 MoveCamera(m_ResultSetup);
                 break;
         }
     }
 
-    private void StartSetup()
+    public void SetStartSetup()
     {
         m_MainCamera.transform.position = m_Start.position;
         m_MainCamera.orthographicSize = m_OrthoSize;
     }
 
-    public void SetMode(CameraMode newMode)
+    public void ResetSetup()
     {
         m_Time = 0;
         m_StartPosition = m_MainCamera.transform.position;
         m_StartRotation = m_MainCamera.transform.rotation;
         m_StartOrthoSize = m_MainCamera.orthographicSize;
-        m_CameraMode = newMode;
     }
 
     private void MoveCamera(CameraSetup setup)
     {
-        if (setup.target == null) return;
-
         m_Time += Time.deltaTime;
 
         var time = Mathf.Clamp01(m_Time / setup.duration);
 
-        m_MainCamera.transform.SetPositionAndRotation(
-            Vector3.Lerp(m_StartPosition, setup.target.position, setup.curve.Evaluate(time)),
-            Quaternion.Slerp(m_StartRotation, setup.target.rotation, setup.curve.Evaluate(time))
-            );
+        if (setup.target != null)
+        {
+            var targetPosition = Vector3.Lerp(m_StartPosition, setup.target.position, setup.curve.Evaluate(time));
+            var targetRotation = Quaternion.Slerp(m_StartRotation, setup.target.rotation, setup.curve.Evaluate(time));
+            m_MainCamera.transform.SetPositionAndRotation(targetPosition, targetRotation);
+        }
 
-        m_MainCamera.orthographicSize = 
-            Mathf.Lerp(m_StartOrthoSize, setup.orthoSize, setup.curve.Evaluate(time));
+        m_MainCamera.orthographicSize = Mathf.Lerp(m_StartOrthoSize, setup.orthoSize, setup.curve.Evaluate(time));
     }
 
     [System.Serializable]

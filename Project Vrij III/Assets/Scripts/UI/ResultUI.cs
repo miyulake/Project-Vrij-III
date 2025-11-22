@@ -17,7 +17,7 @@ public class ResultUI : MonoBehaviour
 
     private void Update()
     {
-        if (!GameManager.Instance.usePaint || !GameManager.Instance.MatchEnded) return;
+        if (!GameManager.Instance.usePaint || !RoundManager.Instance.RoundEnded) return;
 
         if (!started)
         {
@@ -29,12 +29,14 @@ public class ResultUI : MonoBehaviour
 
     public void DisplayNormalResult()
     {
-        var playerOneState = PlayerManager.Instance.playerOne.State;   
-        var playerTwoState = PlayerManager.Instance.playerTwo.State;
+        var playerOne = PlayerManager.Instance.playerOne;   
+        var playerTwo = PlayerManager.Instance.playerTwo;
+        var playerOneHealth = playerOne.Entity.CurrentHealth;
+        var playerTwoHealth = playerTwo.Entity.CurrentHealth;
 
-        m_Winner.text = 
-            (playerOneState.CurrentState != EntityState.DEAD && playerTwoState.CurrentState == EntityState.DEAD) ? "Red Wins!"  :
-            (playerOneState.CurrentState == EntityState.DEAD && playerTwoState.CurrentState != EntityState.DEAD) ? "Blue Wins!" :
+        m_Winner.text =
+            (playerOneHealth > playerTwoHealth) ? "Red Wins!" :
+            (playerTwoHealth > playerOneHealth) ? "Blue Wins!" :
             "Draw";
     }
 

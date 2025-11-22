@@ -1,7 +1,7 @@
-public enum CameraMode
+public enum RoundState
 {
     INTRO,
     GAMEPLAY,
-    KO,
+    KNOCKOUT,
     RESULT
 }

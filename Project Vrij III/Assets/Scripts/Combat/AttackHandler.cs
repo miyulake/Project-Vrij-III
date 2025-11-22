@@ -29,7 +29,7 @@ public class AttackHandler : MonoBehaviour
     private void FixedUpdate()
     {
         // Only go through logic if the game is still going or unpaused
-        if (GameManager.Instance.MatchEnded || GameManager.Instance.IsPaused()) return;
+        if (RoundManager.Instance.RoundEnded || GameManager.Instance.IsPaused()) return;
 
         TickLogic();
     }
@@ -39,7 +39,7 @@ public class AttackHandler : MonoBehaviour
     /// </summary>
     private void TickLogic()
     {
-        // If we are hit or the match ended reset everything and return
+        // If we are hit or the round ended reset everything and return
         if (m_StateManager.IsInStun())
         {
             EndMove();

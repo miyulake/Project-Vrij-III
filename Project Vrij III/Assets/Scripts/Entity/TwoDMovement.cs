@@ -17,7 +17,7 @@ public class TwoDMovement : MonoBehaviour
 
     private void Update()
     {
-        if (GameManager.Instance.MatchEnded)
+        if (RoundManager.Instance.RoundEnded)
         {
             rigidbodyTwoD.constraints = RigidbodyConstraints2D.FreezeAll;
             return;
