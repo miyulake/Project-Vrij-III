@@ -51,7 +51,6 @@ public class Entity : MonoBehaviour
     private void Update()
     {
         if (GameManager.Instance.MatchEnded) return;
-        //UpdateFacingDirection();
         CheckTurnNeeded();
         UpdateTurnRotation();
         UpdateAnimator();
@@ -196,15 +195,9 @@ public class Entity : MonoBehaviour
         if (contact.particleEffect == null) return;
 
         var scale = contact.particleEffect.transform.localScale;
-        var appliedScale = new Vector3(scale.x * -FacingDirection, scale.y, scale.z);
+        var appliedScale = new Vector3(scale.x /* * -FacingDirection */, scale.y, scale.z);
         var particle = Instantiate(contact.particleEffect, m_ParticleSpawn);
         particle.transform.localScale = appliedScale;
-    }
-
-    private void UpdateFacingDirection()
-    {
-        if (m_StateManager.IsInNeutral()) transform.localScale = 
-                new Vector3(FacingDirection, transform.localScale.y, transform.localScale.z);
     }
 
     private void CheckTurnNeeded()
@@ -240,7 +233,6 @@ public class Entity : MonoBehaviour
 
         if (time >= 1f) m_TurnTime = -1f;
     }
-
 
     private void UpdateAnimator()
     {
