@@ -10,7 +10,7 @@ public class ThrowLogic : MonoBehaviour
     private float m_TurnTime = -1f;
     private float m_StartY;
 
-    private void Start()
+    private void Awake()
     {
         m_EntityManager = GetComponent<EntityManager>();
         m_PlayerCollider = GetComponent<CapsuleCollider2D>();

@@ -13,7 +13,7 @@ public class TwoDMovement : MonoBehaviour
     private Vector2 inputDirection;
     private Vector2 currentVelocity;
 
-    private void Start() => inputReader = GetComponent<InputReader>();
+    private void Awake() => inputReader = GetComponent<InputReader>();
 
     private void Update()
     {

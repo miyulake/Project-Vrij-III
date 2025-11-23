@@ -18,7 +18,7 @@ public class AttackHandler : MonoBehaviour
     private MoveData m_BufferedMove;
     private float m_BufferedCrossfade;
 
-    private void Start()
+    private void Awake()
     {
         m_InputReader = GetComponent<InputReader>();
         m_StateManager = GetComponent<StateManager>();

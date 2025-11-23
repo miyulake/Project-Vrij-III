@@ -26,6 +26,7 @@ public class Entity : MonoBehaviour
 
     private EntityManager m_EntityManager;
     private StateManager m_StateManager;
+    private EntityVisuals m_EntityVisuals;
     private InputReader m_InputReader;
     private ShakeController m_Shake;
 
@@ -33,21 +34,22 @@ public class Entity : MonoBehaviour
     private int FacingDirection => 
         transform.position.x < m_EntityManager.OpponentTransform.position.x ? 1 : -1; // Returns 1 or -1 depending on facing direction
 
-    private void Start()
+    private void Awake()
     {
         m_EntityManager = GetComponent<EntityManager>();
         m_StateManager = GetComponent<StateManager>();
+        m_EntityVisuals = GetComponent<EntityVisuals>();
         m_InputReader = GetComponent<InputReader>();
         m_Shake = GetComponent<ShakeController>();
-        CurrentHealth = GameManager.Instance.maxHealth;
     }
+
+    private void Start() => CurrentHealth = GameManager.Instance.maxHealth;
 
     private void FixedUpdate()
     {
-        // Only go through logic if the game is still going or unpaused
+        if (m_StateManager.IsInStun()) HandleStun(); // Handle stun even when round is over
         if (RoundManager.Instance.CurrentState != RoundState.GAMEPLAY || GameManager.Instance.IsPaused()) return;
-
-        TickLogic();
+        if (m_StateManager.IsInNeutral()) HandleBlock(m_InputReader.Blocking);
     }
 
     private void Update()
@@ -56,12 +58,6 @@ public class Entity : MonoBehaviour
         CheckTurnNeeded();
         UpdateTurnRotation();
         UpdateAnimator();
-    }
-
-    private void TickLogic()
-    {
-        if (m_StateManager.IsInNeutral()) HandleBlock(m_InputReader.Blocking);
-        if (m_StateManager.IsInStun()) HandleStun();
     }
 
     private void HandleBlock(bool isBlocking)
@@ -155,11 +151,14 @@ public class Entity : MonoBehaviour
 
     private void ApplyDamage(ContactData contact)
     {
-        CurrentHealth -= contact.damage;
+        if (RoundManager.Instance.CurrentState != RoundState.GAMEPLAY) return;
 
+        CurrentHealth -= contact.damage;
         if (CurrentHealth <= 0)
         {
-            m_StateManager.SetState(EntityState.DEAD);
+            // This doesn't work and should be refactored
+            //m_StateManager.SetState(EntityState.DEAD);
+            m_EntityVisuals.ChangeFaceMaterial();
             // We died so end the round
             RoundManager.Instance.SetState(RoundState.KNOCKOUT);
         }
