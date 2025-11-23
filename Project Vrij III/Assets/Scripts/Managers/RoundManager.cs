@@ -17,6 +17,7 @@ public class RoundManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI m_TimerTextMesh;
     [SerializeField] private int m_RoundDuration = 60;
     private float m_RoundTimer;
+    private int m_CurrentRound = 1;
 
     [Header("Events")]
     [SerializeField] private UnityEvent m_OnPaintRoundEnd;
@@ -36,14 +37,18 @@ public class RoundManager : MonoBehaviour
         CameraController.Instance.ResetSetup();
     }
 
-    private void HandleRoundState()
+    private void HandleRoundState() // THIS SHOULD BE REFACTORED (MAYBE COROUTINE FLOW)
     {
         if (CurrentState != RoundState.RESULT) m_StateTimer += Time.deltaTime;
 
         switch (CurrentState)
         {
             case RoundState.INTRO:
-                if (m_StateTimer >= introDuration) SetState(RoundState.GAMEPLAY);
+                if (m_StateTimer >= introDuration)
+                {
+                    RoundUI.Instance.SetRoundText("Fight!");
+                    SetState(RoundState.GAMEPLAY);
+                }
                 break;
 
             case RoundState.GAMEPLAY:
@@ -53,11 +58,15 @@ public class RoundManager : MonoBehaviour
 
             case RoundState.KNOCKOUT:
                 //if (GameManager.Instance.usePaint) SetState(RoundState.RESULT); // Instant result when using paint
-                if (m_StateTimer >= knockoutDuration) SetState(RoundState.RESULT);
+                if (m_StateTimer >= knockoutDuration)
+                {
+                    EndRound();
+                    SetState(RoundState.RESULT);
+                }
                 break;
 
             case RoundState.RESULT:
-                GetMatchResult();
+                
                 break;
         }
     }
@@ -68,11 +77,12 @@ public class RoundManager : MonoBehaviour
         m_TimerTextMesh.text = m_RoundTimer.ToString("00");
 
         CameraController.Instance.SetStartSetup();
+        RoundUI.Instance.SetRoundText($"Round {m_CurrentRound}");
 
         SetState(RoundState.INTRO);
     }
 
-    private void GetMatchResult()
+    private void EndRound()
     {
         if (GameManager.Instance.usePaint)
         {
