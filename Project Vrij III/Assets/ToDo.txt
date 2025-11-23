@@ -1,6 +1,7 @@
 TO-DO:
 
-COULD
-- Add round start UI
-- Create buffer system
-- Fix the stupid jab combo (its slightly better now :3)
+- Add round flow UI (round intro, KO screen)
+- Fix grabs (currently you can teleport opponent towards you when grabbing)
+- Let winning player do stuff after round end
+- Fix DEAD state not doing anything
+- Implement round flow logic
