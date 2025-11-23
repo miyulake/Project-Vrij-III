@@ -61,11 +61,13 @@ public class HealthVisuals : MonoBehaviour
 
         private void UpdateGhostHealth(float deltaTime, HealthUIConfig config, EntityManager manager)
         {
+            // Doesn't work
+            /*
             if (manager.Entity.RecievedComboHits == 1)
             {
                 ghostHealth.value = health.value;
                 return;
-            }
+            }*/
 
             if (ghostHealth.value > health.value && !manager.State.IsInStun())
             {

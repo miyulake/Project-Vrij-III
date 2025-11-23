@@ -93,7 +93,7 @@ public class Entity : MonoBehaviour
         ApplyHit(contact, contactType);
 
         if (GameManager.Instance.usePaint) SpawnPaint(move);
-        else ApplyDamage(contact);
+        else ApplyDamage(contact, contactType);
     }
 
     private ContactType CheckContactType(MoveData move)
@@ -119,8 +119,6 @@ public class Entity : MonoBehaviour
 
         var stunDuration = contact.stun * Time.fixedDeltaTime;
         m_Shake.TriggerShake(stunDuration, contact.shakeMagnitude);
-
-        if (type != ContactType.BLOCK) SetComboInfo(contact);
 
         m_Animator.Play(type == ContactType.BLOCK ? "Block_Stun" : "Stun", 0, 0);
         m_FighterAudio.PlayOneShot(contact.sound);
@@ -149,7 +147,7 @@ public class Entity : MonoBehaviour
         m_RigidbodyTwoD.AddForce(knockback, ForceMode2D.Impulse);
     }
 
-    private void ApplyDamage(ContactData contact)
+    private void ApplyDamage(ContactData contact, ContactType type)
     {
         if (RoundManager.Instance.CurrentState != RoundState.GAMEPLAY) return;
 
@@ -162,6 +160,7 @@ public class Entity : MonoBehaviour
             // We died so end the round
             RoundManager.Instance.SetState(RoundState.KNOCKOUT);
         }
+        if (type != ContactType.BLOCK) SetComboInfo(contact); // Only set info when using damage
     }
 
     private Vector3 GetAdjustedScale(Vector3 scale) =>

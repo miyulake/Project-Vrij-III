@@ -7409,7 +7409,7 @@ MonoBehaviour:
   knockoutDuration: 1
   m_RoundsNeededToWin: 3
   m_TimerTextMesh: {fileID: 1337338058}
-  m_RoundDuration: 5
+  m_RoundDuration: 600
   m_OnPaintRoundEnd:
     m_PersistentCalls:
       m_Calls:
