@@ -6667,7 +6667,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 751ab7c02838cda439940de987fdf70c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_WinnerTextMesh: {fileID: 1146718659}
   playerOnePercent: {fileID: 1193008833}
   playerTwoPercent: {fileID: 1979895670}
   playerOneSlider: {fileID: 787699968}
@@ -7350,9 +7349,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::RoundManager
   introDuration: 2
   knockoutDuration: 1
+  resultDuration: 2
   m_RoundsNeededToWin: 3
   m_TimerTextMesh: {fileID: 1337338058}
-  m_RoundDuration: 600
+  m_RoundDuration: 10
   m_OnPaintRoundEnd:
     m_PersistentCalls:
       m_Calls:

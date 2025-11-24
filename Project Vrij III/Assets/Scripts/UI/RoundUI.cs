@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using UnityEditor.Build;
 
 public class RoundUI : MonoBehaviour
 {
@@ -13,10 +14,16 @@ public class RoundUI : MonoBehaviour
 
     private void Update() => HandleDisplay();
 
-    public void SetRoundText(string newText)
+    public void SetRoundText(string newText, bool useTimer = true)
     {
         m_RoundTextMesh.text = newText;
-        m_IsDisplaying = true;
+        m_RoundTextMesh.gameObject.SetActive(true);
+
+        if (useTimer)
+        {
+            m_DisplayTime = 0f;
+            m_IsDisplaying = true;
+        }
     }
 
     private void HandleDisplay()
@@ -27,6 +34,8 @@ public class RoundUI : MonoBehaviour
             if (m_DisplayTime >= m_DisplayDuration)
             {
                 m_RoundTextMesh.text = "";
+                m_RoundTextMesh.gameObject.SetActive(false);
+
                 m_DisplayTime = 0f;
                 m_IsDisplaying = false;
             }

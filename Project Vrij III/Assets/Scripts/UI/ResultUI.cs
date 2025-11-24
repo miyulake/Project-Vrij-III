@@ -4,8 +4,6 @@ using TMPro;
 
 public class ResultUI : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI m_WinnerTextMesh;
-
     [Header("Paint Results")]
     [SerializeField] private TextMeshProUGUI playerOnePercent;
     [SerializeField] private TextMeshProUGUI playerTwoPercent;
@@ -34,16 +32,15 @@ public class ResultUI : MonoBehaviour
         var playerOneHealth = playerOne.Entity.CurrentHealth;
         var playerTwoHealth = playerTwo.Entity.CurrentHealth;
 
-        m_WinnerTextMesh.text =
+        RoundUI.Instance.SetRoundText(
             (playerOneHealth > playerTwoHealth) ? "Red Wins!" :
             (playerTwoHealth > playerOneHealth) ? "Blue Wins!" :
-            "Draw";
+            "Draw", false);
     }
 
     private void BeginPaintResult()
     {
         started = true;
-        m_WinnerTextMesh.text = "";
         startTime = Time.time;
         playerOneSlider.value = 0;
         playerTwoSlider.value = 0;
@@ -64,6 +61,6 @@ public class ResultUI : MonoBehaviour
         playerOnePercent.text = $"{Mathf.RoundToInt(playerOneSlider.value)}%";
         playerTwoPercent.text = $"{Mathf.RoundToInt(playerTwoSlider.value)}%";
 
-        if (time >= 1f) m_WinnerTextMesh.text = paintManager.WinMessage;
+        if (time >= 1f) RoundUI.Instance.SetRoundText(paintManager.WinMessage, false);
     }
 }

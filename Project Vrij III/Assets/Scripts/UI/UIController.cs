@@ -12,6 +12,8 @@ public class UIController : MonoBehaviour
 
     private void Update()
     {
+        if (RoundManager.Instance.CurrentState != RoundState.GAMEPLAY) return;
+
         for (int i = 0; i < m_Readers.Length; i++)
         {
             if (m_Readers[i].Restart) SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
