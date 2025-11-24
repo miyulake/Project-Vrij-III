@@ -7,7 +7,6 @@ public class HealthVisuals : MonoBehaviour
     [SerializeField] private HealthUI m_PlayerTwoUI;
     [SerializeField] private HealthUIConfig m_Config;
 
-
     private void Update()
     {
         if (RoundManager.Instance.CurrentState == RoundState.INTRO)

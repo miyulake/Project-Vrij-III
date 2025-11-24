@@ -25,6 +25,7 @@ public class RoundManager : MonoBehaviour
     [Header("Events")]
     [SerializeField] private UnityEvent m_OnPaintRoundEnd;
     [SerializeField] private UnityEvent m_OnNormalRoundEnd;
+    //[SerializeField] private UnityEvent m_OnTimeRoundEnd;
 
     private void Awake() => Instance = this;
 
@@ -82,6 +83,7 @@ public class RoundManager : MonoBehaviour
 
             SetSlowMo(0.1f);
 
+            RoundUI.Instance.SetRoundText("K.O.");
             yield return new WaitForSecondsRealtime(knockoutDuration); // Realtime
 
             SetSlowMo(1);
@@ -106,6 +108,7 @@ public class RoundManager : MonoBehaviour
             m_OnPaintRoundEnd.Invoke();
             PaintManager.Instance.GetCoverageResult();
         }
+        //else if (m_RoundTimer > 0) m_OnTimeRoundEnd.Invoke();
         else m_OnNormalRoundEnd.Invoke();
     }
 

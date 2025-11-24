@@ -1346,6 +1346,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5210941529898867830}
+  - component: {fileID: 6934788448984504047}
   - component: {fileID: 825552954316161360}
   - component: {fileID: 8505277164243165791}
   m_Layer: 0
@@ -1372,6 +1373,21 @@ Transform:
   - {fileID: 9010399694990290105}
   m_Father: {fileID: 7506461674159890301}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6934788448984504047
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3564899244937445455}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba9f994a54d394f41b4ee498c2e9c2e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HeadFollow
+  m_Target: {fileID: 7506461674159890301}
+  m_SmoothTime: 0.03
+  m_DragMultiplier: 0.02
 --- !u!33 &825552954316161360
 MeshFilter:
   m_ObjectHideFlags: 0
