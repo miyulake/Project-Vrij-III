@@ -261,5 +261,6 @@ public class Entity : MonoBehaviour
         CurrentHealth = GameManager.Instance.maxHealth;
         transform.SetPositionAndRotation(m_OriginalPosition, m_OriginalRotation);
         m_EntityVisuals.SetNormalFace();
+        HandleBlock(false);
     }
 }

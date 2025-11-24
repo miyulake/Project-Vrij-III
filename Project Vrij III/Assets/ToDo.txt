@@ -1,9 +1,11 @@
 TO-DO:
-
-- Add round flow UI (round intro, KO screen)
-- Fix grabs (currently you can teleport opponent towards you when grabbing)
-- Let winning player do stuff after round end
-- Fix DEAD state not doing anything
-- Implement round flow logic
-
 - Implement super attacks (grab linking, projectile?)
+- Let winning player do stuff after round end
+
+BUG:
+- Fix grabs (currently you can teleport opponent towards you when grabbing)
+
+REFACTOR:
+- Fix DEAD state not doing anything
+- Fix round end attack buffer bug (currently buffered attacks arent cleared after a round ends)
+- Fix health visuals not resetting on round start

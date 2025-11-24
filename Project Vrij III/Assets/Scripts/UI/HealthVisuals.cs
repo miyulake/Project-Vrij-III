@@ -7,14 +7,14 @@ public class HealthVisuals : MonoBehaviour
     [SerializeField] private HealthUI m_PlayerTwoUI;
     [SerializeField] private HealthUIConfig m_Config;
 
-    private void Start()
-    {
-        m_PlayerOneUI.Initialize();
-        m_PlayerTwoUI.Initialize();
-    }
 
     private void Update()
     {
+        if (RoundManager.Instance.CurrentState == RoundState.INTRO)
+        {
+            m_PlayerOneUI.Initialize();
+            m_PlayerTwoUI.Initialize();
+        }
         m_PlayerOneUI.UpdateAll(Time.deltaTime, m_Config, PlayerManager.Instance.playerOne);
         m_PlayerTwoUI.UpdateAll(Time.deltaTime, m_Config, PlayerManager.Instance.playerTwo);
     }

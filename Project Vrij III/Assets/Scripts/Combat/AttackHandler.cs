@@ -28,6 +28,8 @@ public class AttackHandler : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (RoundManager.Instance.CurrentState == RoundState.INTRO) m_BufferedMove = null; // QUICK SOLUTION
+
         // Only go through logic if the game is still going or unpaused
         if (RoundManager.Instance.CurrentState != RoundState.GAMEPLAY || GameManager.Instance.IsPaused()) return;
 
