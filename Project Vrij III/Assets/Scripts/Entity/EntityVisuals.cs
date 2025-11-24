@@ -2,11 +2,17 @@ using UnityEngine;
 
 public class EntityVisuals : MonoBehaviour
 {
-    [SerializeField] private MeshRenderer[] M_EyeMeshes;
+    [SerializeField] private MeshRenderer[] m_EyeMeshes;
+    [SerializeField] private Material m_NormalMaterial;
     [SerializeField] private Material m_DeadMaterial;
 
-    public void ChangeFaceMaterial()
+    public void SetNormalFace()
     {
-        for (int i = 0; i < M_EyeMeshes.Length; i++) M_EyeMeshes[i].sharedMaterial = m_DeadMaterial;
+        for (int i = 0; i < m_EyeMeshes.Length; i++) m_EyeMeshes[i].sharedMaterial = m_NormalMaterial;
+    }
+
+    public void SetDeadFace()
+    {
+        for (int i = 0; i < m_EyeMeshes.Length; i++) m_EyeMeshes[i].sharedMaterial = m_DeadMaterial;
     }
 }

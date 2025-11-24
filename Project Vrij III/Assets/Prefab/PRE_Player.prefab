@@ -851,9 +851,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21c99404cbde38f47a12c995240d4b35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EntityVisuals
-  M_EyeMeshes:
+  m_EyeMeshes:
   - {fileID: 782663718256898033}
   - {fileID: 1617305766093429003}
+  m_NormalMaterial: {fileID: 2100000, guid: f8d69792489548a4b9d81bbafea4b864, type: 2}
   m_DeadMaterial: {fileID: 2100000, guid: 4905789540b1c844ab2afaf3c81e9701, type: 2}
 --- !u!114 &8387632929233602559
 MonoBehaviour:

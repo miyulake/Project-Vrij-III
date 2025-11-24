@@ -34,6 +34,9 @@ public class RoundManager : MonoBehaviour
     {
         ++m_CurrentRound;
 
+        PlayerManager.Instance.playerOne.Entity.ResetEntity();
+        PlayerManager.Instance.playerTwo.Entity.ResetEntity();
+
         m_RoundTimer = m_RoundDuration;
         m_TimerTextMesh.text = m_RoundTimer.ToString("00");
 

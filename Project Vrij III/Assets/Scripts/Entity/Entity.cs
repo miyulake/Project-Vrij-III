@@ -30,6 +30,9 @@ public class Entity : MonoBehaviour
     private InputReader m_InputReader;
     private ShakeController m_Shake;
 
+    private Vector2 m_OriginalPosition;
+    private Quaternion m_OriginalRotation;
+
     private int m_StunFrames;
     private int FacingDirection => 
         transform.position.x < m_EntityManager.OpponentTransform.position.x ? 1 : -1; // Returns 1 or -1 depending on facing direction
@@ -41,9 +44,10 @@ public class Entity : MonoBehaviour
         m_EntityVisuals = GetComponent<EntityVisuals>();
         m_InputReader = GetComponent<InputReader>();
         m_Shake = GetComponent<ShakeController>();
-    }
 
-    private void Start() => CurrentHealth = GameManager.Instance.maxHealth;
+        m_OriginalPosition = transform.position;
+        m_OriginalRotation = transform.rotation;
+    }
 
     private void FixedUpdate()
     {
@@ -54,10 +58,10 @@ public class Entity : MonoBehaviour
 
     private void Update()
     {
+        UpdateAnimator();
         if (RoundManager.Instance.CurrentState != RoundState.GAMEPLAY) return;
         CheckTurnNeeded();
         UpdateTurnRotation();
-        UpdateAnimator();
     }
 
     private void HandleBlock(bool isBlocking)
@@ -156,7 +160,7 @@ public class Entity : MonoBehaviour
         {
             // This doesn't work and should be refactored
             //m_StateManager.SetState(EntityState.DEAD);
-            m_EntityVisuals.ChangeFaceMaterial();
+            m_EntityVisuals.SetDeadFace();
             // We died so end the round
             RoundManager.Instance.SetState(RoundState.KNOCKOUT);
         }
@@ -250,5 +254,12 @@ public class Entity : MonoBehaviour
     {
         RecievedComboHits = 0;
         RecievedComboDamage = 0;
+    }
+
+    public void ResetEntity() // Call at start of a round
+    {
+        CurrentHealth = GameManager.Instance.maxHealth;
+        transform.SetPositionAndRotation(m_OriginalPosition, m_OriginalRotation);
+        m_EntityVisuals.SetNormalFace();
     }
 }
