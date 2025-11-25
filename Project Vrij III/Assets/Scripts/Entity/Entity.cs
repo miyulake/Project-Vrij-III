@@ -52,15 +52,16 @@ public class Entity : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (m_StateManager.IsInStun()) HandleStun(); // Handle stun even when round is over
+        if (RoundManager.Instance.CurrentState == RoundState.INTRO) ResetComboInfo();
         if (m_EntityManager.IsDead || RoundManager.Instance.CurrentState == RoundState.INTRO || GameManager.Instance.IsPaused()) return;
+        if (m_StateManager.IsInStun()) HandleStun();
         if (m_StateManager.IsInNeutral()) HandleBlock(m_InputReader.Blocking);
     }
 
     private void Update()
     {
-        UpdateAnimator();
         if (m_EntityManager.IsDead || RoundManager.Instance.CurrentState == RoundState.INTRO) return;
+        UpdateAnimator();
         CheckTurnNeeded();
         UpdateTurnRotation();
     }
@@ -135,6 +136,7 @@ public class Entity : MonoBehaviour
         if (m_StunFrames <= 0)
         {
             ResetComboInfo();
+
             // Check if player is still blocking after stun
             if (m_InputReader.Blocking) m_StateManager.SetState(EntityState.BLOCK);
             else m_StateManager.SetState(EntityState.IDLE);

@@ -23,9 +23,9 @@ public class RoundManager : MonoBehaviour
     private Coroutine m_RoundFlowRoutine;
 
     [Header("Events")]
+    [SerializeField] private UnityEvent m_OnRoundStart;
     [SerializeField] private UnityEvent m_OnPaintRoundEnd;
     [SerializeField] private UnityEvent m_OnNormalRoundEnd;
-    //[SerializeField] private UnityEvent m_OnTimeRoundEnd;
 
     private void Awake() => Instance = this;
 
@@ -34,6 +34,8 @@ public class RoundManager : MonoBehaviour
     private void StartNewRound()
     {
         ++m_CurrentRound;
+
+        m_OnRoundStart.Invoke();
 
         PlayerManager.Instance.playerOne.Entity.ResetEntity();
         PlayerManager.Instance.playerTwo.Entity.ResetEntity();
@@ -108,7 +110,6 @@ public class RoundManager : MonoBehaviour
             m_OnPaintRoundEnd.Invoke();
             PaintManager.Instance.GetCoverageResult();
         }
-        //else if (m_RoundTimer > 0) m_OnTimeRoundEnd.Invoke();
         else m_OnNormalRoundEnd.Invoke();
     }
 
