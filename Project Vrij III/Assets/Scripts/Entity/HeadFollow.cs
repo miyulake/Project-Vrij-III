@@ -13,16 +13,18 @@ public class HeadFollow : MonoBehaviour
 
     private void HeadMovement()
     {
-        m_LastTargetPosition = m_Target.position;
-        m_TargetVelocity = (m_Target.position - m_LastTargetPosition) / Time.deltaTime;
+        // Unscaled prevents dividing by 0 when paused
+        m_TargetVelocity = (m_Target.position - m_LastTargetPosition) / Time.unscaledDeltaTime; 
 
-        var lagTarget = m_Target.position - m_TargetVelocity * m_DragMultiplier;
+        var smoothTarget = m_Target.position - m_TargetVelocity * m_DragMultiplier;
 
         transform.position = Vector3.SmoothDamp(
             transform.position,
-            lagTarget,
+            smoothTarget,
             ref m_Velocity,
             m_SmoothTime
         );
+
+        m_LastTargetPosition = m_Target.position;
     }
 }
