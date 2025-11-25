@@ -10,14 +10,19 @@ public class TwoDMovement : MonoBehaviour
     [Range(0, 500)] [SerializeField] private float acceleration = 50f;
     [Range(0, 100)] [SerializeField] private float deceleration = 50f;
     private InputReader inputReader;
+    private EntityManager m_EntityManager;
     private Vector2 inputDirection;
     private Vector2 currentVelocity;
 
-    private void Awake() => inputReader = GetComponent<InputReader>();
+    private void Awake()
+    {
+        inputReader = GetComponent<InputReader>();
+        m_EntityManager = GetComponent<EntityManager>();
+    }
 
     private void Update()
     {
-        if (RoundManager.Instance.CurrentState != RoundState.GAMEPLAY)
+        if (m_EntityManager.IsDead || RoundManager.Instance.CurrentState == RoundState.INTRO)
         {
             rigidbodyTwoD.linearVelocity = Vector2.zero;
             return;

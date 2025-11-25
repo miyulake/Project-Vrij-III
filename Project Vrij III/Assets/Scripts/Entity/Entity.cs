@@ -7,6 +7,7 @@ public class Entity : MonoBehaviour
     public ContactType HitType { get; private set; }
     public int RecievedComboHits { get; private set; }
     public int RecievedComboDamage { get; private set; }
+    public bool IsDead => CurrentHealth <= 0;
     [Space]
     [SerializeField] private Animator m_Animator;
     [SerializeField] private Rigidbody2D m_RigidbodyTwoD;
@@ -24,10 +25,10 @@ public class Entity : MonoBehaviour
     private float m_TurnTime = -1f;
     private float m_StartY;
 
+    private InputReader m_InputReader;
     private EntityManager m_EntityManager;
     private StateManager m_StateManager;
     private EntityVisuals m_EntityVisuals;
-    private InputReader m_InputReader;
     private ShakeController m_Shake;
 
     private Vector2 m_OriginalPosition;
@@ -52,14 +53,14 @@ public class Entity : MonoBehaviour
     private void FixedUpdate()
     {
         if (m_StateManager.IsInStun()) HandleStun(); // Handle stun even when round is over
-        if (RoundManager.Instance.CurrentState != RoundState.GAMEPLAY || GameManager.Instance.IsPaused()) return;
+        if (m_EntityManager.IsDead || RoundManager.Instance.CurrentState == RoundState.INTRO || GameManager.Instance.IsPaused()) return;
         if (m_StateManager.IsInNeutral()) HandleBlock(m_InputReader.Blocking);
     }
 
     private void Update()
     {
         UpdateAnimator();
-        if (RoundManager.Instance.CurrentState != RoundState.GAMEPLAY) return;
+        if (m_EntityManager.IsDead || RoundManager.Instance.CurrentState == RoundState.INTRO) return;
         CheckTurnNeeded();
         UpdateTurnRotation();
     }

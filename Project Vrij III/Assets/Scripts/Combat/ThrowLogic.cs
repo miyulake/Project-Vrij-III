@@ -20,7 +20,8 @@ public class ThrowLogic : MonoBehaviour
 
     private void HandleThrow()
     {
-        if (m_ThrowAnchor.activeSelf && m_EntityManager.OpponentState.CurrentState == EntityState.HITSTUN)
+        if (m_ThrowAnchor.activeSelf && m_EntityManager.OpponentState.CurrentState == EntityState.HITSTUN &&
+            RoundManager.Instance.CurrentState != RoundState.INTRO)
         {
             if (m_TurnTime < 0f) m_TurnTime = 0f;
 

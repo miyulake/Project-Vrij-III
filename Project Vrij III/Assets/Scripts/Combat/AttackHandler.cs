@@ -8,6 +8,7 @@ public class AttackHandler : MonoBehaviour
     [Range(1, 10)] [SerializeField] private int m_BufferFrames = 10;
 
     private InputReader m_InputReader;
+    private EntityManager m_EntityManager;
     private StateManager m_StateManager;
     private Hitbox[] m_Hitboxes;
     private MoveData[] m_AllMoves;
@@ -21,6 +22,7 @@ public class AttackHandler : MonoBehaviour
     private void Awake()
     {
         m_InputReader = GetComponent<InputReader>();
+        m_EntityManager = GetComponent<EntityManager>();
         m_StateManager = GetComponent<StateManager>();
         m_Hitboxes = GetComponentsInChildren<Hitbox>(true);
         m_AllMoves = Resources.LoadAll<MoveData>("MoveData");
@@ -28,10 +30,16 @@ public class AttackHandler : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (RoundManager.Instance.CurrentState == RoundState.INTRO) m_BufferedMove = null; // QUICK SOLUTION
+        if (RoundManager.Instance.CurrentState == RoundState.INTRO) // QUICK SOLUTION
+        {
+            m_BufferedMove = null;
+            m_BufferedCrossfade = 0;
+            m_StateManager.SetState(EntityState.IDLE);
+            m_Animator.Play("Idle");
+        }
 
-        // Only go through logic if the game is still going or unpaused
-        if (RoundManager.Instance.CurrentState != RoundState.GAMEPLAY || GameManager.Instance.IsPaused()) return;
+        // Only go through logic if the game is going or unpaused
+        if (m_EntityManager.IsDead || RoundManager.Instance.CurrentState == RoundState.INTRO || GameManager.Instance.IsPaused()) return;
 
         TickLogic();
     }
