@@ -13,8 +13,8 @@ public class HeadFollow : MonoBehaviour
 
     private void HeadMovement()
     {
-        m_TargetVelocity = (m_Target.position - m_LastTargetPosition) / Time.deltaTime;
         m_LastTargetPosition = m_Target.position;
+        m_TargetVelocity = (m_Target.position - m_LastTargetPosition) / Time.deltaTime;
 
         var lagTarget = m_Target.position - m_TargetVelocity * m_DragMultiplier;
 

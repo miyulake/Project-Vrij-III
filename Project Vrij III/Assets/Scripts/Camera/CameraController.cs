@@ -6,9 +6,18 @@ public class CameraController : MonoBehaviour
     [SerializeField] private Transform m_Start;
     [SerializeField] private float m_OrthoSize;
 
+    [Header("Setups")]
     [SerializeField] private CameraSetup m_IntroSetup;
     [SerializeField] private CameraSetup m_KnockoutSetup;
     [SerializeField] private CameraSetup m_ResultSetup;
+
+    [Header("Zoom Settings")]
+    [SerializeField] float m_MinZoom = 5f;
+    [SerializeField] float m_MaxZoom = 7f;
+    [SerializeField] float m_MinDistance = 5f;
+    [SerializeField] float m_MaxDistance = 10f;
+    [SerializeField] float m_SmoothTime = 2f;
+    private float m_ZoomVelocity;
 
     private Camera m_MainCamera;
     private Vector3 m_StartPosition;
@@ -22,7 +31,7 @@ public class CameraController : MonoBehaviour
         m_MainCamera = Camera.main;
     }
 
-    private void Update() => HandleCamera();
+    private void LateUpdate() => HandleCamera();
 
     private void HandleCamera()
     {
@@ -33,7 +42,7 @@ public class CameraController : MonoBehaviour
                 break;
 
             case RoundState.GAMEPLAY:
-                // CREATE FUNCTION TO SMOOTHLY FOLLOW PLAYERS
+                HandleCameraZoom(); // Zoom effect during gameplay
                 break;
 
             case RoundState.KNOCKOUT:
@@ -74,6 +83,24 @@ public class CameraController : MonoBehaviour
         }
 
         m_MainCamera.orthographicSize = Mathf.Lerp(m_StartOrthoSize, setup.orthoSize, setup.curve.Evaluate(time));
+    }
+
+    private void HandleCameraZoom()
+    {
+        var playerOnePosition = PlayerManager.Instance.playerOne.transform.position;
+        var playerTwoPosition = PlayerManager.Instance.playerTwo.transform.position;
+
+        var distanceX = Mathf.Abs(playerOnePosition.x - playerTwoPosition.x);
+        var clampedDistance = Mathf.Clamp(distanceX, m_MinDistance, m_MaxDistance);
+        var normalizedDistance = (clampedDistance - m_MinDistance) / (m_MaxDistance - m_MinDistance);
+
+        var targetZoom = Mathf.Lerp(m_MinZoom, m_MaxZoom, normalizedDistance);
+        m_MainCamera.orthographicSize = Mathf.SmoothDamp(
+            m_MainCamera.orthographicSize,
+            targetZoom,
+            ref m_ZoomVelocity,
+            m_SmoothTime
+        );
     }
 
     [System.Serializable]
