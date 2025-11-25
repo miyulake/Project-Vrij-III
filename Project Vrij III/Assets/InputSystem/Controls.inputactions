@@ -79,6 +79,24 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "Push",
+                    "type": "Button",
+                    "id": "4e8789b4-5fe3-45bc-b80f-28ad4ada8685",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Taunt",
+                    "type": "Button",
+                    "id": "3aaff827-3853-45c9-968f-7c027b6def49",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "Restart",
                     "type": "Button",
                     "id": "a097ba1c-64f2-4f6f-96f3-2ed917577f70",
@@ -447,6 +465,50 @@
                     "processors": "",
                     "groups": "",
                     "action": "Pause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "93eb95f9-15dc-4784-b393-b8f6faeaebd2",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "Push",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "18fed68e-c33a-4ff6-9ea9-21f9c5135681",
+                    "path": "<Gamepad>/leftTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Gamepad",
+                    "action": "Push",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "810ff6cb-f644-4e5c-b3d2-7c0bb94565e8",
+                    "path": "<Keyboard>/q",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "Taunt",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b7f97af4-7a3d-487a-b36d-e13f8961e8c2",
+                    "path": "<Gamepad>/dpad/down",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Gamepad",
+                    "action": "Taunt",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

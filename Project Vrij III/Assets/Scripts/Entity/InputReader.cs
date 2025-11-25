@@ -17,11 +17,13 @@ public class InputReader : MonoBehaviour
     public bool Blocking       => playerInput.actions["Block"].IsPressed();
     public bool Grabbing       => playerInput.actions["Grab"].triggered;
     public bool Snap           => playerInput.actions["Snap"].triggered;
+    public bool Push           => playerInput.actions["Push"].triggered;
+    public bool Taunt          => playerInput.actions["Taunt"].triggered;
     public Vector2 Movement    => playerInput.actions["Move"].ReadValue<Vector2>();
 
     // Menu input
-    public bool Restart => playerInput.actions["Restart"].triggered;
-    public bool Pause => playerInput.actions["Pause"].triggered;
+    public bool Restart        => playerInput.actions["Restart"].triggered;
+    public bool Pause          => playerInput.actions["Pause"].triggered;
 
 
     private void Awake()

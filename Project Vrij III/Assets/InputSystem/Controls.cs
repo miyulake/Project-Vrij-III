@@ -165,6 +165,24 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
+                    ""name"": ""Push"",
+                    ""type"": ""Button"",
+                    ""id"": ""4e8789b4-5fe3-45bc-b80f-28ad4ada8685"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Taunt"",
+                    ""type"": ""Button"",
+                    ""id"": ""3aaff827-3853-45c9-968f-7c027b6def49"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
                     ""name"": ""Restart"",
                     ""type"": ""Button"",
                     ""id"": ""a097ba1c-64f2-4f6f-96f3-2ed917577f70"",
@@ -535,6 +553,50 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""action"": ""Pause"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""93eb95f9-15dc-4784-b393-b8f6faeaebd2"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""Push"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""18fed68e-c33a-4ff6-9ea9-21f9c5135681"",
+                    ""path"": ""<Gamepad>/leftTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Gamepad"",
+                    ""action"": ""Push"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""810ff6cb-f644-4e5c-b3d2-7c0bb94565e8"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""Taunt"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b7f97af4-7a3d-487a-b36d-e13f8961e8c2"",
+                    ""path"": ""<Gamepad>/dpad/down"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Gamepad"",
+                    ""action"": ""Taunt"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -612,6 +674,8 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         m_Player_Block = m_Player.FindAction("Block", throwIfNotFound: true);
         m_Player_Grab = m_Player.FindAction("Grab", throwIfNotFound: true);
         m_Player_Snap = m_Player.FindAction("Snap", throwIfNotFound: true);
+        m_Player_Push = m_Player.FindAction("Push", throwIfNotFound: true);
+        m_Player_Taunt = m_Player.FindAction("Taunt", throwIfNotFound: true);
         m_Player_Restart = m_Player.FindAction("Restart", throwIfNotFound: true);
         m_Player_Pause = m_Player.FindAction("Pause", throwIfNotFound: true);
     }
@@ -702,6 +766,8 @@ public partial class @Controls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Block;
     private readonly InputAction m_Player_Grab;
     private readonly InputAction m_Player_Snap;
+    private readonly InputAction m_Player_Push;
+    private readonly InputAction m_Player_Taunt;
     private readonly InputAction m_Player_Restart;
     private readonly InputAction m_Player_Pause;
     /// <summary>
@@ -747,6 +813,14 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Player/Snap".
         /// </summary>
         public InputAction @Snap => m_Wrapper.m_Player_Snap;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/Push".
+        /// </summary>
+        public InputAction @Push => m_Wrapper.m_Player_Push;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/Taunt".
+        /// </summary>
+        public InputAction @Taunt => m_Wrapper.m_Player_Taunt;
         /// <summary>
         /// Provides access to the underlying input action "Player/Restart".
         /// </summary>
@@ -805,6 +879,12 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @Snap.started += instance.OnSnap;
             @Snap.performed += instance.OnSnap;
             @Snap.canceled += instance.OnSnap;
+            @Push.started += instance.OnPush;
+            @Push.performed += instance.OnPush;
+            @Push.canceled += instance.OnPush;
+            @Taunt.started += instance.OnTaunt;
+            @Taunt.performed += instance.OnTaunt;
+            @Taunt.canceled += instance.OnTaunt;
             @Restart.started += instance.OnRestart;
             @Restart.performed += instance.OnRestart;
             @Restart.canceled += instance.OnRestart;
@@ -846,6 +926,12 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @Snap.started -= instance.OnSnap;
             @Snap.performed -= instance.OnSnap;
             @Snap.canceled -= instance.OnSnap;
+            @Push.started -= instance.OnPush;
+            @Push.performed -= instance.OnPush;
+            @Push.canceled -= instance.OnPush;
+            @Taunt.started -= instance.OnTaunt;
+            @Taunt.performed -= instance.OnTaunt;
+            @Taunt.canceled -= instance.OnTaunt;
             @Restart.started -= instance.OnRestart;
             @Restart.performed -= instance.OnRestart;
             @Restart.canceled -= instance.OnRestart;
@@ -1013,6 +1099,20 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnSnap(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Push" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnPush(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Taunt" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnTaunt(InputAction.CallbackContext context);
         /// <summary>
         /// Method invoked when associated input action "Restart" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>

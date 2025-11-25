@@ -8,6 +8,8 @@ public static class AnimationHashes
     public static readonly int Stun            = Animator.StringToHash("Stun");
     public static readonly int Grab            = Animator.StringToHash("Grab");
     public static readonly int Snap            = Animator.StringToHash("Snap");
+    public static readonly int Push            = Animator.StringToHash("Push");
+    public static readonly int Taunt           = Animator.StringToHash("Taunt");
     public static readonly int comboOne        = Animator.StringToHash("Combo_Attack_1");
     public static readonly int comboTwo        = Animator.StringToHash("Combo_Attack_2");
     public static readonly int comboThree      = Animator.StringToHash("Combo_Attack_3");

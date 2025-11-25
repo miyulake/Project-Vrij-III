@@ -5,5 +5,7 @@ public enum AttackInput
     DOWNWARD,
     UPWARD,
     GRAB,
-    SNAP
+    SNAP,
+    PUSH,
+    TAUNT
 }

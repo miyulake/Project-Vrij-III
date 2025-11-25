@@ -43,6 +43,7 @@ public class TwoDMovement : MonoBehaviour
 
     private bool CanMove() => !AnimatorUtils.IsInAnyState(animator,
         AnimationHashes.Grab,
+        AnimationHashes.Taunt,
         AnimationHashes.Stun,
         AnimationHashes.BlockStun);
 

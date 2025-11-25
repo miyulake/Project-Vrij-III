@@ -30,13 +30,7 @@ public class AttackHandler : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (RoundManager.Instance.CurrentState == RoundState.INTRO) // QUICK SOLUTION
-        {
-            m_BufferedMove = null;
-            m_BufferedCrossfade = 0;
-            m_StateManager.SetState(EntityState.IDLE);
-            m_Animator.Play("Idle");
-        }
+        if (RoundManager.Instance.CurrentState == RoundState.INTRO) ResetAttackHandler(); // QUICK SOLUTION
 
         // Only go through logic if the game is going or unpaused
         if (m_EntityManager.IsDead || RoundManager.Instance.CurrentState == RoundState.INTRO || GameManager.Instance.IsPaused()) return;
@@ -247,6 +241,8 @@ public class AttackHandler : MonoBehaviour
             AttackInput.UPWARD   => m_InputReader.AttackUpward,
             AttackInput.GRAB     => m_InputReader.Grabbing,
             AttackInput.SNAP     => m_InputReader.Snap,
+            AttackInput.PUSH     => m_InputReader.Push,
+            AttackInput.TAUNT    => m_InputReader.Taunt,
             _                    => false
         };
     }
@@ -257,5 +253,15 @@ public class AttackHandler : MonoBehaviour
     private void SetMoveData(MoveData move)
     {
         for (int i = 0; i < m_Hitboxes.Length; i++) m_Hitboxes[i].MoveData = move;
+    }
+
+    private void ResetAttackHandler()
+    {
+        m_CurrentMove = null;
+        m_CurrentFrame = 0;
+        m_BufferedMove = null;
+        m_BufferedCrossfade = 0;
+        m_StateManager.SetState(EntityState.IDLE);
+        m_Animator.Play("Idle");
     }
 }
