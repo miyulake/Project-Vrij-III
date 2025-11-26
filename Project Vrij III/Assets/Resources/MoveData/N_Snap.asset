@@ -28,7 +28,7 @@ MonoBehaviour:
     damage: 5
     knockback: {x: 0, y: 0}
     shakeMagnitude: 0.125
-    particleEffect: {fileID: 6263782476919498309, guid: 239e562991393da4f949962913a0c539, type: 3}
+    particleEffect: {fileID: 8525990746615576120, guid: b85d21f3b8fed714bacf0c4fd50fa512, type: 3}
     sound: {fileID: 8300000, guid: 0983f2e232589b24892289f43957fac9, type: 3}
   block:
     stun: 0
@@ -42,7 +42,7 @@ MonoBehaviour:
     damage: 20
     knockback: {x: 0, y: 0}
     shakeMagnitude: 0.25
-    particleEffect: {fileID: 6263782476919498309, guid: 239e562991393da4f949962913a0c539, type: 3}
+    particleEffect: {fileID: 6263782476919498309, guid: 1fd2749f2a4056446881dce86ed70c39, type: 3}
     sound: {fileID: 8300000, guid: 70e9e75c806e1914997d1bc6676ffa9b, type: 3}
   cancelOptions: []
   paintData:

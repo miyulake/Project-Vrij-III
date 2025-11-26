@@ -12,6 +12,7 @@ public class Entity : MonoBehaviour
     [SerializeField] private Animator m_Animator;
     [SerializeField] private Rigidbody2D m_RigidbodyTwoD;
     [SerializeField] private Transform m_ParticleSpawn;
+    [SerializeField] private float m_ParticleZPosition = -3;
     [SerializeField] private AudioSource m_FighterAudio;
 
     [Header("Paint Settings")]
@@ -201,9 +202,13 @@ public class Entity : MonoBehaviour
     {
         if (contact.particleEffect == null) return;
 
+        var position = m_ParticleSpawn.position;
         var scale = contact.particleEffect.transform.localScale;
         var appliedScale = new Vector3(scale.x /* * -FacingDirection */, scale.y, scale.z);
-        var particle = Instantiate(contact.particleEffect, m_ParticleSpawn);
+
+        var particle = 
+            Instantiate(contact.particleEffect, new Vector3(position.x, position.y, m_ParticleZPosition), Quaternion.identity);
+
         particle.transform.localScale = appliedScale;
     }
 
