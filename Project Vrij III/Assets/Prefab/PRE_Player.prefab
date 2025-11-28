@@ -822,8 +822,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f96b33a98fdd724a8a75a35f030f962, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rigidbodyTwoD: {fileID: 5857387183413530615}
-  animator: {fileID: 752103092993127942}
+  m_RigidBodyTwoD: {fileID: 5857387183413530615}
+  m_Animator: {fileID: 752103092993127942}
   baseSpeed: 10
   blockSpeed: 3
   acceleration: 250

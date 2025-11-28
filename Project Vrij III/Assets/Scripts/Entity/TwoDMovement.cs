@@ -2,20 +2,20 @@ using UnityEngine;
 
 public class TwoDMovement : MonoBehaviour
 {
-    [SerializeField] private Rigidbody2D rigidbodyTwoD;
-    [SerializeField] private Animator animator;
+    [SerializeField] private Rigidbody2D m_RigidBodyTwoD;
+    [SerializeField] private Animator m_Animator;
     [Range(0, 10)] [SerializeField] private float baseSpeed = 5;
     [Range(0, 10)] [SerializeField] private float blockSpeed = 2;
     [Range(0, 500)] [SerializeField] private float acceleration = 50f;
     [Range(0, 100)] [SerializeField] private float deceleration = 50f;
-    private InputReader inputReader;
+    private InputReader m_InputReader;
     private EntityManager m_EntityManager;
-    private Vector2 inputDirection;
-    private Vector2 currentVelocity;
+    private Vector2 m_InputDirection;
+    private Vector2 m_CurrentVelocity;
 
     private void Awake()
     {
-        inputReader = GetComponent<InputReader>();
+        m_InputReader = GetComponent<InputReader>();
         m_EntityManager = GetComponent<EntityManager>();
     }
 
@@ -23,28 +23,28 @@ public class TwoDMovement : MonoBehaviour
     {
         if (m_EntityManager.IsDead || RoundManager.Instance.CurrentState == RoundState.INTRO)
         {
-            rigidbodyTwoD.linearVelocity = Vector2.zero;
+            m_RigidBodyTwoD.linearVelocity = Vector2.zero;
             return;
         }
 
-        inputDirection = CanMove() ? inputReader.Movement : Vector2.zero;
+        m_InputDirection = CanMove() ? m_InputReader.Movement : Vector2.zero;
         Movement();
     }
 
     private void Movement()
     {
-        var targetVelocity = inputDirection * GetSpeed();
-        var accelerationRate = inputDirection.magnitude > 0 ? acceleration : deceleration;
+        var targetVelocity = m_InputDirection * GetSpeed();
+        var accelerationRate = m_InputDirection.magnitude > 0 ? acceleration : deceleration;
 
-        currentVelocity = Vector2.MoveTowards(rigidbodyTwoD.linearVelocity, targetVelocity, accelerationRate * Time.fixedDeltaTime);
-        rigidbodyTwoD.linearVelocity = currentVelocity;
+        m_CurrentVelocity = Vector2.MoveTowards(m_RigidBodyTwoD.linearVelocity, targetVelocity, accelerationRate * Time.fixedDeltaTime);
+        m_RigidBodyTwoD.linearVelocity = m_CurrentVelocity;
     }
 
-    private bool CanMove() => !AnimatorUtils.IsInAnyState(animator,
+    private bool CanMove() => !AnimatorUtils.IsInAnyState(m_Animator,
         AnimationHashes.Grab,
         AnimationHashes.Taunt,
         AnimationHashes.Stun,
         AnimationHashes.BlockStun);
 
-    private float GetSpeed() => animator.GetBool("IsBlocking") ? blockSpeed : baseSpeed;
+    private float GetSpeed() => m_Animator.GetBool("IsBlocking") ? blockSpeed : baseSpeed;
 }
