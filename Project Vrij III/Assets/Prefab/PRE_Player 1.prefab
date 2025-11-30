@@ -688,22 +688,26 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 420029039700872631}
-  - component: {fileID: 336457669515315248}
-  - component: {fileID: 8395209802988917830}
+  - component: {fileID: 5908979547463451878}
+  - component: {fileID: 2407525535924767685}
   - component: {fileID: 420104190912164710}
-  - component: {fileID: 1280255728880952227}
   - component: {fileID: 1801499076957440997}
-  - component: {fileID: 26763770555577647}
-  - component: {fileID: 3649434061026812996}
   - component: {fileID: 8387632929233602559}
   - component: {fileID: 6727671721480798848}
+  - component: {fileID: 3649434061026812996}
+  - component: {fileID: 8206493709175112930}
+  - component: {fileID: 1882542023021585692}
+  - component: {fileID: 388844641849989189}
+  - component: {fileID: 5017755581437723804}
+  - component: {fileID: 535432736144724583}
+  - component: {fileID: 878622666420138167}
   - component: {fileID: 3353341615664399293}
   - component: {fileID: 4538461412856120102}
   - component: {fileID: 5857387183413530615}
   - component: {fileID: 6723355436757616457}
   - component: {fileID: 5116616940603786591}
   m_Layer: 0
-  m_Name: PRE_Player
+  m_Name: PRE_Player 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -717,7 +721,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2661417437704909611}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -3, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -726,7 +730,7 @@ Transform:
   - {fileID: 7506461674159890301}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &336457669515315248
+--- !u!114 &5908979547463451878
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -735,10 +739,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 2661417437704909611}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ab57e0d0e551cd54da1c095a6ca3edb0, type: 3}
+  m_Script: {fileID: 11500000, guid: c171d562b670f2b40a229f1737e6f9c5, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EntityManager
---- !u!114 &8395209802988917830
+  m_EditorClassIdentifier: Assembly-CSharp::Entity
+--- !u!114 &2407525535924767685
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -747,9 +751,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 2661417437704909611}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cefdac100f27b1d4498d167a1132887e, type: 3}
+  m_Script: {fileID: 11500000, guid: b87b0084e06746e409b89a135ffc0565, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Assembly-CSharp::StateMachine
 --- !u!114 &420104190912164710
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -765,51 +769,6 @@ MonoBehaviour:
   m_Animator: {fileID: 752103092993127942}
   m_BufferCrossfade: 0.1
   m_BufferFrames: 10
---- !u!114 &1280255728880952227
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2661417437704909611}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0bb2b08d6a2d46943b09bb7dfe48bb19, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Fighter
-  iD: 0
-  m_Animator: {fileID: 752103092993127942}
-  m_RigidbodyTwoD: {fileID: 5857387183413530615}
-  m_ParticleSpawn: {fileID: 3112636467991651300}
-  m_ParticleZPosition: -3
-  m_FighterAudio: {fileID: 5116616940603786591}
-  m_PaintLayer: {fileID: 0}
-  m_OpponentColor: {r: 0, g: 0, b: 1, a: 1}
-  m_TurnCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 2
-      outSlope: 2
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  m_TurnDuration: 0.2
 --- !u!114 &1801499076957440997
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -828,36 +787,6 @@ MonoBehaviour:
   blockSpeed: 3
   acceleration: 250
   deceleration: 50
---- !u!114 &26763770555577647
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2661417437704909611}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 405ba09d6b9b50c4d82c94090b6e795b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  entity: {fileID: 1280255728880952227}
---- !u!114 &3649434061026812996
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2661417437704909611}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 21c99404cbde38f47a12c995240d4b35, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EntityVisuals
-  m_EyeMeshes:
-  - {fileID: 782663718256898033}
-  - {fileID: 1617305766093429003}
-  m_NormalMaterial: {fileID: 2100000, guid: f8d69792489548a4b9d81bbafea4b864, type: 2}
-  m_DeadMaterial: {fileID: 2100000, guid: 4905789540b1c844ab2afaf3c81e9701, type: 2}
 --- !u!114 &8387632929233602559
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -909,6 +838,127 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shakeTarget: {fileID: 7506461674159890301}
+--- !u!114 &3649434061026812996
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2661417437704909611}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21c99404cbde38f47a12c995240d4b35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EntityVisuals
+  m_EyeMeshes:
+  - {fileID: 782663718256898033}
+  - {fileID: 1617305766093429003}
+  m_NormalMaterial: {fileID: 2100000, guid: f8d69792489548a4b9d81bbafea4b864, type: 2}
+  m_DeadMaterial: {fileID: 2100000, guid: 4905789540b1c844ab2afaf3c81e9701, type: 2}
+--- !u!114 &8206493709175112930
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2661417437704909611}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a787763c182ec484e8797d317158da01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EntityVFX
+  particleSpawn: {fileID: 3112636467991651300}
+  paintLayer: {fileID: 0}
+  particleZ: -3
+  opponentColor: {r: 0, g: 0, b: 1, a: 1}
+--- !u!114 &1882542023021585692
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2661417437704909611}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e4b878924db6644586520799568a083, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EntityOrientation
+  m_TurnCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  m_TurnDuration: 0.2
+--- !u!114 &388844641849989189
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2661417437704909611}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5abe2365e57354c44b5ccb585bd1b775, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EntityPhysics
+  m_RigidBodyTwoD: {fileID: 5857387183413530615}
+--- !u!114 &5017755581437723804
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2661417437704909611}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cce2cc90fa35d624c9d5f2ced63d721e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EntityAnimator
+  m_Animator: {fileID: 752103092993127942}
+--- !u!114 &535432736144724583
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2661417437704909611}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73c9928650cd6e6449b7955d07983b9c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EntityAudio
+  audioSource: {fileID: 5116616940603786591}
+--- !u!114 &878622666420138167
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2661417437704909611}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1787f727b0bc17b44819ff08de070793, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EntityHealth
 --- !u!114 &3353341615664399293
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1777,7 +1827,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed57a0dae0d0d8c4d8af5d3b1c66d401, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Entity: {fileID: 1280255728880952227}
+  m_Entity: {fileID: 5908979547463451878}
 --- !u!70 &3107905714193689731
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -1988,7 +2038,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed57a0dae0d0d8c4d8af5d3b1c66d401, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Entity: {fileID: 1280255728880952227}
+  m_Entity: {fileID: 5908979547463451878}
 --- !u!70 &8988353681240012734
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

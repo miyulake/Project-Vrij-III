@@ -1,4 +1,4 @@
-public enum EntityState
+public enum EntityStates
 {
     IDLE,
     ATTACK,

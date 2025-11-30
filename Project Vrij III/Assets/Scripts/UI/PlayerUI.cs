@@ -19,23 +19,23 @@ public class PlayerUI : MonoBehaviour
         public TextMeshProUGUI attackText, comboText;
         private float m_DisplayTimer;
 
-        public void UpdateUI(EntityManager manager, float timer)
+        public void UpdateUI(Entity entity, float timer)
         {
-            if (manager.Entity.RecievedComboHits == 1) // Reset on first hit and set after
+            if (entity.Combo.Hits == 1) // Reset on first hit and set after
             {
                 attackText.text = "";
                 comboText.text = "";
             }
 
-            if (manager.State.CurrentState == EntityState.HITSTUN)
+            if (entity.StateMachine.CurrentState is HitStunState)
             {
                 m_DisplayTimer = 0;
 
-                if (manager.Entity.HitType == ContactType.COUNTER) attackText.text = "Counter";
-                else if (manager.Entity.HitType == ContactType.PUNISH) attackText.text = "Punish";
+                if (entity.Resolver.HitType == ContactType.COUNTER) attackText.text = "Counter";
+                else if (entity.Resolver.HitType == ContactType.PUNISH) attackText.text = "Punish";
 
-                if (manager.Entity.RecievedComboHits > 1)
-                    comboText.text = $"{manager.Entity.RecievedComboHits} Hit Combo\n{manager.Entity.RecievedComboDamage} Damage";
+                if (entity.Combo.Hits > 1)
+                    comboText.text = $"{entity.Combo.Hits} Hit Combo\n{entity.Combo.Damage} Damage";
 
                 return;
             }

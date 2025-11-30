@@ -1,18 +1,17 @@
 using UnityEngine;
 
-public class ThrowLogic : MonoBehaviour
+public class ThrowLogic : EntityComponent
 {
     [SerializeField] private GameObject m_ThrowAnchor;
     [SerializeField] private AnimationCurve m_TurnCurve;
     [Range(0.05f, 0.25f)] [SerializeField] private float m_TurnDuration = 0.2f;
-    private EntityManager m_EntityManager;
     private CapsuleCollider2D m_PlayerCollider;
     private float m_TurnTime = -1f;
     private float m_StartY;
 
-    private void Awake()
+    protected override void Awake()
     {
-        m_EntityManager = GetComponent<EntityManager>();
+        base.Awake();
         m_PlayerCollider = GetComponent<CapsuleCollider2D>();
     }
 
@@ -20,13 +19,13 @@ public class ThrowLogic : MonoBehaviour
 
     private void HandleThrow()
     {
-        if (m_ThrowAnchor.activeSelf && m_EntityManager.OpponentState.CurrentState == EntityState.HITSTUN &&
+        if (m_ThrowAnchor.activeSelf && Entity.Opponent.StateMachine.CurrentState is HitStunState &&
             RoundManager.Instance.CurrentState != RoundState.INTRO)
         {
             if (m_TurnTime < 0f) m_TurnTime = 0f;
 
             m_PlayerCollider.enabled = false;
-            m_EntityManager.OpponentTransform.position = m_ThrowAnchor.transform.position;
+            Entity.Opponent.transform.position = m_ThrowAnchor.transform.position;
         }
         else
         {

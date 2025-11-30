@@ -37,8 +37,8 @@ public class RoundManager : MonoBehaviour
 
         m_OnRoundStart.Invoke();
 
-        PlayerManager.Instance.playerOne.Entity.ResetEntity();
-        PlayerManager.Instance.playerTwo.Entity.ResetEntity();
+        PlayerManager.Instance.playerOne.ResetEntity();
+        PlayerManager.Instance.playerTwo.ResetEntity();
 
         m_RoundTimer = m_RoundDuration;
         m_TimerTextMesh.text = m_RoundTimer.ToString("00");

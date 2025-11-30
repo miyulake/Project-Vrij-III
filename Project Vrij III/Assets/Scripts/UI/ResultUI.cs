@@ -29,8 +29,8 @@ public class ResultUI : MonoBehaviour
     {
         var playerOne = PlayerManager.Instance.playerOne;   
         var playerTwo = PlayerManager.Instance.playerTwo;
-        var playerOneHealth = playerOne.Entity.CurrentHealth;
-        var playerTwoHealth = playerTwo.Entity.CurrentHealth;
+        var playerOneHealth = playerOne.Health.CurrentHealth;
+        var playerTwoHealth = playerTwo.Health.CurrentHealth;
 
         RoundUI.Instance.SetRoundText(
             (playerOneHealth > playerTwoHealth) ? "Red Wins!" :

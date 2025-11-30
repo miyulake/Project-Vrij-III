@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class TwoDMovement : MonoBehaviour
+public class TwoDMovement : EntityComponent
 {
     [SerializeField] private Rigidbody2D m_RigidBodyTwoD;
     [SerializeField] private Animator m_Animator;
@@ -8,26 +8,18 @@ public class TwoDMovement : MonoBehaviour
     [Range(0, 10)] [SerializeField] private float blockSpeed = 2;
     [Range(0, 500)] [SerializeField] private float acceleration = 50f;
     [Range(0, 100)] [SerializeField] private float deceleration = 50f;
-    private InputReader m_InputReader;
-    private EntityManager m_EntityManager;
     private Vector2 m_InputDirection;
     private Vector2 m_CurrentVelocity;
 
-    private void Awake()
-    {
-        m_InputReader = GetComponent<InputReader>();
-        m_EntityManager = GetComponent<EntityManager>();
-    }
-
     private void Update()
     {
-        if (m_EntityManager.IsDead || RoundManager.Instance.CurrentState == RoundState.INTRO)
+        if (Entity.Health.IsDead || RoundManager.Instance.CurrentState == RoundState.INTRO)
         {
             m_RigidBodyTwoD.linearVelocity = Vector2.zero;
             return;
         }
 
-        m_InputDirection = CanMove() ? m_InputReader.Movement : Vector2.zero;
+        m_InputDirection = CanMove() ? Entity.Input.Movement : Vector2.zero;
         Movement();
     }
 

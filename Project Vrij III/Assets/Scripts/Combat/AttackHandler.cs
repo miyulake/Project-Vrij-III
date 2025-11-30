@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class AttackHandler : MonoBehaviour
+public class AttackHandler : EntityComponent
 {
     [SerializeField] private Animator m_Animator;
     [Header("Buffer Settings")]
@@ -8,8 +8,6 @@ public class AttackHandler : MonoBehaviour
     [Range(1, 10)] [SerializeField] private int m_BufferFrames = 10;
 
     private InputReader m_InputReader;
-    private EntityManager m_EntityManager;
-    private StateManager m_StateManager;
     private Hitbox[] m_Hitboxes;
     private MoveData[] m_AllMoves;
 
@@ -19,34 +17,28 @@ public class AttackHandler : MonoBehaviour
     private MoveData m_BufferedMove;
     private float m_BufferedCrossfade;
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         m_InputReader = GetComponent<InputReader>();
-        m_EntityManager = GetComponent<EntityManager>();
-        m_StateManager = GetComponent<StateManager>();
         m_Hitboxes = GetComponentsInChildren<Hitbox>(true);
         m_AllMoves = Resources.LoadAll<MoveData>("MoveData");
-    }
-
-    private void FixedUpdate()
-    {
-        if (RoundManager.Instance.CurrentState == RoundState.INTRO) ResetAttackHandler(); // QUICK SOLUTION
-
-        // Only go through logic if the game is going or unpaused
-        if (m_EntityManager.IsDead || RoundManager.Instance.CurrentState == RoundState.INTRO || GameManager.Instance.IsPaused()) return;
-
-        TickLogic();
     }
 
     /// <summary>
     /// Used in fixed update to ensure time step syncs with 60fps
     /// </summary>
-    private void TickLogic()
+    public void Tick()
     {
+        // Only go through logic if the game is going or unpaused
+        if (Entity.Health.IsDead ||
+            RoundManager.Instance.CurrentState == RoundState.INTRO ||
+            GameManager.Instance.IsPaused()) return;
+
         // If we are hit or the round ended reset everything and return
-        if (m_StateManager.IsInStun())
+        if (Entity.StateMachine.IsInStun())
         {
-            EndMove();
+            Reset();
             return;
         }
 
@@ -65,14 +57,16 @@ public class AttackHandler : MonoBehaviour
         HandleCancelExecution();
 
         // Track what state we are in based on the current frame
-        if (m_CurrentFrame > m_CurrentMove.frames.TotalFrames()) // NOTE: >= Hack I think?
+        if (m_CurrentFrame > m_CurrentMove.frames.TotalFrames() ) // NOTE: >= Hack I think?
         {
             EndMove();
-            // If a buffered move didn't start, return to idle
-            if (m_CurrentMove == null) m_StateManager.SetState(EntityState.IDLE);
+            // If a buffered move didn't start and we are not idle, return to idle
+            if (m_CurrentMove == null && Entity.StateMachine.CurrentState is not IdleState) 
+                Entity.StateMachine.ChangeState<IdleState>();
         }
-        else if (m_CurrentMove.frames.IsRecovering(m_CurrentFrame) && m_StateManager.CurrentState != EntityState.RECOVER)  
-            m_StateManager.SetState(EntityState.RECOVER);
+        else if (m_CurrentMove.frames.IsRecovering(m_CurrentFrame) && 
+            Entity.StateMachine.CurrentState is not RecoverState)
+            Entity.StateMachine.ChangeState<RecoverState>();
 
         // Advance frame
         ++m_CurrentFrame;
@@ -85,7 +79,7 @@ public class AttackHandler : MonoBehaviour
     {
         if (move == null) return;
 
-        m_StateManager.SetState(EntityState.ATTACK);
+        Entity.StateMachine.ChangeState<AttackState>();
         m_CurrentMove = move;
         m_CurrentFrame = 1; // NOTE: Account for frame 0 of logic
 
@@ -142,7 +136,7 @@ public class AttackHandler : MonoBehaviour
     /// </summary>
     private MoveData CheckForInitialInput()
     {
-        if (m_StateManager.CurrentState != EntityState.IDLE) return null;
+        if (Entity.StateMachine.CurrentState is not IdleState) return null;
 
         for (int i = 0; i < m_AllMoves.Length; i++)
         {
@@ -255,13 +249,12 @@ public class AttackHandler : MonoBehaviour
         for (int i = 0; i < m_Hitboxes.Length; i++) m_Hitboxes[i].MoveData = move;
     }
 
-    private void ResetAttackHandler()
+    public void Reset()
     {
         m_CurrentMove = null;
         m_CurrentFrame = 0;
+
         m_BufferedMove = null;
         m_BufferedCrossfade = 0;
-        m_StateManager.SetState(EntityState.IDLE);
-        m_Animator.Play("Idle");
     }
 }

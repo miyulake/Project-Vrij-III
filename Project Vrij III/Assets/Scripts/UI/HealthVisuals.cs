@@ -50,15 +50,15 @@ public class HealthVisuals : MonoBehaviour
             lastHealth = health.value;
         }
 
-        public void UpdateAll(float deltaTime, HealthUIConfig config, EntityManager manager)
+        public void UpdateAll(float deltaTime, HealthUIConfig config, Entity entity)
         {
-            health.value = manager.Entity.CurrentHealth;
-            UpdateGhostHealth(deltaTime, config, manager);
+            health.value = entity.Health.CurrentHealth;
+            UpdateGhostHealth(deltaTime, config, entity);
             UpdateShake(deltaTime, config.shakeDuration, config.shakeStrength);
             DetectHealthChange(config.shakeDuration);
         }
 
-        private void UpdateGhostHealth(float deltaTime, HealthUIConfig config, EntityManager manager)
+        private void UpdateGhostHealth(float deltaTime, HealthUIConfig config, Entity entity)
         {
             // Doesn't work
             /*
@@ -68,7 +68,7 @@ public class HealthVisuals : MonoBehaviour
                 return;
             }*/
 
-            if (ghostHealth.value > health.value && !manager.State.IsInStun())
+            if (ghostHealth.value > health.value && !entity.StateMachine.IsInStun())
             {
                 if (health.value != target)
                 {

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class EntityVisuals : MonoBehaviour
+public class EntityVisuals : EntityComponent
 {
     [SerializeField] private MeshRenderer[] m_EyeMeshes;
     [SerializeField] private Material m_NormalMaterial;
@@ -15,4 +15,6 @@ public class EntityVisuals : MonoBehaviour
     {
         for (int i = 0; i < m_EyeMeshes.Length; i++) m_EyeMeshes[i].sharedMaterial = m_DeadMaterial;
     }
+
+    public void Reset() => SetNormalFace();
 }
