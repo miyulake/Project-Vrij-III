@@ -11,17 +11,9 @@ public class StateMachine : EntityComponent
         m_StateFactory = new StateFactory(Entity, this);
     }
 
-    public void ChangeState<T>(params object[] args) where T : EntityState
+    public void ChangeState<T>(bool forceOverride = false, params object[] args) where T : EntityState
     {
-        if (CurrentState is DeadState) return;
-        CurrentState?.OnExit();
-        CurrentState = m_StateFactory.Create<T>(args);
-        Debug.Log($"{Entity.gameObject.name} changed to: {CurrentState.GetType().Name}");
-        CurrentState.OnEnter();
-    }
-
-    public void OverrideChangeState<T>(params object[] args) where T : EntityState
-    {
+        if (CurrentState is DeadState && !forceOverride) return;
         CurrentState?.OnExit();
         CurrentState = m_StateFactory.Create<T>(args);
         Debug.Log($"{Entity.gameObject.name} changed to: {CurrentState.GetType().Name}");

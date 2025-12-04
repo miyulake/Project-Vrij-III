@@ -18,7 +18,7 @@ public class HitStunState : EntityState
         {
             Entity.Combo.Reset();
 
-            if (Entity.Input.Blocking)
+            if (Entity.Input.Block)
                 StateMachine.ChangeState<BlockState>();
             else
                 StateMachine.ChangeState<IdleState>();

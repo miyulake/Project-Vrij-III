@@ -9,7 +9,7 @@ public class IdleState : EntityState
 
     public override void Tick()
     {
-        if (Entity.Input.Blocking)
+        if (Entity.Input.Block && RoundManager.Instance.CurrentState != RoundState.INTRO)
         {
             StateMachine.ChangeState<BlockState>();
             return;

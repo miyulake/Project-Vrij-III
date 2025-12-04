@@ -14,8 +14,8 @@ public class InputReader : MonoBehaviour
     public bool AttackForward  => playerInput.actions["AttackForward"].triggered;
     public bool AttackDownward => playerInput.actions["AttackDownward"].triggered;
     public bool AttackUpward   => playerInput.actions["AttackUpward"].triggered;
-    public bool Blocking       => playerInput.actions["Block"].IsPressed();
-    public bool Grabbing       => playerInput.actions["Grab"].triggered;
+    public bool Block          => playerInput.actions["Block"].IsPressed();
+    public bool Grab           => playerInput.actions["Grab"].triggered;
     public bool Snap           => playerInput.actions["Snap"].triggered;
     public bool Push           => playerInput.actions["Push"].triggered;
     public bool Taunt          => playerInput.actions["Taunt"].triggered;

@@ -17,9 +17,11 @@ public class MoveData : ScriptableObject
     public ContactData block;
     public ContactData counterHit;
 
+    [Header("Throw")]
+    public int breakFrames;
+
     [Header("Cancels")]
     public CancelOption[] cancelOptions;
-    //public FrameRange blockCancelWindow;
 
     [Header("Paint")]
     public PaintData paintData;

@@ -799,6 +799,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 275b41ef90266aa439044c2546422235, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  clankMove: {fileID: 11400000, guid: 3ef57554f6ad7624485fc444b101c006, type: 2}
   m_ThrowAnchor: {fileID: 1362705945310003443}
   m_TurnCurve:
     serializedVersion: 2
@@ -867,10 +868,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a787763c182ec484e8797d317158da01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EntityVFX
-  particleSpawn: {fileID: 3112636467991651300}
-  paintLayer: {fileID: 0}
-  particleZ: -3
-  opponentColor: {r: 0, g: 0, b: 1, a: 1}
+  m_ParticleSpawn: {fileID: 3112636467991651300}
+  m_PaintLayer: {fileID: 0}
+  m_ParticleZ: -3
+  m_OpponentColor: {r: 0, g: 0, b: 1, a: 1}
 --- !u!114 &1882542023021585692
 MonoBehaviour:
   m_ObjectHideFlags: 0

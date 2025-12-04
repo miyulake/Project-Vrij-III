@@ -14,6 +14,7 @@ public class AttackState : EntityState
 
     public override void OnExit()
     {
-        //
+        // Doesn't work :(
+        //Entity.Orientation.CheckTurnNeeded();
     }
 }

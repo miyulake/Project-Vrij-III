@@ -31,11 +31,18 @@ public class PlayerUI : MonoBehaviour
             {
                 m_DisplayTimer = 0;
 
-                if (entity.Resolver.HitType == ContactType.COUNTER) attackText.text = "Counter";
-                else if (entity.Resolver.HitType == ContactType.PUNISH) attackText.text = "Punish";
+                if (entity.Resolver.HitType == ContactType.COUNTER) 
+                    attackText.text = "Counter";
+                else if (entity.Resolver.HitType == ContactType.PUNISH) 
+                    attackText.text = "Punish";
 
                 if (entity.Combo.Hits > 1)
-                    comboText.text = $"{entity.Combo.Hits} Hit Combo\n{entity.Combo.Damage} Damage";
+                {
+                    if (!GameManager.Instance.usePaint)
+                        comboText.text = $"{entity.Combo.Hits} Hit Combo\n{entity.Combo.Damage} Damage";
+                    else
+                        comboText.text = $"{entity.Combo.Hits} Hit Combo";
+                }
 
                 return;
             }

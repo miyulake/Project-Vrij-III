@@ -16,7 +16,7 @@ public class BlockStunState : EntityState
 
         if (m_StunFrames <= 0)
         {
-            if (Entity.Input.Blocking)
+            if (Entity.Input.Block)
                 StateMachine.ChangeState<BlockState>();
             else
                 StateMachine.ChangeState<IdleState>();

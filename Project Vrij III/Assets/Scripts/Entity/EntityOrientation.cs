@@ -8,6 +8,9 @@ public class EntityOrientation : EntityComponent
     private Vector3 m_OriginalPosition;
     private Quaternion m_OriginalRotation;
 
+    private Vector3 m_StoredPosition; 
+    private Quaternion m_StoredRotation;
+
     private int m_CurrentFacing = 1;
     private float m_TurnTime = -1f;
     private float m_StartY;
@@ -27,7 +30,7 @@ public class EntityOrientation : EntityComponent
         UpdateTurnRotation();
     }
 
-    private void CheckTurnNeeded()
+    public void CheckTurnNeeded()
     {
         if (!Entity.StateMachine.IsNeutral()) return;
 
@@ -60,6 +63,14 @@ public class EntityOrientation : EntityComponent
 
         if (time >= 1f) m_TurnTime = -1f;
     }
+
+    public void StoreOrientation()
+    {
+        m_StoredPosition = new Vector3(transform.position.x, transform.position.y, 0);
+        m_StoredRotation = Quaternion.Euler(0f, m_CurrentFacing == 1 ? 0f : 180f, 0f);
+    }
+
+    public void ApplyStoredOrientation() => transform.SetPositionAndRotation(m_StoredPosition, m_StoredRotation);
 
     public void Reset() => transform.SetPositionAndRotation(m_OriginalPosition, m_OriginalRotation);
 }

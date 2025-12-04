@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class ThrowLogic : EntityComponent
 {
+    public MoveData clankMove;
     [SerializeField] private GameObject m_ThrowAnchor;
     [SerializeField] private AnimationCurve m_TurnCurve;
     [Range(0.05f, 0.25f)] [SerializeField] private float m_TurnDuration = 0.2f;
@@ -19,7 +20,9 @@ public class ThrowLogic : EntityComponent
 
     private void HandleThrow()
     {
-        if (m_ThrowAnchor.activeSelf && Entity.Opponent.StateMachine.CurrentState is HitStunState &&
+        if (m_ThrowAnchor.activeSelf && 
+            (Entity.Opponent.StateMachine.CurrentState is HitStunState ||
+            Entity.Opponent.StateMachine.CurrentState is CaughtState) &&
             RoundManager.Instance.CurrentState != RoundState.INTRO)
         {
             if (m_TurnTime < 0f) m_TurnTime = 0f;

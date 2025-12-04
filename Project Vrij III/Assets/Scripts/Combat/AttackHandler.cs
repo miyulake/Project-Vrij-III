@@ -57,7 +57,7 @@ public class AttackHandler : EntityComponent
         HandleCancelExecution();
 
         // Track what state we are in based on the current frame
-        if (m_CurrentFrame > m_CurrentMove.frames.TotalFrames() ) // NOTE: >= Hack I think?
+        if (m_CurrentFrame > m_CurrentMove.frames.TotalFrames()) // NOTE: >= Hack I think?
         {
             EndMove();
             // If a buffered move didn't start and we are not idle, return to idle
@@ -233,7 +233,7 @@ public class AttackHandler : EntityComponent
             AttackInput.FORWARD  => m_InputReader.AttackForward,
             AttackInput.DOWNWARD => m_InputReader.AttackDownward,
             AttackInput.UPWARD   => m_InputReader.AttackUpward,
-            AttackInput.GRAB     => m_InputReader.Grabbing,
+            AttackInput.GRAB     => m_InputReader.Grab,
             AttackInput.SNAP     => m_InputReader.Snap,
             AttackInput.PUSH     => m_InputReader.Push,
             AttackInput.TAUNT    => m_InputReader.Taunt,

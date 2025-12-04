@@ -1,15 +1,13 @@
 TO-DO:
 - Implement super attacks (grab linking, projectile?)
-- Let winning player do stuff after round end
 - Make the player borders more clear
 - Implement armor for moves
 
 BUG:
 - Fix grabs (currently you can teleport opponent towards you when grabbing)
+- Fix recovery grab bug (currently if you grab the opponent during recovery it doesn't work)
 - Hitboxes hit multiple times sometimes
 - Attack buffer might still be broken
 
 REFACTOR:
 - Fix DEAD state not doing anything
-- Fix round end attack buffer bug (currently buffered attacks arent cleared after a round ends)
-- Fix health visuals not resetting on round start

@@ -9,6 +9,7 @@ using UnityEngine;
 [RequireComponent(typeof(EntityAudio))]
 [RequireComponent(typeof(EntityOrientation))]
 [RequireComponent(typeof(EntityAnimator))]
+[RequireComponent(typeof(ThrowLogic))]
 [RequireComponent(typeof(ShakeController))]
 [RequireComponent(typeof(InputReader))]
 public class Entity : MonoBehaviour
@@ -23,6 +24,7 @@ public class Entity : MonoBehaviour
     public EntityAudio       Audio { get; private set; }
     public EntityOrientation Orientation { get; private set; }
     public EntityAnimator    Animator { get; private set; }
+    public ThrowLogic        Throw { get; private set; }
     public ShakeController   Shake { get; private set; }
     public ComboTracker      Combo { get; private set; }
     public InputReader       Input { get; private set; }
@@ -40,6 +42,7 @@ public class Entity : MonoBehaviour
         Audio        = GetComponent<EntityAudio>();
         Orientation  = GetComponent<EntityOrientation>();
         Animator     = GetComponent<EntityAnimator>();
+        Throw        = GetComponent<ThrowLogic>();
         Shake        = GetComponent<ShakeController>();
         Combo        = new ComboTracker();
         Input        = GetComponent<InputReader>();
@@ -61,7 +64,7 @@ public class Entity : MonoBehaviour
         Orientation.Reset();
         Animator.Play("Idle");
         Combo.Reset();
-        StateMachine.OverrideChangeState<IdleState>();
+        StateMachine.ChangeState<IdleState>(true);
     }
 
     public void SetOpponent(Entity opponent) => Opponent = opponent;

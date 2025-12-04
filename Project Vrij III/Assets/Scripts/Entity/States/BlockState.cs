@@ -9,7 +9,7 @@ public class BlockState : EntityState
 
     public override void Tick()
     {
-        if (!Entity.Input.Blocking)
+        if (!Entity.Input.Block)
         {
             StateMachine.ChangeState<IdleState>();
             return;
