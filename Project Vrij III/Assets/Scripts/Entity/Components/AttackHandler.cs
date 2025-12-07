@@ -58,7 +58,7 @@ public class AttackHandler : EntityComponent
         HandleCancelExecution();
 
         // Track what state we are in based on the current frame
-        if (m_CurrentFrame > m_CurrentMove.frames.TotalFrames()) // NOTE: >= Hack I think?
+        if (m_CurrentFrame >= m_CurrentMove.frames.TotalFrames()) // NOTE: >= Hack I think?
         {
             EndMove();
             // If a buffered move didn't start and we are not idle, return to idle

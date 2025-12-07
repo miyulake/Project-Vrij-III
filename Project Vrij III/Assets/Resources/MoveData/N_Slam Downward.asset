@@ -24,7 +24,7 @@ MonoBehaviour:
       start: 0
       end: 0
   hit:
-    stun: 35
+    stun: 34
     damage: 11
     knockback: {x: 10, y: -10}
     shakeMagnitude: 0.125
@@ -38,12 +38,13 @@ MonoBehaviour:
     particleEffect: {fileID: 0}
     sound: {fileID: 8300000, guid: 88b8eee774e8cf5458405ec3d6c92590, type: 3}
   counterHit:
-    stun: 54
+    stun: 55
     damage: 15
     knockback: {x: 15, y: -15}
     shakeMagnitude: 0.15
     particleEffect: {fileID: 3432958286849152088, guid: 7ad1ce79196b5b84ebab3617e0ec2c3c, type: 3}
     sound: {fileID: 8300000, guid: 80184ba0517b8c04cb8eb711bba97d40, type: 3}
+  breakFrames: 0
   cancelOptions: []
   paintData:
     paintPrefab: {fileID: 4182030647486133465, guid: e67ef2ca55de1db418fcd7a65aee31bf, type: 3}
