@@ -59,10 +59,11 @@ public class EntityOrientation : EntityComponent
         m_CurrentFacing = FacingDirection;
 
         var forcedY = m_CurrentFacing == 1 ? 0f : 180f;
-        transform.localRotation = Quaternion.Euler(0f, forcedY, 0f); // Fix rotation
-
+        var newRotation = transform.localRotation = Quaternion.Euler(0f, forcedY, 0f); // Fix rotation
         var position = transform.localPosition;
-        transform.localPosition = new Vector3(position.x, position.y, 0); // Fix position
+        var newPosition = transform.localPosition = new Vector3(position.x, position.y, 0); // Fix position
+
+        transform.SetLocalPositionAndRotation(newPosition, newRotation);
 
         m_TurnTime = -1f;
     }
