@@ -14,10 +14,12 @@ public class StateMachine : EntityComponent
     public void ChangeState<T>(bool forceOverride = false, params object[] args) where T : EntityState
     {
         if (CurrentState is DeadState && !forceOverride) return;
+
         CurrentState?.OnExit();
         CurrentState = m_StateFactory.Create<T>(args);
-        Debug.Log($"{Entity.gameObject.name} changed to: {CurrentState.GetType().Name}");
         CurrentState.OnEnter();
+
+        Debug.Log($"{Entity.gameObject.name} changed to: {CurrentState.GetType().Name}");
     }
 
     public void Tick() => CurrentState?.Tick();

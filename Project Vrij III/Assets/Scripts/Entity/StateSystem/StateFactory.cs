@@ -14,7 +14,7 @@ public class StateFactory
 
     public T Create<T>(params object[] args) where T : EntityState
     {
-        // Prepend shared deps to the args!
+        // Don't ask me how this works
         var finalArgs = new object[] { m_Entity, m_StateMachine }.Concat(args).ToArray();
         return (T)Activator.CreateInstance(typeof(T), finalArgs);
     }
