@@ -15,7 +15,7 @@ public class Options : MonoBehaviour
 
     private void Start()
     {
-        GetResolutions();
+        //GetResolutions();
         GetOptionValues();
     }
 
@@ -36,15 +36,13 @@ public class Options : MonoBehaviour
         m_Resolutions = Screen.resolutions;
         m_FilteredResolutions = new List<Resolution>();
 
-        if (m_ResolutionDropdown != null) m_ResolutionDropdown.ClearOptions();
+        m_ResolutionDropdown.ClearOptions();
 
         var currentRefreshRate = Screen.currentResolution.refreshRateRatio.value;
         for (int i = 0; i < m_Resolutions.Length; i++)
         {
             if (m_Resolutions[i].refreshRateRatio.value == currentRefreshRate)
-            {
                 m_FilteredResolutions.Add(m_Resolutions[i]);
-            }
         }
 
         var currentResolutionIndex = 0;
@@ -55,9 +53,7 @@ public class Options : MonoBehaviour
             options.Add(resolutionOption);
             if (m_FilteredResolutions[i].width == Screen.currentResolution.width &&
                 m_FilteredResolutions[i].height == Screen.currentResolution.height)
-            {
                 currentResolutionIndex = i;
-            }
         }
 
         m_ResolutionDropdown.AddOptions(options);

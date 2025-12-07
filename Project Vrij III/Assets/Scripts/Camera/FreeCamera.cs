@@ -2,43 +2,51 @@ using UnityEngine;
 
 public class FreeCamera : MonoBehaviour
 {
-    public float moveSpeed = 10f;
-    public float lookSpeed = 2f;
-    public float speedMultiplier = 3f;
+    [SerializeField] private float m_MoveSpeed = 10f;
+    [SerializeField] private float m_LookSpeed = 2f;
+    [SerializeField] private float m_SpeedMultiplier = 2f;
+    private float m_Yaw;
+    private float m_Pitch;
 
-    private float yaw;
-    private float pitch;
-
-    void Update()
+    private void Update()
     {
-        // --- Mouse Look ---
-        if (Input.GetMouseButton(1)) // Hold right mouse button
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
-            Cursor.lockState = CursorLockMode.Locked;
-
-            yaw += Input.GetAxis("Mouse X") * lookSpeed;
-            pitch -= Input.GetAxis("Mouse Y") * lookSpeed;
-            pitch = Mathf.Clamp(pitch, -90f, 90f);
-
-            transform.rotation = Quaternion.Euler(pitch, yaw, 0f);
+            Reset();
+            gameObject.SetActive(false);
         }
-        else
+        else if (Input.GetMouseButton(1))
         {
-            Cursor.lockState = CursorLockMode.None;
+            CameraRotation();
+            GetMovement(GetSpeed());
         }
+    }
 
-        // --- Movement ---
-        float speed = moveSpeed;
+    private void CameraRotation()
+    {
+        m_Yaw += Input.GetAxis("Mouse X") * m_LookSpeed;
+        m_Pitch -= Input.GetAxis("Mouse Y") * m_LookSpeed;
 
-        if (Input.GetKey(KeyCode.LeftShift))
-            speed *= speedMultiplier;
+        m_Pitch = Mathf.Clamp(m_Pitch, -90f, 90f);
+        transform.rotation = Quaternion.Euler(m_Pitch, m_Yaw, 0f);
+    }
 
-        Vector3 input = new Vector3(
+    private void GetMovement(float speed)
+    {
+        var input = new Vector3(
             Input.GetAxisRaw("Horizontal"),
             (Input.GetKey(KeyCode.E) ? 1 : 0) - (Input.GetKey(KeyCode.Q) ? 1 : 0),
             Input.GetAxisRaw("Vertical")
         );
-
         transform.position += speed * Time.deltaTime * transform.TransformDirection(input.normalized);
+    }
+
+    private float GetSpeed() => Input.GetKey(KeyCode.LeftShift) ? m_MoveSpeed * m_SpeedMultiplier : m_MoveSpeed;
+
+    private void Reset()
+    {
+        m_Yaw = 0f;
+        m_Pitch = 0f;
+        transform.SetPositionAndRotation(Vector3.zero, Quaternion.identity);
     }
 }
