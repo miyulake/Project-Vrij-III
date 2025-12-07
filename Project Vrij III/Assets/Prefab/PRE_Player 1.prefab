@@ -700,7 +700,6 @@ GameObject:
   - component: {fileID: 388844641849989189}
   - component: {fileID: 5017755581437723804}
   - component: {fileID: 535432736144724583}
-  - component: {fileID: 878622666420138167}
   - component: {fileID: 3353341615664399293}
   - component: {fileID: 4538461412856120102}
   - component: {fileID: 5857387183413530615}
@@ -950,18 +949,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EntityAudio
   audioSource: {fileID: 5116616940603786591}
---- !u!114 &878622666420138167
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2661417437704909611}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1787f727b0bc17b44819ff08de070793, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EntityHealth
 --- !u!114 &3353341615664399293
 MonoBehaviour:
   m_ObjectHideFlags: 0

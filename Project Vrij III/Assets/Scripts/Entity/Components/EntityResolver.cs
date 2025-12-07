@@ -57,6 +57,9 @@ public class EntityResolver
             return;
         }
 
+        // Paint check
+        var usePaint = GameManager.Instance.gameMode == GameMode.PAINT;
+
         // Orientation
         var facingDirection = m_Entity.Orientation.FacingDirection;
 
@@ -73,7 +76,7 @@ public class EntityResolver
 
         // VFX
         m_Entity.VFX.SpawnParticles(data);
-        if (GameManager.Instance.usePaint) m_Entity.VFX.SpawnPaint(move, facingDirection);
+        if (usePaint) m_Entity.VFX.SpawnPaint(move, facingDirection);
 
         // Visuals
         var stunDuration = data.stun * Time.fixedDeltaTime;
@@ -83,12 +86,12 @@ public class EntityResolver
         m_Entity.Audio.Play(data.sound);
 
         // Damage
-        if (type != ContactType.BLOCK && !GameManager.Instance.usePaint)
+        if (type != ContactType.BLOCK && !usePaint)
         {
             m_Entity.Health.ApplyDamage(data.damage);
             m_Entity.Combo.AddHit(data.damage);
         }
-        else if (GameManager.Instance.usePaint) m_Entity.Combo.AddHit(0);
+        else if (usePaint) m_Entity.Combo.AddHit(0);
 
         IsForced = false;
     }

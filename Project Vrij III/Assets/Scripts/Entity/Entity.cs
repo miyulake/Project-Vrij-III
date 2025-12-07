@@ -2,7 +2,6 @@ using UnityEngine;
 
 [RequireComponent(typeof(StateMachine))]
 [RequireComponent(typeof(AttackHandler))]
-[RequireComponent(typeof(EntityHealth))]
 [RequireComponent(typeof(EntityPhysics))]
 [RequireComponent(typeof(EntityVFX))]
 [RequireComponent(typeof(EntityVisuals))]
@@ -32,20 +31,16 @@ public class Entity : MonoBehaviour
 
     private void Awake()
     {
-        StateMachine = GetComponent<StateMachine>();
-        Attack       = GetComponent<AttackHandler>();
-        Health       = GetComponent<EntityHealth>();
-        Physics      = GetComponent<EntityPhysics>();
-        Resolver     = new EntityResolver(this);
-        VFX          = GetComponent<EntityVFX>();
-        Visuals      = GetComponent<EntityVisuals>();
-        Audio        = GetComponent<EntityAudio>();
-        Orientation  = GetComponent<EntityOrientation>();
-        Animator     = GetComponent<EntityAnimator>();
-        Throw        = GetComponent<ThrowLogic>();
-        Shake        = GetComponent<ShakeController>();
-        Combo        = new ComboTracker();
-        Input        = GetComponent<InputReader>();
+        CacheComponents();
+
+        Health   = new EntityHealth(this);
+        Resolver = new EntityResolver(this);
+        Combo    = new ComboTracker();
+    }
+
+    private void Start()
+    {
+        Health.Start();
     }
 
     private void FixedUpdate()
@@ -80,4 +75,19 @@ public class Entity : MonoBehaviour
     }
 
     public void SetOpponent(Entity opponent) => Opponent = opponent;
+
+    private void CacheComponents()
+    {
+        StateMachine = GetComponent<StateMachine>();
+        Attack       = GetComponent<AttackHandler>();
+        Physics      = GetComponent<EntityPhysics>();
+        VFX          = GetComponent<EntityVFX>();
+        Visuals      = GetComponent<EntityVisuals>();
+        Audio        = GetComponent<EntityAudio>();
+        Orientation  = GetComponent<EntityOrientation>();
+        Animator     = GetComponent<EntityAnimator>();
+        Throw        = GetComponent<ThrowLogic>();
+        Shake        = GetComponent<ShakeController>();
+        Input        = GetComponent<InputReader>();
+    }
 }
