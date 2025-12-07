@@ -7,7 +7,7 @@ public class BlockStunState : EntityState
 
     public override void OnEnter()
     {
-        //
+        Entity.Animator.Play("Block_Stun");
     }
 
     public override void Tick()

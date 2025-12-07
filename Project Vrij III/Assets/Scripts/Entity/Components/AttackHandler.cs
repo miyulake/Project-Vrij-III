@@ -2,6 +2,7 @@
 
 public class AttackHandler : EntityComponent
 {
+    public bool IsPaused { get; private set; } = false;
     [SerializeField] private Animator m_Animator;
     [Header("Buffer Settings")]
     [SerializeField] private float m_BufferCrossfade = 0.1f;
@@ -31,7 +32,7 @@ public class AttackHandler : EntityComponent
     public void Tick()
     {
         // Only go through logic if the game is going or unpaused
-        if (Entity.Health.IsDead ||
+        if (Entity.StateMachine.CurrentState is DeadState ||
             RoundManager.Instance.CurrentState == RoundState.INTRO ||
             GameManager.Instance.IsPaused()) return;
 
@@ -69,7 +70,7 @@ public class AttackHandler : EntityComponent
             Entity.StateMachine.ChangeState<RecoverState>();
 
         // Advance frame
-        ++m_CurrentFrame;
+        if (!IsPaused) ++m_CurrentFrame;
     }
 
     /// <summary>
@@ -257,4 +258,6 @@ public class AttackHandler : EntityComponent
         m_BufferedMove = null;
         m_BufferedCrossfade = 0;
     }
+
+    public void SetPauseState(bool isPaused) => IsPaused = isPaused;
 }

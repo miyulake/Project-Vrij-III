@@ -5,6 +5,8 @@ public class DeadState : EntityState
     public override void OnEnter()
     {
         Entity.Visuals.SetDeadFace();
+        Entity.Animator.PlayEnd("Stun");
+        Entity.PauseEntity();
     }
 
     public override void Tick()
@@ -14,6 +16,6 @@ public class DeadState : EntityState
 
     public override void OnExit()
     {
-        
+        Entity.ResumeEntity();
     }
 }

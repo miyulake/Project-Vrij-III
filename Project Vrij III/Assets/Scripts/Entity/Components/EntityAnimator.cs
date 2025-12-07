@@ -11,4 +11,7 @@ public class EntityAnimator : EntityComponent
     }
 
     public void Play(string animation) => m_Animator.Play(animation, 0, 0);
+    public void PlayEnd(string animation) => m_Animator.Play(animation, 0, 1); // Le hack
+    public void Pause() => m_Animator.speed = 0;
+    public void Resume() => m_Animator.speed = 1;
 }

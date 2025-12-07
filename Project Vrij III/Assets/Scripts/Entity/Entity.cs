@@ -67,5 +67,17 @@ public class Entity : MonoBehaviour
         StateMachine.ChangeState<IdleState>(true);
     }
 
+    public void PauseEntity()
+    {
+        Attack.SetPauseState(true);
+        Animator.Pause();
+    }
+
+    public void ResumeEntity()
+    {
+        Attack.SetPauseState(false);
+        Animator.Resume();
+    }
+
     public void SetOpponent(Entity opponent) => Opponent = opponent;
 }

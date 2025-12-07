@@ -4,7 +4,7 @@ public class EntityResolver
 {
     public MoveData StoredMove { get; private set; }
     public ContactType HitType { get; private set; }
-    [HideInInspector] public bool isForced = false; // Bad
+    public bool IsForced { get; private set; } = false;
     private readonly Entity m_Entity;
 
     public EntityResolver(Entity entity) => m_Entity = entity;
@@ -50,7 +50,7 @@ public class EntityResolver
     private void ApplyContact(ContactData data, ContactType type, MoveData move)
     {
         // Throw
-        if (move.moveType == MoveType.GRAB && type != ContactType.COUNTER && !isForced)
+        if (move.moveType == MoveType.GRAB && type != ContactType.COUNTER && !IsForced)
         {
             StoredMove = move;
             m_Entity.StateMachine.ChangeState<CaughtState>(false, move.breakFrames);
@@ -76,7 +76,6 @@ public class EntityResolver
         if (GameManager.Instance.usePaint) m_Entity.VFX.SpawnPaint(move, facingDirection);
 
         // Visuals
-        m_Entity.Animator.Play(type == ContactType.BLOCK ? "Block_Stun" : "Stun");
         var stunDuration = data.stun * Time.fixedDeltaTime;
         m_Entity.Shake.TriggerShake(stunDuration, data.shakeMagnitude);
 
@@ -91,6 +90,8 @@ public class EntityResolver
         }
         else if (GameManager.Instance.usePaint) m_Entity.Combo.AddHit(0);
 
-        isForced = false;
+        IsForced = false;
     }
+
+    public void SetForceState(bool isForced) => IsForced = isForced;
 }

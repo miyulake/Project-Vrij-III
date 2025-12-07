@@ -4,8 +4,8 @@ public class ClankState : EntityState
 
     public override void OnEnter()
     {
-        Entity.Orientation.ApplyStoredOrientation();
         Entity.Combo.Reset();
-        Entity.Resolver.ResolveHit(Entity.Throw.clankMove);
+        Entity.Resolver.ResolveHit(Entity.Throw.GetClank());
+        Entity.Orientation.ForceFixOrientation();
     }
 }

@@ -7,7 +7,7 @@ public class HitStunState : EntityState
 
     public override void OnEnter()
     {
-        //
+        Entity.Animator.Play("Stun");
     }
 
     public override void Tick()

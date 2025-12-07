@@ -1,7 +1,6 @@
 public class EntityHealth : EntityComponent
 {
     public int CurrentHealth { get; private set; }
-    public bool IsDead => CurrentHealth <= 0;
     private int m_MaxHealth;
 
     private void Start()

@@ -8,9 +8,6 @@ public class EntityOrientation : EntityComponent
     private Vector3 m_OriginalPosition;
     private Quaternion m_OriginalRotation;
 
-    private Vector3 m_StoredPosition; 
-    private Quaternion m_StoredRotation;
-
     private int m_CurrentFacing = 1;
     private float m_TurnTime = -1f;
     private float m_StartY;
@@ -54,23 +51,21 @@ public class EntityOrientation : EntityComponent
 
         transform.localRotation = Quaternion.Euler(0, newY, 0);
 
-        if (!Entity.StateMachine.IsNeutral())
-        {
-            m_CurrentFacing = FacingDirection;
-            transform.localRotation = Quaternion.Euler(0f, m_CurrentFacing == 1 ? 0f : 180f, 0f);
-            m_TurnTime = 1f;
-        }
-
-        if (time >= 1f) m_TurnTime = -1f;
+        if (!Entity.StateMachine.IsNeutral()) ForceFixOrientation();
     }
 
-    public void StoreOrientation()
+    public void ForceFixOrientation()
     {
-        m_StoredPosition = new Vector3(transform.position.x, transform.position.y, 0);
-        m_StoredRotation = Quaternion.Euler(0f, m_CurrentFacing == 1 ? 0f : 180f, 0f);
-    }
+        m_CurrentFacing = FacingDirection;
 
-    public void ApplyStoredOrientation() => transform.SetPositionAndRotation(m_StoredPosition, m_StoredRotation);
+        var forcedY = m_CurrentFacing == 1 ? 0f : 180f;
+        transform.localRotation = Quaternion.Euler(0f, forcedY, 0f); // Fix rotation
+
+        var position = transform.localPosition;
+        transform.localPosition = new Vector3(position.x, position.y, 0); // Fix position
+
+        m_TurnTime = -1f;
+    }
 
     public void Reset() => transform.SetPositionAndRotation(m_OriginalPosition, m_OriginalRotation);
 }

@@ -13,7 +13,9 @@ public class TwoDMovement : EntityComponent
 
     private void Update()
     {
-        if (Entity.Health.IsDead || RoundManager.Instance.CurrentState == RoundState.INTRO)
+        if (Entity.StateMachine.CurrentState is DeadState ||
+            Entity.StateMachine.CurrentState is CaughtState ||
+            RoundManager.Instance.CurrentState == RoundState.INTRO)
         {
             m_RigidBodyTwoD.linearVelocity = Vector2.zero;
             return;

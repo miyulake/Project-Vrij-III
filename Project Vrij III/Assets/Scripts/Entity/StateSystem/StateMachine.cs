@@ -22,6 +22,9 @@ public class StateMachine : EntityComponent
 
     public void Tick() => CurrentState?.Tick();
 
-    public bool IsInStun() => CurrentState is HitStunState || CurrentState is BlockStunState;
-    public bool IsNeutral() => CurrentState is IdleState || CurrentState is BlockState;
+    public bool IsInStun() => 
+        CurrentState is HitStunState || CurrentState is BlockStunState || CurrentState is CaughtState;
+
+    public bool IsNeutral() => 
+        CurrentState is IdleState || CurrentState is BlockState;
 }

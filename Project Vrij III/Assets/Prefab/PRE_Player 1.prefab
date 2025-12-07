@@ -799,7 +799,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 275b41ef90266aa439044c2546422235, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clankMove: {fileID: 11400000, guid: 3ef57554f6ad7624485fc444b101c006, type: 2}
+  m_ClankMove: {fileID: 11400000, guid: 3ef57554f6ad7624485fc444b101c006, type: 2}
   m_ThrowAnchor: {fileID: 1362705945310003443}
   m_TurnCurve:
     serializedVersion: 2
@@ -826,6 +826,8 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   m_TurnDuration: 0.2
+  m_CaughtSound: {fileID: 8300000, guid: a65ef2705e2ae74499cbc4205328e318, type: 3}
+  m_ClankSound: {fileID: 8300000, guid: 88b8eee774e8cf5458405ec3d6c92590, type: 3}
 --- !u!114 &6727671721480798848
 MonoBehaviour:
   m_ObjectHideFlags: 0

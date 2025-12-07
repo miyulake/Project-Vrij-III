@@ -29,7 +29,7 @@ MonoBehaviour:
     knockback: {x: 15, y: 0}
     shakeMagnitude: 0.125
     particleEffect: {fileID: 8525990746615576120, guid: b85d21f3b8fed714bacf0c4fd50fa512, type: 3}
-    sound: {fileID: 8300000, guid: 88b8eee774e8cf5458405ec3d6c92590, type: 3}
+    sound: {fileID: 0}
   block:
     stun: 0
     damage: 0
