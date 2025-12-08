@@ -9,6 +9,7 @@ public class PaintManager : MonoBehaviour
 
     [SerializeField] private RenderTexture m_PaintTexture;
     [Range(32, 512)] [SerializeField] private int m_SampleSize = 128;
+    [SerializeField] private Transform m_PaintBackground;
     private RenderTexture m_SmallTexture;
     private Texture2D m_PaintCopy;
 
@@ -66,4 +67,12 @@ public class PaintManager : MonoBehaviour
             GUI.DrawTexture(new Rect(75, 10, 128, 128), m_SmallTexture, ScaleMode.ScaleToFit, false);
     }
     */
+
+    public void ClearPaintBackground()
+    {
+        for (int i = m_PaintBackground.childCount - 1; i >= 0; i--)
+            Destroy(m_PaintBackground.GetChild(i).gameObject);
+    }
+
+    public Transform GetPaintBackground() => m_PaintBackground;
 }

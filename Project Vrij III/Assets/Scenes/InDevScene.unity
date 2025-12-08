@@ -2804,6 +2804,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1255529699}
   - {fileID: 937984530}
   - {fileID: 299099610}
   - {fileID: 274814072}
@@ -2858,6 +2859,30 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 340937433}
+        m_TargetAssemblyTypeName: PaintManager, Assembly-CSharp
+        m_MethodName: ClearPaintBackground
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1947052116}
+        m_TargetAssemblyTypeName: ResultUI, Assembly-CSharp
+        m_MethodName: ResetPaintResult
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_OnPaintRoundEnd:
     m_PersistentCalls:
       m_Calls:
@@ -2873,7 +2898,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-  m_OnNormalRoundEnd:
+  m_OnHealthRoundEnd:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1947052116}
@@ -2902,6 +2927,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_PaintTexture: {fileID: 8400000, guid: f4154191a92b8344e879214d2d2f458a, type: 2}
   m_SampleSize: 128
+  m_PaintBackground: {fileID: 1255529699}
 --- !u!114 &340937434
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9127,7 +9153,7 @@ GameObject:
   - component: {fileID: 1255529695}
   - component: {fileID: 1255529694}
   m_Layer: 0
-  m_Name: Background
+  m_Name: Paint Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9316,7 +9342,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1499432959}
+  m_Father: {fileID: 340937430}
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 90}
 --- !u!1 &1265989736
 GameObject:
@@ -10738,7 +10764,6 @@ Transform:
   m_Children:
   - {fileID: 184927927}
   - {fileID: 410087041}
-  - {fileID: 1255529699}
   - {fileID: 576520239}
   - {fileID: 449863292}
   - {fileID: 1532471409}
@@ -14951,7 +14976,7 @@ PrefabInstance:
       objectReference: {fileID: 1478258283}
     - target: {fileID: 23074451809010711, guid: bf3c91c8ca6848d42bb9004d65c243d6, type: 3}
       propertyPath: m_VersionIndex
-      value: 2025
+      value: 2028
       objectReference: {fileID: 0}
     - target: {fileID: 420029039700872631, guid: bf3c91c8ca6848d42bb9004d65c243d6, type: 3}
       propertyPath: m_LocalPosition.x
@@ -14991,7 +15016,7 @@ PrefabInstance:
       objectReference: {fileID: 54727365}
     - target: {fileID: 2665316495032084173, guid: bf3c91c8ca6848d42bb9004d65c243d6, type: 3}
       propertyPath: m_VersionIndex
-      value: 957
+      value: 960
       objectReference: {fileID: 0}
     - target: {fileID: 7372868152233205685, guid: bf3c91c8ca6848d42bb9004d65c243d6, type: 3}
       propertyPath: m_Mesh
@@ -15315,7 +15340,7 @@ PrefabInstance:
       objectReference: {fileID: 2086810432}
     - target: {fileID: 2011268659390246160, guid: 674544fec896a33479f0f3046ca6b403, type: 3}
       propertyPath: m_VersionIndex
-      value: 2286
+      value: 2289
       objectReference: {fileID: 0}
     - target: {fileID: 2192322867580527792, guid: 674544fec896a33479f0f3046ca6b403, type: 3}
       propertyPath: m_LocalPosition.x
@@ -15363,7 +15388,7 @@ PrefabInstance:
       objectReference: {fileID: 326537597}
     - target: {fileID: 4559216348152074186, guid: 674544fec896a33479f0f3046ca6b403, type: 3}
       propertyPath: m_VersionIndex
-      value: 1218
+      value: 1221
       objectReference: {fileID: 0}
     - target: {fileID: 4564342323286907436, guid: 674544fec896a33479f0f3046ca6b403, type: 3}
       propertyPath: m_Name

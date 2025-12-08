@@ -17,15 +17,11 @@ public class ResultUI : MonoBehaviour
     {
         if (GameManager.Instance.CurrentMode != GameMode.PAINT || RoundManager.Instance.CurrentState != RoundState.RESULT) return;
 
-        if (!started)
-        {
-            BeginPaintResult();
-            return;
-        }
-        AnimatePaintResult();
+        if (!started) BeginPaintResult();
+        else AnimatePaintResult();
     }
 
-    public void DisplayNormalResult()
+    public void DisplayHealthResult()
     {
         var playerOne = PlayerManager.Instance.playerOne;   
         var playerTwo = PlayerManager.Instance.playerTwo;
@@ -37,6 +33,8 @@ public class ResultUI : MonoBehaviour
             (playerTwoHealth > playerOneHealth) ? "Blue Wins!" :
             "Draw", false);
     }
+
+    public void ResetPaintResult() => started = false;
 
     private void BeginPaintResult()
     {

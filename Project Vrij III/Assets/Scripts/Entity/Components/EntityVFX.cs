@@ -3,7 +3,6 @@ using UnityEngine;
 public class EntityVFX : EntityComponent
 {
     [SerializeField] private Transform m_ParticleSpawn;
-    [SerializeField] private Transform m_PaintLayer;
     [SerializeField] private float m_ParticleZ = -3f;
     [SerializeField] private Color m_OpponentColor = Color.blue;
 
@@ -22,7 +21,7 @@ public class EntityVFX : EntityComponent
         var position = new Vector3(
             transform.position.x,
             transform.position.y,
-            m_PaintLayer.position.z);
+            PaintManager.Instance.GetPaintBackground().position.z);
         var offset = new Vector3(
             move.paintData.offsetPosition.x * -facing,
             move.paintData.offsetPosition.y,
@@ -32,7 +31,7 @@ public class EntityVFX : EntityComponent
             move.paintData.paintPrefab,
             position + offset,
             Quaternion.identity,
-            m_PaintLayer
+            PaintManager.Instance.GetPaintBackground()
         );
 
         var scale = move.paintData.paintScale;

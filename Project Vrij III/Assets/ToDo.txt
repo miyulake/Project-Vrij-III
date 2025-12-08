@@ -1,13 +1,8 @@
 TO-DO:
 - Implement super attacks (grab linking, projectile?)
-- Make the player borders more clear
 - Implement armor for moves
+- Implement ring-outs
 
 BUG:
 - Fix grabs (currently you can teleport opponent towards you when grabbing)
-- Fix recovery grab bug (currently if you grab the opponent during recovery it doesn't work)
 - Hitboxes hit multiple times sometimes
-- Attack buffer might still be broken
-
-REFACTOR:
-- Fix DEAD state not doing anything

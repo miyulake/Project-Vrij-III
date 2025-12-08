@@ -25,7 +25,7 @@ public class RoundManager : MonoBehaviour
     [Header("Events")]
     [SerializeField] private UnityEvent m_OnRoundStart;
     [SerializeField] private UnityEvent m_OnPaintRoundEnd;
-    [SerializeField] private UnityEvent m_OnNormalRoundEnd;
+    [SerializeField] private UnityEvent m_OnHealthRoundEnd;
 
     private void Awake() => Instance = this;
 
@@ -110,7 +110,7 @@ public class RoundManager : MonoBehaviour
             m_OnPaintRoundEnd.Invoke();
             PaintManager.Instance.GetCoverageResult();
         }
-        else m_OnNormalRoundEnd.Invoke();
+        else m_OnHealthRoundEnd.Invoke();
     }
 
     private void SetSlowMo(float timeScale)
