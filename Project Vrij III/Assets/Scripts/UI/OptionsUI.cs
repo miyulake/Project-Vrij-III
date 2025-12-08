@@ -1,21 +1,25 @@
+using System;
+using System.Linq;
 using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.Audio;
 using TMPro;
+using UnityEngine;
+using UnityEngine.Audio;
+using UnityEngine.UI;
 
-public class Options : MonoBehaviour
+public class OptionsUI : MonoBehaviour
 {
     [SerializeField] private AudioMixer m_AudioMixer;
     [SerializeField] private Toggle m_FullscreenToggle;
     [SerializeField] private Slider m_MasterVolume;
     [SerializeField] private TMP_Dropdown m_ResolutionDropdown;
+    [SerializeField] private TMP_Dropdown m_ModeDropdown;
     private Resolution[] m_Resolutions;
     private static List<Resolution> m_FilteredResolutions;
 
     private void Start()
     {
-        //GetResolutions();
+        GetResolutions();
+        GetModes();
         GetOptionValues();
     }
 
@@ -30,6 +34,8 @@ public class Options : MonoBehaviour
         var resolution = m_FilteredResolutions[resolutionIndex];
         Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen);
     }
+
+    public void SetMode(int modeIndex) => GameManager.Instance.SetGameMode(modeIndex);
 
     private void GetResolutions()
     {
@@ -49,7 +55,7 @@ public class Options : MonoBehaviour
         var options = new List<string>();
         for (int i = 0; i < m_FilteredResolutions.Count; i++)
         {
-            string resolutionOption = m_FilteredResolutions[i].width + "x" + m_FilteredResolutions[i].height;
+            var resolutionOption = m_FilteredResolutions[i].width + "x" + m_FilteredResolutions[i].height;
             options.Add(resolutionOption);
             if (m_FilteredResolutions[i].width == Screen.currentResolution.width &&
                 m_FilteredResolutions[i].height == Screen.currentResolution.height)
@@ -61,6 +67,21 @@ public class Options : MonoBehaviour
         // Does not trigger OnValueChanged on the dropdown
         m_ResolutionDropdown.SetValueWithoutNotify(currentResolutionIndex);
         m_ResolutionDropdown.RefreshShownValue();
+    }
+
+    private void GetModes()
+    {
+        m_ModeDropdown.ClearOptions();
+
+        var modes = Enum.GetValues(typeof(GameMode)).Cast<GameMode>().ToList();
+        var options = modes.Select(m => m.ToString()).ToList();
+
+        m_ModeDropdown.AddOptions(options);
+
+        var currentModeIndex = modes.IndexOf(GameManager.Instance.CurrentMode);
+        m_ModeDropdown.SetValueWithoutNotify(currentModeIndex);
+
+        m_ModeDropdown.RefreshShownValue();
     }
 
     private void GetOptionValues()

@@ -58,7 +58,7 @@ public class EntityResolver
         }
 
         // Paint check
-        var usePaint = GameManager.Instance.gameMode == GameMode.PAINT;
+        var usePaint = GameManager.Instance.CurrentMode == GameMode.PAINT;
 
         // Orientation
         var facingDirection = m_Entity.Orientation.FacingDirection;

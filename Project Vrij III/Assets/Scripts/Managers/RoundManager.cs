@@ -79,7 +79,7 @@ public class RoundManager : MonoBehaviour
         // GAMEPLAY END
 
         // KNOCKOUT START (skip if we use paint or round timer didn't end)
-        if (GameManager.Instance.gameMode != GameMode.PAINT && m_RoundTimer > 0f)
+        if (GameManager.Instance.CurrentMode != GameMode.PAINT && m_RoundTimer > 0f)
         {
             if (CurrentState != RoundState.KNOCKOUT) SetState(RoundState.KNOCKOUT);
 
@@ -105,7 +105,7 @@ public class RoundManager : MonoBehaviour
 
     private void EndRound()
     {
-        if (GameManager.Instance.gameMode == GameMode.PAINT)
+        if (GameManager.Instance.CurrentMode == GameMode.PAINT)
         {
             m_OnPaintRoundEnd.Invoke();
             PaintManager.Instance.GetCoverageResult();

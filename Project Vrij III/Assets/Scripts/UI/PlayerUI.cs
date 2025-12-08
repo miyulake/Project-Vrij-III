@@ -38,7 +38,7 @@ public class PlayerUI : MonoBehaviour
 
                 if (entity.Combo.Hits > 1)
                 {
-                    if (GameManager.Instance.gameMode != GameMode.PAINT)
+                    if (GameManager.Instance.CurrentMode != GameMode.PAINT)
                         comboText.text = $"{entity.Combo.Hits} Hit Combo\n{entity.Combo.Damage} Damage";
                     else
                         comboText.text = $"{entity.Combo.Hits} Hit Combo";

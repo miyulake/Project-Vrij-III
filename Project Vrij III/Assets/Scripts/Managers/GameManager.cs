@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int m_FrameRate = 60;
 
     [Header("Mode Settings")]
-    public GameMode gameMode = GameMode.HEALTH;
+    public GameMode CurrentMode { get; private set; }
     public int maxHealth = 100;
 
     [Header("Events")]
@@ -31,11 +31,11 @@ public class GameManager : MonoBehaviour
     
     public bool IsPaused() => Time.timeScale < 0.99f;
 
-    public void SetGameMode(GameMode newMode) 
+    public void SetGameMode(int index) 
     {
-        gameMode = newMode;
+        CurrentMode = (GameMode)index;
 
-        switch (gameMode)
+        switch (CurrentMode)
         {
             case GameMode.HEALTH:
                 m_OnEnterHealthMode.Invoke();
@@ -49,10 +49,5 @@ public class GameManager : MonoBehaviour
                 m_OnEnterPongMode.Invoke();
                 break;
         }
-    }
-
-    private void OnValidate() // Updates when changed in inspector
-    {
-        if (Application.isPlaying) SetGameMode(gameMode);
     }
 }
