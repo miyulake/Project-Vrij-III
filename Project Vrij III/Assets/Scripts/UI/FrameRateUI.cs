@@ -14,7 +14,7 @@ public class FrameRateUI : MonoBehaviour
     private void FrameRateDisplay()
     {
         accumulatedTime += Time.unscaledDeltaTime;
-        framesCounted++;
+        ++framesCounted;
 
         if (accumulatedTime >= updateInterval)
         {

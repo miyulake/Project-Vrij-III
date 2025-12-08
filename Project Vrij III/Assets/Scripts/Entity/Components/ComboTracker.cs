@@ -5,7 +5,7 @@ public class ComboTracker
 
     public void AddHit(int damage)
     {
-        Hits++;
+        ++Hits;
         Damage += damage;
     }
 

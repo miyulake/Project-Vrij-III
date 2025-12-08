@@ -85,11 +85,11 @@ public class EntityResolver
         // Audio
         m_Entity.Audio.Play(data.sound);
 
-        // Damage
+        // Damage & Combo
         if (type != ContactType.BLOCK && !usePaint)
         {
-            m_Entity.Health.ApplyDamage(data.damage);
             m_Entity.Combo.AddHit(data.damage);
+            m_Entity.Health.ApplyDamage(data.damage);
         }
         else if (usePaint) m_Entity.Combo.AddHit(0);
 
