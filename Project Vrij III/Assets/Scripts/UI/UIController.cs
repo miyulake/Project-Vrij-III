@@ -12,6 +12,7 @@ public class UIController : MonoBehaviour
 
     private void Update()
     {
+        // This is for debug, but should be != RoundState.GAMEPLAY
         if (RoundManager.Instance.CurrentState == RoundState.KNOCKOUT) return;
 
         for (int i = 0; i < m_Readers.Length; i++)

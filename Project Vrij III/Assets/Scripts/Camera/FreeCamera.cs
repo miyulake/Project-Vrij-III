@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public class FreeCamera : MonoBehaviour
 {
@@ -10,12 +11,13 @@ public class FreeCamera : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            Reset();
-            gameObject.SetActive(false);
-        }
-        else if (Input.GetMouseButton(1))
+        if (Input.GetKeyDown(KeyCode.Escape)) Reset();
+
+        if (Input.GetKeyDown(KeyCode.P) && RoundManager.Instance.CurrentState == RoundState.GAMEPLAY) Time.timeScale = Time.timeScale == 1 ? 0 : 1;
+
+        if (Input.GetKeyDown(KeyCode.Period) && Time.timeScale == 0) StartCoroutine(StepFrame());
+
+        if (Input.GetMouseButton(1))
         {
             CameraRotation();
             GetMovement(GetSpeed());
@@ -38,7 +40,14 @@ public class FreeCamera : MonoBehaviour
             (Input.GetKey(KeyCode.E) ? 1 : 0) - (Input.GetKey(KeyCode.Q) ? 1 : 0),
             Input.GetAxisRaw("Vertical")
         );
-        transform.position += speed * Time.deltaTime * transform.TransformDirection(input.normalized);
+        transform.position += speed * Time.unscaledDeltaTime * transform.TransformDirection(input.normalized);
+    }
+
+    private IEnumerator StepFrame()
+    {
+        Time.timeScale = 1;
+        yield return null;
+        Time.timeScale = 0;
     }
 
     private float GetSpeed() => Input.GetKey(KeyCode.LeftShift) ? m_MoveSpeed * m_SpeedMultiplier : m_MoveSpeed;
@@ -48,5 +57,6 @@ public class FreeCamera : MonoBehaviour
         m_Yaw = 0f;
         m_Pitch = 0f;
         transform.SetPositionAndRotation(Vector3.zero, Quaternion.identity);
+        gameObject.SetActive(false);
     }
 }
