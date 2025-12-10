@@ -1,10 +1,11 @@
 using System;
 using System.Linq;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+using TMPro;
 
 public class OptionsUI : MonoBehaviour
 {
@@ -24,6 +25,8 @@ public class OptionsUI : MonoBehaviour
     }
 
     public void ExitGame() => Application.Quit();
+
+    public void ReloadScene() => SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 
     public void SetFullscreen(bool isFullscreen) => Screen.fullScreen = isFullscreen;
 

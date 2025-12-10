@@ -29,6 +29,7 @@ public class RoundManager : MonoBehaviour
     [SerializeField] private UnityEvent m_OnPaintRoundEnd;
     [SerializeField] private UnityEvent m_OnHealthRoundEnd;
     [SerializeField] private UnityEvent m_OnRoundEnd;
+    [SerializeField] private UnityEvent m_OnMatchEnd;
 
     private void Awake() => Instance = this;
 
@@ -103,7 +104,8 @@ public class RoundManager : MonoBehaviour
         yield return new WaitForSeconds(resultDuration);
         // RESULT END
 
-        StartNewRound();
+        if (PlayerOneWins == m_WinsNeeded || PlayerTwoWins == m_WinsNeeded) EndMatch();
+        else StartNewRound();
     }
 
     private void EndRound()
@@ -115,6 +117,12 @@ public class RoundManager : MonoBehaviour
 
         // We are updating the round win UI in this event (temp hack)
         if (PlayerOneWins != m_WinsNeeded && PlayerTwoWins != m_WinsNeeded) m_OnRoundEnd.Invoke();
+    }
+
+    private void EndMatch()
+    {
+        // Do end match stuff - end animation or something...
+        m_OnMatchEnd.Invoke();
     }
 
     private void SetSlowMo(float timeScale)
