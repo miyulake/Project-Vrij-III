@@ -70,7 +70,7 @@ public class MoveListUI : MonoBehaviour
                     : iconStruct.keyboardIconScale;
             }
 
-            if (icon != null) image.texture = icon;
+            if (image.texture != icon) image.texture = icon;
         }
     }
 
