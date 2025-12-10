@@ -82,7 +82,7 @@ public class AttackHandler : EntityComponent
 
         Entity.StateMachine.ChangeState<AttackState>();
         m_CurrentMove = move;
-        m_CurrentFrame = 1; // NOTE: Account for frame 0 of logic
+        m_CurrentFrame = 0;
 
         if (!string.IsNullOrEmpty(move.animationName))
         {

@@ -24,7 +24,7 @@ MonoBehaviour:
       start: 0
       end: 0
   hit:
-    stun: 24
+    stun: 25
     damage: 5
     knockback: {x: 0, y: 0}
     shakeMagnitude: 0.125
@@ -38,17 +38,18 @@ MonoBehaviour:
     particleEffect: {fileID: 0}
     sound: {fileID: 0}
   counterHit:
-    stun: 54
+    stun: 55
     damage: 20
     knockback: {x: 0, y: 0}
     shakeMagnitude: 0.25
     particleEffect: {fileID: 6263782476919498309, guid: 1fd2749f2a4056446881dce86ed70c39, type: 3}
     sound: {fileID: 8300000, guid: 70e9e75c806e1914997d1bc6676ffa9b, type: 3}
-  breakFrames: 0
   cancelOptions: []
   paintData:
     paintPrefab: {fileID: 4182030647486133465, guid: 72881feefa9ef18418675dd89dc4c02c, type: 3}
     offsetPosition: {x: 0, y: -1, z: 0}
     paintScale: {x: 7, y: 7, z: 0}
   hitboxIndices: 00000000
+  breakFrames: 0
+  meterCost: 0
   animationName: Snap
