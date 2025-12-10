@@ -16,7 +16,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Utilities;
 
 /// <summary>
-/// Provides programmatic access to <see cref="InputActionAsset" />, <see cref="InputActionMap" />, <see cref="InputAction" /> and <see cref="InputControlScheme" /> instances defined in asset "Assets/Scripts/InputSystem/Controls.inputactions".
+/// Provides programmatic access to <see cref="InputActionAsset" />, <see cref="InputActionMap" />, <see cref="UnityEngine.InputSystem.InputAction" /> and <see cref="InputControlScheme" /> instances defined in asset "Assets/Scripts/InputSystem/Controls.inputactions".
 /// </summary>
 /// <remarks>
 /// This class is source generated and any manual edits will be discarded if the associated asset is reimported or modified.
@@ -686,7 +686,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
     }
 
     /// <summary>
-    /// Destroys this asset and all associated <see cref="InputAction"/> instances.
+    /// Destroys this asset and all associated <see cref="UnityEngine.InputSystem.InputAction"/> instances.
     /// </summary>
     public void Dispose()
     {
@@ -710,14 +710,14 @@ public partial class @Controls: IInputActionCollection2, IDisposable
     /// <inheritdoc cref="UnityEngine.InputSystem.InputActionAsset.controlSchemes" />
     public ReadOnlyArray<InputControlScheme> controlSchemes => asset.controlSchemes;
 
-    /// <inheritdoc cref="UnityEngine.InputSystem.InputActionAsset.Contains(InputAction)" />
-    public bool Contains(InputAction action)
+    /// <inheritdoc cref="UnityEngine.InputSystem.InputActionAsset.Contains(UnityEngine.InputSystem.InputAction)" />
+    public bool Contains(UnityEngine.InputSystem.InputAction action)
     {
         return asset.Contains(action);
     }
 
     /// <inheritdoc cref="UnityEngine.InputSystem.InputActionAsset.GetEnumerator()" />
-    public IEnumerator<InputAction> GetEnumerator()
+    public IEnumerator<UnityEngine.InputSystem.InputAction> GetEnumerator()
     {
         return asset.GetEnumerator();
     }
@@ -744,13 +744,13 @@ public partial class @Controls: IInputActionCollection2, IDisposable
     public IEnumerable<InputBinding> bindings => asset.bindings;
 
     /// <inheritdoc cref="UnityEngine.InputSystem.InputActionAsset.FindAction(string, bool)" />
-    public InputAction FindAction(string actionNameOrId, bool throwIfNotFound = false)
+    public UnityEngine.InputSystem.InputAction FindAction(string actionNameOrId, bool throwIfNotFound = false)
     {
         return asset.FindAction(actionNameOrId, throwIfNotFound);
     }
 
-    /// <inheritdoc cref="UnityEngine.InputSystem.InputActionAsset.FindBinding(InputBinding, out InputAction)" />
-    public int FindBinding(InputBinding bindingMask, out InputAction action)
+    /// <inheritdoc cref="UnityEngine.InputSystem.InputActionAsset.FindBinding(InputBinding, out UnityEngine.InputSystem.InputAction)" />
+    public int FindBinding(InputBinding bindingMask, out UnityEngine.InputSystem.InputAction action)
     {
         return asset.FindBinding(bindingMask, out action);
     }
@@ -758,18 +758,18 @@ public partial class @Controls: IInputActionCollection2, IDisposable
     // Player
     private readonly InputActionMap m_Player;
     private List<IPlayerActions> m_PlayerActionsCallbackInterfaces = new List<IPlayerActions>();
-    private readonly InputAction m_Player_Move;
-    private readonly InputAction m_Player_AttackForward;
-    private readonly InputAction m_Player_AttackDownward;
-    private readonly InputAction m_Player_AttackUpward;
-    private readonly InputAction m_Player_ComboAttack;
-    private readonly InputAction m_Player_Block;
-    private readonly InputAction m_Player_Grab;
-    private readonly InputAction m_Player_Snap;
-    private readonly InputAction m_Player_Push;
-    private readonly InputAction m_Player_Taunt;
-    private readonly InputAction m_Player_Restart;
-    private readonly InputAction m_Player_Pause;
+    private readonly UnityEngine.InputSystem.InputAction m_Player_Move;
+    private readonly UnityEngine.InputSystem.InputAction m_Player_AttackForward;
+    private readonly UnityEngine.InputSystem.InputAction m_Player_AttackDownward;
+    private readonly UnityEngine.InputSystem.InputAction m_Player_AttackUpward;
+    private readonly UnityEngine.InputSystem.InputAction m_Player_ComboAttack;
+    private readonly UnityEngine.InputSystem.InputAction m_Player_Block;
+    private readonly UnityEngine.InputSystem.InputAction m_Player_Grab;
+    private readonly UnityEngine.InputSystem.InputAction m_Player_Snap;
+    private readonly UnityEngine.InputSystem.InputAction m_Player_Push;
+    private readonly UnityEngine.InputSystem.InputAction m_Player_Taunt;
+    private readonly UnityEngine.InputSystem.InputAction m_Player_Restart;
+    private readonly UnityEngine.InputSystem.InputAction m_Player_Pause;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
     /// </summary>
@@ -784,51 +784,51 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         /// <summary>
         /// Provides access to the underlying input action "Player/Move".
         /// </summary>
-        public InputAction @Move => m_Wrapper.m_Player_Move;
+        public UnityEngine.InputSystem.InputAction @Move => m_Wrapper.m_Player_Move;
         /// <summary>
         /// Provides access to the underlying input action "Player/AttackForward".
         /// </summary>
-        public InputAction @AttackForward => m_Wrapper.m_Player_AttackForward;
+        public UnityEngine.InputSystem.InputAction @AttackForward => m_Wrapper.m_Player_AttackForward;
         /// <summary>
         /// Provides access to the underlying input action "Player/AttackDownward".
         /// </summary>
-        public InputAction @AttackDownward => m_Wrapper.m_Player_AttackDownward;
+        public UnityEngine.InputSystem.InputAction @AttackDownward => m_Wrapper.m_Player_AttackDownward;
         /// <summary>
         /// Provides access to the underlying input action "Player/AttackUpward".
         /// </summary>
-        public InputAction @AttackUpward => m_Wrapper.m_Player_AttackUpward;
+        public UnityEngine.InputSystem.InputAction @AttackUpward => m_Wrapper.m_Player_AttackUpward;
         /// <summary>
         /// Provides access to the underlying input action "Player/ComboAttack".
         /// </summary>
-        public InputAction @ComboAttack => m_Wrapper.m_Player_ComboAttack;
+        public UnityEngine.InputSystem.InputAction @ComboAttack => m_Wrapper.m_Player_ComboAttack;
         /// <summary>
         /// Provides access to the underlying input action "Player/Block".
         /// </summary>
-        public InputAction @Block => m_Wrapper.m_Player_Block;
+        public UnityEngine.InputSystem.InputAction @Block => m_Wrapper.m_Player_Block;
         /// <summary>
         /// Provides access to the underlying input action "Player/Grab".
         /// </summary>
-        public InputAction @Grab => m_Wrapper.m_Player_Grab;
+        public UnityEngine.InputSystem.InputAction @Grab => m_Wrapper.m_Player_Grab;
         /// <summary>
         /// Provides access to the underlying input action "Player/Snap".
         /// </summary>
-        public InputAction @Snap => m_Wrapper.m_Player_Snap;
+        public UnityEngine.InputSystem.InputAction @Snap => m_Wrapper.m_Player_Snap;
         /// <summary>
         /// Provides access to the underlying input action "Player/Push".
         /// </summary>
-        public InputAction @Push => m_Wrapper.m_Player_Push;
+        public UnityEngine.InputSystem.InputAction @Push => m_Wrapper.m_Player_Push;
         /// <summary>
         /// Provides access to the underlying input action "Player/Taunt".
         /// </summary>
-        public InputAction @Taunt => m_Wrapper.m_Player_Taunt;
+        public UnityEngine.InputSystem.InputAction @Taunt => m_Wrapper.m_Player_Taunt;
         /// <summary>
         /// Provides access to the underlying input action "Player/Restart".
         /// </summary>
-        public InputAction @Restart => m_Wrapper.m_Player_Restart;
+        public UnityEngine.InputSystem.InputAction @Restart => m_Wrapper.m_Player_Restart;
         /// <summary>
         /// Provides access to the underlying input action "Player/Pause".
         /// </summary>
-        public InputAction @Pause => m_Wrapper.m_Player_Pause;
+        public UnityEngine.InputSystem.InputAction @Pause => m_Wrapper.m_Player_Pause;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -844,7 +844,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         /// </summary>
         public static implicit operator InputActionMap(PlayerActions set) { return set.Get(); }
         /// <summary>
-        /// Adds <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
+        /// Adds <see cref="UnityEngine.InputSystem.InputAction.started"/>, <see cref="UnityEngine.InputSystem.InputAction.performed"/> and <see cref="UnityEngine.InputSystem.InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
         /// </summary>
         /// <param name="instance">Callback instance.</param>
         /// <remarks>
@@ -894,7 +894,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         }
 
         /// <summary>
-        /// Removes <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
+        /// Removes <see cref="UnityEngine.InputSystem.InputAction.started"/>, <see cref="UnityEngine.InputSystem.InputAction.performed"/> and <see cref="UnityEngine.InputSystem.InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
         /// </summary>
         /// <remarks>
         /// Calling this method when <paramref name="instance" /> have not previously been registered has no side-effects.
@@ -1049,83 +1049,83 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnMove(InputAction.CallbackContext context);
+        void OnMove(UnityEngine.InputSystem.InputAction.CallbackContext context);
         /// <summary>
         /// Method invoked when associated input action "AttackForward" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnAttackForward(InputAction.CallbackContext context);
+        void OnAttackForward(UnityEngine.InputSystem.InputAction.CallbackContext context);
         /// <summary>
         /// Method invoked when associated input action "AttackDownward" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnAttackDownward(InputAction.CallbackContext context);
+        void OnAttackDownward(UnityEngine.InputSystem.InputAction.CallbackContext context);
         /// <summary>
         /// Method invoked when associated input action "AttackUpward" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnAttackUpward(InputAction.CallbackContext context);
+        void OnAttackUpward(UnityEngine.InputSystem.InputAction.CallbackContext context);
         /// <summary>
         /// Method invoked when associated input action "ComboAttack" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnComboAttack(InputAction.CallbackContext context);
+        void OnComboAttack(UnityEngine.InputSystem.InputAction.CallbackContext context);
         /// <summary>
         /// Method invoked when associated input action "Block" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnBlock(InputAction.CallbackContext context);
+        void OnBlock(UnityEngine.InputSystem.InputAction.CallbackContext context);
         /// <summary>
         /// Method invoked when associated input action "Grab" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnGrab(InputAction.CallbackContext context);
+        void OnGrab(UnityEngine.InputSystem.InputAction.CallbackContext context);
         /// <summary>
         /// Method invoked when associated input action "Snap" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnSnap(InputAction.CallbackContext context);
+        void OnSnap(UnityEngine.InputSystem.InputAction.CallbackContext context);
         /// <summary>
         /// Method invoked when associated input action "Push" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnPush(InputAction.CallbackContext context);
+        void OnPush(UnityEngine.InputSystem.InputAction.CallbackContext context);
         /// <summary>
         /// Method invoked when associated input action "Taunt" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnTaunt(InputAction.CallbackContext context);
+        void OnTaunt(UnityEngine.InputSystem.InputAction.CallbackContext context);
         /// <summary>
         /// Method invoked when associated input action "Restart" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnRestart(InputAction.CallbackContext context);
+        void OnRestart(UnityEngine.InputSystem.InputAction.CallbackContext context);
         /// <summary>
         /// Method invoked when associated input action "Pause" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnPause(InputAction.CallbackContext context);
+        void OnPause(UnityEngine.InputSystem.InputAction.CallbackContext context);
     }
 }

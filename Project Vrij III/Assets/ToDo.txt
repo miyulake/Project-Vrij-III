@@ -6,3 +6,8 @@ TO-DO:
 BUG:
 - Fix grabs (currently you can teleport opponent towards you when grabbing)
 - Hitboxes hit multiple times sometimes
+
+- The elusive frame bug 
+-> Part 1 of this bug is that physics hit detection is happening 1 frame too late therefore all moves have to be +1 more than they should
+-> Part 2 is unknown to me, but something is causing another frame of delay so all moves have to be +2 more advantagous than they should
+: Maybe refactoring the entire system would be better?
