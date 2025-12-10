@@ -57,8 +57,9 @@ public class EntityResolver
             return;
         }
 
-        // Paint check
+        // Misc checks
         var usePaint = GameManager.Instance.CurrentMode == GameMode.PAINT;
+        var inGameplay = RoundManager.Instance.CurrentState == RoundState.GAMEPLAY;
 
         // Orientation
         var facingDirection = m_Entity.Orientation.FacingDirection;
@@ -76,7 +77,7 @@ public class EntityResolver
 
         // VFX
         m_Entity.VFX.SpawnParticles(data);
-        if (usePaint) m_Entity.VFX.SpawnPaint(move, facingDirection);
+        if (usePaint && inGameplay) m_Entity.VFX.SpawnPaint(move, facingDirection);
 
         // Visuals
         var stunDuration = data.stun * Time.fixedDeltaTime;

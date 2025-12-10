@@ -59,6 +59,14 @@ public class PaintManager : MonoBehaviour
         if (m_SmallTexture != null) m_SmallTexture.Release();
     }
 
+    public void ClearPaintBackground()
+    {
+        for (int i = m_PaintBackground.childCount - 1; i >= 0; i--)
+            Destroy(m_PaintBackground.GetChild(i).gameObject);
+    }
+
+    public Transform GetPaintBackground() => m_PaintBackground;
+
     // For debugging purposes
     /*
     private void OnGUI()
@@ -67,12 +75,4 @@ public class PaintManager : MonoBehaviour
             GUI.DrawTexture(new Rect(75, 10, 128, 128), m_SmallTexture, ScaleMode.ScaleToFit, false);
     }
     */
-
-    public void ClearPaintBackground()
-    {
-        for (int i = m_PaintBackground.childCount - 1; i >= 0; i--)
-            Destroy(m_PaintBackground.GetChild(i).gameObject);
-    }
-
-    public Transform GetPaintBackground() => m_PaintBackground;
 }

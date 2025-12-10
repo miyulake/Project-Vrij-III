@@ -2,6 +2,7 @@ TO-DO:
 - Implement super attacks (grab linking, projectile?)
 - Implement armor for moves
 - Implement ring-outs
+- Implement pong mode
 
 BUG:
 - Fix grabs (currently you can teleport opponent towards you when grabbing)

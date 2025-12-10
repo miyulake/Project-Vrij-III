@@ -7,6 +7,8 @@ public class RoundManager : MonoBehaviour
 {
     public static RoundManager Instance { get; private set; }
     public RoundState CurrentState { get; private set; } = RoundState.INTRO;
+    public int PlayerOneWins { get; private set; } = 0;
+    public int PlayerTwoWins { get; private set; } = 0;
 
     [Header("Sequence Settings")]
     public float introDuration = 2f;
@@ -14,7 +16,7 @@ public class RoundManager : MonoBehaviour
     public float resultDuration = 3f;
 
     [Header("Round Settings")]
-    [Range(1, 5)] [SerializeField] private int m_RoundsNeededToWin = 3;
+    [Range(1, 5)][SerializeField] private int m_WinsNeeded = 3;
     [SerializeField] private TextMeshProUGUI m_TimerTextMesh;
     [SerializeField] private int m_RoundDuration = 60;
     private float m_RoundTimer;
@@ -26,6 +28,7 @@ public class RoundManager : MonoBehaviour
     [SerializeField] private UnityEvent m_OnRoundStart;
     [SerializeField] private UnityEvent m_OnPaintRoundEnd;
     [SerializeField] private UnityEvent m_OnHealthRoundEnd;
+    [SerializeField] private UnityEvent m_OnRoundEnd;
 
     private void Awake() => Instance = this;
 
@@ -69,7 +72,7 @@ public class RoundManager : MonoBehaviour
 
         // GAMEPLAY START
         SetState(RoundState.GAMEPLAY);
-        
+
         while (CurrentState == RoundState.GAMEPLAY && m_RoundTimer > 0f)
         {
             m_RoundTimer -= Time.deltaTime;
@@ -106,11 +109,12 @@ public class RoundManager : MonoBehaviour
     private void EndRound()
     {
         if (GameManager.Instance.CurrentMode == GameMode.PAINT)
-        {
             m_OnPaintRoundEnd.Invoke();
-            PaintManager.Instance.GetCoverageResult();
-        }
-        else m_OnHealthRoundEnd.Invoke();
+        else
+            m_OnHealthRoundEnd.Invoke();
+
+        // We are updating the round win UI in this event (temp hack)
+        if (PlayerOneWins != m_WinsNeeded && PlayerTwoWins != m_WinsNeeded) m_OnRoundEnd.Invoke();
     }
 
     private void SetSlowMo(float timeScale)
@@ -118,4 +122,23 @@ public class RoundManager : MonoBehaviour
         Time.timeScale = timeScale;
         Time.fixedDeltaTime = 0.0167f * timeScale;
     }
+
+    public void AddRoundWin()
+    {
+        // Health result
+        var playerOne = PlayerManager.Instance.playerOne;
+        var playerTwo = PlayerManager.Instance.playerTwo;
+        var playerOneHealth = playerOne.Health.CurrentHealth;
+        var playerTwoHealth = playerTwo.Health.CurrentHealth;
+
+        // Paint result
+        var paintManager = PaintManager.Instance;
+        var playerOneResult = paintManager.PlayerOnePercentage;
+        var playerTwoResult = paintManager.PlayerTwoPercentage;
+
+        if (playerOneResult > playerTwoResult || playerOneHealth > playerTwoHealth) ++PlayerOneWins;
+        else if (playerTwoResult > playerOneResult || playerTwoHealth > playerOneHealth) ++PlayerTwoWins;
+    }
+
+    public int WinsNeeded() => m_WinsNeeded;
 }
