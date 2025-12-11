@@ -2,13 +2,15 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Audio;
 using UnityEngine.UI;
+using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
+using UnityEngine.Rendering.Universal;
 using TMPro;
 
 public class OptionsUI : MonoBehaviour
 {
+    [SerializeField] private FullScreenPassRendererFeature m_CRT;
     [SerializeField] private AudioMixer m_AudioMixer;
     [SerializeField] private Toggle m_FullscreenToggle;
     [SerializeField] private Slider m_MasterVolume;
@@ -20,7 +22,7 @@ public class OptionsUI : MonoBehaviour
     private void Start()
     {
         GetResolutions();
-        GetModes();
+        GetGameModes();
         GetOptionValues();
     }
 
@@ -32,13 +34,13 @@ public class OptionsUI : MonoBehaviour
 
     public void SetMasterVolume(float masterVolume) => m_AudioMixer.SetFloat("MasterVolume", masterVolume);
 
+    public void SetCRT(bool isEnabled) => m_CRT.SetActive(isEnabled);
+
     public void SetResolution(int resolutionIndex)
     {
         var resolution = m_FilteredResolutions[resolutionIndex];
         Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen);
     }
-
-    public void SetMode(int modeIndex) => GameManager.Instance.SetGameMode(modeIndex);
 
     private void GetResolutions()
     {
@@ -72,7 +74,9 @@ public class OptionsUI : MonoBehaviour
         m_ResolutionDropdown.RefreshShownValue();
     }
 
-    private void GetModes()
+    public void SetGameMode(int modeIndex) => GameManager.Instance.SetGameMode(modeIndex);
+
+    private void GetGameModes()
     {
         m_ModeDropdown.ClearOptions();
 

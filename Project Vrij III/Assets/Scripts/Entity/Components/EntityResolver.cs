@@ -83,9 +83,6 @@ public class EntityResolver
         var stunDuration = data.stun * Time.fixedDeltaTime;
         m_Entity.Shake.TriggerShake(stunDuration, data.shakeMagnitude);
 
-        // Audio
-        m_Entity.Audio.Play(data.sound);
-
         // Damage & Combo
         if (type != ContactType.BLOCK && !usePaint)
         {
@@ -93,6 +90,9 @@ public class EntityResolver
             m_Entity.Health.ApplyDamage(data.damage);
         }
         else if (usePaint) m_Entity.Combo.AddHit(0);
+
+        // Audio
+        m_Entity.Audio.Play(data.sound);
 
         IsForced = false;
     }
