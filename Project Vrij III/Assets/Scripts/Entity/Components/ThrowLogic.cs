@@ -11,6 +11,7 @@ public class ThrowLogic : EntityComponent
     private CapsuleCollider2D m_PlayerCollider;
     private float m_TurnTime = -1f;
     private float m_StartY;
+    private bool m_GrabConnected;
 
     protected override void Awake()
     {
@@ -22,7 +23,13 @@ public class ThrowLogic : EntityComponent
 
     private void HandleThrow()
     {
-        if (m_ThrowAnchor.activeSelf && ThrowEligible() && RoundManager.Instance.CurrentState != RoundState.INTRO)
+        var shouldThrow = 
+            m_ThrowAnchor.activeSelf && 
+            m_GrabConnected && 
+            ThrowEligible() && 
+            RoundManager.Instance.CurrentState != RoundState.INTRO;
+
+        if (shouldThrow)
         {
             if (m_TurnTime < 0f) m_TurnTime = 0f;
 
@@ -33,6 +40,7 @@ public class ThrowLogic : EntityComponent
         {
             m_PlayerCollider.enabled = true;
             m_TurnTime = -1f;
+            m_GrabConnected = false;
         }
         if (!Entity.Attack.IsPaused) UpdateRotation(); // Absolute hack
     }
@@ -52,8 +60,12 @@ public class ThrowLogic : EntityComponent
         transform.localRotation = Quaternion.Euler(0f, m_StartY + newY, 0f);
     }
 
-    public bool ThrowEligible() => Entity.Opponent.StateMachine.CurrentState is HitStunState ||
-                                   Entity.Opponent.StateMachine.CurrentState is CaughtState;
+    public bool ThrowEligible() =>
+        m_GrabConnected &&
+        (Entity.Opponent.StateMachine.CurrentState is HitStunState ||
+        Entity.Opponent.StateMachine.CurrentState is CaughtState);
+
+    public void ConnectGrab() => m_GrabConnected = true;
 
     public MoveData GetClank() => m_ClankMove;
     public AudioClip GetCaughtSound() => m_CaughtSound;

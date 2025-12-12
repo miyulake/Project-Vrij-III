@@ -25,6 +25,7 @@ public class RoundManager : MonoBehaviour
     private Coroutine m_RoundFlowRoutine;
 
     [Header("Events")]
+    [SerializeField] private UnityEvent m_onMatchStart;
     [SerializeField] private UnityEvent m_OnRoundStart;
     [SerializeField] private UnityEvent m_OnPaintRoundEnd;
     [SerializeField] private UnityEvent m_OnHealthRoundEnd;
@@ -33,9 +34,9 @@ public class RoundManager : MonoBehaviour
 
     private void Awake() => Instance = this;
 
-    private void Start() => StartNewRound();
+    private void Start() => StartRound();
 
-    private void StartNewRound()
+    private void StartRound()
     {
         ++m_CurrentRound;
 
@@ -105,7 +106,7 @@ public class RoundManager : MonoBehaviour
         // RESULT END
 
         if (PlayerOneWins == m_WinsNeeded || PlayerTwoWins == m_WinsNeeded) EndMatch();
-        else StartNewRound();
+        else StartRound();
     }
 
     private void EndRound()
@@ -117,6 +118,16 @@ public class RoundManager : MonoBehaviour
 
         // We are updating the round win UI in this event (temp hack)
         if (PlayerOneWins != m_WinsNeeded && PlayerTwoWins != m_WinsNeeded) m_OnRoundEnd.Invoke();
+    }
+
+    public void StartMatch()
+    {
+        // Reset match variables etc...
+        PlayerOneWins = 0;
+        PlayerTwoWins = 0;
+        m_CurrentRound = 0;
+        m_onMatchStart.Invoke();
+        StartRound();
     }
 
     private void EndMatch()
@@ -133,20 +144,37 @@ public class RoundManager : MonoBehaviour
 
     public void AddRoundWin()
     {
-        // Health result
-        var playerOne = PlayerManager.Instance.playerOne;
-        var playerTwo = PlayerManager.Instance.playerTwo;
-        var playerOneHealth = playerOne.Health.CurrentHealth;
-        var playerTwoHealth = playerTwo.Health.CurrentHealth;
+        var usingHealth = 
+            GameManager.Instance.CurrentMode == GameMode.HEALTH ||
+            GameManager.Instance.CurrentMode == GameMode.PONG;
+        /*
+        var usingPaint =
+            GameManager.Instance.CurrentMode == GameMode.PAINT;
+        */
 
-        // Paint result
-        var paintManager = PaintManager.Instance;
-        var playerOneResult = paintManager.PlayerOnePercentage;
-        var playerTwoResult = paintManager.PlayerTwoPercentage;
+        if (usingHealth)
+        {
+            var playerOne = PlayerManager.Instance.playerOne;
+            var playerTwo = PlayerManager.Instance.playerTwo;
+            var playerOneHealth = playerOne.Health.CurrentHealth;
+            var playerTwoHealth = playerTwo.Health.CurrentHealth;
 
-        if (playerOneResult > playerTwoResult || playerOneHealth > playerTwoHealth) ++PlayerOneWins;
-        else if (playerTwoResult > playerOneResult || playerTwoHealth > playerOneHealth) ++PlayerTwoWins;
+            if (playerOneHealth > playerTwoHealth) ++PlayerOneWins;
+            else if (playerTwoHealth > playerOneHealth) ++PlayerTwoWins;
+        }
+        else
+        {
+            var paintManager = PaintManager.Instance;
+            var playerOneResult = paintManager.PlayerOnePercentage;
+            var playerTwoResult = paintManager.PlayerTwoPercentage;
+
+            if (playerOneResult > playerTwoResult) ++PlayerOneWins;
+            else if (playerTwoResult > playerOneResult) ++PlayerTwoWins;
+        }
     }
 
     public int WinsNeeded() => m_WinsNeeded;
+
+    public int GetRoundDuration() => m_RoundDuration;
+    public void SetRoundDuration(int duration) => m_RoundDuration = duration;
 }

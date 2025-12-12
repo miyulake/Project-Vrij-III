@@ -27,8 +27,7 @@ public class PlayerUI : MonoBehaviour
                 comboText.text = "";
             }
 
-            if (entity.StateMachine.CurrentState is HitStunState || 
-                entity.StateMachine.CurrentState is DeadState)
+            if (entity.StateMachine.CurrentState is HitStunState)
             {
                 m_DisplayTimer = 0;
 

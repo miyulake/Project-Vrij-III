@@ -12,8 +12,11 @@ public class OptionsUI : MonoBehaviour
 {
     [SerializeField] private FullScreenPassRendererFeature m_CRT;
     [SerializeField] private AudioMixer m_AudioMixer;
-    [SerializeField] private Toggle m_FullscreenToggle;
     [SerializeField] private Slider m_MasterVolume;
+    [SerializeField] private Slider m_RoundDuration;
+    [SerializeField] private TextMeshProUGUI m_DurationValue;
+    [SerializeField] private Toggle m_FullscreenToggle;
+    [SerializeField] private Toggle m_CRTToggle;
     [SerializeField] private TMP_Dropdown m_ResolutionDropdown;
     [SerializeField] private TMP_Dropdown m_ModeDropdown;
     private Resolution[] m_Resolutions;
@@ -30,9 +33,17 @@ public class OptionsUI : MonoBehaviour
 
     public void ReloadScene() => SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 
-    public void SetFullscreen(bool isFullscreen) => Screen.fullScreen = isFullscreen;
+    public void StartMatch() => RoundManager.Instance.StartMatch();
 
     public void SetMasterVolume(float masterVolume) => m_AudioMixer.SetFloat("MasterVolume", masterVolume);
+
+    public void SetRoundDuration(float duration)
+    {
+        RoundManager.Instance.SetRoundDuration(Mathf.RoundToInt(duration));
+        m_DurationValue.text = $"{Mathf.RoundToInt(duration)}";
+    }
+
+    public void SetFullscreen(bool isFullscreen) => Screen.fullScreen = isFullscreen;
 
     public void SetCRT(bool isEnabled) => m_CRT.SetActive(isEnabled);
 
@@ -93,8 +104,11 @@ public class OptionsUI : MonoBehaviour
 
     private void GetOptionValues()
     {
-        m_FullscreenToggle.isOn = Screen.fullScreen;
         m_MasterVolume.value = GetAudioMixerLevel("master");
+        m_RoundDuration.value = RoundManager.Instance.GetRoundDuration();
+        m_DurationValue.text = $"{RoundManager.Instance.GetRoundDuration()}";
+        m_CRTToggle.isOn = m_CRT.isActive;
+        m_FullscreenToggle.isOn = Screen.fullScreen;
     }
 
     private float GetAudioMixerLevel(string mixerName)

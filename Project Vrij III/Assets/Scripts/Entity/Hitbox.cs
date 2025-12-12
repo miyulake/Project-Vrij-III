@@ -8,6 +8,9 @@ public class Hitbox : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D col)
     {
         if (!col.TryGetComponent(out Entity entity) || entity == m_Entity) return;
+
+        if (MoveData.moveType == MoveType.GRAB) m_Entity.Throw.ConnectGrab();
+
         entity.Resolver.ResolveHit(MoveData);
     }
 }

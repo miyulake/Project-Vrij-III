@@ -57,7 +57,7 @@ public class Entity : MonoBehaviour
         Health.Reset();
         Visuals.Reset();
         Orientation.Reset();
-        Animator.Play("Idle");
+        Animator.Play("Start");
         Combo.Reset();
         StateMachine.ChangeState<IdleState>(true);
     }
