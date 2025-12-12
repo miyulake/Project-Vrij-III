@@ -17356,6 +17356,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 145250182}
     m_Modifications:
+    - target: {fileID: 1088455613320196418, guid: b7378df573caed44cb7e0500916262c7, type: 3}
+      propertyPath: 'keyboardTypes.Array.data[1]'
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1088455613320196418, guid: b7378df573caed44cb7e0500916262c7, type: 3}
+      propertyPath: 'keyboardTypes.Array.data[2]'
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1088455613320196418, guid: b7378df573caed44cb7e0500916262c7, type: 3}
+      propertyPath: 'controllerTypes.Array.data[1]'
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1088455613320196418, guid: b7378df573caed44cb7e0500916262c7, type: 3}
+      propertyPath: 'controllerTypes.Array.data[2]'
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1095109546901842392, guid: b7378df573caed44cb7e0500916262c7, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
