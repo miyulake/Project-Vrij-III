@@ -21,10 +21,8 @@ public class InputReader : MonoBehaviour
     public bool Taunt          => playerInput.actions["Taunt"].triggered;
     public Vector2 Movement    => playerInput.actions["Move"].ReadValue<Vector2>();
 
-    // Menu input
-    public bool Restart        => playerInput.actions["Restart"].triggered;
+    // UI input
     public bool Pause          => playerInput.actions["Pause"].triggered;
-
 
     private void Awake()
     {
@@ -32,9 +30,8 @@ public class InputReader : MonoBehaviour
 
         var gamepads = Gamepad.all;
         if (playerInput.playerIndex < gamepads.Count)
-        {
             InputUser.PerformPairingWithDevice(gamepads[playerInput.playerIndex], playerInput.user);
-        }
+
         playerInput.ActivateInput();
     }
 }

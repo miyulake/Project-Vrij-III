@@ -1,7 +1,8 @@
+using NUnit.Framework.Internal;
 using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
-using TMPro;
 
 public class RoundManager : MonoBehaviour
 {
@@ -12,24 +13,21 @@ public class RoundManager : MonoBehaviour
 
     [Header("Sequence Settings")]
     public float introDuration = 2f;
-    public float knockoutDuration = 2f;
-    public float resultDuration = 3f;
+    public float knockoutDuration = 1f;
+    public float timeUpDuration = 2f;
+    public float resultDuration = 2f;
 
     [Header("Round Settings")]
     [Range(1, 5)][SerializeField] private int m_WinsNeeded = 3;
     [SerializeField] private TextMeshProUGUI m_TimerTextMesh;
     [SerializeField] private int m_RoundDuration = 60;
+    private RoundWinner m_RoundWinner;
     private float m_RoundTimer;
     private int m_CurrentRound;
 
     private Coroutine m_RoundFlowRoutine;
 
     [Header("Events")]
-    [SerializeField] private UnityEvent m_onMatchStart;
-    [SerializeField] private UnityEvent m_OnRoundStart;
-    [SerializeField] private UnityEvent m_OnPaintRoundEnd;
-    [SerializeField] private UnityEvent m_OnHealthRoundEnd;
-    [SerializeField] private UnityEvent m_OnRoundEnd;
     [SerializeField] private UnityEvent m_OnMatchEnd;
 
     private void Awake() => Instance = this;
@@ -40,8 +38,8 @@ public class RoundManager : MonoBehaviour
     {
         ++m_CurrentRound;
 
-        m_OnRoundStart.Invoke();
-
+        PaintManager.Instance.ClearPaintBackground();
+        PaintResultUI.Instance.ResetPaintResult();
         PlayerManager.Instance.playerOne.ResetEntity();
         PlayerManager.Instance.playerTwo.ResetEntity();
 
@@ -71,6 +69,7 @@ public class RoundManager : MonoBehaviour
         else
             RoundUI.Instance.SetRoundText($"Round {m_CurrentRound}");
         yield return new WaitForSeconds(introDuration);
+
         RoundUI.Instance.SetRoundText("Fight!");
         yield return new WaitForSeconds(introDuration / 2);
         // INTRO END
@@ -103,24 +102,43 @@ public class RoundManager : MonoBehaviour
         // RESULT START
         SetState(RoundState.RESULT);
 
+        GetPaintResult(); // Get paint result
+
+        // TIME UP | DRAW
+        m_RoundWinner = GetRoundWinner(); // Get winner
+        if (m_RoundTimer <= 0)
+        {
+            RoundUI.Instance.SetRoundText("Time Up");
+
+            if (m_RoundWinner == RoundWinner.DRAW)
+            {
+                yield return new WaitForSeconds(timeUpDuration);
+                RoundUI.Instance.SetRoundText("Draw", false);
+            }
+        }
+
         EndRound();
 
         yield return new WaitForSeconds(resultDuration);
         // RESULT END
 
+        // END MATCH | START NEW ROUND
         if (PlayerOneWins == m_WinsNeeded || PlayerTwoWins == m_WinsNeeded) EndMatch();
         else StartRound();
     }
 
     private void EndRound()
     {
-        if (GameManager.Instance.CurrentMode == GameMode.PAINT)
-            m_OnPaintRoundEnd.Invoke();
-        else
-            m_OnHealthRoundEnd.Invoke();
+        // Updating round win UI if no one won
+        if (PlayerOneWins != m_WinsNeeded && PlayerTwoWins != m_WinsNeeded)
+        {
+            if (m_RoundWinner == RoundWinner.P1)
+                ++PlayerOneWins;
+            else if (m_RoundWinner == RoundWinner.P2)
+                ++PlayerTwoWins;
 
-        // We are updating the round win UI in this event (temp hack)
-        if (PlayerOneWins != m_WinsNeeded && PlayerTwoWins != m_WinsNeeded) m_OnRoundEnd.Invoke();
+            RoundTracker.Instance.UpdateRoundWinUI();
+        }
     }
 
     public void StartMatch()
@@ -129,13 +147,14 @@ public class RoundManager : MonoBehaviour
         PlayerOneWins = 0;
         PlayerTwoWins = 0;
         m_CurrentRound = 0;
-        m_onMatchStart.Invoke();
+        RoundTracker.Instance.ResetRoundWinUI();
         StartRound();
     }
 
     private void EndMatch()
     {
         // Do end match stuff - end animation or something...
+        RoundUI.Instance.SetRoundText(GetWinText(), false);
         m_OnMatchEnd.Invoke();
     }
 
@@ -145,43 +164,47 @@ public class RoundManager : MonoBehaviour
         Time.fixedDeltaTime = 0.0167f * timeScale;
     }
 
-    public void AddRoundWin()
+    private void GetPaintResult()
     {
-        var usingHealth = 
-            GameManager.Instance.CurrentMode == GameMode.HEALTH ||
-            GameManager.Instance.CurrentMode == GameMode.PONG;
-        /*
-        var usingPaint =
-            GameManager.Instance.CurrentMode == GameMode.PAINT;
-        */
+        PaintManager.Instance.GetCoverageResult();
+        PaintResultUI.Instance.BeginPaintResult();
+    }
 
-        if (usingHealth)
+    private RoundWinner GetRoundWinner()
+    {
+        var usingPaint = GameManager.Instance.CurrentMode == GameMode.PAINT;
+
+        if (usingPaint)
+        {
+            var paintManager = PaintManager.Instance;
+            var playerOneResult = paintManager.PlayerOnePercentage;
+            var playerTwoResult = paintManager.PlayerTwoPercentage;
+
+            if (playerOneResult > playerTwoResult) return RoundWinner.P1;
+            if (playerTwoResult > playerOneResult) return RoundWinner.P2;
+            return RoundWinner.DRAW;
+        }
+        else
         {
             var playerOne = PlayerManager.Instance.playerOne;
             var playerTwo = PlayerManager.Instance.playerTwo;
             var playerOneHealth = playerOne.Health.CurrentHealth;
             var playerTwoHealth = playerTwo.Health.CurrentHealth;
 
-            if (playerOneHealth > playerTwoHealth) ++PlayerOneWins;
-            else if (playerTwoHealth > playerOneHealth) ++PlayerTwoWins;
-        }
-        else
-        {
-            var paintManager = PaintManager.Instance;
-            var playerOneResult = paintManager.PlayerOnePercentage;
-            var playerTwoResult = paintManager.PlayerTwoPercentage;
-
-            if (playerOneResult > playerTwoResult) ++PlayerOneWins;
-            else if (playerTwoResult > playerOneResult) ++PlayerTwoWins;
+            if (playerOneHealth > playerTwoHealth) return RoundWinner.P1;
+            if (playerTwoHealth > playerOneHealth) return RoundWinner.P2;
+            return RoundWinner.DRAW;
         }
     }
 
-    private bool IsFinalRound(int winsA, int winsB, int winsNeeded) => 
+    private bool IsFinalRound(int winsA, int winsB, int winsNeeded) =>
         winsA == winsNeeded - 1 && winsB == winsNeeded - 1;
 
     public int GetWinsNeeded() => m_WinsNeeded;
 
     public void SetWinsNeeded(int wins) => m_WinsNeeded = wins;
+
+    private string GetWinText() => PlayerOneWins > PlayerTwoWins ? "Red Wins" : "Blue Wins";
 
     public int GetRoundDuration() => m_RoundDuration;
 

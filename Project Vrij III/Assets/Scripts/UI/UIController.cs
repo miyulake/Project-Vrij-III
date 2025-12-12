@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class UIController : MonoBehaviour
 {
@@ -17,8 +16,7 @@ public class UIController : MonoBehaviour
 
         for (int i = 0; i < m_Readers.Length; i++)
         {
-            if (m_Readers[i].Restart) SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-            else if (m_Readers[i].Pause) TogglePause();
+            if (m_Readers[i].Pause) TogglePause();
         }
     }
 
