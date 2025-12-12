@@ -66,7 +66,10 @@ public class RoundManager : MonoBehaviour
         CameraController.Instance.SetStartSetup();
         CameraController.Instance.ResetSetup();
 
-        RoundUI.Instance.SetRoundText($"Round {m_CurrentRound}");
+        if (IsFinalRound(PlayerOneWins, PlayerTwoWins, m_WinsNeeded))
+            RoundUI.Instance.SetRoundText("Final Round");
+        else
+            RoundUI.Instance.SetRoundText($"Round {m_CurrentRound}");
         yield return new WaitForSeconds(introDuration);
         RoundUI.Instance.SetRoundText("Fight!");
         yield return new WaitForSeconds(introDuration / 2);
@@ -173,8 +176,14 @@ public class RoundManager : MonoBehaviour
         }
     }
 
-    public int WinsNeeded() => m_WinsNeeded;
+    private bool IsFinalRound(int winsA, int winsB, int winsNeeded) => 
+        winsA == winsNeeded - 1 && winsB == winsNeeded - 1;
+
+    public int GetWinsNeeded() => m_WinsNeeded;
+
+    public void SetWinsNeeded(int wins) => m_WinsNeeded = wins;
 
     public int GetRoundDuration() => m_RoundDuration;
+
     public void SetRoundDuration(int duration) => m_RoundDuration = duration;
 }

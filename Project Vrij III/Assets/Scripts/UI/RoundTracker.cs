@@ -3,15 +3,23 @@ using UnityEngine.UI;
 
 public class RoundTracker : MonoBehaviour
 {
+    public static RoundTracker Instance { get; private set; }
     [SerializeField] private Toggle[] m_PlayerOneRounds;
     [SerializeField] private Toggle[] m_PlayerTwoRounds;
 
+    private void Awake() => Instance = this;
+
     private void Start() => InitializeRoundWinUI();
 
-    private void InitializeRoundWinUI()
+    public void InitializeRoundWinUI()
     {
-        var winsNeeded = RoundManager.Instance.WinsNeeded();
+        var winsNeeded = RoundManager.Instance.GetWinsNeeded();
 
+        for (int i = 0; i < m_PlayerOneRounds.Length; i++)
+        {
+            m_PlayerOneRounds[i].gameObject.SetActive(false);
+            m_PlayerTwoRounds[i].gameObject.SetActive(false);
+        }
         for (int i = 0; i < winsNeeded; i++)
         {
             m_PlayerOneRounds[i].gameObject.SetActive(true);

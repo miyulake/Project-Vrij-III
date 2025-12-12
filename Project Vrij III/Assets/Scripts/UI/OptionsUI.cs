@@ -15,6 +15,8 @@ public class OptionsUI : MonoBehaviour
     [SerializeField] private Slider m_MasterVolume;
     [SerializeField] private Slider m_RoundDuration;
     [SerializeField] private TextMeshProUGUI m_DurationValue;
+    [SerializeField] private Slider m_WinsNeeded;
+    [SerializeField] private TextMeshProUGUI m_WinsValue;
     [SerializeField] private Toggle m_FullscreenToggle;
     [SerializeField] private Toggle m_CRTToggle;
     [SerializeField] private TMP_Dropdown m_ResolutionDropdown;
@@ -43,9 +45,18 @@ public class OptionsUI : MonoBehaviour
         m_DurationValue.text = $"{Mathf.RoundToInt(duration)}";
     }
 
+    public void SetWinsNeeded(float wins)
+    {
+        RoundManager.Instance.SetWinsNeeded(Mathf.RoundToInt(wins));
+        m_WinsValue.text = $"{Mathf.RoundToInt(wins)}";
+        RoundTracker.Instance.InitializeRoundWinUI();
+    }
+
     public void SetFullscreen(bool isFullscreen) => Screen.fullScreen = isFullscreen;
 
     public void SetCRT(bool isEnabled) => m_CRT.SetActive(isEnabled);
+
+    public void SetRandomMusic() => MusicManager.Instance.SetRandomMusic();
 
     public void SetResolution(int resolutionIndex)
     {
@@ -107,6 +118,8 @@ public class OptionsUI : MonoBehaviour
         m_MasterVolume.value = GetAudioMixerLevel("master");
         m_RoundDuration.value = RoundManager.Instance.GetRoundDuration();
         m_DurationValue.text = $"{RoundManager.Instance.GetRoundDuration()}";
+        m_WinsNeeded.value = RoundManager.Instance.GetWinsNeeded();
+        m_WinsValue.text = $"{RoundManager.Instance.GetWinsNeeded()}";
         m_CRTToggle.isOn = m_CRT.isActive;
         m_FullscreenToggle.isOn = Screen.fullScreen;
     }
