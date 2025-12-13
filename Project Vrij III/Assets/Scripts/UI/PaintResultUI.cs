@@ -9,10 +9,9 @@ public class PaintResultUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI playerOnePercent;
     [SerializeField] private TextMeshProUGUI playerTwoPercent;
     [SerializeField] private Slider playerOneSlider, playerTwoSlider;
-    [SerializeField] private AnimationCurve resultCurve;
-    [SerializeField] private float resultCurveDuration = 1f;
-    private float startTime;
-    private bool started = false;
+    [SerializeField] private AnimationCurve m_ResultCurve;
+    [SerializeField] private float m_ResultCurveDuration = 1f;
+    private float m_StartTime;
 
     private void Awake() => Instance = this;
 
@@ -24,11 +23,7 @@ public class PaintResultUI : MonoBehaviour
         AnimatePaintResult();
     }
 
-    public void ResetPaintResult()
-    {
-        m_PaintResult.SetActive(false);
-        started = false;
-    }
+    public void ResetPaintResult() => m_PaintResult.SetActive(false);
 
     public void BeginPaintResult()
     {
@@ -36,14 +31,13 @@ public class PaintResultUI : MonoBehaviour
         m_PaintResult.SetActive(true);
         playerOneSlider.value = 0;
         playerTwoSlider.value = 0;
-        startTime = Time.time;
-        started = true;
+        m_StartTime = Time.time;
     }
 
     private void AnimatePaintResult()
     {
-        var time = Mathf.Clamp01((Time.time - startTime) / resultCurveDuration);
-        var curve = resultCurve.Evaluate(time);
+        var time = Mathf.Clamp01((Time.time - m_StartTime) / m_ResultCurveDuration);
+        var curve = m_ResultCurve.Evaluate(time);
 
         var paintManager = PaintManager.Instance;
         var playerOneResult = paintManager.PlayerOnePercentage;
