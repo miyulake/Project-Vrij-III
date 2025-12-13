@@ -14,8 +14,9 @@ public class RoundManager : MonoBehaviour
     [Header("Sequence Settings")]
     public float introDuration = 2f;
     public float knockoutDuration = 1f;
-    public float timeUpDuration = 2f;
-    public float resultDuration = 2f;
+    [SerializeField] private float m_TimeUpDuration = 2f;
+    [SerializeField] private float m_HealthResultDuration = 2f;
+    [SerializeField] private float m_PaintResultDuration = 3f;
 
     [Header("Round Settings")]
     [Range(1, 5)][SerializeField] private int m_WinsNeeded = 3;
@@ -102,7 +103,7 @@ public class RoundManager : MonoBehaviour
         // RESULT START
         SetState(RoundState.RESULT);
 
-        GetPaintResult(); // Get paint result
+        if (GameManager.Instance.CurrentMode == GameMode.PAINT) GetPaintResult(); // Get paint result
 
         // TIME UP | DRAW
         m_RoundWinner = GetRoundWinner(); // Get winner
@@ -112,14 +113,15 @@ public class RoundManager : MonoBehaviour
 
             if (m_RoundWinner == RoundWinner.DRAW)
             {
-                yield return new WaitForSeconds(timeUpDuration);
+                yield return new WaitForSeconds(m_TimeUpDuration);
                 RoundUI.Instance.SetRoundText("Draw", false);
             }
         }
 
         EndRound();
 
-        yield return new WaitForSeconds(resultDuration);
+        yield return new WaitForSeconds(GameManager.Instance.CurrentMode == GameMode.PAINT ?
+            m_PaintResultDuration : m_HealthResultDuration);
         // RESULT END
 
         // END MATCH | START NEW ROUND
