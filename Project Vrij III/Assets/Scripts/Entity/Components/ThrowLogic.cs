@@ -61,9 +61,8 @@ public class ThrowLogic : EntityComponent
     }
 
     public bool ThrowEligible() =>
-        m_GrabConnected &&
-        (Entity.Opponent.StateMachine.CurrentState is HitStunState ||
-        Entity.Opponent.StateMachine.CurrentState is CaughtState);
+        Entity.Opponent.StateMachine.CurrentState is HitStunState ||
+        Entity.Opponent.StateMachine.CurrentState is CaughtState;
 
     public void ConnectGrab() => m_GrabConnected = true;
 
