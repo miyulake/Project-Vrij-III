@@ -97,6 +97,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "Super",
+                    "type": "Button",
+                    "id": "9bffcc5b-0af8-4d48-b1d7-5f96da0b9f53",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "Pause",
                     "type": "Button",
                     "id": "27cbc0c3-06b1-46fa-8317-8393adc2ffe3",
@@ -478,6 +487,28 @@
                     "processors": "",
                     "groups": ";Gamepad",
                     "action": "Taunt",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "dd7908c8-86ea-46ec-9f9e-fe2159d547f8",
+                    "path": "<Keyboard>/tab",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "Super",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "bfbde02f-2295-4e47-89b7-5dd1dd607a83",
+                    "path": "<Gamepad>/rightStickPress",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Gamepad",
+                    "action": "Super",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

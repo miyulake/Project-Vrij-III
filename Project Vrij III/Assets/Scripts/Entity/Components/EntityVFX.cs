@@ -21,7 +21,7 @@ public class EntityVFX : EntityComponent
         var position = new Vector3(
             transform.position.x,
             transform.position.y,
-            PaintManager.Instance.GetPaintBackground().position.z);
+            PaintManager.Instance.GetPaintZ());
         var offset = new Vector3(
             move.paintData.offsetPosition.x * -facing,
             move.paintData.offsetPosition.y,
@@ -30,8 +30,7 @@ public class EntityVFX : EntityComponent
         var paint = Instantiate(
             move.paintData.paintPrefab,
             position + offset,
-            Quaternion.identity,
-            PaintManager.Instance.GetPaintBackground()
+            Quaternion.identity
         );
 
         var scale = move.paintData.paintScale;

@@ -4,6 +4,7 @@ public class DeadState : EntityState
 
     public override void OnEnter()
     {
+        Entity.Taunt.Reset();
         Entity.Visuals.SetDeadFace();
         Entity.Animator.PlayEnd("Stun");
         Entity.PauseEntity();

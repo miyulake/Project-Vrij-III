@@ -9,13 +9,12 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int m_FrameRate = 60;
 
     [Header("Mode Settings")]
+    [SerializeField] int m_MaxHealth = 100;
     public GameMode CurrentMode { get; private set; }
-    public int maxHealth = 100;
 
     [Header("Events")]
     [SerializeField] private UnityEvent m_OnEnterHealthMode;
     [SerializeField] private UnityEvent m_OnEnterPaintMode;
-    [SerializeField] private UnityEvent m_OnEnterPongMode;
 
     private void Awake() 
     {
@@ -30,6 +29,8 @@ public class GameManager : MonoBehaviour
     }
     
     public bool IsPaused() => Time.timeScale < 0.99f;
+
+    public int GetMaxHealth() => m_MaxHealth;
 
     public void SetGameMode(int index) 
     {
@@ -46,7 +47,11 @@ public class GameManager : MonoBehaviour
                 break;
 
             case GameMode.PONG:
-                m_OnEnterPongMode.Invoke();
+                //
+                break;
+
+            case GameMode.RING:
+                //
                 break;
         }
     }

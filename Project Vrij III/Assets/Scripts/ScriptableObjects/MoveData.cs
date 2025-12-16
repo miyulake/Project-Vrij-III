@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "MoveData", menuName = "CombatSO/Move")]
+[CreateAssetMenu(fileName = "Move", menuName = "CombatSO/Move", order = 0)]
 public class MoveData : ScriptableObject
 {
     [Header("General")]
@@ -29,11 +29,11 @@ public class MoveData : ScriptableObject
     [Header("Throw")]
     public int breakFrames;
 
-    [Header("Meter")]
-    public int meterCost;
-
     [Header("Animation")]
     public string animationName;
+
+    public virtual bool CanExecute(Entity entity) => true;
+    public virtual void OnExecute(Entity entity) { }
 }
 
 [System.Serializable]

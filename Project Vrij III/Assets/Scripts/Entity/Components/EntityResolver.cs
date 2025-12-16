@@ -1,12 +1,15 @@
+using System.Runtime.Serialization;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class EntityResolver
 {
     public MoveData StoredMove { get; private set; }
     public ContactType HitType { get; private set; }
     public bool IsForced { get; private set; } = false;
-    private readonly Entity m_Entity;
 
+
+    private readonly Entity m_Entity;
     public EntityResolver(Entity entity) => m_Entity = entity;
 
     public void ResolveHit(MoveData move)
@@ -58,7 +61,7 @@ public class EntityResolver
         }
 
         // Misc checks
-        var usePaint = GameManager.Instance.CurrentMode == GameMode.PAINT;
+        var usingPaint = GameManager.Instance.CurrentMode == GameMode.PAINT;
         var inGameplay = RoundManager.Instance.CurrentState == RoundState.GAMEPLAY;
 
         // Orientation
@@ -77,19 +80,23 @@ public class EntityResolver
 
         // VFX
         m_Entity.VFX.SpawnParticles(data);
-        if (usePaint && inGameplay) m_Entity.VFX.SpawnPaint(move, facingDirection);
+        if (usingPaint && inGameplay) m_Entity.VFX.SpawnPaint(move, facingDirection);
 
         // Visuals
         var stunDuration = data.stun * Time.fixedDeltaTime;
         m_Entity.Shake.TriggerShake(stunDuration, data.shakeMagnitude);
 
         // Damage & Combo
-        if (type != ContactType.BLOCK && !usePaint)
+        if (type != ContactType.BLOCK && !usingPaint)
         {
-            m_Entity.Combo.AddHit(data.damage);
-            m_Entity.Health.ApplyDamage(data.damage);
+            var multiplier = m_Entity.Opponent.Taunt.GetMultiplier();
+            var flatIncrease = m_Entity.Opponent.Taunt.GetFlatIncrease();
+            var finalDamage = Mathf.RoundToInt((data.damage + flatIncrease) * multiplier);
+            
+            m_Entity.Combo.AddHit(finalDamage);
+            m_Entity.Resources.ApplyDamage(finalDamage);
         }
-        else if (usePaint) m_Entity.Combo.AddHit(0);
+        else if (usingPaint) m_Entity.Combo.AddHit(0);
 
         // Audio
         m_Entity.Audio.Play(data.sound);

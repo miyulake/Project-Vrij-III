@@ -4,11 +4,11 @@ public class AttackHandler : EntityComponent
 {
     public bool IsPaused { get; private set; } = false;
     [SerializeField] private Animator m_Animator;
+
     [Header("Buffer Settings")]
     [SerializeField] private float m_BufferCrossfade = 0.1f;
     [Range(1, 10)] [SerializeField] private int m_BufferFrames = 10;
 
-    private InputReader m_InputReader;
     private Hitbox[] m_Hitboxes;
     private MoveData[] m_AllMoves;
 
@@ -21,7 +21,6 @@ public class AttackHandler : EntityComponent
     protected override void Awake()
     {
         base.Awake();
-        m_InputReader = GetComponent<InputReader>();
         m_Hitboxes = GetComponentsInChildren<Hitbox>(true);
         m_AllMoves = Resources.LoadAll<MoveData>("MoveData");
     }
@@ -230,14 +229,15 @@ public class AttackHandler : EntityComponent
     {
         return inputType switch
         {
-            AttackInput.JAB      => m_InputReader.ComboAttack,
-            AttackInput.FORWARD  => m_InputReader.AttackForward,
-            AttackInput.DOWNWARD => m_InputReader.AttackDownward,
-            AttackInput.UPWARD   => m_InputReader.AttackUpward,
-            AttackInput.GRAB     => m_InputReader.Grab,
-            AttackInput.SNAP     => m_InputReader.Snap,
-            AttackInput.PUSH     => m_InputReader.Push,
-            AttackInput.TAUNT    => m_InputReader.Taunt,
+            AttackInput.JAB      => Entity.Input.ComboAttack,
+            AttackInput.FORWARD  => Entity.Input.AttackForward,
+            AttackInput.DOWNWARD => Entity.Input.AttackDownward,
+            AttackInput.UPWARD   => Entity.Input.AttackUpward,
+            AttackInput.GRAB     => Entity.Input.Grab,
+            AttackInput.SNAP     => Entity.Input.Snap,
+            AttackInput.PUSH     => Entity.Input.Push,
+            AttackInput.TAUNT    => Entity.Input.Taunt,
+            AttackInput.SUPER    => Entity.Input.Super,
             _                    => false
         };
     }

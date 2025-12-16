@@ -7,5 +7,6 @@ public enum AttackInput
     GRAB,
     SNAP,
     PUSH,
-    TAUNT
+    TAUNT,
+    SUPER
 }

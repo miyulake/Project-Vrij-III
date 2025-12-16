@@ -9,13 +9,14 @@ using UnityEngine;
 [RequireComponent(typeof(EntityOrientation))]
 [RequireComponent(typeof(EntityAnimator))]
 [RequireComponent(typeof(ThrowLogic))]
+[RequireComponent(typeof(TauntLogic))]
 [RequireComponent(typeof(ShakeController))]
 [RequireComponent(typeof(InputReader))]
 public class Entity : MonoBehaviour
 {
     public StateMachine      StateMachine { get; private set; }
     public AttackHandler     Attack { get; private set; }
-    public EntityHealth      Health { get; private set; }
+    public EntityResources   Resources { get; private set; }
     public EntityPhysics     Physics { get; private set; }
     public EntityResolver    Resolver { get; private set; }
     public EntityVFX         VFX { get; private set; }
@@ -24,6 +25,7 @@ public class Entity : MonoBehaviour
     public EntityOrientation Orientation { get; private set; }
     public EntityAnimator    Animator { get; private set; }
     public ThrowLogic        Throw { get; private set; }
+    public TauntLogic        Taunt { get; private set; }
     public ShakeController   Shake { get; private set; }
     public ComboTracker      Combo { get; private set; }
     public InputReader       Input { get; private set; }
@@ -33,15 +35,12 @@ public class Entity : MonoBehaviour
     {
         CacheComponents();
 
-        Health   = new EntityHealth(this);
-        Resolver = new EntityResolver(this);
-        Combo    = new ComboTracker();
+        Resources = new EntityResources(this);
+        Resolver  = new EntityResolver(this);
+        Combo     = new ComboTracker();
     }
 
-    private void Start()
-    {
-        Health.Start();
-    }
+    private void Start() => Resources.Start();
 
     private void FixedUpdate()
     {
@@ -54,7 +53,8 @@ public class Entity : MonoBehaviour
     public void ResetEntity()
     {
         Attack.Reset();
-        Health.Reset();
+        Resources.Reset();
+        Taunt.Reset();
         Visuals.Reset();
         Orientation.Reset();
         Animator.Play("Start");
@@ -87,6 +87,7 @@ public class Entity : MonoBehaviour
         Orientation  = GetComponent<EntityOrientation>();
         Animator     = GetComponent<EntityAnimator>();
         Throw        = GetComponent<ThrowLogic>();
+        Taunt        = GetComponent<TauntLogic>();
         Shake        = GetComponent<ShakeController>();
         Input        = GetComponent<InputReader>();
     }

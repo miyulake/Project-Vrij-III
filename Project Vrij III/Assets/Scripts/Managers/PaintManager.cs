@@ -8,7 +8,7 @@ public class PaintManager : MonoBehaviour
 
     [SerializeField] private RenderTexture m_PaintTexture;
     [Range(32, 512)] [SerializeField] private int m_SampleSize = 128;
-    [SerializeField] private Transform m_PaintBackground;
+    [SerializeField] private float m_PaintZ = 3;
     private RenderTexture m_SmallTexture;
     private Texture2D m_PaintCopy;
 
@@ -53,13 +53,7 @@ public class PaintManager : MonoBehaviour
         if (m_SmallTexture != null) m_SmallTexture.Release();
     }
 
-    public void ClearPaintBackground()
-    {
-        for (int i = m_PaintBackground.childCount - 1; i >= 0; i--)
-            Destroy(m_PaintBackground.GetChild(i).gameObject);
-    }
-
-    public Transform GetPaintBackground() => m_PaintBackground;
+    public float GetPaintZ() => m_PaintZ;
 
     // For debugging purposes
     /*

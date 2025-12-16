@@ -39,7 +39,7 @@ public class RoundManager : MonoBehaviour
     {
         ++m_CurrentRound;
 
-        PaintManager.Instance.ClearPaintBackground();
+        PaintRegister.ClearAll();
         PaintResultUI.Instance.ResetPaintResult();
         PlayerManager.Instance.playerOne.ResetEntity();
         PlayerManager.Instance.playerTwo.ResetEntity();
@@ -190,8 +190,8 @@ public class RoundManager : MonoBehaviour
         {
             var playerOne = PlayerManager.Instance.playerOne;
             var playerTwo = PlayerManager.Instance.playerTwo;
-            var playerOneHealth = playerOne.Health.CurrentHealth;
-            var playerTwoHealth = playerTwo.Health.CurrentHealth;
+            var playerOneHealth = playerOne.Resources.CurrentHealth;
+            var playerTwoHealth = playerTwo.Resources.CurrentHealth;
 
             if (playerOneHealth > playerTwoHealth) return RoundWinner.P1;
             if (playerTwoHealth > playerOneHealth) return RoundWinner.P2;

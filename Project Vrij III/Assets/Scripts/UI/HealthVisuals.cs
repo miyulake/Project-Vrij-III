@@ -52,7 +52,7 @@ public class HealthVisuals : MonoBehaviour
 
         public void UpdateAll(float deltaTime, HealthUIConfig config, Entity entity)
         {
-            health.value = entity.Health.CurrentHealth;
+            health.value = entity.Resources.CurrentHealth;
             UpdateGhostHealth(deltaTime, config, entity);
             UpdateShake(deltaTime, config.shakeDuration, config.shakeStrength);
             DetectHealthChange(config.shakeDuration);
@@ -109,7 +109,7 @@ public class HealthVisuals : MonoBehaviour
 
         private void SliderSetup()
         {
-            health.maxValue = GameManager.Instance.maxHealth;
+            health.maxValue = GameManager.Instance.GetMaxHealth();
             health.value = health.maxValue;
             ghostHealth.maxValue = health.maxValue;
             ghostHealth.value = health.value;

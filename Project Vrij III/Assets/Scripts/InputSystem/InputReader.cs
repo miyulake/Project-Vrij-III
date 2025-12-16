@@ -10,6 +10,7 @@ public class InputReader : MonoBehaviour
     private PlayerInput playerInput;
 
     // Gameplay input
+    public Vector2 Movement    => playerInput.actions["Move"].ReadValue<Vector2>();
     public bool ComboAttack    => playerInput.actions["ComboAttack"].triggered;
     public bool AttackForward  => playerInput.actions["AttackForward"].triggered;
     public bool AttackDownward => playerInput.actions["AttackDownward"].triggered;
@@ -19,7 +20,7 @@ public class InputReader : MonoBehaviour
     public bool Snap           => playerInput.actions["Snap"].triggered;
     public bool Push           => playerInput.actions["Push"].triggered;
     public bool Taunt          => playerInput.actions["Taunt"].triggered;
-    public Vector2 Movement    => playerInput.actions["Move"].ReadValue<Vector2>();
+    public bool Super          => playerInput.actions["Super"].triggered;
 
     // UI input
     public bool Pause          => playerInput.actions["Pause"].triggered;
