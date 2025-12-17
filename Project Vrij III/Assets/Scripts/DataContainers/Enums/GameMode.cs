@@ -3,5 +3,6 @@ public enum GameMode
     HEALTH,
     PAINT,
     PONG,
-    RING
+    RING,
+    TRAINING
 }

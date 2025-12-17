@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 111f74b383fc0104ca70c72daf6e320d, type: 3}
-  m_Name: S_Chain Tether
+  m_Name: S_Taunt Bubble
   m_EditorClassIdentifier: Assembly-CSharp::SuperData
   moveType: 0
   moveFlags: 0
   input: 8
-  startFromIdle: 0
+  startFromIdle: 1
   frames:
     startup: 0
     active: 0
@@ -51,8 +51,8 @@ MonoBehaviour:
     paintScale: {x: 0, y: 0, z: 0}
   hitboxIndices: 
   breakFrames: 0
-  animationName: Grab
-  superType: 1
+  animationName: Taunt
+  superType: 3
   meterCost: 0
   freezeFrames:
     start: 0

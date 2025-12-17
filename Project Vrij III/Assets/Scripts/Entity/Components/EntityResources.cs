@@ -53,9 +53,5 @@ public class EntityResources
         CurrentHealth = Mathf.Clamp(meter, 0, m_MaxMeter);
     }
 
-    public void Reset() 
-    {
-        CurrentHealth = m_MaxHealth;
-        CurrentMeter = 0;
-    } 
+    public void Reset() => CurrentHealth = m_MaxHealth;
 }

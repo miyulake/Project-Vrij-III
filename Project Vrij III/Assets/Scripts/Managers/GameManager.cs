@@ -53,6 +53,10 @@ public class GameManager : MonoBehaviour
             case GameMode.RING:
                 //
                 break;
+
+            case GameMode.TRAINING:
+                //
+                break;
         }
     }
 }

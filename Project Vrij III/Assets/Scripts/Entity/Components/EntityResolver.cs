@@ -76,7 +76,7 @@ public class EntityResolver
         // Knockback
         var knockback = data.knockback;
         knockback.x *= -facingDirection;
-        m_Entity.Physics.ApplyKnockback(knockback);
+        m_Entity.Physics.ApplyKnockback(m_Entity.Movement.GetRigidBody(), knockback);
 
         // VFX
         m_Entity.VFX.SpawnParticles(data);

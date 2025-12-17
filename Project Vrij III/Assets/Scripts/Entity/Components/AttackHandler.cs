@@ -3,7 +3,6 @@
 public class AttackHandler : EntityComponent
 {
     public bool IsPaused { get; private set; } = false;
-    [SerializeField] private Animator m_Animator;
 
     [Header("Buffer Settings")]
     [SerializeField] private float m_BufferCrossfade = 0.1f;
@@ -85,8 +84,8 @@ public class AttackHandler : EntityComponent
 
         if (!string.IsNullOrEmpty(move.animationName))
         {
-            if (crossfade > 0f) m_Animator.CrossFade(move.animationName, crossfade, 0, 0f);
-            else m_Animator.Play(move.animationName, 0, 0f);
+            if (crossfade > 0f) Entity.Animator.PlayCrossFade(move.animationName, crossfade);
+            else Entity.Animator.Play(move.animationName);
         }
 
         SetMoveData(move);

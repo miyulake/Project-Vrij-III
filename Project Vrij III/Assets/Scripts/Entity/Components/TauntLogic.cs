@@ -3,36 +3,62 @@ using UnityEngine;
 public class TauntLogic : EntityComponent
 {
     public bool HasCompletedTaunt { get; private set; }
-    [SerializeField] private GameObject m_EyeLights;
-    [SerializeField] private AudioClip m_TauntActive;
-    [SerializeField] private AudioClip m_TauntDeactive;
-    [SerializeField] private float m_TauntMultiplier = 1.5f;
-    [SerializeField] private int m_TauntIncrease = 2;
+    [SerializeField] private GameObject m_PowerUpParticle;
+    [SerializeField] private AudioClip m_Active;
+    [SerializeField] private AudioClip m_Inactive;
+    [SerializeField] private float m_Multiplier = 1.15f;
+    [SerializeField] private int m_FlatIncrease = 1;
+    [SerializeField] private float m_PowerDuration = 10f;
+    private float m_PowerTime = 0f;
 
-    public void ActivateTaunt()
+    public void Tick() => HandlePowerTimer();
+
+    public void SetTauntPower(bool state)
     {
-        var usingPaint = GameManager.Instance.CurrentMode == GameMode.PAINT;
-        if (usingPaint) return;
+        var canPowerUp =
+            GameManager.Instance.CurrentMode != GameMode.PAINT &&
+            RoundManager.Instance.CurrentState == RoundState.GAMEPLAY;
 
-        HasCompletedTaunt = !HasCompletedTaunt;
+        if (!canPowerUp) return;
 
-        m_EyeLights.SetActive(HasCompletedTaunt);
+        HasCompletedTaunt = state;
 
-        if (HasCompletedTaunt) Entity.Audio.Play(m_TauntActive);
-        else Entity.Audio.Play(m_TauntDeactive);
+        m_PowerUpParticle.SetActive(HasCompletedTaunt);
+
+        if (HasCompletedTaunt)
+        {
+            m_PowerTime = 0f;
+            Entity.Audio.Play(m_Active);
+        }
+        else Entity.Audio.Play(m_Inactive);
+    }
+
+    private void HandlePowerTimer()
+    {
+        if (HasCompletedTaunt)
+        {
+            m_PowerTime += Time.deltaTime;
+            if (m_PowerTime >= m_PowerDuration)
+            {
+                SetTauntPower(false);
+                HasCompletedTaunt = false;
+                m_PowerTime = 0f;
+            }
+        }
     }
 
     // Bad - should add to a global mutliplier
     public float GetMultiplier() =>
-        HasCompletedTaunt ? m_TauntMultiplier : 1f;
+        HasCompletedTaunt ? m_Multiplier : 1f;
 
     // Bad - should add to a global flat increase
     public int GetFlatIncrease() =>
-        HasCompletedTaunt ? m_TauntIncrease : 0;
+        HasCompletedTaunt ? m_FlatIncrease : 0;
 
     public void Reset()
     {
         HasCompletedTaunt = false;
-        m_EyeLights.SetActive(false);
+        m_PowerUpParticle.SetActive(false);
+        m_PowerTime = 0f;
     }
 }

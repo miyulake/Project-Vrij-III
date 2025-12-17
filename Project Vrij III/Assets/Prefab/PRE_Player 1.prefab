@@ -691,6 +691,7 @@ GameObject:
   - component: {fileID: 5908979547463451878}
   - component: {fileID: 2407525535924767685}
   - component: {fileID: 420104190912164710}
+  - component: {fileID: 3025373385934276473}
   - component: {fileID: 1801499076957440997}
   - component: {fileID: 8387632929233602559}
   - component: {fileID: 4549600266536112635}
@@ -698,7 +699,6 @@ GameObject:
   - component: {fileID: 3649434061026812996}
   - component: {fileID: 8206493709175112930}
   - component: {fileID: 1882542023021585692}
-  - component: {fileID: 388844641849989189}
   - component: {fileID: 5017755581437723804}
   - component: {fileID: 535432736144724583}
   - component: {fileID: 3353341615664399293}
@@ -769,6 +769,20 @@ MonoBehaviour:
   m_Animator: {fileID: 752103092993127942}
   m_BufferCrossfade: 0.1
   m_BufferFrames: 10
+--- !u!114 &3025373385934276473
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2661417437704909611}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1725cc4e27b4d8647801428afd9e6a0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SuperHandler
+  m_CurrentSuper: 3
+  m_Aura: {fileID: 0}
 --- !u!114 &1801499076957440997
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -781,7 +795,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f96b33a98fdd724a8a75a35f030f962, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_RigidBodyTwoD: {fileID: 5857387183413530615}
   m_Animator: {fileID: 752103092993127942}
   baseSpeed: 10
   blockSpeed: 3
@@ -840,11 +853,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ede2fc78bc3b2e649b0d2f35b0390969, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TauntLogic
-  m_EyeLights: {fileID: 6681818441455057175}
-  m_TauntActive: {fileID: 8300000, guid: 8bc429b022693a24192ea4da2c624fd1, type: 3}
-  m_TauntDeactive: {fileID: 8300000, guid: b8d421373c74e374989e0c5dccfa3b61, type: 3}
-  m_TauntMultiplier: 1.15
-  m_TauntIncrease: 1
+  m_PowerUpParticle: {fileID: 4528192033424363454}
+  m_Active: {fileID: 8300000, guid: 8bc429b022693a24192ea4da2c624fd1, type: 3}
+  m_Inactive: {fileID: 8300000, guid: b8d421373c74e374989e0c5dccfa3b61, type: 3}
+  m_Multiplier: 1.15
+  m_FlatIncrease: 1
+  m_PowerDuration: 7
 --- !u!114 &6727671721480798848
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -927,19 +941,6 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   m_TurnDuration: 0.2
---- !u!114 &388844641849989189
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2661417437704909611}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5abe2365e57354c44b5ccb585bd1b775, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EntityPhysics
-  m_RigidBodyTwoD: {fileID: 5857387183413530615}
 --- !u!114 &5017755581437723804
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1428,6 +1429,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
+  - {fileID: 2154445751407278982}
   - {fileID: 129161959787134993}
   - {fileID: 8041591808666425554}
   - {fileID: 9010399694990290105}
@@ -1905,6 +1907,38 @@ Transform:
   - {fileID: 7435305859529432907}
   m_Father: {fileID: 466046999991582369}
   m_LocalEulerAnglesHint: {x: -16.942406, y: 0.3699999, z: -1.2528367}
+--- !u!1 &4528192033424363454
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2154445751407278982}
+  m_Layer: 0
+  m_Name: Taunt Effect
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &2154445751407278982
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4528192033424363454}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1599156413110651210}
+  m_Father: {fileID: 5210941529898867830}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4602864761686309790
 GameObject:
   m_ObjectHideFlags: 0
@@ -4051,3 +4085,69 @@ Transform:
   - {fileID: 5761243264310766654}
   m_Father: {fileID: 1436531234879118140}
   m_LocalEulerAnglesHint: {x: 1.6859534, y: -2.4906855, z: -14.652611}
+--- !u!1001 &62152876021194412
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 2154445751407278982}
+    m_Modifications:
+    - target: {fileID: 1652143759095011289, guid: e2c1ac940434a5242b54d72b66654687, type: 3}
+      propertyPath: m_Name
+      value: PRE_Taunt_Particle
+      objectReference: {fileID: 0}
+    - target: {fileID: 1652143759095011302, guid: e2c1ac940434a5242b54d72b66654687, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1652143759095011302, guid: e2c1ac940434a5242b54d72b66654687, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1652143759095011302, guid: e2c1ac940434a5242b54d72b66654687, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1652143759095011302, guid: e2c1ac940434a5242b54d72b66654687, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1652143759095011302, guid: e2c1ac940434a5242b54d72b66654687, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1652143759095011302, guid: e2c1ac940434a5242b54d72b66654687, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1652143759095011302, guid: e2c1ac940434a5242b54d72b66654687, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1652143759095011302, guid: e2c1ac940434a5242b54d72b66654687, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1652143759095011302, guid: e2c1ac940434a5242b54d72b66654687, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1652143759095011302, guid: e2c1ac940434a5242b54d72b66654687, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7831740662026284754, guid: e2c1ac940434a5242b54d72b66654687, type: 3}
+      propertyPath: m_Intensity
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: e2c1ac940434a5242b54d72b66654687, type: 3}
+--- !u!4 &1599156413110651210 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1652143759095011302, guid: e2c1ac940434a5242b54d72b66654687, type: 3}
+  m_PrefabInstance: {fileID: 62152876021194412}
+  m_PrefabAsset: {fileID: 0}

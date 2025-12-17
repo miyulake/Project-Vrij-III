@@ -6797,7 +6797,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &843618265
 RectTransform:
   m_ObjectHideFlags: 0
@@ -16990,7 +16990,7 @@ PrefabInstance:
       objectReference: {fileID: 509262898}
     - target: {fileID: 23074451809010711, guid: bf3c91c8ca6848d42bb9004d65c243d6, type: 3}
       propertyPath: m_VersionIndex
-      value: 2181
+      value: 2247
       objectReference: {fileID: 0}
     - target: {fileID: 420029039700872631, guid: bf3c91c8ca6848d42bb9004d65c243d6, type: 3}
       propertyPath: m_LocalPosition.x
@@ -17042,14 +17042,13 @@ PrefabInstance:
       objectReference: {fileID: 997610657}
     - target: {fileID: 2665316495032084173, guid: bf3c91c8ca6848d42bb9004d65c243d6, type: 3}
       propertyPath: m_VersionIndex
-      value: 1113
+      value: 1179
       objectReference: {fileID: 0}
     - target: {fileID: 7372868152233205685, guid: bf3c91c8ca6848d42bb9004d65c243d6, type: 3}
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 997610657}
-    m_RemovedComponents:
-    - {fileID: 8811864299669505203, guid: bf3c91c8ca6848d42bb9004d65c243d6, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -17597,7 +17596,7 @@ PrefabInstance:
       objectReference: {fileID: 2086810432}
     - target: {fileID: 2011268659390246160, guid: 674544fec896a33479f0f3046ca6b403, type: 3}
       propertyPath: m_VersionIndex
-      value: 2427
+      value: 2493
       objectReference: {fileID: 0}
     - target: {fileID: 2192322867580527792, guid: 674544fec896a33479f0f3046ca6b403, type: 3}
       propertyPath: m_LocalPosition.x
@@ -17645,7 +17644,7 @@ PrefabInstance:
       objectReference: {fileID: 326537597}
     - target: {fileID: 4559216348152074186, guid: 674544fec896a33479f0f3046ca6b403, type: 3}
       propertyPath: m_VersionIndex
-      value: 1359
+      value: 1425
       objectReference: {fileID: 0}
     - target: {fileID: 4564342323286907436, guid: 674544fec896a33479f0f3046ca6b403, type: 3}
       propertyPath: m_Name

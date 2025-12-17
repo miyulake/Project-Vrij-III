@@ -2,7 +2,7 @@ using UnityEngine;
 
 [RequireComponent(typeof(StateMachine))]
 [RequireComponent(typeof(AttackHandler))]
-[RequireComponent(typeof(EntityPhysics))]
+[RequireComponent(typeof(SuperHandler))]
 [RequireComponent(typeof(EntityVFX))]
 [RequireComponent(typeof(EntityVisuals))]
 [RequireComponent(typeof(EntityAudio))]
@@ -16,9 +16,11 @@ public class Entity : MonoBehaviour
 {
     public StateMachine      StateMachine { get; private set; }
     public AttackHandler     Attack { get; private set; }
+    public SuperHandler      Super { get; private set; }
+    public TwoDMovement      Movement { get; private set; }
     public EntityResources   Resources { get; private set; }
-    public EntityPhysics     Physics { get; private set; }
     public EntityResolver    Resolver { get; private set; }
+    public EntityPhysics     Physics { get; private set; }
     public EntityVFX         VFX { get; private set; }
     public EntityVisuals     Visuals { get; private set; }
     public EntityAudio       Audio { get; private set; }
@@ -37,20 +39,25 @@ public class Entity : MonoBehaviour
 
         Resources = new EntityResources(this);
         Resolver  = new EntityResolver(this);
+        Physics   = new EntityPhysics();
         Combo     = new ComboTracker();
     }
 
     private void Start() => Resources.Start();
 
-    private void FixedUpdate()
+    private void FixedUpdate() => Tick();
+
+    private void Tick()
     {
         StateMachine.Tick();
         Attack.Tick();
+        Super.Tick();
         Orientation.Tick();
         Animator.Tick();
+        Taunt.Tick();
     }
 
-    public void ResetEntity()
+    public void Reset()
     {
         Attack.Reset();
         Resources.Reset();
@@ -74,13 +81,12 @@ public class Entity : MonoBehaviour
         Animator.Resume();
     }
 
-    public void SetOpponent(Entity opponent) => Opponent = opponent;
-
     private void CacheComponents()
     {
         StateMachine = GetComponent<StateMachine>();
         Attack       = GetComponent<AttackHandler>();
-        Physics      = GetComponent<EntityPhysics>();
+        Super        = GetComponent<SuperHandler>();
+        Movement     = GetComponent<TwoDMovement>();
         VFX          = GetComponent<EntityVFX>();
         Visuals      = GetComponent<EntityVisuals>();
         Audio        = GetComponent<EntityAudio>();
@@ -91,4 +97,6 @@ public class Entity : MonoBehaviour
         Shake        = GetComponent<ShakeController>();
         Input        = GetComponent<InputReader>();
     }
+
+    public void SetOpponent(Entity opponent) => Opponent = opponent;
 }

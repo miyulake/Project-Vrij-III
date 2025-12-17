@@ -41,8 +41,8 @@ public class RoundManager : MonoBehaviour
 
         PaintRegister.ClearAll();
         PaintResultUI.Instance.ResetPaintResult();
-        PlayerManager.Instance.playerOne.ResetEntity();
-        PlayerManager.Instance.playerTwo.ResetEntity();
+        PlayerManager.Instance.playerOne.Reset();
+        PlayerManager.Instance.playerTwo.Reset();
 
         m_RoundTimer = m_RoundDuration;
         m_TimerTextMesh.text = m_RoundTimer.ToString("00");

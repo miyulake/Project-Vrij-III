@@ -8,9 +8,6 @@ public class SuperData : MoveData
     public int meterCost;
     public FrameRange freezeFrames;
 
-    public override bool CanExecute(Entity entity) => 
+    public override bool CanExecute(Entity entity) =>
         entity.Resources.CurrentMeter >= meterCost;
-
-    public override void OnExecute(Entity entity) =>
-        entity.Resources.ConsumeMeter(meterCost);
 }

@@ -2,14 +2,15 @@ using UnityEngine;
 
 public class TwoDMovement : EntityComponent
 {
-    [SerializeField] private Rigidbody2D m_RigidBodyTwoD;
-    [SerializeField] private Animator m_Animator;
     [Range(0, 10)] [SerializeField] private float baseSpeed = 5;
     [Range(0, 10)] [SerializeField] private float blockSpeed = 2;
     [Range(0, 500)] [SerializeField] private float acceleration = 50f;
     [Range(0, 100)] [SerializeField] private float deceleration = 50f;
+    private Rigidbody2D m_RigidBodyTwoD;
     private Vector2 m_InputDirection;
     private Vector2 m_CurrentVelocity;
+
+    private void Start() => m_RigidBodyTwoD = GetComponent<Rigidbody2D>();
 
     private void Update()
     {
@@ -34,11 +35,13 @@ public class TwoDMovement : EntityComponent
         m_RigidBodyTwoD.linearVelocity = m_CurrentVelocity;
     }
 
-    private bool CanMove() => !AnimatorUtils.IsInAnyState(m_Animator,
-        AnimationHashes.Grab,
-        AnimationHashes.Taunt,
-        AnimationHashes.Stun,
-        AnimationHashes.BlockStun);
+    private bool CanMove() => 
+        !AnimatorUtils.IsInAnyState(Entity.Animator.GetAnimator(),
+            AnimationHashes.Grab,
+            AnimationHashes.Taunt,
+            AnimationHashes.BlockStun);
 
-    private float GetSpeed() => m_Animator.GetBool("IsBlocking") ? blockSpeed : baseSpeed;
+    private float GetSpeed() => Entity.StateMachine.CurrentState is BlockState ? blockSpeed : baseSpeed;
+
+    public Rigidbody2D GetRigidBody() => m_RigidBodyTwoD;
 }
