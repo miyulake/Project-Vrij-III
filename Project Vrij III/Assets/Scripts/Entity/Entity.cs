@@ -3,21 +3,23 @@ using UnityEngine;
 [RequireComponent(typeof(StateMachine))]
 [RequireComponent(typeof(AttackHandler))]
 [RequireComponent(typeof(SuperHandler))]
+[RequireComponent(typeof(ThrowHandler))]
+[RequireComponent(typeof(TauntHandler))]
 [RequireComponent(typeof(EntityVFX))]
 [RequireComponent(typeof(EntityVisuals))]
 [RequireComponent(typeof(EntityAudio))]
 [RequireComponent(typeof(EntityOrientation))]
 [RequireComponent(typeof(EntityAnimator))]
-[RequireComponent(typeof(ThrowLogic))]
-[RequireComponent(typeof(TauntLogic))]
 [RequireComponent(typeof(ShakeController))]
 [RequireComponent(typeof(InputReader))]
 public class Entity : MonoBehaviour
 {
     public StateMachine      StateMachine { get; private set; }
+    public TwoDMovement      Movement { get; private set; }
     public AttackHandler     Attack { get; private set; }
     public SuperHandler      Super { get; private set; }
-    public TwoDMovement      Movement { get; private set; }
+    public ThrowHandler      Throw { get; private set; }
+    public TauntHandler      Taunt { get; private set; }
     public EntityResources   Resources { get; private set; }
     public EntityResolver    Resolver { get; private set; }
     public EntityPhysics     Physics { get; private set; }
@@ -26,8 +28,6 @@ public class Entity : MonoBehaviour
     public EntityAudio       Audio { get; private set; }
     public EntityOrientation Orientation { get; private set; }
     public EntityAnimator    Animator { get; private set; }
-    public ThrowLogic        Throw { get; private set; }
-    public TauntLogic        Taunt { get; private set; }
     public ShakeController   Shake { get; private set; }
     public ComboTracker      Combo { get; private set; }
     public InputReader       Input { get; private set; }
@@ -86,14 +86,14 @@ public class Entity : MonoBehaviour
         StateMachine = GetComponent<StateMachine>();
         Attack       = GetComponent<AttackHandler>();
         Super        = GetComponent<SuperHandler>();
+        Throw        = GetComponent<ThrowHandler>();
+        Taunt        = GetComponent<TauntHandler>();
         Movement     = GetComponent<TwoDMovement>();
         VFX          = GetComponent<EntityVFX>();
         Visuals      = GetComponent<EntityVisuals>();
         Audio        = GetComponent<EntityAudio>();
         Orientation  = GetComponent<EntityOrientation>();
         Animator     = GetComponent<EntityAnimator>();
-        Throw        = GetComponent<ThrowLogic>();
-        Taunt        = GetComponent<TauntLogic>();
         Shake        = GetComponent<ShakeController>();
         Input        = GetComponent<InputReader>();
     }

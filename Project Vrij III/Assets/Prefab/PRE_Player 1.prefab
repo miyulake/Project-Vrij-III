@@ -690,9 +690,9 @@ GameObject:
   - component: {fileID: 420029039700872631}
   - component: {fileID: 5908979547463451878}
   - component: {fileID: 2407525535924767685}
+  - component: {fileID: 1801499076957440997}
   - component: {fileID: 420104190912164710}
   - component: {fileID: 3025373385934276473}
-  - component: {fileID: 1801499076957440997}
   - component: {fileID: 8387632929233602559}
   - component: {fileID: 4549600266536112635}
   - component: {fileID: 6727671721480798848}
@@ -754,6 +754,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b87b0084e06746e409b89a135ffc0565, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StateMachine
+--- !u!114 &1801499076957440997
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2661417437704909611}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f96b33a98fdd724a8a75a35f030f962, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baseSpeed: 10
+  blockSpeed: 3
+  acceleration: 250
+  deceleration: 50
 --- !u!114 &420104190912164710
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -766,7 +782,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c19f79a32b7094649922707c1deced6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FighterController
-  m_Animator: {fileID: 752103092993127942}
   m_BufferCrossfade: 0.1
   m_BufferFrames: 10
 --- !u!114 &3025373385934276473
@@ -783,23 +798,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SuperHandler
   m_CurrentSuper: 3
   m_Aura: {fileID: 0}
---- !u!114 &1801499076957440997
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2661417437704909611}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9f96b33a98fdd724a8a75a35f030f962, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Animator: {fileID: 752103092993127942}
-  baseSpeed: 10
-  blockSpeed: 3
-  acceleration: 250
-  deceleration: 50
 --- !u!114 &8387632929233602559
 MonoBehaviour:
   m_ObjectHideFlags: 0

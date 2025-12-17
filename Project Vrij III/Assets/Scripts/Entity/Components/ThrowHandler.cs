@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class ThrowLogic : EntityComponent
+public class ThrowHandler : EntityComponent
 {
     [SerializeField] MoveData m_ClankMove;
     [SerializeField] private GameObject m_ThrowAnchor;

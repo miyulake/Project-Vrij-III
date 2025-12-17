@@ -4,7 +4,7 @@ public class SuperState : EntityState
 
     public override void OnEnter()
     {
-        //
+        //Entity.Throw.GetPlayerCollider().enabled = false;
     }
 
     public override void Tick()
@@ -14,6 +14,6 @@ public class SuperState : EntityState
 
     public override void OnExit()
     {
-        //
+        //Entity.Throw.GetPlayerCollider().enabled = true;
     }
 }

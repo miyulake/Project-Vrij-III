@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class TauntLogic : EntityComponent
+public class TauntHandler : EntityComponent
 {
     public bool HasCompletedTaunt { get; private set; }
     [SerializeField] private GameObject m_PowerUpParticle;
