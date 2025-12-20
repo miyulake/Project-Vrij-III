@@ -1,6 +1,7 @@
+using Game.Entities;
 using UnityEngine;
 
-public class EntityVisuals : EntityComponent
+public class EntityVisuals : EntityComponent, IResettable
 {
     [SerializeField] private MeshRenderer[] m_EyeMeshes;
     [SerializeField] private Material m_NormalMaterial;

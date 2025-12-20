@@ -1,13 +1,14 @@
+using Game.Entities;
 using UnityEngine;
 
-public class EntityAnimator : EntityComponent
+public class EntityAnimator : EntityComponent, ITickable
 {
     [SerializeField] private Animator m_Animator;
 
     public void Tick()
     {
-        m_Animator.SetBool("InStun", Entity.StateMachine.IsInStun());
-        m_Animator.SetBool("IsBlocking", Entity.StateMachine.CurrentState is BlockState);
+        m_Animator.SetBool("InStun", StateMachine.IsInStun());
+        m_Animator.SetBool("IsBlocking", StateMachine.CurrentState is BlockState);
     }
 
     public void Play(string animation) => m_Animator.Play(animation, 0, 0);

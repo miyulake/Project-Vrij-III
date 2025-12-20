@@ -1,11 +1,11 @@
 public class ClankState : EntityState
 {
-    public ClankState(Entity entity, StateMachine stateMachine) : base(entity, stateMachine) { }
+    public ClankState(Entity entity) : base(entity) { }
 
     public override void OnEnter()
     {
-        Entity.Combo.Reset();
-        Entity.Resolver.ResolveHit(Entity.Throw.GetClank());
-        Entity.Orientation.ForceFixOrientation();
+        Combo.Reset();
+        Resolver.ResolveHit(Throw.GetClank());
+        Orientation.ForceFixOrientation();
     }
 }

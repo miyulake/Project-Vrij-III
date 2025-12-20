@@ -52,7 +52,7 @@ public class HealthVisuals : MonoBehaviour
 
         public void UpdateAll(float deltaTime, HealthUIConfig config, Entity entity)
         {
-            health.value = entity.Resources.CurrentHealth;
+            health.value = entity.Get<EntityResources>().CurrentHealth;
             UpdateGhostHealth(deltaTime, config, entity);
             UpdateShake(deltaTime, config.shakeDuration, config.shakeStrength);
             DetectHealthChange(config.shakeDuration);
@@ -68,7 +68,7 @@ public class HealthVisuals : MonoBehaviour
                 return;
             }*/
 
-            if (ghostHealth.value > health.value && !entity.StateMachine.IsInStun())
+            if (ghostHealth.value > health.value && !entity.Get<StateMachine>().IsInStun())
             {
                 if (health.value != target)
                 {

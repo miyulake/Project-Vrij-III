@@ -1,15 +1,18 @@
+using Game.Entities;
 using UnityEngine;
 
-public class StateMachine : EntityComponent
+public class StateMachine : EntityComponent, ITickable
 {
     public EntityState CurrentState { get; private set; }
     private StateFactory m_StateFactory;
 
-    protected override void Awake()
+    public override void Initialize(Entity entity)
     {
-        base.Awake();
-        m_StateFactory = new StateFactory(Entity, this);
+        base.Initialize(entity);
+        m_StateFactory = new StateFactory(entity);
     }
+
+    public void Tick() => CurrentState?.Tick();
 
     public void ChangeState<T>(bool forceOverride = false, params object[] args) where T : EntityState
     {
@@ -21,8 +24,6 @@ public class StateMachine : EntityComponent
 
         Debug.Log($"{Entity.gameObject.name} changed to: {CurrentState.GetType().Name}");
     }
-
-    public void Tick() => CurrentState?.Tick();
 
     public bool IsInStun() => 
         CurrentState is HitStunState || CurrentState is BlockStunState || CurrentState is CaughtState;

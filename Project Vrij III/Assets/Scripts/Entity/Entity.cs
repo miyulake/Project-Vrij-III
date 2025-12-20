@@ -1,102 +1,79 @@
+using Game.Entities;
+using System;
+using System.Collections.Generic;
 using UnityEngine;
+using static Unity.Burst.Intrinsics.X86.Avx;
 
-[RequireComponent(typeof(StateMachine))]
-[RequireComponent(typeof(AttackHandler))]
-[RequireComponent(typeof(SuperHandler))]
-[RequireComponent(typeof(ThrowHandler))]
-[RequireComponent(typeof(TauntHandler))]
-[RequireComponent(typeof(EntityVFX))]
-[RequireComponent(typeof(EntityVisuals))]
-[RequireComponent(typeof(EntityAudio))]
-[RequireComponent(typeof(EntityOrientation))]
-[RequireComponent(typeof(EntityAnimator))]
-[RequireComponent(typeof(ShakeController))]
-[RequireComponent(typeof(InputReader))]
 public class Entity : MonoBehaviour
 {
-    public StateMachine      StateMachine { get; private set; }
-    public TwoDMovement      Movement { get; private set; }
-    public AttackHandler     Attack { get; private set; }
-    public SuperHandler      Super { get; private set; }
-    public ThrowHandler      Throw { get; private set; }
-    public TauntHandler      Taunt { get; private set; }
-    public EntityResources   Resources { get; private set; }
-    public EntityResolver    Resolver { get; private set; }
-    public EntityPhysics     Physics { get; private set; }
-    public EntityVFX         VFX { get; private set; }
-    public EntityVisuals     Visuals { get; private set; }
-    public EntityAudio       Audio { get; private set; }
-    public EntityOrientation Orientation { get; private set; }
-    public EntityAnimator    Animator { get; private set; }
-    public ShakeController   Shake { get; private set; }
-    public ComboTracker      Combo { get; private set; }
-    public InputReader       Input { get; private set; }
-    public Entity            Opponent { get; private set; }
+    public EntityPhysics Physics { get; private set; }
+    public ComboTracker Combo { get; private set; }
+    public Entity Opponent { get; private set; }
+
+    private List<IEntityComponent> m_Components = new();
+    private Dictionary<Type, IEntityComponent> m_ComponentMap;
 
     private void Awake()
     {
         CacheComponents();
-
-        Resources = new EntityResources(this);
-        Resolver  = new EntityResolver(this);
-        Physics   = new EntityPhysics();
-        Combo     = new ComboTracker();
+        for (int i = 0; i < m_Components.Count; i++) m_Components[i].Initialize(this);
     }
 
-    private void Start() => Resources.Start();
-
-    private void FixedUpdate() => Tick();
-
-    private void Tick()
+    private void FixedUpdate()
     {
-        StateMachine.Tick();
-        Attack.Tick();
-        Super.Tick();
-        Orientation.Tick();
-        Animator.Tick();
-        Taunt.Tick();
+        for (int i = 0; i < m_Components.Count; i++)
+        {
+            if (m_Components[i] is ITickable tickable) tickable.Tick();
+        }
+    }
+
+    public void Pause()
+    {
+        for (int i = 0; i < m_Components.Count; i++)
+        {
+            if (m_Components[i] is IPausable pausable) pausable.Pause();
+        }
+    }
+
+    public void Resume()
+    {
+        for (int i = 0; i < m_Components.Count; i++)
+        {
+            if (m_Components[i] is IPausable pausable) pausable.Resume();
+        }
     }
 
     public void Reset()
     {
-        Attack.Reset();
-        Resources.Reset();
-        Taunt.Reset();
-        Visuals.Reset();
-        Orientation.Reset();
-        Animator.Play("Start");
-        Combo.Reset();
-        StateMachine.ChangeState<IdleState>(true);
-    }
-
-    public void PauseEntity()
-    {
-        Attack.SetPauseState(true);
-        Animator.Pause();
-    }
-
-    public void ResumeEntity()
-    {
-        Attack.SetPauseState(false);
-        Animator.Resume();
+        for (int i = 0; i < m_Components.Count; i++)
+        {
+            if (m_Components[i] is IResettable resettable) resettable.Reset();
+        }
+        Get<EntityAnimator>().Play("Start");
+        Get<StateMachine>().ChangeState<IdleState>(true);
     }
 
     private void CacheComponents()
     {
-        StateMachine = GetComponent<StateMachine>();
-        Attack       = GetComponent<AttackHandler>();
-        Super        = GetComponent<SuperHandler>();
-        Throw        = GetComponent<ThrowHandler>();
-        Taunt        = GetComponent<TauntHandler>();
-        Movement     = GetComponent<TwoDMovement>();
-        VFX          = GetComponent<EntityVFX>();
-        Visuals      = GetComponent<EntityVisuals>();
-        Audio        = GetComponent<EntityAudio>();
-        Orientation  = GetComponent<EntityOrientation>();
-        Animator     = GetComponent<EntityAnimator>();
-        Shake        = GetComponent<ShakeController>();
-        Input        = GetComponent<InputReader>();
+        Physics = new EntityPhysics();
+        Combo = new ComboTracker();
+
+        m_Components = new List<IEntityComponent>(GetComponents<IEntityComponent>());
+        m_ComponentMap = new Dictionary<Type, IEntityComponent>(m_Components.Count)
+        {
+            [typeof(EntityPhysics)] = Physics,
+            [typeof(ComboTracker)] = Combo
+        };
+
+        for (int i = 0; i < m_Components.Count; i++)
+        {
+            Debug.Log("Caching component: " + m_Components[i].GetType().Name);
+            m_ComponentMap[m_Components[i].GetType()] = m_Components[i];
+        }
     }
+
+    public T Get<T>() where T : class, IEntityComponent =>
+        m_ComponentMap.TryGetValue(typeof(T), out var c) ? c as T : null;
 
     public void SetOpponent(Entity opponent) => Opponent = opponent;
 }

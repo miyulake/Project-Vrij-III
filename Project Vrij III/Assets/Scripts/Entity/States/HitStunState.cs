@@ -2,12 +2,11 @@ public class HitStunState : EntityState
 {
     private int m_StunFrames;
 
-    public HitStunState(Entity entity, StateMachine stateMachine, int stun) : base(entity, stateMachine) =>
-        m_StunFrames = stun;
+    public HitStunState(Entity entity, int stun) : base(entity) => m_StunFrames = stun;
 
     public override void OnEnter()
     {
-        Entity.Animator.Play("Stun");
+        Animator.Play("Stun");
     }
 
     public override void Tick()
@@ -16,17 +15,12 @@ public class HitStunState : EntityState
 
         if (m_StunFrames <= 0)
         {
-            Entity.Combo.Reset();
+            Combo.Reset();
 
-            if (Entity.Input.Block)
+            if (Input.Block)
                 StateMachine.ChangeState<BlockState>();
             else
                 StateMachine.ChangeState<IdleState>();
         }
-    }
-
-    public override void OnExit()
-    {
-        //
     }
 }

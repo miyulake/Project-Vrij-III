@@ -1,10 +1,7 @@
-using Game.Entities;
-using UnityEngine;
-
-public abstract class EntityComponent : MonoBehaviour, IEntityComponent
+public abstract class EntityContext
 {
     protected Entity Entity { get; private set; }
-    public virtual void Initialize(Entity entity) => Entity = entity;
+    protected void SetEntity(Entity entity) => Entity = entity;
 
     // Components
     protected StateMachine StateMachine => Entity.Get<StateMachine>();

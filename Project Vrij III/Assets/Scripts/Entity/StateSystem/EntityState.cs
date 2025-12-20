@@ -1,15 +1,8 @@
-public abstract class EntityState
+public abstract class EntityState : EntityContext
 {
-    protected Entity Entity;
-    protected StateMachine StateMachine;
-
-    protected EntityState(Entity entity, StateMachine stateMachine) 
-    {
-        Entity = entity;
-        StateMachine = stateMachine;
-    }
+    protected EntityState(Entity entity) => SetEntity(entity);
 
     public virtual void OnEnter() { }
-    public virtual void OnExit() { }
     public virtual void Tick() { }
+    public virtual void OnExit() { }
 }

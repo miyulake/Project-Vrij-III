@@ -27,13 +27,13 @@ public class PlayerUI : MonoBehaviour
                 comboText.text = "";
             }
 
-            if (entity.StateMachine.CurrentState is HitStunState)
+            if (entity.Get<StateMachine>().CurrentState is HitStunState)
             {
                 m_DisplayTimer = 0;
 
-                if (entity.Resolver.HitType == ContactType.COUNTER) 
+                if (entity.Get<EntityResolver>().HitType == ContactType.COUNTER) 
                     attackText.text = "Counter";
-                else if (entity.Resolver.HitType == ContactType.PUNISH) 
+                else if (entity.Get<EntityResolver>().HitType == ContactType.PUNISH) 
                     attackText.text = "Punish";
 
                 if (entity.Combo.Hits > 1)

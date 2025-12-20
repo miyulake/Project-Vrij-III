@@ -1,6 +1,7 @@
-﻿using UnityEngine;
+﻿using Game.Entities;
+using UnityEngine;
 
-public class AttackHandler : EntityComponent
+public class AttackHandler : EntityComponent, ITickable, IResettable
 {
     public bool IsPaused { get; private set; } = false;
 
@@ -17,11 +18,11 @@ public class AttackHandler : EntityComponent
     private MoveData m_BufferedMove;
     private float m_BufferedCrossfade;
 
-    protected override void Awake()
+    public override void Initialize(Entity entity)
     {
-        base.Awake();
+        base.Initialize(Entity);
         m_Hitboxes = GetComponentsInChildren<Hitbox>(true);
-        m_AllMoves = Resources.LoadAll<MoveData>("MoveData");
+        m_AllMoves = UnityEngine.Resources.LoadAll<MoveData>("MoveData");
     }
 
     /// <summary>
@@ -30,12 +31,12 @@ public class AttackHandler : EntityComponent
     public void Tick()
     {
         // Only go through logic if the game is going or unpaused
-        if (Entity.StateMachine.CurrentState is DeadState ||
+        if (StateMachine.CurrentState is DeadState ||
             RoundManager.Instance.CurrentState == RoundState.INTRO ||
             GameManager.Instance.IsPaused()) return;
 
         // If we are hit or the round ended reset everything and return
-        if (Entity.StateMachine.IsInStun())
+        if (StateMachine.IsInStun())
         {
             Reset();
             return;
@@ -60,12 +61,12 @@ public class AttackHandler : EntityComponent
         {
             EndMove();
             // If a buffered move didn't start and we are not idle, return to idle
-            if (m_CurrentMove == null && Entity.StateMachine.CurrentState is not IdleState) 
-                Entity.StateMachine.ChangeState<IdleState>();
+            if (m_CurrentMove == null && StateMachine.CurrentState is not IdleState) 
+                StateMachine.ChangeState<IdleState>();
         }
         else if (m_CurrentMove.frames.IsRecovering(m_CurrentFrame) && 
-            Entity.StateMachine.CurrentState is not RecoverState)
-            Entity.StateMachine.ChangeState<RecoverState>();
+            StateMachine.CurrentState is not RecoverState)
+            StateMachine.ChangeState<RecoverState>();
 
         // Advance frame
         if (!IsPaused) ++m_CurrentFrame;
@@ -78,14 +79,14 @@ public class AttackHandler : EntityComponent
     {
         if (move == null) return;
 
-        Entity.StateMachine.ChangeState<AttackState>();
+        StateMachine.ChangeState<AttackState>();
         m_CurrentMove = move;
         m_CurrentFrame = 0;
 
         if (!string.IsNullOrEmpty(move.animationName))
         {
-            if (crossfade > 0f) Entity.Animator.PlayCrossFade(move.animationName, crossfade);
-            else Entity.Animator.Play(move.animationName);
+            if (crossfade > 0f) Animator.PlayCrossFade(move.animationName, crossfade);
+            else Animator.Play(move.animationName);
         }
 
         SetMoveData(move);
@@ -135,7 +136,7 @@ public class AttackHandler : EntityComponent
     /// </summary>
     private MoveData CheckForInitialInput()
     {
-        if (Entity.StateMachine.CurrentState is not IdleState) return null;
+        if (StateMachine.CurrentState is not IdleState) return null;
 
         for (int i = 0; i < m_AllMoves.Length; i++)
         {
@@ -228,15 +229,15 @@ public class AttackHandler : EntityComponent
     {
         return inputType switch
         {
-            AttackInput.JAB      => Entity.Input.ComboAttack,
-            AttackInput.FORWARD  => Entity.Input.AttackForward,
-            AttackInput.DOWNWARD => Entity.Input.AttackDownward,
-            AttackInput.UPWARD   => Entity.Input.AttackUpward,
-            AttackInput.GRAB     => Entity.Input.Grab,
-            AttackInput.SNAP     => Entity.Input.Snap,
-            AttackInput.PUSH     => Entity.Input.Push,
-            AttackInput.TAUNT    => Entity.Input.Taunt,
-            AttackInput.SUPER    => Entity.Input.Super,
+            AttackInput.JAB      => Input.ComboAttack,
+            AttackInput.FORWARD  => Input.AttackForward,
+            AttackInput.DOWNWARD => Input.AttackDownward,
+            AttackInput.UPWARD   => Input.AttackUpward,
+            AttackInput.GRAB     => Input.Grab,
+            AttackInput.SNAP     => Input.Snap,
+            AttackInput.PUSH     => Input.Push,
+            AttackInput.TAUNT    => Input.Taunt,
+            AttackInput.SUPER    => Input.Super,
             _                    => false
         };
     }

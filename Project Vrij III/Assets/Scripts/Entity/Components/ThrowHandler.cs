@@ -1,6 +1,7 @@
+using Game.Entities;
 using UnityEngine;
 
-public class ThrowHandler : EntityComponent
+public class ThrowHandler : EntityComponent, ITickable
 {
     [SerializeField] MoveData m_ClankMove;
     [SerializeField] private GameObject m_ThrowAnchor;
@@ -13,13 +14,13 @@ public class ThrowHandler : EntityComponent
     private float m_StartY;
     private bool m_GrabConnected;
 
-    protected override void Awake()
+    public override void Initialize(Entity entity)
     {
-        base.Awake();
+        base.Initialize(Entity);
         m_PlayerCollider = GetComponent<CapsuleCollider2D>();
     }
 
-    private void Update() => HandleThrow();
+    public void Tick() => HandleThrow();
 
     private void HandleThrow()
     {
@@ -42,7 +43,7 @@ public class ThrowHandler : EntityComponent
             m_TurnTime = -1f;
             m_GrabConnected = false;
         }
-        if (!Entity.Attack.IsPaused) UpdateRotation(); // Absolute hack
+        if (!Attack.IsPaused) UpdateRotation(); // Absolute hack
     }
 
     private void UpdateRotation()
@@ -60,9 +61,11 @@ public class ThrowHandler : EntityComponent
         transform.localRotation = Quaternion.Euler(0f, m_StartY + newY, 0f);
     }
 
-    public bool ThrowEligible() =>
-        Entity.Opponent.StateMachine.CurrentState is HitStunState ||
-        Entity.Opponent.StateMachine.CurrentState is CaughtState;
+    public bool ThrowEligible()
+    {
+        var opponentSM = Entity.Opponent.Get<StateMachine>();
+        return opponentSM.CurrentState is HitStunState || opponentSM.CurrentState is CaughtState;
+    }
 
     public void ConnectGrab() => m_GrabConnected = true;
 

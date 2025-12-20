@@ -2,23 +2,23 @@
 {
     private int m_BreakFrames;
 
-    public CaughtState(Entity entity, StateMachine stateMachine, int breakFrames) : base(entity, stateMachine) =>
+    public CaughtState(Entity entity, int breakFrames) : base(entity) =>
         m_BreakFrames = breakFrames;
 
     public override void OnEnter()
     {
-        Entity.Animator.PlayEnd("Stun");
-        Entity.PauseEntity();
-        Entity.Opponent.PauseEntity();
-        Entity.Audio.Play(Entity.Throw.GetCaughtSound());
+        Animator.PlayEnd("Stun");
+        Entity.Pause();
+        Entity.Opponent.Pause();
+        Audio.Play(Throw.GetCaughtSound());
     }
 
     public override void Tick()
     {
-        if (Entity.Input.Grab)
+        if (Entity.Get<InputReader>().Grab)
         {
-            Entity.Audio.Play(Entity.Throw.GetClankSound());
-            Entity.Opponent.StateMachine.ChangeState<ClankState>();
+            Audio.Play(Throw.GetClankSound());
+            Entity.Opponent.Get<StateMachine>().ChangeState<ClankState>();
             StateMachine.ChangeState<ClankState>();
             return;
         }
@@ -26,14 +26,14 @@
         m_BreakFrames--;
         if (m_BreakFrames <= 0)
         {
-            Entity.Resolver.SetForceState(true);
-            Entity.Resolver.ResolveHit(Entity.Resolver.StoredMove);
+            Resolver.SetForceState(true);
+            Resolver.ResolveHit(Resolver.StoredMove);
         }
     }
 
     public override void OnExit()
     {
-        Entity.ResumeEntity();
-        Entity.Opponent.ResumeEntity();
+        Entity.Resume();
+        Entity.Opponent.Resume();
     }
 }

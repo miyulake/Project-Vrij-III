@@ -1,6 +1,7 @@
+using Game.Entities;
 using UnityEngine;
 
-public class TauntHandler : EntityComponent
+public class TauntHandler : EntityComponent, ITickable, IResettable
 {
     public bool HasCompletedTaunt { get; private set; }
     [SerializeField] private GameObject m_PowerUpParticle;
@@ -28,9 +29,9 @@ public class TauntHandler : EntityComponent
         if (HasCompletedTaunt)
         {
             m_PowerTime = 0f;
-            Entity.Audio.Play(m_Active);
+            Audio.Play(m_Active);
         }
-        else Entity.Audio.Play(m_Inactive);
+        else Audio.Play(m_Inactive);
     }
 
     private void HandlePowerTimer()

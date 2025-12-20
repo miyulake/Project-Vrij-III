@@ -1,15 +1,13 @@
+using Game.Entities;
 using UnityEngine;
 
-public class EntityResources
+public class EntityResources : EntityComponent, IResettable
 {
     public int CurrentHealth { get; private set; }
     public int CurrentMeter { get; private set; }
 
     private int m_MaxHealth;
     private int m_MaxMeter;
-
-    private readonly Entity m_Entity;
-    public EntityResources(Entity entity) => m_Entity = entity;
 
     private bool UsingResources => 
         RoundManager.Instance.CurrentState == RoundState.GAMEPLAY &&
@@ -32,7 +30,7 @@ public class EntityResources
 
         if (CurrentHealth <= 0)
         {
-            m_Entity.StateMachine.ChangeState<DeadState>();
+            StateMachine.ChangeState<DeadState>();
             RoundManager.Instance.SetState(RoundState.KNOCKOUT);
         }
     }

@@ -1,6 +1,7 @@
+using Game.Entities;
 using UnityEngine;
 
-public class EntityOrientation : EntityComponent
+public class EntityOrientation : EntityComponent, ITickable, IResettable
 {
     [SerializeField] private AnimationCurve m_TurnCurve;
     [SerializeField] private float m_TurnDuration = 0.2f;
@@ -14,9 +15,9 @@ public class EntityOrientation : EntityComponent
 
     public int FacingDirection => transform.position.x < Entity.Opponent.transform.position.x ? 1 : -1;
 
-    protected override void Awake()
+    public override void Initialize(Entity entity)
     {
-        base.Awake();
+        base.Initialize(entity);
         m_OriginalPosition = transform.position;
         m_OriginalRotation = transform.rotation;
     }
@@ -29,7 +30,7 @@ public class EntityOrientation : EntityComponent
 
     public void CheckTurnNeeded()
     {
-        if (!Entity.StateMachine.IsNeutral()) return;
+        if (!StateMachine.IsNeutral()) return;
 
         if (FacingDirection != m_CurrentFacing)
         {
@@ -51,7 +52,7 @@ public class EntityOrientation : EntityComponent
 
         transform.localRotation = Quaternion.Euler(0, newY, 0);
 
-        if (!Entity.StateMachine.IsNeutral()) ForceFixOrientation();
+        if (!StateMachine.IsNeutral()) ForceFixOrientation();
     }
 
     public void ForceFixOrientation()

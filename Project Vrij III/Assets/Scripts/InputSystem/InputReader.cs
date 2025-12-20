@@ -2,10 +2,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Users;
 
-/// <summary>
-/// Class for ease of access to relevant input data.
-/// </summary>
-public class InputReader : MonoBehaviour
+public class InputReader : EntityComponent
 {
     private PlayerInput playerInput;
 
@@ -25,10 +22,13 @@ public class InputReader : MonoBehaviour
     // UI input
     public bool Pause          => playerInput.actions["Pause"].triggered;
 
-    private void Awake()
+    public override void Initialize(Entity entity)
     {
-        playerInput = GetComponent<PlayerInput>();
+        base.Initialize(entity);
 
+        playerInput = Entity.GetComponent<PlayerInput>();
+
+        // Automatically pair gamepad if assigned
         var gamepads = Gamepad.all;
         if (playerInput.playerIndex < gamepads.Count)
             InputUser.PerformPairingWithDevice(gamepads[playerInput.playerIndex], playerInput.user);

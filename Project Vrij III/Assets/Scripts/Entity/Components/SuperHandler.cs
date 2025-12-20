@@ -1,20 +1,21 @@
+using Game.Entities;
 using UnityEngine;
 
-public class SuperHandler : EntityComponent
+public class SuperHandler : EntityComponent, ITickable
 {
     [SerializeField] private SuperType m_CurrentSuper;
     [SerializeField] private GameObject m_Aura;
     private SuperData[] m_AllSupers;
 
-    protected override void Awake()
+    public override void Initialize(Entity entity)
     {
-        base.Awake();
-        m_AllSupers = Resources.LoadAll<SuperData>("MoveData");
+        base.Initialize(entity);
+        m_AllSupers = UnityEngine.Resources.LoadAll<SuperData>("MoveData");
     }
 
     public void Tick()
     {
-        if (Entity.Input.Super && CanExecuteSuper()) ExecuteSuper(GetSuperData());
+        if (Input.Super && CanExecuteSuper()) ExecuteSuper(GetSuperData());
     }
 
     private SuperData GetSuperData()
@@ -26,7 +27,7 @@ public class SuperHandler : EntityComponent
         return null;
     }
 
-    public bool CanExecuteSuper() => GetSuperData().CanExecute(Entity);
+    public bool CanExecuteSuper() => GetSuperData().CanExecute(Resources);
 
     private void ExecuteSuper(SuperData data)
     {

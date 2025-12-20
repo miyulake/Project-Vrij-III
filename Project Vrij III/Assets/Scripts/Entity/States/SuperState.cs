@@ -1,19 +1,19 @@
 public class SuperState : EntityState
 {
-    public SuperState(Entity entity, StateMachine stateMachine) : base(entity, stateMachine) { }
+    public SuperState(Entity entity) : base(entity) { }
 
     public override void OnEnter()
     {
-        //Entity.Throw.GetPlayerCollider().enabled = false;
+        // Invincible = true
     }
 
     public override void Tick()
     {
-        //
+        // SlowMo + Animation + Darkened background
     }
 
     public override void OnExit()
     {
-        //Entity.Throw.GetPlayerCollider().enabled = true;
+        // Invincible = false
     }
 }

@@ -1,22 +1,17 @@
 public class DeadState : EntityState
 {
-    public DeadState(Entity entity, StateMachine stateMachine) : base(entity, stateMachine) { }
+    public DeadState(Entity entity) : base(entity) { }
 
     public override void OnEnter()
     {
-        Entity.Taunt.Reset();
-        Entity.Visuals.SetDeadFace();
-        Entity.Animator.PlayEnd("Stun");
-        Entity.PauseEntity();
-    }
-
-    public override void Tick()
-    {
-        //
+        Taunt.Reset();
+        Visuals.SetDeadFace();
+        Animator.PlayEnd("Stun");
+        Entity.Pause();
     }
 
     public override void OnExit()
     {
-        Entity.ResumeEntity();
+        Entity.Resume();
     }
 }

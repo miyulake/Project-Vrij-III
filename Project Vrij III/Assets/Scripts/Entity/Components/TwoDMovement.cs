@@ -1,6 +1,7 @@
+using Game.Entities;
 using UnityEngine;
 
-public class TwoDMovement : EntityComponent
+public class TwoDMovement : EntityComponent, ITickable
 {
     [Range(0, 10)] [SerializeField] private float baseSpeed = 5;
     [Range(0, 10)] [SerializeField] private float blockSpeed = 2;
@@ -10,23 +11,27 @@ public class TwoDMovement : EntityComponent
     private Vector2 m_InputDirection;
     private Vector2 m_CurrentVelocity;
 
-    private void Start() => m_RigidBodyTwoD = GetComponent<Rigidbody2D>();
-
-    private void Update()
+    public override void Initialize(Entity entity)
     {
-        if (Entity.StateMachine.CurrentState is DeadState ||
-            Entity.StateMachine.CurrentState is CaughtState ||
+        base.Initialize(entity);
+        m_RigidBodyTwoD = GetComponent<Rigidbody2D>();
+    }
+
+    public void Tick()
+    {
+        if (StateMachine.CurrentState is DeadState ||
+            StateMachine.CurrentState is CaughtState ||
             RoundManager.Instance.CurrentState == RoundState.INTRO)
         {
             m_RigidBodyTwoD.linearVelocity = Vector2.zero;
             return;
         }
 
-        m_InputDirection = CanMove() ? Entity.Input.Movement : Vector2.zero;
-        Movement();
+        m_InputDirection = CanMove() ? Input.Movement : Vector2.zero;
+        HandleMovement();
     }
 
-    private void Movement()
+    private void HandleMovement()
     {
         var targetVelocity = m_InputDirection * GetSpeed();
         var accelerationRate = m_InputDirection.magnitude > 0 ? acceleration : deceleration;
@@ -36,12 +41,12 @@ public class TwoDMovement : EntityComponent
     }
 
     private bool CanMove() => 
-        !AnimatorUtils.IsInAnyState(Entity.Animator.GetAnimator(),
+        !AnimatorUtils.IsInAnyState(Animator.GetAnimator(),
             AnimationHashes.Grab,
             AnimationHashes.Taunt,
             AnimationHashes.BlockStun);
 
-    private float GetSpeed() => Entity.StateMachine.CurrentState is BlockState ? blockSpeed : baseSpeed;
+    private float GetSpeed() => StateMachine.CurrentState is BlockState ? blockSpeed : baseSpeed;
 
     public Rigidbody2D GetRigidBody() => m_RigidBodyTwoD;
 }

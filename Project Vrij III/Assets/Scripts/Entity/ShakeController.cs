@@ -1,6 +1,7 @@
+using Game.Entities;
 using UnityEngine;
 
-public class ShakeController : MonoBehaviour
+public class ShakeController : EntityComponent, ITickable
 {
     [SerializeField] private Transform shakeTarget;
     private float shakeDuration;
@@ -8,7 +9,7 @@ public class ShakeController : MonoBehaviour
     private float shakeTimer;
     private Vector3 originalPosition;
 
-    private void Update()
+    public void Tick()
     {
         if (shakeTarget == null) return;
 
