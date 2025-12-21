@@ -7,7 +7,7 @@ public class DeadState : EntityState
         Entity.Taunt.Reset();
         Entity.Visuals.SetDeadFace();
         Entity.Animator.PlayEnd("Stun");
-        Entity.PauseEntity();
+        Entity.Pause(true);
     }
 
     public override void Tick()
@@ -17,6 +17,6 @@ public class DeadState : EntityState
 
     public override void OnExit()
     {
-        Entity.ResumeEntity();
+        Entity.Pause(false);
     }
 }

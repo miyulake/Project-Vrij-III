@@ -69,16 +69,18 @@ public class Entity : MonoBehaviour
         StateMachine.ChangeState<IdleState>(true);
     }
 
-    public void PauseEntity()
+    public void Pause(bool isPaused)
     {
-        Attack.SetPauseState(true);
-        Animator.Pause();
-    }
-
-    public void ResumeEntity()
-    {
-        Attack.SetPauseState(false);
-        Animator.Resume();
+        if (isPaused)
+        {
+            Attack.SetPauseState(true);
+            Animator.Pause();
+        }
+        else
+        {
+            Attack.SetPauseState(false);
+            Animator.Resume();
+        }
     }
 
     private void CacheComponents()

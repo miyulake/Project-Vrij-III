@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
@@ -44,7 +44,8 @@ public class OptionsUI : MonoBehaviour
     public void SetRoundDuration(float duration)
     {
         RoundManager.Instance.SetRoundDuration(Mathf.RoundToInt(duration));
-        m_DurationValue.text = $"{Mathf.RoundToInt(duration)}";
+        if (duration > 99) m_DurationValue.text = "∞";
+        else m_DurationValue.text = $"{Mathf.RoundToInt(duration)}";
     }
 
     public void SetWinsNeeded(float wins)

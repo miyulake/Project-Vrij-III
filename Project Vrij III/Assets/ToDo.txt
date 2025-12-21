@@ -6,6 +6,11 @@ TO-DO:
 - Implement training mode
 - Implement graffiti randomization
 
+REFACTOR:
+- Different modes should have templates that can be called easily:
+for example, training mode should have infinite time and a dummy opponent as default.
+- Entity should make use of interfaces to implement a component system that allows for faster prototyping
+
 BUG:
 - Hitboxes hit multiple times sometimes
 

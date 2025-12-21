@@ -8,8 +8,8 @@
     public override void OnEnter()
     {
         Entity.Animator.PlayEnd("Stun");
-        Entity.PauseEntity();
-        Entity.Opponent.PauseEntity();
+        Entity.Pause(true);
+        Entity.Opponent.Pause(true);
         Entity.Audio.Play(Entity.Throw.GetCaughtSound());
     }
 
@@ -33,7 +33,7 @@
 
     public override void OnExit()
     {
-        Entity.ResumeEntity();
-        Entity.Opponent.ResumeEntity();
+        Entity.Pause(false);
+        Entity.Opponent.Pause(false);
     }
 }

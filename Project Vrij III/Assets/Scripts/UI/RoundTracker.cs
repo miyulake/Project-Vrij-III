@@ -45,10 +45,7 @@ public class RoundTracker : MonoBehaviour
         for (int i = 0; i < m_PlayerOneRounds.Length; i++)
         {
             m_PlayerOneRounds[i].isOn = false;
-            //m_PlayerOneRounds[i].gameObject.SetActive(false);
-
             m_PlayerTwoRounds[i].isOn = false;
-            //m_PlayerTwoRounds[i].gameObject.SetActive(false);
         }
     }
 }
