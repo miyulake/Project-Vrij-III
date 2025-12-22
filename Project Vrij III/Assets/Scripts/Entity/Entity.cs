@@ -2,7 +2,6 @@ using Game.Entities;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using static Unity.Burst.Intrinsics.X86.Avx;
 
 public class Entity : MonoBehaviour
 {

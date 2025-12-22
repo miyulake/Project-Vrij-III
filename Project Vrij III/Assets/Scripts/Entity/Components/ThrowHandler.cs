@@ -43,7 +43,7 @@ public class ThrowHandler : EntityComponent, ITickable
             m_TurnTime = -1f;
             m_GrabConnected = false;
         }
-        if (!Attack.IsPaused) UpdateRotation(); // Absolute hack
+        if (!AttackComp.IsPaused) UpdateRotation(); // Absolute hack
     }
 
     private void UpdateRotation()

@@ -41,7 +41,7 @@ public class TwoDMovement : EntityComponent, ITickable
     }
 
     private bool CanMove() => 
-        !AnimatorUtils.IsInAnyState(Animator.GetAnimator(),
+        !AnimatorUtils.IsInAnyState(AnimatorComp.GetAnimator(),
             AnimationHashes.Grab,
             AnimationHashes.Taunt,
             AnimationHashes.BlockStun);

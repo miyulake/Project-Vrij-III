@@ -10,7 +10,7 @@ public class SuperHandler : EntityComponent, ITickable
     public override void Initialize(Entity entity)
     {
         base.Initialize(entity);
-        m_AllSupers = UnityEngine.Resources.LoadAll<SuperData>("MoveData");
+        m_AllSupers = Resources.LoadAll<SuperData>("MoveData");
     }
 
     public void Tick()
@@ -27,7 +27,7 @@ public class SuperHandler : EntityComponent, ITickable
         return null;
     }
 
-    public bool CanExecuteSuper() => GetSuperData().CanExecute(Resources);
+    public bool CanExecuteSuper() => GetSuperData().CanExecute(ResourcesComp);
 
     private void ExecuteSuper(SuperData data)
     {
@@ -45,7 +45,7 @@ public class SuperHandler : EntityComponent, ITickable
                 //ActivateTaunt(data);
                 break;
         }
-        Entity.StateMachine.ChangeState<SuperState>();
+        StateMachine.ChangeState<SuperState>();
     }
 
 }

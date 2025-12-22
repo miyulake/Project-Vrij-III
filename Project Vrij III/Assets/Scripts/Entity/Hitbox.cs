@@ -8,8 +8,8 @@ public class Hitbox : EntityComponent
     {
         if (!col.TryGetComponent(out Entity hitEntity) || hitEntity == Entity) return;
 
-        if (MoveData.moveType == MoveType.GRAB) Throw.ConnectGrab();
+        if (MoveData.moveType == MoveType.GRAB) ThrowComp.ConnectGrab();
 
-        Resolver.ResolveHit(MoveData);
+        ResolverComp.ResolveHit(MoveData);
     }
 }

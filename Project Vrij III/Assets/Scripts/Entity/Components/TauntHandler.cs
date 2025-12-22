@@ -29,9 +29,9 @@ public class TauntHandler : EntityComponent, ITickable, IResettable
         if (HasCompletedTaunt)
         {
             m_PowerTime = 0f;
-            Audio.Play(m_Active);
+            AudioComp.Play(m_Active);
         }
-        else Audio.Play(m_Inactive);
+        else AudioComp.Play(m_Inactive);
     }
 
     private void HandlePowerTimer()

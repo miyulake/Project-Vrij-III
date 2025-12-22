@@ -22,7 +22,7 @@ public class AttackHandler : EntityComponent, ITickable, IResettable
     {
         base.Initialize(Entity);
         m_Hitboxes = GetComponentsInChildren<Hitbox>(true);
-        m_AllMoves = UnityEngine.Resources.LoadAll<MoveData>("MoveData");
+        m_AllMoves = Resources.LoadAll<MoveData>("MoveData");
     }
 
     /// <summary>
@@ -85,8 +85,8 @@ public class AttackHandler : EntityComponent, ITickable, IResettable
 
         if (!string.IsNullOrEmpty(move.animationName))
         {
-            if (crossfade > 0f) Animator.PlayCrossFade(move.animationName, crossfade);
-            else Animator.Play(move.animationName);
+            if (crossfade > 0f) AnimatorComp.PlayCrossFade(move.animationName, crossfade);
+            else AnimatorComp.Play(move.animationName);
         }
 
         SetMoveData(move);
