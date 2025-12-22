@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,7 +12,7 @@ public class OptionsUI : MonoBehaviour
 {
     [SerializeField] private FullScreenPassRendererFeature m_CRT;
     [SerializeField] private AudioMixer m_AudioMixer;
-    [SerializeField] private Slider m_MasterVolume;
+    [SerializeField] private Slider m_MasterVolume, m_MusicVolume, m_SoundVolume;
     [SerializeField] private Slider m_RoundDuration;
     [SerializeField] private TextMeshProUGUI m_DurationValue;
     [SerializeField] private Slider m_WinsNeeded;
@@ -38,11 +38,14 @@ public class OptionsUI : MonoBehaviour
     public void StartMatch() => RoundManager.Instance.StartMatch();
 
     public void SetMasterVolume(float masterVolume) => m_AudioMixer.SetFloat("MasterVolume", masterVolume);
+    public void SetMusicVolume(float musicVolume) => m_AudioMixer.SetFloat("MusicVolume", musicVolume);
+    public void SetSoundVolume(float soundVolume) => m_AudioMixer.SetFloat("SoundVolume", soundVolume);
 
     public void SetRoundDuration(float duration)
     {
         RoundManager.Instance.SetRoundDuration(Mathf.RoundToInt(duration));
-        m_DurationValue.text = $"{Mathf.RoundToInt(duration)}";
+        if (duration > 99) m_DurationValue.text = "∞";
+        else m_DurationValue.text = $"{Mathf.RoundToInt(duration)}";
     }
 
     public void SetWinsNeeded(float wins)
@@ -116,6 +119,8 @@ public class OptionsUI : MonoBehaviour
     private void GetOptionValues()
     {
         m_MasterVolume.value = GetAudioMixerLevel("master");
+        m_MusicVolume.value = GetAudioMixerLevel("music");
+        m_SoundVolume.value = GetAudioMixerLevel("sound");
         m_RoundDuration.value = RoundManager.Instance.GetRoundDuration();
         m_DurationValue.text = $"{RoundManager.Instance.GetRoundDuration()}";
         m_WinsNeeded.value = RoundManager.Instance.GetWinsNeeded();
@@ -130,6 +135,8 @@ public class OptionsUI : MonoBehaviour
         var result = false;
 
         if (mixerName == "master") result = m_AudioMixer.GetFloat("MasterVolume", out value);
+        if (mixerName == "music") result = m_AudioMixer.GetFloat("MusicVolume", out value);
+        if (mixerName == "sound") result = m_AudioMixer.GetFloat("SoundVolume", out value);
 
         if (result) return value;
         else return 0f;

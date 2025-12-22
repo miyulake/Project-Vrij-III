@@ -1,4 +1,4 @@
-using NUnit.Framework.Internal;
+﻿using NUnit.Framework.Internal;
 using System.Collections;
 using TMPro;
 using UnityEngine;
@@ -41,11 +41,12 @@ public class RoundManager : MonoBehaviour
 
         PaintRegister.ClearAll();
         PaintResultUI.Instance.ResetPaintResult();
+
         PlayerManager.Instance.playerOne.Reset();
         PlayerManager.Instance.playerTwo.Reset();
 
         m_RoundTimer = m_RoundDuration;
-        m_TimerTextMesh.text = m_RoundTimer.ToString("00");
+        m_TimerTextMesh.text = IsInfiniteTime() ? "∞" : m_RoundTimer.ToString("00");
 
         if (m_RoundFlowRoutine != null) StopCoroutine(m_RoundFlowRoutine);
         m_RoundFlowRoutine = StartCoroutine(RoundFlow());
@@ -78,10 +79,15 @@ public class RoundManager : MonoBehaviour
         // GAMEPLAY START
         SetState(RoundState.GAMEPLAY);
 
-        while (CurrentState == RoundState.GAMEPLAY && m_RoundTimer > 0f)
+        while (CurrentState == RoundState.GAMEPLAY)
         {
-            m_RoundTimer -= Time.deltaTime;
-            m_TimerTextMesh.text = Mathf.CeilToInt(m_RoundTimer).ToString("00");
+            if (!IsInfiniteTime())
+            {
+                if (m_RoundTimer <= 0f) break;
+
+                m_RoundTimer -= Time.deltaTime;
+                m_TimerTextMesh.text = Mathf.CeilToInt(m_RoundTimer).ToString("00");
+            }
             yield return null;
         }
         // GAMEPLAY END
@@ -94,7 +100,7 @@ public class RoundManager : MonoBehaviour
             SetSlowMo(0.1f);
 
             RoundUI.Instance.SetRoundText("K.O.");
-            yield return new WaitForSecondsRealtime(knockoutDuration); // Realtime
+            yield return new WaitForSecondsRealtime(knockoutDuration);
 
             SetSlowMo(1);
         }
@@ -106,8 +112,9 @@ public class RoundManager : MonoBehaviour
         if (GameManager.Instance.CurrentMode == GameMode.PAINT) GetPaintResult(); // Get paint result
 
         // TIME UP | DRAW
-        m_RoundWinner = GetRoundWinner(); // Get winner
-        if (m_RoundTimer <= 0)
+        m_RoundWinner = GetRoundWinner();
+
+        if (m_RoundTimer <= 0f)
         {
             RoundUI.Instance.SetRoundText("Time Up");
 
@@ -136,6 +143,7 @@ public class RoundManager : MonoBehaviour
         {
             if (m_RoundWinner == RoundWinner.P1)
                 ++PlayerOneWins;
+
             else if (m_RoundWinner == RoundWinner.P2)
                 ++PlayerTwoWins;
 
@@ -201,6 +209,8 @@ public class RoundManager : MonoBehaviour
 
     private bool IsFinalRound(int winsA, int winsB, int winsNeeded) =>
         winsA == winsNeeded - 1 && winsB == winsNeeded - 1;
+
+    private bool IsInfiniteTime() => m_RoundTimer > 99;
 
     public int GetWinsNeeded() => m_WinsNeeded;
 

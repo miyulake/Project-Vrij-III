@@ -45,6 +45,7 @@ public class SuperHandler : EntityComponent, ITickable
                 //ActivateTaunt(data);
                 break;
         }
+        Entity.StateMachine.ChangeState<SuperState>();
     }
 
 }
