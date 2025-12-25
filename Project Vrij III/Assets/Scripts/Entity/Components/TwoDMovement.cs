@@ -19,14 +19,11 @@ public class TwoDMovement : EntityComponent, ITickable
 
     public void Tick()
     {
-        if (StateMachine.CurrentState is DeadState ||
-            StateMachine.CurrentState is CaughtState ||
-            RoundManager.Instance.CurrentState == RoundState.INTRO)
+        if (StateMachine.CurrentState is CaughtState || RoundManager.Instance.CurrentState == RoundState.INTRO)
         {
             m_RigidBodyTwoD.linearVelocity = Vector2.zero;
             return;
         }
-
         m_InputDirection = CanMove() ? Input.Movement : Vector2.zero;
         HandleMovement();
     }
@@ -40,10 +37,11 @@ public class TwoDMovement : EntityComponent, ITickable
         m_RigidBodyTwoD.linearVelocity = m_CurrentVelocity;
     }
 
-    private bool CanMove() => 
+    private bool CanMove() => StateMachine.CurrentState is DeadState ||
         !AnimatorUtils.IsInAnyState(AnimatorComp.GetAnimator(),
             AnimationHashes.Grab,
             AnimationHashes.Taunt,
+            AnimationHashes.Stun,
             AnimationHashes.BlockStun);
 
     private float GetSpeed() => StateMachine.CurrentState is BlockState ? blockSpeed : baseSpeed;

@@ -689,9 +689,6 @@ GameObject:
   m_Component:
   - component: {fileID: 420029039700872631}
   - component: {fileID: 5908979547463451878}
-  - component: {fileID: 2407525535924767685}
-  - component: {fileID: 3401567895099021632}
-  - component: {fileID: 5473628786878297875}
   - component: {fileID: 1801499076957440997}
   - component: {fileID: 420104190912164710}
   - component: {fileID: 3025373385934276473}
@@ -744,42 +741,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c171d562b670f2b40a229f1737e6f9c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Entity
---- !u!114 &2407525535924767685
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2661417437704909611}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b87b0084e06746e409b89a135ffc0565, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::StateMachine
---- !u!114 &3401567895099021632
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2661417437704909611}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1787f727b0bc17b44819ff08de070793, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EntityResources
---- !u!114 &5473628786878297875
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2661417437704909611}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c7a5dcce4744c1d498e2733ec9b73d0c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EntityResolver
 --- !u!114 &1801499076957440997
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1861,6 +1822,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed57a0dae0d0d8c4d8af5d3b1c66d401, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Entity: {fileID: 5908979547463451878}
 --- !u!70 &3107905714193689731
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -2103,6 +2065,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed57a0dae0d0d8c4d8af5d3b1c66d401, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Entity: {fileID: 5908979547463451878}
 --- !u!70 &8988353681240012734
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

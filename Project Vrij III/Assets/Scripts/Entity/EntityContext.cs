@@ -13,7 +13,7 @@ public abstract class EntityContext
     protected ThrowHandler Throw => Entity.Get<ThrowHandler>();
     protected TauntHandler Taunt => Entity.Get<TauntHandler>();
 
-    // Specific
+    // Specific - MonoBehaviours
     protected EntityResources Resources => Entity.Get<EntityResources>();
     protected EntityResolver Resolver => Entity.Get<EntityResolver>();
     protected EntityVisuals Visuals => Entity.Get<EntityVisuals>();
@@ -22,9 +22,9 @@ public abstract class EntityContext
     protected EntityAnimator Animator => Entity.Get<EntityAnimator>();
     protected EntityAudio Audio => Entity.Get<EntityAudio>();
 
-    // Created
-    protected EntityPhysics Physics => Entity.Physics;
-    protected ComboTracker Combo => Entity.Combo;
+    // Specific - Non-mono
+    protected EntityPhysics Physics => Entity.Get<EntityPhysics>();
+    protected ComboTracker Combo => Entity.Get<ComboTracker>();
 
     // Misc
     protected ShakeController Shake => Entity.Get<ShakeController>();

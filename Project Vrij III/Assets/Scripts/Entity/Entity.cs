@@ -5,10 +5,7 @@ using UnityEngine;
 
 public class Entity : MonoBehaviour
 {
-    public EntityPhysics Physics { get; private set; }
-    public ComboTracker Combo { get; private set; }
     public Entity Opponent { get; private set; }
-
     private List<IEntityComponent> m_Components = new();
     private Dictionary<Type, IEntityComponent> m_ComponentMap;
 
@@ -48,27 +45,23 @@ public class Entity : MonoBehaviour
         {
             if (m_Components[i] is IResettable resettable) resettable.Reset();
         }
-        Get<EntityAnimator>().Play("Start");
-        Get<StateMachine>().ChangeState<IdleState>(true);
     }
 
     private void CacheComponents()
     {
-        Physics = new EntityPhysics();
-        Combo = new ComboTracker();
-
-        m_Components = new List<IEntityComponent>(GetComponents<IEntityComponent>());
-        m_ComponentMap = new Dictionary<Type, IEntityComponent>(m_Components.Count)
+        m_Components = new List<IEntityComponent>(GetComponents<IEntityComponent>())
         {
-            [typeof(EntityPhysics)] = Physics,
-            [typeof(ComboTracker)] = Combo
+            new StateMachine(),
+            new EntityResolver(),
+            new EntityResources(),
+            new EntityPhysics(),
+            new ComboTracker()
         };
 
+        m_ComponentMap = new Dictionary<Type, IEntityComponent>(m_Components.Count);
+
         for (int i = 0; i < m_Components.Count; i++)
-        {
-            Debug.Log("Caching component: " + m_Components[i].GetType().Name);
             m_ComponentMap[m_Components[i].GetType()] = m_Components[i];
-        }
     }
 
     public T Get<T>() where T : class, IEntityComponent =>

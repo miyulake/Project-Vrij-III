@@ -16,7 +16,7 @@ public abstract class EntityComponent : MonoBehaviour, IEntityComponent
     protected ThrowHandler ThrowComp => Entity.Get<ThrowHandler>();
     protected TauntHandler TauntComp => Entity.Get<TauntHandler>();
 
-    // Specific
+    // Specific - MonoBehaviours
     protected EntityResources ResourcesComp => Entity.Get<EntityResources>();
     protected EntityResolver ResolverComp => Entity.Get<EntityResolver>();
     protected EntityVisuals VisualsComp => Entity.Get<EntityVisuals>();
@@ -25,9 +25,9 @@ public abstract class EntityComponent : MonoBehaviour, IEntityComponent
     protected EntityAnimator AnimatorComp => Entity.Get<EntityAnimator>();
     protected EntityAudio AudioComp => Entity.Get<EntityAudio>();
 
-    // Created
-    protected EntityPhysics PhysicsComp => Entity.Physics;
-    protected ComboTracker ComboTracker => Entity.Combo;
+    // Specific - Non-mono
+    protected EntityPhysics PhysicsComp => Entity.Get<EntityPhysics>();
+    protected ComboTracker ComboComp => Entity.Get<ComboTracker>();
 
     // Misc
     protected ShakeController ShakeComp => Entity.Get<ShakeController>();

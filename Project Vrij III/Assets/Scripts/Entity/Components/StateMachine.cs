@@ -1,14 +1,14 @@
 using Game.Entities;
 using UnityEngine;
 
-public class StateMachine : EntityComponent, ITickable
+public class StateMachine : EntityContext, IEntityComponent, ITickable, IResettable
 {
     public EntityState CurrentState { get; private set; }
     private StateFactory m_StateFactory;
 
-    public override void Initialize(Entity entity)
+    public void Initialize(Entity entity)
     {
-        base.Initialize(entity);
+        SetEntity(entity);
         m_StateFactory = new StateFactory(entity);
     }
 
@@ -30,4 +30,6 @@ public class StateMachine : EntityComponent, ITickable
 
     public bool IsNeutral() => 
         CurrentState is IdleState || CurrentState is BlockState;
+
+    public void Reset() => ChangeState<IdleState>(true);
 }

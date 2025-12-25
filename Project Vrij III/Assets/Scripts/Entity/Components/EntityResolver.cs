@@ -1,10 +1,14 @@
+using Game.Entities;
 using UnityEngine;
+using System;
 
-public class EntityResolver : EntityComponent
+public class EntityResolver : EntityContext, IEntityComponent
 {
+    public event Action<ContactType> OnHitTypeChanged;
     public MoveData StoredMove { get; private set; }
-    public ContactType HitType { get; private set; }
     public bool IsForced { get; private set; } = false;
+
+    public void Initialize(Entity entity) => SetEntity(entity);
 
     public void ResolveHit(MoveData move)
     {
@@ -14,6 +18,7 @@ public class EntityResolver : EntityComponent
         var data = GetContactData(move, type);
 
         ApplyContact(data, type, move);
+        if (type != ContactType.NORMAL) OnHitTypeChanged.Invoke(type);
     }
 
     private ContactType DetermineContact(MoveData move)
@@ -22,7 +27,9 @@ public class EntityResolver : EntityComponent
         var isAttacking = StateMachine.CurrentState is AttackState;
         var isRecovering = StateMachine.CurrentState is RecoverState;
 
-        var unblockable = move.moveType == MoveType.GRAB || move.moveFlags == MoveFlags.UNBLOCKABLE;
+        var unblockable = 
+            move.moveType == MoveType.GRAB || 
+            move.moveFlags.HasFlag(MoveFlags.UNBLOCKABLE);
 
         if (isAttacking) return ContactType.COUNTER;
         if (isRecovering) return ContactType.PUNISH;
@@ -32,8 +39,6 @@ public class EntityResolver : EntityComponent
 
     private ContactData GetContactData(MoveData move, ContactType type)
     {
-        HitType = type;
-
         return type switch
         {
             ContactType.NORMAL  => move.hit,
@@ -59,7 +64,7 @@ public class EntityResolver : EntityComponent
         var inGameplay = RoundManager.Instance.CurrentState == RoundState.GAMEPLAY;
 
         // Orientation
-        var facingDirection = OrientationComp.FacingDirection;
+        var facingDirection = Orientation.FacingDirection;
 
         // States
         if (type == ContactType.BLOCK)
@@ -70,15 +75,15 @@ public class EntityResolver : EntityComponent
         // Knockback
         var knockback = data.knockback;
         knockback.x *= -facingDirection;
-        PhysicsComp.ApplyKnockback(MovementComp.GetRigidBody(), knockback);
+        Physics.ApplyKnockback(Movement.GetRigidBody(), knockback);
 
         // VFX
-        VFXComp.SpawnParticles(data);
-        if (usingPaint && inGameplay) VFXComp.SpawnPaint(move, facingDirection);
+        VFX.SpawnParticles(data);
+        if (usingPaint && inGameplay) VFX.SpawnPaint(move, facingDirection);
 
         // Visuals
         var stunDuration = data.stun * Time.fixedDeltaTime;
-        ShakeComp.TriggerShake(stunDuration, data.shakeMagnitude);
+        Shake.TriggerShake(stunDuration, data.shakeMagnitude);
 
         // Damage & Combo
         if (type != ContactType.BLOCK && !usingPaint)
@@ -88,13 +93,13 @@ public class EntityResolver : EntityComponent
             var flatIncrease = oppnentTH.GetFlatIncrease();
             var finalDamage = Mathf.RoundToInt((data.damage + flatIncrease) * multiplier);
             
-            ComboTracker.AddHit(finalDamage);
-            ResourcesComp.ApplyDamage(finalDamage);
+            if (!Combo.IsPaused) Combo.AddHit(finalDamage);
+            Resources.ApplyDamage(finalDamage);
         }
-        else if (usingPaint) ComboTracker.AddHit(0);
+        else if (usingPaint) Combo.AddHit(0);
 
         // Audio
-        AudioComp.Play(data.sound);
+        Audio.Play(data.sound);
 
         IsForced = false;
     }

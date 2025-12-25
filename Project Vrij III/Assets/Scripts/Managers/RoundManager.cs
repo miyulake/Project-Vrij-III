@@ -198,8 +198,8 @@ public class RoundManager : MonoBehaviour
         {
             var playerOne = PlayerManager.Instance.playerOne;
             var playerTwo = PlayerManager.Instance.playerTwo;
-            var playerOneHealth = playerOne.Get<EntityResources>().CurrentHealth;
-            var playerTwoHealth = playerTwo.Get<EntityResources>().CurrentHealth;
+            var playerOneHealth = playerOne.Get<EntityResources>().Health.Current;
+            var playerTwoHealth = playerTwo.Get<EntityResources>().Health.Current;
 
             if (playerOneHealth > playerTwoHealth) return RoundWinner.P1;
             if (playerTwoHealth > playerOneHealth) return RoundWinner.P2;

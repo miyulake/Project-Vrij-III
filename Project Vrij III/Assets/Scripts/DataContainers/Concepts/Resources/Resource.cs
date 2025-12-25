@@ -16,8 +16,8 @@ namespace Game.Entities.Resources
 
         public Resource(int max, int current)
         {
-            if (max <= 0) 
-                throw new ArgumentOutOfRangeException(nameof(max), "Max value of resource has to be positive!");
+            if (max <= 0) throw new ArgumentOutOfRangeException
+                    (nameof(max), "Max value of resource has to be positive!");
 
             Max = max;
             Current = Math.Clamp(current, 0, max);

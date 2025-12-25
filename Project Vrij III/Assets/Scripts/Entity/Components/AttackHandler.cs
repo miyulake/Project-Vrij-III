@@ -1,9 +1,9 @@
 ﻿using Game.Entities;
 using UnityEngine;
 
-public class AttackHandler : EntityComponent, ITickable, IResettable
+public class AttackHandler : EntityComponent, ITickable, IResettable, IPausable
 {
-    public bool IsPaused { get; private set; } = false;
+    public bool IsPaused { get; private set; }
 
     [Header("Buffer Settings")]
     [SerializeField] private float m_BufferCrossfade = 0.1f;
@@ -20,7 +20,7 @@ public class AttackHandler : EntityComponent, ITickable, IResettable
 
     public override void Initialize(Entity entity)
     {
-        base.Initialize(Entity);
+        base.Initialize(entity);
         m_Hitboxes = GetComponentsInChildren<Hitbox>(true);
         m_AllMoves = Resources.LoadAll<MoveData>("MoveData");
     }
@@ -250,6 +250,9 @@ public class AttackHandler : EntityComponent, ITickable, IResettable
         for (int i = 0; i < m_Hitboxes.Length; i++) m_Hitboxes[i].MoveData = move;
     }
 
+    public void Pause() => IsPaused = true;
+    public void Resume() => IsPaused = false;
+
     public void Reset()
     {
         m_CurrentMove = null;
@@ -258,6 +261,4 @@ public class AttackHandler : EntityComponent, ITickable, IResettable
         m_BufferedMove = null;
         m_BufferedCrossfade = 0;
     }
-
-    public void SetPauseState(bool isPaused) => IsPaused = isPaused;
 }

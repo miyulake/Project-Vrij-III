@@ -9,5 +9,5 @@ public class SuperData : MoveData
     public FrameRange freezeFrames;
 
     public override bool CanExecute(EntityResources resources) =>
-        resources.CurrentMeter >= meterCost;
+        resources.Meter.Current >= meterCost;
 }

@@ -16,7 +16,7 @@ public class ThrowHandler : EntityComponent, ITickable
 
     public override void Initialize(Entity entity)
     {
-        base.Initialize(Entity);
+        base.Initialize(entity);
         m_PlayerCollider = GetComponent<CapsuleCollider2D>();
     }
 

@@ -1,15 +1,16 @@
 ﻿using UnityEngine;
 
-public class Hitbox : EntityComponent
+public class Hitbox : MonoBehaviour
 {
+    [SerializeField] private Entity m_Entity;
     public MoveData MoveData { private get; set; }
 
     private void OnTriggerEnter2D(Collider2D col)
     {
-        if (!col.TryGetComponent(out Entity hitEntity) || hitEntity == Entity) return;
+        if (!col.TryGetComponent(out Entity hitEntity) || hitEntity == m_Entity) return;
 
-        if (MoveData.moveType == MoveType.GRAB) ThrowComp.ConnectGrab();
+        if (MoveData.moveType == MoveType.GRAB) m_Entity.Get<ThrowHandler>().ConnectGrab();
 
-        ResolverComp.ResolveHit(MoveData);
+        hitEntity.Get<EntityResolver>().ResolveHit(MoveData);
     }
 }

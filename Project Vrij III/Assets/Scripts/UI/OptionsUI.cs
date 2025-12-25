@@ -11,12 +11,18 @@ using TMPro;
 public class OptionsUI : MonoBehaviour
 {
     [SerializeField] private FullScreenPassRendererFeature m_CRT;
+
+    [Header("Audio")]
     [SerializeField] private AudioMixer m_AudioMixer;
     [SerializeField] private Slider m_MasterVolume, m_MusicVolume, m_SoundVolume;
+
+    [Header("Game")]
     [SerializeField] private Slider m_RoundDuration;
     [SerializeField] private TextMeshProUGUI m_DurationValue;
     [SerializeField] private Slider m_WinsNeeded;
     [SerializeField] private TextMeshProUGUI m_WinsValue;
+
+    [Header("Screen")]
     [SerializeField] private Toggle m_FullscreenToggle;
     [SerializeField] private Toggle m_CRTToggle;
     [SerializeField] private TMP_Dropdown m_ResolutionDropdown;
