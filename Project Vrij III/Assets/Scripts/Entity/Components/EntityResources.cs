@@ -15,7 +15,7 @@ public class EntityResources : EntityContext, IEntityComponent, IResettable
         SetEntity(entity);
 
         var maxHealth = GameManager.Instance.GetMaxHealth();
-        var maxMeter = 100; // TEST
+        var maxMeter = GameManager.Instance.GetMaxMeter();
 
         Health = new Resource(maxHealth, maxHealth);
         Meter = new Resource(maxMeter, 0);
@@ -47,9 +47,5 @@ public class EntityResources : EntityContext, IEntityComponent, IResettable
         Meter.Modify(meter);
     }
 
-    public void Reset()
-    {
-        Health.Set(Health.Max);
-        Meter.Set(0);
-    }
+    public void Reset() => Health.Set(Health.Max);
 }

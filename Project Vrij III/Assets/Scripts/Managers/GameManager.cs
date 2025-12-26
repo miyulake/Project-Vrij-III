@@ -9,7 +9,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int m_FrameRate = 60;
 
     [Header("Mode Settings")]
-    [SerializeField] int m_MaxHealth = 100;
+    [SerializeField] private int m_MaxHealth = 100;
+    [SerializeField] private int m_MaxMeter = 100;
     public GameMode CurrentMode { get; private set; }
 
     [Header("Events")]
@@ -31,6 +32,7 @@ public class GameManager : MonoBehaviour
     public bool IsPaused() => Time.timeScale < 0.99f;
 
     public int GetMaxHealth() => m_MaxHealth;
+    public int GetMaxMeter() => m_MaxMeter;
 
     public void SetGameMode(int index) 
     {

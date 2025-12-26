@@ -6,7 +6,8 @@ public class SuperData : MoveData
     [Header("Super")]
     public SuperType superType;
     public int meterCost;
-    public FrameRange freezeFrames;
+    public int freezeFrames;
+    public int activationFrames;
 
     public override bool CanExecute(EntityResources resources) =>
         resources.Meter.Current >= meterCost;

@@ -3395,6 +3395,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_FrameRate: 60
   m_MaxHealth: 100
+  m_MaxMeter: 100
   m_OnEnterHealthMode:
     m_PersistentCalls:
       m_Calls:
@@ -18118,7 +18119,7 @@ PrefabInstance:
       objectReference: {fileID: 354923774}
     - target: {fileID: 23074451809010711, guid: bf3c91c8ca6848d42bb9004d65c243d6, type: 3}
       propertyPath: m_VersionIndex
-      value: 2319
+      value: 2340
       objectReference: {fileID: 0}
     - target: {fileID: 420029039700872631, guid: bf3c91c8ca6848d42bb9004d65c243d6, type: 3}
       propertyPath: m_LocalPosition.x
@@ -18170,16 +18171,16 @@ PrefabInstance:
       objectReference: {fileID: 310049631}
     - target: {fileID: 2665316495032084173, guid: bf3c91c8ca6848d42bb9004d65c243d6, type: 3}
       propertyPath: m_VersionIndex
-      value: 1251
+      value: 1272
       objectReference: {fileID: 0}
     - target: {fileID: 7372868152233205685, guid: bf3c91c8ca6848d42bb9004d65c243d6, type: 3}
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 310049631}
     m_RemovedComponents:
-    - {fileID: 5473628786878297875, guid: bf3c91c8ca6848d42bb9004d65c243d6, type: 3}
-    - {fileID: 2407525535924767685, guid: bf3c91c8ca6848d42bb9004d65c243d6, type: 3}
-    - {fileID: 3401567895099021632, guid: bf3c91c8ca6848d42bb9004d65c243d6, type: 3}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -18730,7 +18731,7 @@ PrefabInstance:
       objectReference: {fileID: 1630538740}
     - target: {fileID: 2011268659390246160, guid: 674544fec896a33479f0f3046ca6b403, type: 3}
       propertyPath: m_VersionIndex
-      value: 2565
+      value: 2586
       objectReference: {fileID: 0}
     - target: {fileID: 2192322867580527792, guid: 674544fec896a33479f0f3046ca6b403, type: 3}
       propertyPath: m_LocalPosition.x
@@ -18778,7 +18779,7 @@ PrefabInstance:
       objectReference: {fileID: 695023183}
     - target: {fileID: 4559216348152074186, guid: 674544fec896a33479f0f3046ca6b403, type: 3}
       propertyPath: m_VersionIndex
-      value: 1497
+      value: 1518
       objectReference: {fileID: 0}
     - target: {fileID: 4564342323286907436, guid: 674544fec896a33479f0f3046ca6b403, type: 3}
       propertyPath: m_Name

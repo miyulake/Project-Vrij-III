@@ -31,7 +31,7 @@ public abstract class EntityComponent : MonoBehaviour, IEntityComponent
 
     // Misc
     protected ShakeController ShakeComp => Entity.Get<ShakeController>();
-    protected InputReader Input => Entity.Get<InputReader>();
+    protected InputReader InputComp => Entity.Get<InputReader>();
 
     // Opponent
     protected Entity Opponent => Entity.Opponent;

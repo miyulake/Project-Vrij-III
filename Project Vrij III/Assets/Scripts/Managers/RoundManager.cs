@@ -168,7 +168,7 @@ public class RoundManager : MonoBehaviour
         m_OnMatchEnd.Invoke();
     }
 
-    private void SetSlowMo(float timeScale)
+    public void SetSlowMo(float timeScale)
     {
         Time.timeScale = timeScale;
         Time.fixedDeltaTime = 0.0167f * timeScale;

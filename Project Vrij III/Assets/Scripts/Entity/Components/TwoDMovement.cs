@@ -3,18 +3,17 @@ using UnityEngine;
 
 public class TwoDMovement : EntityComponent, ITickable
 {
+    [SerializeField] private Rigidbody2D m_RigidBodyTwoD;
     [Range(0, 10)] [SerializeField] private float baseSpeed = 5;
     [Range(0, 10)] [SerializeField] private float blockSpeed = 2;
     [Range(0, 500)] [SerializeField] private float acceleration = 50f;
     [Range(0, 100)] [SerializeField] private float deceleration = 50f;
-    private Rigidbody2D m_RigidBodyTwoD;
     private Vector2 m_InputDirection;
     private Vector2 m_CurrentVelocity;
 
-    public override void Initialize(Entity entity)
+    public override void Initialize(Entity entity) 
     {
         base.Initialize(entity);
-        m_RigidBodyTwoD = GetComponent<Rigidbody2D>();
     }
 
     public void Tick()
@@ -24,7 +23,7 @@ public class TwoDMovement : EntityComponent, ITickable
             m_RigidBodyTwoD.linearVelocity = Vector2.zero;
             return;
         }
-        m_InputDirection = CanMove() ? Input.Movement : Vector2.zero;
+        m_InputDirection = CanMove() ? InputComp.Movement : Vector2.zero;
         HandleMovement();
     }
 
@@ -37,12 +36,12 @@ public class TwoDMovement : EntityComponent, ITickable
         m_RigidBodyTwoD.linearVelocity = m_CurrentVelocity;
     }
 
-    private bool CanMove() => StateMachine.CurrentState is DeadState ||
-        !AnimatorUtils.IsInAnyState(AnimatorComp.GetAnimator(),
-            AnimationHashes.Grab,
-            AnimationHashes.Taunt,
-            AnimationHashes.Stun,
-            AnimationHashes.BlockStun);
+    private bool CanMove() =>
+        StateMachine.CurrentState is not DeadState && !StateMachine.IsInStun() && !InUniqueState();
+
+    private bool InUniqueState() => 
+        AnimatorUtils.IsInAnyState(AnimatorComp.GetAnimator(), AnimationHashes.Grab, AnimationHashes.Taunt);
+
 
     private float GetSpeed() => StateMachine.CurrentState is BlockState ? blockSpeed : baseSpeed;
 

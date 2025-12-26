@@ -12,7 +12,7 @@ public class EntityResolver : EntityContext, IEntityComponent
 
     public void ResolveHit(MoveData move)
     {
-        if (move == null) return;
+        if (move == null || StateMachine.CurrentState is SuperState) return;
 
         var type = DetermineContact(move);
         var data = GetContactData(move, type);

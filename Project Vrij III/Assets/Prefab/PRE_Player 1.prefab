@@ -753,6 +753,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f96b33a98fdd724a8a75a35f030f962, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_RigidBodyTwoD: {fileID: 5857387183413530615}
   baseSpeed: 10
   blockSpeed: 3
   acceleration: 250
@@ -783,8 +784,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1725cc4e27b4d8647801428afd9e6a0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SuperHandler
+  m_Hurtbox: {fileID: 6723355436757616457}
   m_CurrentSuper: 3
-  m_Aura: {fileID: 0}
+  m_Aura: {fileID: 7432193986819402968}
 --- !u!114 &8387632929233602559
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2990,7 +2992,6 @@ GameObject:
   - component: {fileID: 4954379848240863547}
   - component: {fileID: 4361902488083968150}
   - component: {fileID: 1503258297232092949}
-  - component: {fileID: 6746229080111025416}
   m_Layer: 0
   m_Name: Aura
   m_TagString: Untagged
@@ -3069,54 +3070,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!68 &6746229080111025416
-EdgeCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7432193986819402968}
-  m_Enabled: 0
-  serializedVersion: 3
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_CompositeOperation: 0
-  m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
-  m_EdgeRadius: 0.2
-  m_Points:
-  - {x: -0.25, y: 0.4}
-  - {x: 0.25, y: 0.4}
-  - {x: 0.5, y: 0}
-  - {x: 0.25, y: -0.4}
-  - {x: -0.25, y: -0.4}
-  - {x: -0.5, y: 0}
-  - {x: -0.25, y: 0.4}
-  m_AdjacentStartPoint: {x: 0, y: 0}
-  m_AdjacentEndPoint: {x: 0, y: 0}
-  m_UseAdjacentStartPoint: 0
-  m_UseAdjacentEndPoint: 0
 --- !u!1 &7463202062576526672
 GameObject:
   m_ObjectHideFlags: 0

@@ -229,15 +229,15 @@ public class AttackHandler : EntityComponent, ITickable, IResettable, IPausable
     {
         return inputType switch
         {
-            AttackInput.JAB      => Input.ComboAttack,
-            AttackInput.FORWARD  => Input.AttackForward,
-            AttackInput.DOWNWARD => Input.AttackDownward,
-            AttackInput.UPWARD   => Input.AttackUpward,
-            AttackInput.GRAB     => Input.Grab,
-            AttackInput.SNAP     => Input.Snap,
-            AttackInput.PUSH     => Input.Push,
-            AttackInput.TAUNT    => Input.Taunt,
-            AttackInput.SUPER    => Input.Super,
+            AttackInput.JAB      => InputComp.ComboAttack,
+            AttackInput.FORWARD  => InputComp.AttackForward,
+            AttackInput.DOWNWARD => InputComp.AttackDownward,
+            AttackInput.UPWARD   => InputComp.AttackUpward,
+            AttackInput.GRAB     => InputComp.Grab,
+            AttackInput.SNAP     => InputComp.Snap,
+            AttackInput.PUSH     => InputComp.Push,
+            AttackInput.TAUNT    => InputComp.Taunt,
+            AttackInput.SUPER    => InputComp.Super,
             _                    => false
         };
     }
