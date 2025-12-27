@@ -75,7 +75,7 @@ public class AttackHandler : EntityComponent, ITickable, IResettable, IPausable
     /// <summary>
     /// Plays animation according to MoveData
     /// </summary>
-    private void StartMove(MoveData move, float crossfade = 0f)
+    public void StartMove(MoveData move, float crossfade = 0f)
     {
         if (move == null) return;
 
@@ -237,7 +237,6 @@ public class AttackHandler : EntityComponent, ITickable, IResettable, IPausable
             AttackInput.SNAP     => InputComp.Snap,
             AttackInput.PUSH     => InputComp.Push,
             AttackInput.TAUNT    => InputComp.Taunt,
-            AttackInput.SUPER    => InputComp.Super,
             _                    => false
         };
     }

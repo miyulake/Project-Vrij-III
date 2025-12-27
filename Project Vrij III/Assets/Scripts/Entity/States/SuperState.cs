@@ -29,9 +29,4 @@ public class SuperState : EntityState
             }
         }
     }
-
-    public override void OnExit()
-    {
-        Super.ExitSuper(Super.GetSuperData());
-    }
 }

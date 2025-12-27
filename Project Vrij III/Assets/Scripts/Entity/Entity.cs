@@ -18,33 +18,25 @@ public class Entity : MonoBehaviour
     private void FixedUpdate()
     {
         for (int i = 0; i < m_Components.Count; i++)
-        {
             if (m_Components[i] is ITickable tickable) tickable.Tick();
-        }
     }
 
     public void Pause()
     {
         for (int i = 0; i < m_Components.Count; i++)
-        {
             if (m_Components[i] is IPausable pausable) pausable.Pause();
-        }
     }
 
     public void Resume()
     {
         for (int i = 0; i < m_Components.Count; i++)
-        {
             if (m_Components[i] is IPausable pausable) pausable.Resume();
-        }
     }
 
     public void Reset()
     {
         for (int i = 0; i < m_Components.Count; i++)
-        {
             if (m_Components[i] is IResettable resettable) resettable.Reset();
-        }
     }
 
     private void CacheComponents()
