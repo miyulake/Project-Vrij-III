@@ -995,7 +995,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0eb27713535a47e4da1216bc9ff0556a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shakeTarget: {fileID: 7506461674159890301}
+  m_ShakeTarget: {fileID: 7506461674159890301}
 --- !u!114 &3353341615664399293
 MonoBehaviour:
   m_ObjectHideFlags: 0
