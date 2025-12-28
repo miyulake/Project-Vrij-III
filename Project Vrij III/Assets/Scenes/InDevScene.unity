@@ -3404,7 +3404,6 @@ GameObject:
   - component: {fileID: 340937431}
   - component: {fileID: 340937433}
   - component: {fileID: 340937432}
-  - component: {fileID: 340937435}
   - component: {fileID: 340937436}
   m_Layer: 0
   m_Name: Global Managers
@@ -3528,18 +3527,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &340937435
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 340937429}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2311a75b42912c846a138a6a71646d97, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::MenuManager
 --- !u!82 &340937436
 AudioSource:
   m_ObjectHideFlags: 0
