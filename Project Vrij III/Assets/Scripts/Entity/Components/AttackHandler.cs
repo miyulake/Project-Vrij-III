@@ -25,15 +25,11 @@ public class AttackHandler : EntityComponent, ITickable, IResettable, IPausable
         m_AllMoves = Resources.LoadAll<MoveData>("MoveData");
     }
 
-    /// <summary>
-    /// Used in fixed update to ensure time step syncs with 60fps
-    /// </summary>
     public void Tick()
     {
-        // Only go through logic if the game is going or unpaused
+        // Only go through logic if the game is ongoing
         if (StateMachine.CurrentState is DeadState ||
-            RoundManager.Instance.CurrentState == RoundState.INTRO ||
-            GameManager.Instance.IsPaused()) return;
+            RoundManager.Instance.CurrentState == RoundState.INTRO) return;
 
         // If we are hit or the round ended reset everything and return
         if (StateMachine.IsInStun())
@@ -72,9 +68,6 @@ public class AttackHandler : EntityComponent, ITickable, IResettable, IPausable
         if (!IsPaused) ++m_CurrentFrame;
     }
 
-    /// <summary>
-    /// Plays animation according to MoveData
-    /// </summary>
     public void StartMove(MoveData move, float crossfade = 0f)
     {
         if (move == null) return;
@@ -94,9 +87,6 @@ public class AttackHandler : EntityComponent, ITickable, IResettable, IPausable
         m_BufferedCrossfade = 0f;
     }
 
-    /// <summary>
-    /// Resets move variables. If a buffered move exists, start it immediately
-    /// </summary>
     private void EndMove()
     {
         for (int i = 0; i < m_Hitboxes.Length; i++)
@@ -114,9 +104,6 @@ public class AttackHandler : EntityComponent, ITickable, IResettable, IPausable
         m_BufferedCrossfade = 0f;
     }
 
-    /// <summary>
-    /// Activate hitboxes during the active frames of the current move
-    /// </summary>
     private void HandleHitboxActivation()
     {
         if (m_CurrentMove == null) return;
@@ -131,9 +118,6 @@ public class AttackHandler : EntityComponent, ITickable, IResettable, IPausable
         }
     }
 
-    /// <summary>
-    /// Idle input checks
-    /// </summary>
     private MoveData CheckForInitialInput()
     {
         if (StateMachine.CurrentState is not IdleState) return null;
@@ -146,9 +130,6 @@ public class AttackHandler : EntityComponent, ITickable, IResettable, IPausable
         return null;
     }
 
-    /// <summary>
-    /// Stores any move pressed during current move in the buffer to execute after current move ends
-    /// </summary>
     private void CheckPostMoveBuffer()
     {
         // Only allow buffering during the buffer window of the current move
@@ -160,9 +141,6 @@ public class AttackHandler : EntityComponent, ITickable, IResettable, IPausable
         }
     }
 
-    /// <summary>
-    /// Stores next move when cancel input is pressed
-    /// </summary>
     private void HandleCancelBuffering()
     {
         if (m_CurrentMove.cancelOptions == null || m_CurrentMove.cancelOptions.Length == 0) return;
@@ -174,9 +152,6 @@ public class AttackHandler : EntityComponent, ITickable, IResettable, IPausable
         }
     }
 
-    /// <summary>
-    /// Execute buffered moves during cancel window
-    /// </summary>
     private void HandleCancelExecution()
     {
         if (m_BufferedMove == null || m_CurrentMove.cancelOptions == null) return;
@@ -200,9 +175,6 @@ public class AttackHandler : EntityComponent, ITickable, IResettable, IPausable
         }
     }
 
-    /// <summary>
-    /// Cancel input check
-    /// </summary>
     private bool TryCheckForCancelInput(out MoveData move, out float crossfade)
     {
         var options = m_CurrentMove.cancelOptions;
@@ -222,9 +194,6 @@ public class AttackHandler : EntityComponent, ITickable, IResettable, IPausable
         return false;
     }
 
-    /// <summary>
-    /// Input check helper
-    /// </summary>
     private bool WasInputPressed(AttackInput inputType)
     {
         return inputType switch
@@ -241,9 +210,6 @@ public class AttackHandler : EntityComponent, ITickable, IResettable, IPausable
         };
     }
 
-    /// <summary>
-    /// Apply MoveData to hitboxes
-    /// </summary>
     private void SetMoveData(MoveData move)
     {
         for (int i = 0; i < m_Hitboxes.Length; i++) m_Hitboxes[i].MoveData = move;
