@@ -28,8 +28,8 @@ public class AttackHandler : EntityComponent, ITickable, IResettable, IPausable
     public void Tick()
     {
         // Only go through logic if the game is ongoing
-        if (StateMachine.CurrentState is DeadState ||
-            RoundManager.Instance.CurrentState == RoundState.INTRO) return;
+        if (StateMachine.CurrentState is DeadState || RoundManager.Instance.CurrentState == RoundState.INTRO) return;
+        if (Time.timeScale < 1f) return; // Hack
 
         // If we are hit or the round ended reset everything and return
         if (StateMachine.IsInStun())

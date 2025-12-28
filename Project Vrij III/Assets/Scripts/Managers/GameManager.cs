@@ -29,8 +29,6 @@ public class GameManager : MonoBehaviour
         SetGameMode(0); // Start default game mode
     }
     
-    public bool IsPaused() => Time.timeScale < 0.99f;
-
     public int GetMaxHealth() => m_MaxHealth;
     public int GetMaxMeter() => m_MaxMeter;
 
