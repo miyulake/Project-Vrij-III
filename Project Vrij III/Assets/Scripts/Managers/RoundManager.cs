@@ -26,10 +26,15 @@ public class RoundManager : MonoBehaviour
     private float m_RoundTimer;
     private int m_CurrentRound;
 
-    private Coroutine m_RoundFlowRoutine;
-
     [Header("Events")]
     [SerializeField] private UnityEvent m_OnMatchEnd;
+
+    [Header("Audio")]
+    [SerializeField] private AudioSource m_AudioSource;
+    [SerializeField] private AudioClip m_FightSound;
+    [SerializeField] private AudioClip m_KOSound;
+
+    private Coroutine m_RoundFlowRoutine;
 
     private void Awake() => Instance = this;
 
@@ -58,6 +63,7 @@ public class RoundManager : MonoBehaviour
         CameraController.Instance.ResetSetup();
     }
 
+    // TO-DO: Create a global round flow manager, this is becoming too big
     private IEnumerator RoundFlow()
     {
         // INTRO START
@@ -72,7 +78,8 @@ public class RoundManager : MonoBehaviour
             RoundUI.Instance.SetRoundText($"Round {m_CurrentRound}");
         yield return new WaitForSeconds(introDuration);
 
-        RoundUI.Instance.SetRoundText("Fight!");
+        RoundUI.Instance.SetRoundText("Fight");
+        m_AudioSource.PlayOneShot(m_FightSound); 
         yield return new WaitForSeconds(introDuration / 2);
         // INTRO END
 
@@ -97,9 +104,13 @@ public class RoundManager : MonoBehaviour
         {
             if (CurrentState != RoundState.KNOCKOUT) SetState(RoundState.KNOCKOUT);
 
-            SetSlowMo(0.1f);
+            if (IsPerfectKO()) 
+                RoundUI.Instance.SetRoundText("Perfect");
+            else 
+                RoundUI.Instance.SetRoundText("K.O.");
 
-            RoundUI.Instance.SetRoundText("K.O.");
+            m_AudioSource.PlayOneShot(m_KOSound);
+            SetSlowMo(0.1f);
             yield return new WaitForSecondsRealtime(knockoutDuration);
 
             SetSlowMo(1);
@@ -209,6 +220,17 @@ public class RoundManager : MonoBehaviour
 
     private bool IsFinalRound(int winsA, int winsB, int winsNeeded) =>
         winsA == winsNeeded - 1 && winsB == winsNeeded - 1;
+
+    private bool IsPerfectKO()
+    {
+        var playerOne = PlayerManager.Instance.playerOne;
+        var playerTwo = PlayerManager.Instance.playerTwo;
+        var playerOneHealth = playerOne.Get<EntityResources>().Health;
+        var playerTwoHealth = playerTwo.Get<EntityResources>().Health;
+        return
+            playerOneHealth.Current == playerOneHealth.Max ||
+            playerTwoHealth.Current == playerTwoHealth.Max;
+    }
 
     private bool IsInfiniteTime() => m_RoundTimer > 99;
 
