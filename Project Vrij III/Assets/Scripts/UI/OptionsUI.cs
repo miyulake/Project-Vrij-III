@@ -14,7 +14,10 @@ public class OptionsUI : MonoBehaviour
 
     [Header("Audio")]
     [SerializeField] private AudioMixer m_AudioMixer;
+    [SerializeField] private AudioMixerGroup[] m_AudioMIxerGroups;
     [SerializeField] private Slider m_MasterVolume, m_MusicVolume, m_SoundVolume;
+    private const float LowerVolumeBound = -80.0f;
+    private const float UpperVolumeBound = 0.0f;
 
     [Header("Game")]
     [SerializeField] private Slider m_RoundDuration;
@@ -43,9 +46,12 @@ public class OptionsUI : MonoBehaviour
 
     public void StartMatch() => RoundManager.Instance.StartMatch();
 
-    public void SetMasterVolume(float masterVolume) => m_AudioMixer.SetFloat("MasterVolume", masterVolume);
-    public void SetMusicVolume(float musicVolume) => m_AudioMixer.SetFloat("MusicVolume", musicVolume);
-    public void SetSoundVolume(float soundVolume) => m_AudioMixer.SetFloat("SoundVolume", soundVolume);
+    public void SetMasterVolume(float masterVolume) => 
+        m_AudioMixer.SetFloat("MasterVolume", LinearToDecibel(masterVolume));
+    public void SetMusicVolume(float musicVolume) => 
+        m_AudioMixer.SetFloat("MusicVolume", LinearToDecibel(musicVolume));
+    public void SetSoundVolume(float soundVolume) => 
+        m_AudioMixer.SetFloat("SoundVolume", LinearToDecibel(soundVolume));
 
     public void SetRoundDuration(float duration)
     {
@@ -118,7 +124,6 @@ public class OptionsUI : MonoBehaviour
 
         var currentModeIndex = modes.IndexOf(GameManager.Instance.CurrentMode);
         m_ModeDropdown.SetValueWithoutNotify(currentModeIndex);
-
         m_ModeDropdown.RefreshShownValue();
     }
 
@@ -137,14 +142,30 @@ public class OptionsUI : MonoBehaviour
 
     private float GetAudioMixerLevel(string mixerName)
     {
-        var value = 0f;
-        var result = false;
+        if (mixerName == "master" && m_AudioMixer.GetFloat("MasterVolume", out float value))
+            return DecibelToLinear(value);
 
-        if (mixerName == "master") result = m_AudioMixer.GetFloat("MasterVolume", out value);
-        if (mixerName == "music") result = m_AudioMixer.GetFloat("MusicVolume", out value);
-        if (mixerName == "sound") result = m_AudioMixer.GetFloat("SoundVolume", out value);
+        if (mixerName == "music" && m_AudioMixer.GetFloat("MusicVolume", out value))
+            return DecibelToLinear(value);
 
-        if (result) return value;
-        else return 0f;
+        if (mixerName == "sound" && m_AudioMixer.GetFloat("SoundVolume", out value))
+            return DecibelToLinear(value);
+
+        return 1f;
+    }
+
+    // Couple of black magic functions
+    private float LinearToDecibel(float value)
+    {
+        if (value <= 0.0001f) return LowerVolumeBound;
+        value *= value;
+        var decibel = Mathf.Log10(value) * 20f;
+        return Mathf.Clamp(decibel, LowerVolumeBound, UpperVolumeBound);
+    }
+    private float DecibelToLinear(float decibel)
+    {
+        if (decibel <= LowerVolumeBound) return 0f;
+        var linear = Mathf.Pow(10f, decibel / 20f);
+        return Mathf.Sqrt(linear);
     }
 }

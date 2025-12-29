@@ -373,10 +373,10 @@ MonoBehaviour:
   m_FillRect: {fileID: 1536420307}
   m_HandleRect: {fileID: 326442067}
   m_Direction: 0
-  m_MinValue: -60
-  m_MaxValue: 0
-  m_WholeNumbers: 1
-  m_Value: 0
+  m_MinValue: 0
+  m_MaxValue: 1
+  m_WholeNumbers: 0
+  m_Value: 0.2
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
@@ -12935,10 +12935,10 @@ MonoBehaviour:
   m_FillRect: {fileID: 487219334}
   m_HandleRect: {fileID: 1974213040}
   m_Direction: 0
-  m_MinValue: -60
-  m_MaxValue: 0
-  m_WholeNumbers: 1
-  m_Value: 0
+  m_MinValue: 0
+  m_MaxValue: 1
+  m_WholeNumbers: 0
+  m_Value: 1
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
@@ -17050,6 +17050,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Options
   m_CRT: {fileID: -6113450964965075168, guid: f288ae1f4751b564a96ac7587541f7a2, type: 2}
   m_AudioMixer: {fileID: 24100000, guid: 99f42ec0f47be074fb1c85a96cfb1ad9, type: 2}
+  m_AudioMIxerGroups:
+  - {fileID: 24300002, guid: 99f42ec0f47be074fb1c85a96cfb1ad9, type: 2}
+  - {fileID: 7035095444429754699, guid: 99f42ec0f47be074fb1c85a96cfb1ad9, type: 2}
+  - {fileID: 2670935093248195568, guid: 99f42ec0f47be074fb1c85a96cfb1ad9, type: 2}
   m_MasterVolume: {fileID: 1433408248}
   m_MusicVolume: {fileID: 56068686}
   m_SoundVolume: {fileID: 1976437276}
@@ -17368,10 +17372,10 @@ MonoBehaviour:
   m_FillRect: {fileID: 1710257573}
   m_HandleRect: {fileID: 1953721111}
   m_Direction: 0
-  m_MinValue: -60
-  m_MaxValue: 0
-  m_WholeNumbers: 1
-  m_Value: 0
+  m_MinValue: 0
+  m_MaxValue: 1
+  m_WholeNumbers: 0
+  m_Value: 0.5
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
