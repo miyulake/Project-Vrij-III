@@ -88,9 +88,9 @@ public class EntityResolver : EntityContext, IEntityComponent
         // Damage & Combo
         if (type != ContactType.BLOCK && !usingPaint)
         {
-            var oppnentTH = Entity.Opponent.Get<TauntHandler>();
-            var multiplier = oppnentTH.GetMultiplier();
-            var flatIncrease = oppnentTH.GetFlatIncrease();
+            var oppnentEffects = Opponent.Get<EntityEffects>();
+            var multiplier = oppnentEffects.GetMultiplier();
+            var flatIncrease = oppnentEffects.GetFlatIncrease();
             var finalDamage = Mathf.RoundToInt((data.damage + flatIncrease) * multiplier);
             
             if (!Combo.IsPaused) Combo.AddHit(finalDamage);

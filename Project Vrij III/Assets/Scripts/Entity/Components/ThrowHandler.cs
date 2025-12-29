@@ -35,7 +35,7 @@ public class ThrowHandler : EntityComponent, ITickable
             if (m_TurnTime < 0f) m_TurnTime = 0f;
 
             m_PlayerCollider.enabled = false;
-            Entity.Opponent.transform.position = m_ThrowAnchor.transform.position;
+            Opponent.transform.position = m_ThrowAnchor.transform.position;
         }
         else
         {
@@ -63,7 +63,7 @@ public class ThrowHandler : EntityComponent, ITickable
 
     public bool ThrowEligible()
     {
-        var opponentSM = Entity.Opponent.Get<StateMachine>();
+        var opponentSM = Opponent.Get<StateMachine>();
         return opponentSM.CurrentState is HitStunState || opponentSM.CurrentState is CaughtState;
     }
 

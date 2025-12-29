@@ -14,6 +14,7 @@ public abstract class EntityComponent : MonoBehaviour, IEntityComponent
     protected TauntHandler TauntComp => Entity.Get<TauntHandler>();
 
     // Specific - MonoBehaviours
+    protected EntityEffects EffectsComp => Entity.Get<EntityEffects>();
     protected EntityVisuals VisualsComp => Entity.Get<EntityVisuals>();
     protected EntityVFX VFXComp => Entity.Get<EntityVFX>();
     protected EntityOrientation OrientationComp => Entity.Get<EntityOrientation>();

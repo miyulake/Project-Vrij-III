@@ -7,8 +7,6 @@ public class TauntHandler : EntityComponent, ITickable, IResettable
     [SerializeField] private GameObject m_PowerUpParticle;
     [SerializeField] private AudioClip m_Active;
     [SerializeField] private AudioClip m_Inactive;
-    [SerializeField] private float m_Multiplier = 1.15f;
-    [SerializeField] private int m_FlatIncrease = 1;
     [SerializeField] private float m_PowerDuration = 10f;
     private float m_PowerTime = 0f;
 
@@ -47,14 +45,6 @@ public class TauntHandler : EntityComponent, ITickable, IResettable
             }
         }
     }
-
-    // Bad - should add to a global mutliplier
-    public float GetMultiplier() =>
-        HasCompletedTaunt ? m_Multiplier : 1f;
-
-    // Bad - should add to a global flat increase
-    public int GetFlatIncrease() =>
-        HasCompletedTaunt ? m_FlatIncrease : 0;
 
     public void Reset()
     {

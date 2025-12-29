@@ -9,7 +9,7 @@
     {
         Animator.PlayEnd("Stun");
         Entity.Pause();
-        Entity.Opponent.Pause();
+        Opponent.Pause();
         Audio.Play(Throw.GetCaughtSound());
     }
 
@@ -18,7 +18,7 @@
         if (Entity.Get<InputReader>().Grab)
         {
             Audio.Play(Throw.GetClankSound());
-            Entity.Opponent.Get<StateMachine>().ChangeState<ClankState>();
+            Opponent.Get<StateMachine>().ChangeState<ClankState>();
             StateMachine.ChangeState<ClankState>();
             return;
         }
@@ -34,6 +34,6 @@
     public override void OnExit()
     {
         Entity.Resume();
-        Entity.Opponent.Resume();
+        Opponent.Resume();
     }
 }

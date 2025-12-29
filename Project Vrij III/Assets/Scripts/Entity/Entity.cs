@@ -6,6 +6,7 @@ using UnityEngine;
 public class Entity : MonoBehaviour
 {
     public Entity Opponent { get; private set; }
+    [SerializeField] private EntityDefinition m_Definition;
     private List<IEntityComponent> m_Components = new();
     private Dictionary<Type, IEntityComponent> m_ComponentMap;
 
@@ -41,17 +42,20 @@ public class Entity : MonoBehaviour
 
     private void CacheComponents()
     {
-        m_Components = new List<IEntityComponent>(GetComponents<IEntityComponent>())
+        var monoComps = GetComponents<IEntityComponent>();
+        m_Components = new List<IEntityComponent>(monoComps.Length + m_Definition.components.Count);
+        m_Components.AddRange(monoComps);
+
+        // Add pure C# components
+        for (int i = 0; i < m_Definition.components.Count; i++)
         {
-            new StateMachine(),
-            new EntityResolver(),
-            new EntityResources(),
-            new EntityPhysics(),
-            new ComboTracker()
-        };
+            var type = m_Definition.components[i].GetCompType();
+            if (!typeof(MonoBehaviour).IsAssignableFrom(type)) 
+                m_Components.Add(Activator.CreateInstance(type) as IEntityComponent);
+        }
 
+        // Build the dictionary
         m_ComponentMap = new Dictionary<Type, IEntityComponent>(m_Components.Count);
-
         for (int i = 0; i < m_Components.Count; i++)
             m_ComponentMap[m_Components[i].GetType()] = m_Components[i];
     }

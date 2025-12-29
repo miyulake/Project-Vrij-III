@@ -13,7 +13,7 @@ public class EntityOrientation : EntityComponent, ITickable, IResettable
     private float m_TurnTime = -1f;
     private float m_StartY;
 
-    public int FacingDirection => transform.position.x < Entity.Opponent.transform.position.x ? 1 : -1;
+    public int FacingDirection => transform.position.x < Opponent.transform.position.x ? 1 : -1;
 
     public override void Initialize(Entity entity)
     {
