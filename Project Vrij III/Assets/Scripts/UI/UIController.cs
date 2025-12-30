@@ -3,21 +3,21 @@ using UnityEngine;
 public class UIController : MonoBehaviour
 {
     [SerializeField] private GameObject pauseMenu;
-    private InputReader[] m_Readers;
 
-    private void Awake() => m_Readers = FindObjectsByType<InputReader>(FindObjectsSortMode.None);
-
-    private void Start() => Time.timeScale = pauseMenu.activeSelf ? 0 : 1;
-
-    private void Update()
+    private void Start()
     {
-        // This is for debug, but should be != RoundState.GAMEPLAY
-        if (RoundManager.Instance.CurrentState == RoundState.KNOCKOUT) return;
+        Time.timeScale = pauseMenu.activeSelf ? 0 : 1;
 
-        for (int i = 0; i < m_Readers.Length; i++)
-        {
-            if (m_Readers[i].Pause) TogglePause();
-        }
+        var entities = PlayerManager.Instance.All;
+        for (int i = 0; i < entities.Count; i++)
+            entities[i].Get<InputReader>().PauseEvent += TogglePause;
+    }
+
+    private void OnDisable()
+    {
+        var entities = PlayerManager.Instance.All;
+        for (int i = 0; i < entities.Count; i++)
+            entities[i].Get<InputReader>().PauseEvent -= TogglePause;
     }
 
     public void TogglePause()

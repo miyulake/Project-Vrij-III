@@ -1,38 +1,46 @@
+using Game.Entities;
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Users;
 
-public class InputReader : EntityComponent
+public class InputReader : EntityContext, IEntityComponent
 {
-    private PlayerInput playerInput;
+    public event Action PauseEvent;
+    private PlayerInput m_PlayerInput;
 
     // Gameplay input
-    public Vector2 Movement    => playerInput.actions["Move"].ReadValue<Vector2>();
-    public bool ComboAttack    => playerInput.actions["ComboAttack"].triggered;
-    public bool AttackForward  => playerInput.actions["AttackForward"].triggered;
-    public bool AttackDownward => playerInput.actions["AttackDownward"].triggered;
-    public bool AttackUpward   => playerInput.actions["AttackUpward"].triggered;
-    public bool Block          => playerInput.actions["Block"].IsPressed();
-    public bool Grab           => playerInput.actions["Grab"].triggered;
-    public bool Snap           => playerInput.actions["Snap"].triggered;
-    public bool Push           => playerInput.actions["Push"].triggered;
-    public bool Taunt          => playerInput.actions["Taunt"].triggered;
-    public bool Super          => playerInput.actions["Super"].triggered;
+    public Vector2 Movement    => m_PlayerInput.actions["Move"].ReadValue<Vector2>();
+    public bool ComboAttack    => m_PlayerInput.actions["ComboAttack"].triggered;
+    public bool AttackForward  => m_PlayerInput.actions["AttackForward"].triggered;
+    public bool AttackDownward => m_PlayerInput.actions["AttackDownward"].triggered;
+    public bool AttackUpward   => m_PlayerInput.actions["AttackUpward"].triggered;
+    public bool Block          => m_PlayerInput.actions["Block"].IsPressed();
+    public bool Grab           => m_PlayerInput.actions["Grab"].triggered;
+    public bool Snap           => m_PlayerInput.actions["Snap"].triggered;
+    public bool Push           => m_PlayerInput.actions["Push"].triggered;
+    public bool Taunt          => m_PlayerInput.actions["Taunt"].triggered;
+    public bool Super          => m_PlayerInput.actions["Super"].triggered;
 
     // UI input
-    public bool Pause          => playerInput.actions["Pause"].triggered;
+    public InputAction Pause   => m_PlayerInput.actions["Pause"];
 
-    public override void Initialize(Entity entity)
+    public void Initialize(Entity entity)
     {
-        base.Initialize(entity);
-
-        playerInput = Entity.GetComponent<PlayerInput>();
-
+        SetEntity(entity);
+        m_PlayerInput = Entity.GetComponent<PlayerInput>();
+        /*
         // Automatically pair gamepad if assigned
         var gamepads = Gamepad.all;
-        if (playerInput.playerIndex < gamepads.Count)
-            InputUser.PerformPairingWithDevice(gamepads[playerInput.playerIndex], playerInput.user);
+        if (m_PlayerInput.playerIndex < gamepads.Count)
+            InputUser.PerformPairingWithDevice(gamepads[m_PlayerInput.playerIndex], m_PlayerInput.user);
+        */
+        Pause.performed += OnPausePerformed;
+    }
 
-        playerInput.ActivateInput();
+    private void OnPausePerformed(InputAction.CallbackContext ctx)
+    {
+        if (RoundManager.Instance.CurrentState == RoundState.KNOCKOUT) return;
+        PauseEvent?.Invoke();
     }
 }

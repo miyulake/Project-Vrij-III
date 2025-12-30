@@ -22,7 +22,7 @@ public class SuperState : EntityState
             m_ActivationFrames--;
             if (m_ActivationFrames <= 0)
             {
-                if (Input.Block)
+                if (InputComp.Block)
                     StateMachine.ChangeState<BlockState>();
                 else
                     StateMachine.ChangeState<IdleState>();

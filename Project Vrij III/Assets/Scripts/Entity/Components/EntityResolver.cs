@@ -64,7 +64,7 @@ public class EntityResolver : EntityContext, IEntityComponent
         var inGameplay = RoundManager.Instance.CurrentState == RoundState.GAMEPLAY;
 
         // Orientation
-        var facingDirection = Orientation.FacingDirection;
+        var facingDirection = OrientationComp.FacingDirection;
 
         // States
         if (type == ContactType.BLOCK)
@@ -75,15 +75,15 @@ public class EntityResolver : EntityContext, IEntityComponent
         // Knockback
         var knockback = data.knockback;
         knockback.x *= -facingDirection;
-        Physics.ApplyKnockback(Movement.GetRigidBody(), knockback);
+        PhysicsComp.ApplyKnockback(MovementComp.GetRigidBody(), knockback);
 
         // VFX
-        VFX.SpawnParticles(data);
-        if (usingPaint && inGameplay) VFX.SpawnPaint(move, facingDirection);
+        VFXComp.SpawnParticles(data);
+        if (usingPaint && inGameplay) VFXComp.SpawnPaint(move, facingDirection);
 
         // Visuals
         var stunDuration = data.stun * Time.fixedDeltaTime;
-        Shake.TriggerShake(stunDuration, data.shakeMagnitude);
+        ShakeComp.TriggerShake(stunDuration, data.shakeMagnitude);
 
         // Damage & Combo
         if (type != ContactType.BLOCK && !usingPaint)
@@ -93,13 +93,13 @@ public class EntityResolver : EntityContext, IEntityComponent
             var flatIncrease = oppnentEffects.GetFlatIncrease();
             var finalDamage = Mathf.RoundToInt((data.damage + flatIncrease) * multiplier);
             
-            if (!Combo.IsPaused) Combo.AddHit(finalDamage);
-            Resources.ApplyDamage(finalDamage);
+            if (!ComboComp.IsPaused) ComboComp.AddHit(finalDamage);
+            ResourcesComp.ApplyDamage(finalDamage);
         }
-        else if (usingPaint) Combo.AddHit(0);
+        else if (usingPaint) ComboComp.AddHit(0);
 
         // Audio
-        Audio.Play(data.sound);
+        AudioComp.Play(data.sound);
 
         IsForced = false;
     }

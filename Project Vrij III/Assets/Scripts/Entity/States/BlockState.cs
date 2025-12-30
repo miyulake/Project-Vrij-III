@@ -4,7 +4,7 @@ public class BlockState : EntityState
 
     public override void Tick()
     {
-        if (!Input.Block)
+        if (!InputComp.Block)
         {
             StateMachine.ChangeState<IdleState>();
             return;

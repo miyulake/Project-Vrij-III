@@ -7,17 +7,17 @@
 
     public override void OnEnter()
     {
-        Animator.PlayEnd("Stun");
+        AnimatorComp.PlayEnd("Stun");
         Entity.Pause();
         Opponent.Pause();
-        Audio.Play(Throw.GetCaughtSound());
+        AudioComp.Play(ThrowComp.GetCaughtSound());
     }
 
     public override void Tick()
     {
         if (Entity.Get<InputReader>().Grab)
         {
-            Audio.Play(Throw.GetClankSound());
+            AudioComp.Play(ThrowComp.GetClankSound());
             Opponent.Get<StateMachine>().ChangeState<ClankState>();
             StateMachine.ChangeState<ClankState>();
             return;
@@ -26,8 +26,8 @@
         m_BreakFrames--;
         if (m_BreakFrames <= 0)
         {
-            Resolver.SetForceState(true);
-            Resolver.ResolveHit(Resolver.StoredMove);
+            ResolverComp.SetForceState(true);
+            ResolverComp.ResolveHit(ResolverComp.StoredMove);
         }
     }
 

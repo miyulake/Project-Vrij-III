@@ -7,7 +7,7 @@ public class BlockStunState : EntityState
 
     public override void OnEnter()
     {
-        Animator.Play("Block_Stun");
+        AnimatorComp.Play("Block_Stun");
     }
 
     public override void Tick()
@@ -16,7 +16,7 @@ public class BlockStunState : EntityState
 
         if (m_StunFrames <= 0)
         {
-            if (Input.Block)
+            if (InputComp.Block)
                 StateMachine.ChangeState<BlockState>();
             else
                 StateMachine.ChangeState<IdleState>();

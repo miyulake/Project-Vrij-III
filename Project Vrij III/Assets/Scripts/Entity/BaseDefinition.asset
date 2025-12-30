@@ -23,3 +23,5 @@ MonoBehaviour:
       PublicKeyToken=null
   - assemblyQualifiedName: ComboTracker, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
+  - assemblyQualifiedName: InputReader, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null

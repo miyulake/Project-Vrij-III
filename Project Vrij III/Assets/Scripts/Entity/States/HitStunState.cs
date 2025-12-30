@@ -6,7 +6,7 @@ public class HitStunState : EntityState
 
     public override void OnEnter()
     {
-        Animator.Play("Stun");
+        AnimatorComp.Play("Stun");
     }
 
     public override void Tick()
@@ -15,9 +15,9 @@ public class HitStunState : EntityState
 
         if (m_StunFrames <= 0)
         {
-            Combo.Reset();
+            ComboComp.Reset();
 
-            if (Input.Block)
+            if (InputComp.Block)
                 StateMachine.ChangeState<BlockState>();
             else
                 StateMachine.ChangeState<IdleState>();
