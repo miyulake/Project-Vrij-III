@@ -212,7 +212,7 @@ public class AttackHandler : EntityComponent, ITickable, IResettable, IPausable
 
     private void SetMoveData(MoveData move)
     {
-        for (int i = 0; i < m_Hitboxes.Length; i++) m_Hitboxes[i].MoveData = move;
+        for (int i = 0; i < m_Hitboxes.Length; i++) m_Hitboxes[i].SetMoveData(move);
     }
 
     public void Pause() => IsPaused = true;

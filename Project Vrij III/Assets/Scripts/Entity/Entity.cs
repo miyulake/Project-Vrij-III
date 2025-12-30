@@ -42,6 +42,7 @@ public class Entity : MonoBehaviour
 
     private void CacheComponents()
     {
+        // Create list and get MonoBehaviour components
         var monoComps = GetComponents<IEntityComponent>();
         m_Components = new List<IEntityComponent>(monoComps.Length + m_Definition.components.Count);
         m_Components.AddRange(monoComps);
