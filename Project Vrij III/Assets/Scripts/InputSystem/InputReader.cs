@@ -2,7 +2,6 @@ using Game.Entities;
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.Users;
 
 public class InputReader : EntityContext, IEntityComponent
 {
