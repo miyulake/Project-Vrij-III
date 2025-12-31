@@ -10,10 +10,3 @@ public class FrameData
     public bool IsActive(int frame) => frame > startup && frame <= startup + active;
     public bool IsRecovering(int frame) => frame > startup + active;
 }
-
-[System.Serializable]
-public struct FrameRange
-{
-    public int start;
-    public int end;
-}

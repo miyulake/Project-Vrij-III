@@ -1,0 +1,57 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e63f3968f8b6df43af005f45a2be8b0, type: 3}
+  m_Name: NORM_Jab Middle
+  m_EditorClassIdentifier: Assembly-CSharp::MoveData
+  moveType: 0
+  moveFlags: 0
+  input: 0
+  startFromIdle: 0
+  frames:
+    startup: 6
+    active: 1
+    recovery: 15
+    cancel:
+      start: 22
+      end: 22
+  hit:
+    stun: 23
+    damage: 2
+    knockback: {x: 4, y: 0}
+    shakeMagnitude: 0.04
+    particleEffect: {fileID: 3432958286849152088, guid: 7ad1ce79196b5b84ebab3617e0ec2c3c, type: 3}
+    sound: {fileID: 8300000, guid: cf0a43e233eb901439dfa973d80a7014, type: 3}
+  block:
+    stun: 13
+    damage: 0
+    knockback: {x: 2, y: 0}
+    shakeMagnitude: 0.02
+    particleEffect: {fileID: 0}
+    sound: {fileID: 8300000, guid: 88b8eee774e8cf5458405ec3d6c92590, type: 3}
+  counterHit:
+    stun: 23
+    damage: 4
+    knockback: {x: 4, y: 0}
+    shakeMagnitude: 0.04
+    particleEffect: {fileID: 3432958286849152088, guid: 7ad1ce79196b5b84ebab3617e0ec2c3c, type: 3}
+    sound: {fileID: 8300000, guid: cf0a43e233eb901439dfa973d80a7014, type: 3}
+  cancelOptions:
+  - move: {fileID: 11400000, guid: a83a3da976c96654d81f28062a69153a, type: 2}
+    crossfadeDuration: 0.2
+  paintData:
+    paintPrefab: {fileID: 4182030647486133465, guid: 10dc592366224954b9ed4c6a2e434ad6, type: 3}
+    offsetPosition: {x: 1.5, y: -0.25, z: 0}
+    paintScale: {x: 3, y: 2, z: 0}
+  hitboxIndices: 01000000
+  breakFrames: 0
+  meterCost: 0
+  animationName: Combo_Attack_2

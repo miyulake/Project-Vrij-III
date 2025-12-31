@@ -13,12 +13,16 @@ public class EntityDefinitionEditor : Editor
     private void OnEnable()
     {
         m_Definition = (EntityDefinition)target;
-        m_ComponentTypes = AppDomain.CurrentDomain.GetAssemblies()
-            .SelectMany(a => a.GetTypes())
-            .Where(t => typeof(Game.Entities.IEntityComponent).IsAssignableFrom(t) && 
-            !t.IsAbstract && 
-            !typeof(MonoBehaviour).IsAssignableFrom(t))
-            .ToList();
+        var assembly = 
+            AppDomain.CurrentDomain.GetAssemblies().FirstOrDefault(a => a.GetName().Name == "Assembly-CSharp");
+        if (assembly != null)
+        {
+            m_ComponentTypes = assembly.GetTypes()
+                .Where(t => typeof(Game.Entities.IEntityComponent).IsAssignableFrom(t) &&
+                            !t.IsAbstract &&
+                            !typeof(MonoBehaviour).IsAssignableFrom(t))
+                .ToList();
+        }
     }
 
     public override void OnInspectorGUI()

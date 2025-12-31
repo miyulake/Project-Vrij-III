@@ -19,6 +19,8 @@ MonoBehaviour:
       PublicKeyToken=null
   - assemblyQualifiedName: EntityResolver, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
+  - assemblyQualifiedName: EntityEffects, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
   - assemblyQualifiedName: EntityPhysics, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
   - assemblyQualifiedName: ComboTracker, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,

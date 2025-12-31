@@ -1,7 +1,6 @@
 public enum CharacterType
 {
     DUMMY,
-    RED,
-    BLUE,
+    PUNCHER,
     TEST
 }

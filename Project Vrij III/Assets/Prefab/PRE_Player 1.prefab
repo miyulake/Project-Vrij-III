@@ -694,7 +694,6 @@ GameObject:
   - component: {fileID: 3025373385934276473}
   - component: {fileID: 8387632929233602559}
   - component: {fileID: 4549600266536112635}
-  - component: {fileID: 1316900895130205280}
   - component: {fileID: 3649434061026812996}
   - component: {fileID: 8206493709175112930}
   - component: {fileID: 1882542023021585692}
@@ -741,6 +740,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c171d562b670f2b40a229f1737e6f9c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Entity
+  m_Character: {fileID: 11400000, guid: 0e224ba528c39214590cda33ab30820d, type: 2}
   m_Definition: {fileID: 11400000, guid: 0bb8d429c08fac0499c3f0dc9275380e, type: 2}
 --- !u!114 &1801499076957440997
 MonoBehaviour:
@@ -754,11 +754,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f96b33a98fdd724a8a75a35f030f962, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_RigidBodyTwoD: {fileID: 5857387183413530615}
-  baseSpeed: 10
-  blockSpeed: 3
-  acceleration: 250
-  deceleration: 50
 --- !u!114 &420104190912164710
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -887,21 +882,6 @@ MonoBehaviour:
   m_Active: {fileID: 8300000, guid: 8bc429b022693a24192ea4da2c624fd1, type: 3}
   m_Inactive: {fileID: 8300000, guid: b8d421373c74e374989e0c5dccfa3b61, type: 3}
   m_PowerDuration: 7
---- !u!114 &1316900895130205280
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2661417437704909611}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d78b98ef1e388954e94950a92dccf693, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EntityEffects
-  m_TauntEffect:
-    additiveMultiplier: 0.15
-    flatIncrease: 1
 --- !u!114 &3649434061026812996
 MonoBehaviour:
   m_ObjectHideFlags: 0

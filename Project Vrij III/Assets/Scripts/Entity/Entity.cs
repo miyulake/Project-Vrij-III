@@ -6,7 +6,10 @@ using UnityEngine;
 public class Entity : MonoBehaviour
 {
     public Entity Opponent { get; private set; }
+
+    [SerializeField] private CharacterData m_Character;
     [SerializeField] private EntityDefinition m_Definition;
+
     private List<IEntityComponent> m_Components = new();
     private Dictionary<Type, IEntityComponent> m_ComponentMap;
 
@@ -65,4 +68,6 @@ public class Entity : MonoBehaviour
         m_ComponentMap.TryGetValue(typeof(T), out var c) ? c as T : null;
 
     public void SetOpponent(Entity opponent) => Opponent = opponent;
+
+    public CharacterData GetCharacter() => m_Character;
 }
