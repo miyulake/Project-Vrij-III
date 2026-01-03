@@ -7,7 +7,7 @@ public class EntityEffects : EntityContext, IEntityComponent
     public void Initialize(Entity entity)
     {
         SetEntity(entity);
-        m_Settings = Entity.GetCharacter().GetEffects();
+        m_Settings = Entity.Character.GetEffects();
     }
 
     public float GetMultiplier()

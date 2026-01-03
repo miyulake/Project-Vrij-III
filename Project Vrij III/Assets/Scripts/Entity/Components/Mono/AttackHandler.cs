@@ -22,7 +22,7 @@ public class AttackHandler : EntityComponent, ITickable, IResettable, IPausable
     {
         base.Initialize(entity);
         m_Hitboxes = GetComponentsInChildren<Hitbox>(true);
-        m_AllMoves = Entity.GetCharacter().GetAllMoves();
+        m_AllMoves = Entity.Character.GetAllMoves();
     }
 
     public void Tick()

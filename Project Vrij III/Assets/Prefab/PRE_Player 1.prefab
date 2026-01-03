@@ -689,7 +689,6 @@ GameObject:
   m_Component:
   - component: {fileID: 420029039700872631}
   - component: {fileID: 5908979547463451878}
-  - component: {fileID: 1801499076957440997}
   - component: {fileID: 420104190912164710}
   - component: {fileID: 3025373385934276473}
   - component: {fileID: 8387632929233602559}
@@ -697,9 +696,7 @@ GameObject:
   - component: {fileID: 3649434061026812996}
   - component: {fileID: 8206493709175112930}
   - component: {fileID: 1882542023021585692}
-  - component: {fileID: 5017755581437723804}
-  - component: {fileID: 535432736144724583}
-  - component: {fileID: 6727671721480798848}
+  - component: {fileID: 4184859856407825738}
   - component: {fileID: 4538461412856120102}
   - component: {fileID: 5857387183413530615}
   - component: {fileID: 6723355436757616457}
@@ -742,18 +739,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Entity
   m_Character: {fileID: 11400000, guid: 0e224ba528c39214590cda33ab30820d, type: 2}
   m_Definition: {fileID: 11400000, guid: 0bb8d429c08fac0499c3f0dc9275380e, type: 2}
---- !u!114 &1801499076957440997
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2661417437704909611}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9f96b33a98fdd724a8a75a35f030f962, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &420104190912164710
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -951,7 +936,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   m_TurnDuration: 0.2
---- !u!114 &5017755581437723804
+--- !u!114 &4184859856407825738
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -960,36 +945,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 2661417437704909611}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cce2cc90fa35d624c9d5f2ced63d721e, type: 3}
+  m_Script: {fileID: 11500000, guid: 53810fcd6708e9644be1cec90bc1849b, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EntityAnimator
+  m_EditorClassIdentifier: Assembly-CSharp::EntityView
+  m_RigidBody2D: {fileID: 5857387183413530615}
+  m_EntityCollider: {fileID: 6723355436757616457}
   m_Animator: {fileID: 752103092993127942}
---- !u!114 &535432736144724583
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2661417437704909611}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 73c9928650cd6e6449b7955d07983b9c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EntityAudio
-  audioSource: {fileID: 5116616940603786591}
---- !u!114 &6727671721480798848
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2661417437704909611}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0eb27713535a47e4da1216bc9ff0556a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_ShakeTarget: {fileID: 7506461674159890301}
+  m_Model: {fileID: 7506461674159890301}
+  m_AudioSource: {fileID: 5116616940603786591}
 --- !u!114 &4538461412856120102
 MonoBehaviour:
   m_ObjectHideFlags: 0

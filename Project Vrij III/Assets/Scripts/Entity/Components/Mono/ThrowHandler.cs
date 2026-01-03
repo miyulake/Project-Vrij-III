@@ -9,7 +9,7 @@ public class ThrowHandler : EntityComponent, ITickable
     [Range(0.05f, 0.25f)] [SerializeField] private float m_TurnDuration = 0.2f;
     [SerializeField] private AudioClip m_CaughtSound;
     [SerializeField] private AudioClip m_ClankSound;
-    private CapsuleCollider2D m_PlayerCollider;
+    private CapsuleCollider2D m_EntityCollider;
     private float m_TurnTime = -1f;
     private float m_StartY;
     private bool m_GrabConnected;
@@ -17,7 +17,7 @@ public class ThrowHandler : EntityComponent, ITickable
     public override void Initialize(Entity entity)
     {
         base.Initialize(entity);
-        m_PlayerCollider = GetComponent<CapsuleCollider2D>();
+        m_EntityCollider = GetComponent<CapsuleCollider2D>();
     }
 
     public void Tick() => HandleThrow();
@@ -34,12 +34,12 @@ public class ThrowHandler : EntityComponent, ITickable
         {
             if (m_TurnTime < 0f) m_TurnTime = 0f;
 
-            m_PlayerCollider.enabled = false;
+            m_EntityCollider.enabled = false;
             Opponent.transform.position = m_ThrowAnchor.transform.position;
         }
         else
         {
-            m_PlayerCollider.enabled = true;
+            m_EntityCollider.enabled = true;
             m_TurnTime = -1f;
             m_GrabConnected = false;
         }

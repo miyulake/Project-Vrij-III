@@ -1,13 +1,14 @@
 using Game.Entities;
 using UnityEngine;
 
-public class ShakeController : EntityComponent, ITickable, IResettable
+public class ShakeController : EntityContext, IEntityComponent, ITickable, IResettable
 {
-    [SerializeField] private Transform m_ShakeTarget;
     private float m_ShakeDuration;
     private float m_ShakeMagnitude;
     private float m_ShakeTimer;
     private Vector3 m_OriginalPosition;
+
+    public void Initialize(Entity entity) => SetEntity(entity);
 
     public void Tick()
     {
@@ -22,8 +23,8 @@ public class ShakeController : EntityComponent, ITickable, IResettable
             var offsetY = Random.Range(-1f, 1f) * currentMagnitude;
             var shakeOffset = new Vector3(offsetX, offsetY, 0f);
 
-            m_ShakeTarget.localPosition = m_OriginalPosition + shakeOffset;
-            if (m_ShakeTimer <= 0f) m_ShakeTarget.localPosition = m_OriginalPosition;
+            ViewComp.Model.localPosition = m_OriginalPosition + shakeOffset;
+            if (m_ShakeTimer <= 0f) ViewComp.Model.localPosition = m_OriginalPosition;
         }
     }
 
@@ -34,12 +35,12 @@ public class ShakeController : EntityComponent, ITickable, IResettable
         m_ShakeMagnitude = 0f;
 
         m_OriginalPosition = Vector3.zero;
-        m_ShakeTarget.localPosition = Vector3.zero;
+        ViewComp.Model.localPosition = Vector3.zero;
     }
 
     public void TriggerShake(float duration, float magnitude)
     {
-        if (m_ShakeTimer <= 0f) m_OriginalPosition = m_ShakeTarget.localPosition;
+        if (m_ShakeTimer <= 0f) m_OriginalPosition = ViewComp.Model.localPosition;
 
         m_ShakeDuration = duration;
         m_ShakeTimer = duration;

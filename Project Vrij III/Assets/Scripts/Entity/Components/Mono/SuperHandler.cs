@@ -14,7 +14,7 @@ public class SuperHandler : EntityComponent, ITickable
     public override void Initialize(Entity entity)
     {
         base.Initialize(entity);
-        m_AllSupers = Entity.GetCharacter().GetAllSupers();
+        m_AllSupers = Entity.Character.GetAllSupers();
         m_OriginalAuraSize = m_Aura.transform.localScale;
         m_Aura.transform.localScale = Vector3.zero;
     }

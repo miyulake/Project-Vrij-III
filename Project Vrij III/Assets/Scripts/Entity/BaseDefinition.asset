@@ -15,6 +15,8 @@ MonoBehaviour:
   components:
   - assemblyQualifiedName: StateMachine, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
+  - assemblyQualifiedName: TwoDMovement, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
   - assemblyQualifiedName: EntityResources, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
   - assemblyQualifiedName: EntityResolver, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
@@ -22,6 +24,12 @@ MonoBehaviour:
   - assemblyQualifiedName: EntityEffects, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
   - assemblyQualifiedName: EntityPhysics, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - assemblyQualifiedName: EntityAnimator, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - assemblyQualifiedName: EntityAudio, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - assemblyQualifiedName: ShakeController, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
   - assemblyQualifiedName: ComboTracker, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
