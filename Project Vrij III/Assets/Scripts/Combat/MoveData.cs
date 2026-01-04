@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Move", menuName = "CombatSO/SingleData/Move", order = 0)]
+[CreateAssetMenu(fileName = "Move", menuName = "CombatSO/Single Data/Move", order = 0)]
 public class MoveData : ScriptableObject
 {
     [Header("General")]

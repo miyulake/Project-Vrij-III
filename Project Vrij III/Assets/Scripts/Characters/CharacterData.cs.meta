@@ -4,7 +4,10 @@ MonoImporter:
   externalObjects: {}
   serializedVersion: 2
   defaultReferences:
-  - genericMoves: {fileID: 11400000, guid: b6a754480d45e7a48a5c334374291d55, type: 2}
+  - combat: {fileID: 11400000, guid: 34311d4a9e12a534e9019e347ce0ddfd, type: 2}
+  - orientation: {fileID: 11400000, guid: b27c9bd7dbdf67a4aa345618e07c907f, type: 2}
+  - allMoves: {instanceID: 0}
+  - allSupers: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

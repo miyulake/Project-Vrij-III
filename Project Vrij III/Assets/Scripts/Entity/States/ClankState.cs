@@ -5,7 +5,7 @@ public class ClankState : EntityState
     public override void OnEnter()
     {
         ComboComp.Reset();
-        ResolverComp.ResolveHit(ThrowComp.GetClank());
+        ResolverComp.ResolveHit(ThrowComp.Clank);
         OrientationComp.ForceFixOrientation();
     }
 }

@@ -5,8 +5,10 @@ using System;
 public class EntityResolver : EntityContext, IEntityComponent
 {
     public event Action<ContactType> OnHitTypeChanged;
-    public MoveData StoredMove { get; private set; }
-    public bool IsForced { get; private set; } = false;
+
+    private MoveData m_StoredMove;
+    private ContactType m_StoredContactType;
+    private ContactData m_StoredContactData;
 
     public void Initialize(Entity entity) => SetEntity(entity);
 
@@ -52,14 +54,18 @@ public class EntityResolver : EntityContext, IEntityComponent
     private void ApplyContact(ContactData data, ContactType type, MoveData move)
     {
         // Throw
-        if (move.moveType == MoveType.GRAB && type != ContactType.COUNTER && !IsForced)
+        if (move.moveType == MoveType.GRAB && m_StoredMove == null)
         {
-            StoredMove = move;
-            StateMachine.ChangeState<CaughtState>(false, move.breakFrames);
+            m_StoredMove = move;
+            m_StoredContactType = DetermineContact(move);
+            m_StoredContactData = GetContactData(move, m_StoredContactType);
+
+            var breakFrames = m_StoredContactType == ContactType.COUNTER ? 0 : move.breakFrames;
+            StateMachine.ChangeState<CaughtState>(false, breakFrames);
             return;
         }
 
-        // Misc checks
+        // Game state checks
         var usingPaint = GameManager.Instance.CurrentMode == GameMode.PAINT;
         var inGameplay = RoundManager.Instance.CurrentState == RoundState.GAMEPLAY;
 
@@ -100,9 +106,15 @@ public class EntityResolver : EntityContext, IEntityComponent
 
         // Audio
         AudioComp.Play(data.sound);
-
-        IsForced = false;
     }
 
-    public void SetForceState(bool isForced) => IsForced = isForced;
+    public void ApplyStoredMove()
+    {
+        ApplyContact(m_StoredContactData, m_StoredContactType, m_StoredMove);
+
+        m_StoredMove = null;
+        m_StoredContactType = ContactType.NORMAL;
+        m_StoredContactData = null;
+    }
+
 }

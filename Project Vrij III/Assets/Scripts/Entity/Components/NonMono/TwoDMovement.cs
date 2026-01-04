@@ -10,7 +10,7 @@ public class TwoDMovement : EntityContext, IEntityComponent, ITickable
     public void Initialize(Entity entity) 
     {
         SetEntity(entity);
-        m_Settings = Entity.Character.GetMovement();
+        m_Settings = Entity.Character.Movement;
     }
 
     public void Tick()

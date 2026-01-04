@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: CHAR_Puncher
   m_EditorClassIdentifier: Assembly-CSharp::CharacterData
   characterType: 1
-  characterSettings:
+  combat: {fileID: 11400000, guid: 34311d4a9e12a534e9019e347ce0ddfd, type: 2}
+  orientation: {fileID: 11400000, guid: b27c9bd7dbdf67a4aa345618e07c907f, type: 2}
+  m_CharacterSettings:
     movement:
       baseSpeed: 10
       blockSpeed: 3

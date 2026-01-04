@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Super", menuName = "CombatSO/SingleData/Super", order = 1)]
+[CreateAssetMenu(fileName = "Super", menuName = "CombatSO/Single Data/Super", order = 1)]
 public class SuperData : MoveData
 {
     [Header("Super")]

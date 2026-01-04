@@ -10,14 +10,14 @@
         AnimatorComp.PlayEnd("Stun");
         Entity.Pause();
         Opponent.Pause();
-        AudioComp.Play(ThrowComp.GetCaughtSound());
+        AudioComp.Play(ThrowComp.CaughtSound);
     }
 
     public override void Tick()
     {
         if (Entity.Get<InputReader>().Grab)
         {
-            AudioComp.Play(ThrowComp.GetClankSound());
+            AudioComp.Play(ThrowComp.ClankSound);
             Opponent.Get<StateMachine>().ChangeState<ClankState>();
             StateMachine.ChangeState<ClankState>();
             return;
@@ -26,8 +26,8 @@
         m_BreakFrames--;
         if (m_BreakFrames <= 0)
         {
-            ResolverComp.SetForceState(true);
-            ResolverComp.ResolveHit(ResolverComp.StoredMove);
+            ResolverComp.ApplyStoredMove();
+            Opponent.Get<EntityOrientation>().ManualTurn(true);
         }
     }
 

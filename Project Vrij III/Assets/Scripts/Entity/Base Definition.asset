@@ -10,16 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7a2c7ea98d6c5e84e85d7bef0ab12778, type: 3}
-  m_Name: BaseDefinition
+  m_Name: Base Definition
   m_EditorClassIdentifier: Assembly-CSharp::EntityDefinition
   components:
   - assemblyQualifiedName: StateMachine, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
   - assemblyQualifiedName: TwoDMovement, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
+  - assemblyQualifiedName: AttackHandler, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
   - assemblyQualifiedName: EntityResources, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
   - assemblyQualifiedName: EntityResolver, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - assemblyQualifiedName: EntityOrientation, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
   - assemblyQualifiedName: EntityEffects, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null

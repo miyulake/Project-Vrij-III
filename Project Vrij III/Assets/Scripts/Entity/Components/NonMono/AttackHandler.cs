@@ -1,13 +1,11 @@
 ﻿using Game.Entities;
 using UnityEngine;
 
-public class AttackHandler : EntityComponent, ITickable, IResettable, IPausable
+public class AttackHandler : EntityContext, IEntityComponent, ITickable, IResettable, IPausable
 {
     public bool IsPaused { get; private set; }
 
-    [Header("Buffer Settings")]
-    [SerializeField] private float m_BufferCrossfade = 0.1f;
-    [Range(1, 10)] [SerializeField] private int m_BufferFrames = 10;
+    private CombatSettings m_Settings;
 
     private Hitbox[] m_Hitboxes;
     private MoveData[] m_AllMoves;
@@ -18,11 +16,12 @@ public class AttackHandler : EntityComponent, ITickable, IResettable, IPausable
     private MoveData m_BufferedMove;
     private float m_BufferedCrossfade;
 
-    public override void Initialize(Entity entity)
+    public void Initialize(Entity entity)
     {
-        base.Initialize(entity);
-        m_Hitboxes = GetComponentsInChildren<Hitbox>(true);
-        m_AllMoves = Entity.Character.GetAllMoves();
+        SetEntity(entity);
+        m_Settings = Entity.Character.combat;
+        m_Hitboxes = ViewComp.Hitboxes;
+        m_AllMoves = Entity.Character.AllMoves;
     }
 
     public void Tick()
@@ -95,7 +94,7 @@ public class AttackHandler : EntityComponent, ITickable, IResettable, IPausable
         // Check buffer at the end of the current move
         if (m_BufferedMove != null)
         {
-            StartMove(m_BufferedMove, m_BufferCrossfade);
+            StartMove(m_BufferedMove, m_Settings.bufferCrossfade);
             return;
         }
 
@@ -133,12 +132,10 @@ public class AttackHandler : EntityComponent, ITickable, IResettable, IPausable
     private void CheckPostMoveBuffer()
     {
         // Only allow buffering during the buffer window of the current move
-        if (m_BufferedMove != null || m_CurrentFrame < m_CurrentMove.frames.TotalFrames() - m_BufferFrames) return;
+        if (m_BufferedMove != null || m_CurrentFrame < m_CurrentMove.frames.TotalFrames() - m_Settings.bufferFrames) return;
 
         for (int i = 0; i < m_AllMoves.Length; i++)
-        {
             if (WasInputPressed(m_AllMoves[i].input)) m_BufferedMove = m_AllMoves[i];
-        }
     }
 
     private void HandleCancelBuffering()

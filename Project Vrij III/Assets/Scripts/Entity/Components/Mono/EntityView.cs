@@ -3,7 +3,8 @@ using Game.Entities;
 
 public class EntityView : MonoBehaviour, IEntityComponent
 {
-    [SerializeField] private Rigidbody2D m_RigidBody2D;
+    [SerializeField] private Hitbox[] m_Hitboxes;
+    [SerializeField] private Rigidbody2D m_RigidBody;
     [SerializeField] private CapsuleCollider2D m_EntityCollider;
     [SerializeField] private Animator m_Animator;
     [SerializeField] private Transform m_Model;
@@ -11,7 +12,8 @@ public class EntityView : MonoBehaviour, IEntityComponent
 
     public void Initialize(Entity entity) { }
 
-    public Rigidbody2D RigidBodyTwoD          => m_RigidBody2D;
+    public Hitbox[] Hitboxes                => m_Hitboxes;
+    public Rigidbody2D RigidBodyTwoD        => m_RigidBody;
     public CapsuleCollider2D EntityCollider => m_EntityCollider;
     public Animator Animator                => m_Animator;
     public Transform Model                  => m_Model;
