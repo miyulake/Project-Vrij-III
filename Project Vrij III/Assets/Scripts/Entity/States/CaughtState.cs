@@ -10,14 +10,14 @@
         AnimatorComp.PlayEnd("Stun");
         Entity.Pause();
         Opponent.Pause();
-        AudioComp.Play(ThrowComp.CaughtSound);
+        AudioComp.GetPlay(SoundType.ThrowCaught);
     }
 
     public override void Tick()
     {
         if (Entity.Get<InputReader>().Grab)
         {
-            AudioComp.Play(ThrowComp.ClankSound);
+            AudioComp.GetPlay(SoundType.ThrowBreak);
             Opponent.Get<StateMachine>().ChangeState<ClankState>();
             StateMachine.ChangeState<ClankState>();
             return;

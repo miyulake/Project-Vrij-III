@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c7494ca2b4545e448c573e9e51f44e9, type: 3}
+  m_Name: PUNCH_Audio
+  m_EditorClassIdentifier: Assembly-CSharp::AudioData
+  sounds:
+  - sound: 0
+    clip: {fileID: 8300000, guid: a65ef2705e2ae74499cbc4205328e318, type: 3}
+  - sound: 1
+    clip: {fileID: 8300000, guid: 88b8eee774e8cf5458405ec3d6c92590, type: 3}
+  - sound: 2
+    clip: {fileID: 8300000, guid: 8bc429b022693a24192ea4da2c624fd1, type: 3}
+  - sound: 3
+    clip: {fileID: 8300000, guid: b8d421373c74e374989e0c5dccfa3b61, type: 3}

@@ -3,6 +3,7 @@
 public class Hitbox : MonoBehaviour
 {
     [SerializeField] private Entity m_Entity;
+    [Tooltip("Only pre-set MoveData for custom active hitboxes!")]
     [SerializeField] private MoveData m_MoveData;
 
     private void OnTriggerEnter2D(Collider2D col)

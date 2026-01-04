@@ -20,4 +20,7 @@ public class CharacterData : ScriptableObject
     [Header("Moves")]
     public Moves allMoves;
     public Supers allSupers;
+
+    [Header("Audio")]
+    public AudioData audio;
 }

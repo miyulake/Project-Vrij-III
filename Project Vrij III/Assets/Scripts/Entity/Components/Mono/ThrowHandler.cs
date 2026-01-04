@@ -5,13 +5,9 @@ public class ThrowHandler : EntityComponent, ITickable
 {
     [SerializeField] MoveData m_ClankMove;
     [SerializeField] private GameObject m_ThrowAnchor;
-    [SerializeField] private AudioClip m_CaughtSound;
-    [SerializeField] private AudioClip m_ClankSound;
     private bool m_GrabConnected;
 
-    public MoveData Clank        => m_ClankMove;
-    public AudioClip CaughtSound => m_CaughtSound;
-    public AudioClip ClankSound  => m_ClankSound;
+    public MoveData Clank => m_ClankMove;
 
     public void Tick() => HandleThrow();
 

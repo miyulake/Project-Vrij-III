@@ -6,6 +6,7 @@ MonoImporter:
   defaultReferences:
   - combat: {fileID: 11400000, guid: 34311d4a9e12a534e9019e347ce0ddfd, type: 2}
   - orientation: {fileID: 11400000, guid: b27c9bd7dbdf67a4aa345618e07c907f, type: 2}
+  - audio: {instanceID: 0}
   - allMoves: {instanceID: 0}
   - allSupers: {instanceID: 0}
   executionOrder: 0
