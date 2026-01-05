@@ -806,35 +806,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 275b41ef90266aa439044c2546422235, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ClankMove: {fileID: 11400000, guid: 3ef57554f6ad7624485fc444b101c006, type: 2}
   m_ThrowAnchor: {fileID: 1362705945310003443}
-  m_TurnCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 2
-      outSlope: 2
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  m_TurnDuration: 0.2
-  m_CaughtSound: {fileID: 8300000, guid: a65ef2705e2ae74499cbc4205328e318, type: 3}
-  m_ClankSound: {fileID: 8300000, guid: 88b8eee774e8cf5458405ec3d6c92590, type: 3}
 --- !u!114 &4549600266536112635
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -848,8 +820,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TauntLogic
   m_PowerUpParticle: {fileID: 4528192033424363454}
-  m_Active: {fileID: 8300000, guid: 8bc429b022693a24192ea4da2c624fd1, type: 3}
-  m_Inactive: {fileID: 8300000, guid: b8d421373c74e374989e0c5dccfa3b61, type: 3}
   m_PowerDuration: 7
 --- !u!114 &3649434061026812996
 MonoBehaviour:
@@ -882,7 +852,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EntityVFX
   m_ParticleSpawn: {fileID: 3112636467991651300}
   m_ParticleZ: -3
-  m_OpponentColor: {r: 0, g: 0, b: 1, a: 1}
 --- !u!114 &4184859856407825738
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1540,10 +1509,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8041591808666425554}
-  - component: {fileID: 23074451809010711}
-  - component: {fileID: 5981487860297123710}
-  - component: {fileID: 782663718256898033}
   - component: {fileID: 1013411067359823092}
+  - component: {fileID: 782663718256898033}
   m_Layer: 0
   m_Name: Right Eye
   m_TagString: Untagged
@@ -1566,100 +1533,14 @@ Transform:
   m_Children: []
   m_Father: {fileID: 5210941529898867830}
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: -60}
---- !u!114 &23074451809010711
-MonoBehaviour:
+--- !u!33 &1013411067359823092
+MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3930755945648692916}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8233d90336aea43098adf6dbabd606a2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_MeshFormatVersion: 2
-  m_Faces:
-  - m_Indexes: 000000000100000002000000010000000300000002000000
-    m_SmoothingGroup: 0
-    m_Uv:
-      m_UseWorldSpace: 0
-      m_FlipU: 0
-      m_FlipV: 0
-      m_SwapUV: 0
-      m_Fill: 1
-      m_Scale: {x: 0.4, y: 0.4}
-      m_Offset: {x: -0.33, y: -0.6}
-      m_Rotation: 0
-      m_Anchor: 9
-    m_Material: {fileID: 0}
-    m_SubmeshIndex: 0
-    m_ManualUV: 0
-    elementGroup: -1
-    m_TextureGroup: -1
-  m_SharedVertices:
-  - m_Vertices: 00000000
-  - m_Vertices: 01000000
-  - m_Vertices: 02000000
-  - m_Vertices: 03000000
-  m_SharedTextures: []
-  m_Positions:
-  - {x: 0.12515172, y: 0.12515195, z: 0.7503034}
-  - {x: 0.1251521, y: 0.12515238, z: -0.7503038}
-  - {x: -0.6251547, y: -0.62514985, z: 0.75030476}
-  - {x: -0.6251541, y: -0.6251492, z: -0.7503024}
-  m_Textures0:
-  - {x: 0.4007966, y: 0.90012133}
-  - {x: 0.40079683, y: 0.29987848}
-  - {x: -0.02363953, y: 0.9001219}
-  - {x: -0.023639172, y: 0.29987904}
-  m_Textures2: []
-  m_Textures3: []
-  m_Tangents:
-  - {x: 0.7071089, y: 0.7071046, z: 0.00000011234615, w: -1}
-  - {x: 0.70710903, y: 0.7071046, z: 0.000000049151414, w: -1}
-  - {x: 0.70710903, y: 0.7071046, z: 0.000000049151414, w: -1}
-  - {x: 0.70710903, y: 0.7071046, z: -0.000000014043326, w: -1}
-  m_Colors: []
-  m_UnwrapParameters:
-    m_HardAngle: 88
-    m_PackMargin: 20
-    m_AngleError: 8
-    m_AreaError: 15
-  m_PreserveMeshAssetOnDestroy: 0
-  assetGuid: 
-  m_Mesh: {fileID: 0}
-  m_VersionIndex: 2397
-  m_IsSelectable: 1
-  m_SelectedFaces: 
-  m_SelectedEdges: []
-  m_SelectedVertices: 
---- !u!114 &5981487860297123710
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3930755945648692916}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1ca002da428252441b92f28d83c8a65f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Shape:
-    rid: 7464588343273848998
-  m_ShapeRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_UnmodifiedMeshVersion: 61
-  m_Size: {x: 2, y: 0, z: 1}
-  m_LocalCenter: {x: 0, y: 0, z: 0}
-  references:
-    version: 2
-    RefIds:
-    - rid: 7464588343273848998
-      type: {class: Plane, ns: UnityEngine.ProBuilder.Shapes, asm: Unity.ProBuilder}
-      data:
-        m_HeightSegments: 1
-        m_WidthSegments: 0
+  m_Mesh: {fileID: 4300000, guid: 69ab2e4a4ef0a554cb3e9b1f17c5db41, type: 2}
 --- !u!23 &782663718256898033
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1708,14 +1589,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!33 &1013411067359823092
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3930755945648692916}
-  m_Mesh: {fileID: 0}
 --- !u!1 &4192466028798614277
 GameObject:
   m_ObjectHideFlags: 0
@@ -3692,10 +3565,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9010399694990290105}
-  - component: {fileID: 2665316495032084173}
-  - component: {fileID: 3691411928713346989}
-  - component: {fileID: 1617305766093429003}
   - component: {fileID: 7372868152233205685}
+  - component: {fileID: 1617305766093429003}
   m_Layer: 0
   m_Name: Left Eye
   m_TagString: Untagged
@@ -3718,100 +3589,14 @@ Transform:
   m_Children: []
   m_Father: {fileID: 5210941529898867830}
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: -120}
---- !u!114 &2665316495032084173
-MonoBehaviour:
+--- !u!33 &7372868152233205685
+MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8608740383084002493}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8233d90336aea43098adf6dbabd606a2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_MeshFormatVersion: 2
-  m_Faces:
-  - m_Indexes: 000000000100000002000000010000000300000002000000
-    m_SmoothingGroup: 0
-    m_Uv:
-      m_UseWorldSpace: 0
-      m_FlipU: 0
-      m_FlipV: 0
-      m_SwapUV: 0
-      m_Fill: 1
-      m_Scale: {x: 0.4, y: 0.4}
-      m_Offset: {x: -0.33, y: -0.6}
-      m_Rotation: 0
-      m_Anchor: 9
-    m_Material: {fileID: 0}
-    m_SubmeshIndex: 0
-    m_ManualUV: 0
-    elementGroup: -1
-    m_TextureGroup: -1
-  m_SharedVertices:
-  - m_Vertices: 00000000
-  - m_Vertices: 01000000
-  - m_Vertices: 02000000
-  - m_Vertices: 03000000
-  m_SharedTextures: []
-  m_Positions:
-  - {x: -0.62607276, y: -0.62606865, z: -0.7521403}
-  - {x: -0.626073, y: -0.6260693, z: 0.7521426}
-  - {x: 0.12607121, y: 0.12607051, z: -0.75214165}
-  - {x: 0.12607126, y: 0.12607008, z: 0.75214136}
-  m_Textures0:
-  - {x: -0.024159104, y: 0.29914388}
-  - {x: -0.024159342, y: 0.9008571}
-  - {x: 0.40131646, y: 0.29914334}
-  - {x: 0.40131634, y: 0.90085655}
-  m_Textures2: []
-  m_Textures3: []
-  m_Tangents:
-  - {x: 0.7071091, y: 0.70710456, z: -0.000000028017904, w: -1}
-  - {x: 0.7071091, y: 0.70710456, z: 0.00000002801784, w: -1}
-  - {x: 0.7071091, y: 0.70710456, z: 0.00000002801784, w: -1}
-  - {x: 0.7071091, y: 0.7071045, z: 0.00000008405359, w: -1}
-  m_Colors: []
-  m_UnwrapParameters:
-    m_HardAngle: 88
-    m_PackMargin: 20
-    m_AngleError: 8
-    m_AreaError: 15
-  m_PreserveMeshAssetOnDestroy: 0
-  assetGuid: 
-  m_Mesh: {fileID: 0}
-  m_VersionIndex: 1329
-  m_IsSelectable: 1
-  m_SelectedFaces: 
-  m_SelectedEdges: []
-  m_SelectedVertices: 
---- !u!114 &3691411928713346989
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8608740383084002493}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1ca002da428252441b92f28d83c8a65f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Shape:
-    rid: 7464588343273848998
-  m_ShapeRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_UnmodifiedMeshVersion: 61
-  m_Size: {x: 2, y: 0, z: 1}
-  m_LocalCenter: {x: 0, y: 0, z: 0}
-  references:
-    version: 2
-    RefIds:
-    - rid: 7464588343273848998
-      type: {class: Plane, ns: UnityEngine.ProBuilder.Shapes, asm: Unity.ProBuilder}
-      data:
-        m_HeightSegments: 1
-        m_WidthSegments: 0
+  m_Mesh: {fileID: 4300000, guid: a88f17ed3e3aecc46a25862aa8944585, type: 2}
 --- !u!23 &1617305766093429003
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -3860,14 +3645,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!33 &7372868152233205685
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8608740383084002493}
-  m_Mesh: {fileID: 0}
 --- !u!1 &8786866977756950329
 GameObject:
   m_ObjectHideFlags: 0

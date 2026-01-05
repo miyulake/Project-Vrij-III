@@ -17,6 +17,9 @@ public class EntityAudio : EntityContext, IEntityComponent
         if (clip) ViewComp.AudioSource.PlayOneShot(clip, volume);
     }
 
-    public void Play(AudioClip clip) => ViewComp.AudioSource.PlayOneShot(clip);
+    public void Play(AudioClip clip)
+    {
+        if (clip) ViewComp.AudioSource.PlayOneShot(clip);
+    }
 
 }

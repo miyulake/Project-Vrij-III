@@ -4,7 +4,15 @@ public class EntityVFX : EntityComponent
 {
     [SerializeField] private Transform m_ParticleSpawn;
     [SerializeField] private float m_ParticleZ = -3f;
-    [SerializeField] private Color m_OpponentColor = Color.blue;
+    private PaintSettings m_PaintSettings;
+
+    public Color PaintColor => m_PaintSettings.color;
+
+    public override void Initialize(Entity entity)
+    {
+        base.Initialize(entity);
+        m_PaintSettings = Entity.Character.Paint;
+    }
 
     public void SpawnParticles(ContactData data)
     {
@@ -39,7 +47,7 @@ public class EntityVFX : EntityComponent
         var renderer = paint.GetComponent<Renderer>();
         var block = new MaterialPropertyBlock();
         renderer.GetPropertyBlock(block);
-        block.SetColor("_BaseColor", m_OpponentColor);
+        block.SetColor("_BaseColor", Opponent.Get<EntityVFX>().PaintColor);
         renderer.SetPropertyBlock(block);
     }
 }

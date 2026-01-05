@@ -6,6 +6,7 @@ public class CharacterSettings
 {
     public MovementSettings movement;
     public EffectSettings effects;
+    public PaintSettings paint;
 }
 
 [System.Serializable]
@@ -25,6 +26,13 @@ public class MovementSettings
 public class EffectSettings
 {
     public DamageEffect taunt;
+}
+
+[System.Serializable]
+public class PaintSettings
+{
+    [ColorUsage(true, true)]
+    public Color color = Color.red;
 }
 
 // Add more customizable settings below...

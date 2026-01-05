@@ -2,7 +2,7 @@ using Game.Entities;
 using UnityEngine;
 using System;
 
-public class EntityResolver : EntityContext, IEntityComponent
+public class EntityResolver : EntityContext, IEntityComponent, IResettable
 {
     public event Action<ContactType> OnHitTypeChanged;
 
@@ -117,4 +117,10 @@ public class EntityResolver : EntityContext, IEntityComponent
         m_StoredContactData = null;
     }
 
+    public void Reset()
+    {
+        m_StoredMove = null;
+        m_StoredContactType = ContactType.NORMAL;
+        m_StoredContactData = null;
+    }
 }

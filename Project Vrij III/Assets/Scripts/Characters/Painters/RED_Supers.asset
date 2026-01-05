@@ -10,7 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1153696f3d7e9d9418dc797c43485f0b, type: 3}
-  m_Name: DUM_Supers
+  m_Name: RED_Supers
   m_EditorClassIdentifier: Assembly-CSharp::Supers
   entries:
-  - {fileID: 0}
+  - {fileID: 11400000, guid: 19cd92de1d66fb547984077d67b0dc03, type: 2}
+  - {fileID: 11400000, guid: 972181784fed8944dbcf81f5cfa029a6, type: 2}
+  - {fileID: 11400000, guid: 6c66942525c2c3c4697c812bf012331c, type: 2}

@@ -85,12 +85,10 @@ public class SuperHandler : EntityComponent, ITickable
         m_AuraCurveTime = 0;
     }
 
-    public SuperData GetSuperData()
+    private SuperData GetSuperData()
     {
         for (int i = 0; i < m_AllSupers.Length; i++)
-        {
             if (m_AllSupers[i].superType == m_CurrentSuper) return m_AllSupers[i];
-        }
         return null;
     }
 }

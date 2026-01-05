@@ -96,6 +96,10 @@ PrefabInstance:
       propertyPath: m_DefaultControlScheme
       value: Gamepad
       objectReference: {fileID: 0}
+    - target: {fileID: 5908979547463451878, guid: bf3c91c8ca6848d42bb9004d65c243d6, type: 3}
+      propertyPath: m_Character
+      value: 
+      objectReference: {fileID: 11400000, guid: 172aae4d6e3e64345b992d4134d4ee6e, type: 2}
     - target: {fileID: 8206493709175112930, guid: bf3c91c8ca6848d42bb9004d65c243d6, type: 3}
       propertyPath: opponentColor.b
       value: 0

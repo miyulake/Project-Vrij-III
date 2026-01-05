@@ -6,9 +6,10 @@ MonoImporter:
   defaultReferences:
   - combat: {fileID: 11400000, guid: 34311d4a9e12a534e9019e347ce0ddfd, type: 2}
   - orientation: {fileID: 11400000, guid: b27c9bd7dbdf67a4aa345618e07c907f, type: 2}
+  - m_GenericMoves: {fileID: 11400000, guid: 4d18edd913f5f3b4cb156789ced90ac7, type: 2}
+  - m_AllMoves: {instanceID: 0}
+  - m_AllSupers: {instanceID: 0}
   - audio: {instanceID: 0}
-  - allMoves: {instanceID: 0}
-  - allSupers: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
