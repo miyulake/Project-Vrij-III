@@ -32,7 +32,7 @@ public class MoveData : ScriptableObject
     [Header("Animation")]
     public string animationName;
 
-    public virtual bool CanExecute(EntityResources resource) => true;
+    public virtual bool HasEnoughMeter(EntityResources resource) => false;
 }
 
 [System.Serializable]

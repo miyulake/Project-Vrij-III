@@ -27,7 +27,6 @@ public class CustomEditorWindow : EditorWindow
         window.Show();
     }
 
-
     private void OnGUI()
     {
         EditorGUILayout.Space();

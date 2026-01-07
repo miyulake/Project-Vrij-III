@@ -9,6 +9,8 @@ TO-DO:
 REFACTOR:
 - Different modes should have templates that can be called easily:
 for example, training mode should have infinite time and a dummy opponent as default.
+- Round manager is becoming a god script, round flow should have very simple phases and calls.
+- Make Entity completely monobehaviour free.
 
 BUG:
 - Hitboxes hit multiple times sometimes

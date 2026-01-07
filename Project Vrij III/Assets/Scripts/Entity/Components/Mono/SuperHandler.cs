@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class SuperHandler : EntityComponent, ITickable
 {
-    [SerializeField] private SuperType m_CurrentSuper;
     [SerializeField] private GameObject m_Aura;
     [SerializeField] private AnimationCurve m_AuraCurve;
     [SerializeField] private float m_AuraCurveDuration = 1f;
@@ -21,19 +20,29 @@ public class SuperHandler : EntityComponent, ITickable
 
     public void Tick()
     {
-        if (m_CurrentSuper == SuperType.NONE || RoundManager.Instance.CurrentState != RoundState.GAMEPLAY) return;
-#if UNITY_EDITOR
+        if (RoundManager.Instance.CurrentState != RoundState.GAMEPLAY) return;
+
+        #if UNITY_EDITOR
         if (Input.GetKeyDown(KeyCode.F1)) ResourcesComp.AddMeter(GameManager.Instance.GetMaxMeter());
-#endif
+        #endif
+
         UpdateAura();
-        Debug.Log($"Meter before super: {ResourcesComp.Meter.Current}");
-        var currentSuper = GetSuperData();
-        if (InputComp.Super && currentSuper.CanExecute(ResourcesComp) && IsInSuperCondition(currentSuper))
-            ExecuteSuper(currentSuper);
+
+        if (InputComp.Super)
+        {
+            Debug.Log($"Meter before super: {ResourcesComp.Meter.Current}");
+            for (int i = 0; i < m_AllSupers.Length; i++)
+            {
+                if (m_AllSupers[i].HasEnoughMeter(ResourcesComp) && IsInSuperCondition(m_AllSupers[i]))
+                    ExecuteSuper(m_AllSupers[i]);
+            }
+        }
     }
 
     private void ExecuteSuper(SuperData data)
     {
+        // TO-DO: Check for specific scenarios and check if the super can be performed within those scenarios.
+        /*
         switch (data.superType)
         {
             case SuperType.CHAIN:
@@ -46,6 +55,11 @@ public class SuperHandler : EntityComponent, ITickable
                 ActivateTaunt();
                 break;
         }
+        */
+
+        // TEST
+        ActivateTaunt();
+
         AttackComp.StartMove(data);
         StateMachine.ChangeState<SuperState>(false, data.freezeFrames, data.activationFrames);
         ResourcesComp.Meter.Modify(-data.meterCost);
@@ -67,13 +81,11 @@ public class SuperHandler : EntityComponent, ITickable
     private void UpdateAura()
     {
         var curveDirection = m_Aura.activeSelf ? 1f : -1f;
-
         m_AuraCurveTime += curveDirection * Time.deltaTime;
         m_AuraCurveTime = Mathf.Clamp(m_AuraCurveTime, 0f, m_AuraCurveDuration);
 
         var time = m_AuraCurveTime / m_AuraCurveDuration;
         var curve = m_AuraCurve.Evaluate(time);
-
         m_Aura.transform.localScale = Vector3.Lerp(Vector3.zero, m_OriginalAuraSize, curve);
 
         if (m_AuraCurveTime <= 0f) m_Aura.SetActive(false);
@@ -83,12 +95,5 @@ public class SuperHandler : EntityComponent, ITickable
     {
         m_Aura.SetActive(true);
         m_AuraCurveTime = 0;
-    }
-
-    private SuperData GetSuperData()
-    {
-        for (int i = 0; i < m_AllSupers.Length; i++)
-            if (m_AllSupers[i].superType == m_CurrentSuper) return m_AllSupers[i];
-        return null;
     }
 }

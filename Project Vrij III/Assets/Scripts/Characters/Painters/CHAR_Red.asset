@@ -23,9 +23,13 @@ MonoBehaviour:
       acceleration: 250
       deceleration: 50
     effects:
+      tauntEffectDuration: 7
       taunt:
         additiveMultiplier: 0.15
         flatIncrease: 1
+    visuals:
+      baseMaterial: {fileID: 2100000, guid: f8d69792489548a4b9d81bbafea4b864, type: 2}
+      deadMaterial: {fileID: 2100000, guid: 4905789540b1c844ab2afaf3c81e9701, type: 2}
     paint:
       color: {r: 1, g: 0, b: 0, a: 1}
   m_AllMoves: {fileID: 11400000, guid: 51c66f1d50e3ab84ebea5825e1a0c706, type: 2}

@@ -37,7 +37,7 @@ RenderSettings:
   m_ReflectionBounces: 1
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
-  m_Sun: {fileID: 0}
+  m_Sun: {fileID: 410087040}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1124,7 +1124,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Hitbox
   m_Entity: {fileID: 0}
-  m_MoveData: {fileID: 11400000, guid: 4a1b73a3356eade4ca8ee5198f4b3406, type: 2}
+  m_MoveData: {fileID: 11400000, guid: 7a0b0132a70784a45a2e1fd63873f75d, type: 2}
 --- !u!4 &118279852
 Transform:
   m_ObjectHideFlags: 0

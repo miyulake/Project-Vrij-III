@@ -9,18 +9,15 @@ public static class PaintRegister
     {
         if (m_Count >= m_PaintObjects.Length)
         {
-            Debug.LogError("Register overflow!");
+            Debug.LogError("Paint register overflow!");
             return;
         }
-
         m_PaintObjects[m_Count++] = paint;
     }
 
     public static void ClearAll()
     {
-        for (int i = 0; i < m_Count; i++)
-            Object.Destroy(m_PaintObjects[i].gameObject);
-
+        for (int i = 0; i < m_Count; i++) Object.Destroy(m_PaintObjects[i].gameObject);
         m_Count = 0;
     }
 }

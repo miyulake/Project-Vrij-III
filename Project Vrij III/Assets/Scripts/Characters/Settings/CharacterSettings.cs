@@ -1,15 +1,17 @@
 using UnityEngine;
+using System;
 
 // Centralized settings class
-[System.Serializable]
+[Serializable]
 public class CharacterSettings
 {
     public MovementSettings movement;
     public EffectSettings effects;
+    public VisualsSettings visuals;
     public PaintSettings paint;
 }
 
-[System.Serializable]
+[Serializable]
 public class MovementSettings
 {
     [Range(1, 20)]
@@ -22,13 +24,22 @@ public class MovementSettings
     public float deceleration = 50f;
 }
 
-[System.Serializable]
+[Serializable]
 public class EffectSettings
 {
+    [Range(5, 10)]
+    public float tauntEffectDuration = 7;
     public DamageEffect taunt;
 }
 
-[System.Serializable]
+[Serializable]
+public class VisualsSettings
+{
+    public Material baseMaterial;
+    public Material deadMaterial;
+}
+
+[Serializable]
 public class PaintSettings
 {
     [ColorUsage(true, true)]

@@ -1,12 +1,17 @@
 using Game.Entities;
 using UnityEngine;
 
-public class TauntHandler : EntityComponent, ITickable, IResettable
+public class TauntHandler : EntityContext, IEntityComponent, ITickable, IResettable
 {
     public bool HasCompletedTaunt { get; private set; }
-    [SerializeField] private GameObject m_PowerUpParticle;
-    [SerializeField] private float m_PowerDuration = 10f;
+    private EffectSettings m_Settings;
     private float m_PowerTime = 0f;
+
+    public void Initialize(Entity entity)
+    {
+        SetEntity(entity);
+        m_Settings = Entity.Character.Effects;
+    }
 
     public void Tick() => HandlePowerTimer();
 
@@ -20,7 +25,7 @@ public class TauntHandler : EntityComponent, ITickable, IResettable
 
         HasCompletedTaunt = state;
 
-        m_PowerUpParticle.SetActive(HasCompletedTaunt);
+        ViewComp.TauntEffect.SetActive(HasCompletedTaunt);
 
         if (HasCompletedTaunt)
         {
@@ -35,7 +40,7 @@ public class TauntHandler : EntityComponent, ITickable, IResettable
         if (HasCompletedTaunt)
         {
             m_PowerTime += Time.deltaTime;
-            if (m_PowerTime >= m_PowerDuration)
+            if (m_PowerTime >= m_Settings.tauntEffectDuration)
             {
                 SetTauntPower(false);
                 HasCompletedTaunt = false;
@@ -47,7 +52,7 @@ public class TauntHandler : EntityComponent, ITickable, IResettable
     public void Reset()
     {
         HasCompletedTaunt = false;
-        m_PowerUpParticle.SetActive(false);
+        ViewComp.TauntEffect.SetActive(false);
         m_PowerTime = 0f;
     }
 }

@@ -5,7 +5,7 @@ public class DeadState : EntityState
     public override void OnEnter()
     {
         TauntComp.Reset();
-        VisualsComp.SetDeadFace();
+        VisualsComp.ApplyDeadVisuals();
         AnimatorComp.PlayEnd("Stun");
         Entity.Pause();
     }

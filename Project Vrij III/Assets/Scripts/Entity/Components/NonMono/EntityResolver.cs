@@ -81,7 +81,7 @@ public class EntityResolver : EntityContext, IEntityComponent, IResettable
         // Knockback
         var knockback = data.knockback;
         knockback.x *= -facingDirection;
-        PhysicsComp.ApplyKnockback(ViewComp.RigidBodyTwoD, knockback);
+        PhysicsComp.ApplyKnockback(knockback);
 
         // VFX
         VFXComp.SpawnParticles(data);
@@ -110,17 +110,17 @@ public class EntityResolver : EntityContext, IEntityComponent, IResettable
 
     public void ApplyStoredMove()
     {
+        if (m_StoredMove == null) return;
         ApplyContact(m_StoredContactData, m_StoredContactType, m_StoredMove);
-
-        m_StoredMove = null;
-        m_StoredContactType = ContactType.NORMAL;
-        m_StoredContactData = null;
+        ResetStoredMove();
     }
 
-    public void Reset()
+    public void ResetStoredMove()
     {
         m_StoredMove = null;
         m_StoredContactType = ContactType.NORMAL;
         m_StoredContactData = null;
     }
+
+    public void Reset() => ResetStoredMove();
 }

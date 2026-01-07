@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9c7494ca2b4545e448c573e9e51f44e9, type: 3}
-  m_Name: RED_Audio
+  m_Name: PNTR_Audio
   m_EditorClassIdentifier: Assembly-CSharp::AudioData
   sounds:
   - sound: 0

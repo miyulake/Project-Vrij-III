@@ -14,15 +14,14 @@ public class EntityOrientation : EntityContext, IEntityComponent, ITickable, IRe
 
     private bool m_ManualSmoothTurn = false;
 
-    public Transform Transform => Entity.transform;
-    public int FacingDirection => Transform.position.x < Opponent.transform.position.x ? 1 : -1;
+    public int FacingDirection => Entity.transform.position.x < Opponent.transform.position.x ? 1 : -1;
 
     public void Initialize(Entity entity)
     {
         SetEntity(entity);
         m_Settings = Entity.Character.orientation;
-        m_OriginalPosition = Transform.position;
-        m_OriginalRotation = Transform.rotation;
+        m_OriginalPosition = Entity.transform.position;
+        m_OriginalRotation = Entity.transform.rotation;
     }
 
     public void Tick()
@@ -39,7 +38,7 @@ public class EntityOrientation : EntityContext, IEntityComponent, ITickable, IRe
         {
             m_CurrentFacing = FacingDirection;
             m_TurnTime = 0f;
-            m_StartY = Transform.eulerAngles.y;
+            m_StartY = Entity.transform.eulerAngles.y;
         }
     }
 
@@ -53,7 +52,7 @@ public class EntityOrientation : EntityContext, IEntityComponent, ITickable, IRe
         var targetY = m_CurrentFacing == 1 ? 0f : 180f;
         var newY = Mathf.Lerp(m_StartY, targetY, m_Settings.turnCurve.Evaluate(time));
 
-        Transform.rotation = Quaternion.Euler(0, newY, 0);
+        Entity.transform.rotation = Quaternion.Euler(0, newY, 0);
 
         if (!StateMachine.IsNeutral() && !m_ManualSmoothTurn)
         {
@@ -74,9 +73,9 @@ public class EntityOrientation : EntityContext, IEntityComponent, ITickable, IRe
 
         var forcedY = m_CurrentFacing == 1 ? 0f : 180f;
         var newRotation = Quaternion.Euler(0f, forcedY, 0f); // Fix rotation
-        var newPosition = new Vector3(Transform.position.x, Transform.position.y, 0); // Fix position
+        var newPosition = new Vector3(Entity.transform.position.x, Entity.transform.position.y, 0); // Fix position
 
-        Transform.SetPositionAndRotation(newPosition, newRotation);
+        Entity.transform.SetPositionAndRotation(newPosition, newRotation);
 
         m_TurnTime = -1f;
     }
@@ -88,17 +87,17 @@ public class EntityOrientation : EntityContext, IEntityComponent, ITickable, IRe
         if (smooth)
         {
             m_TurnTime = 0f;
-            m_StartY = Transform.eulerAngles.y;
+            m_StartY = Entity.transform.eulerAngles.y;
             m_ManualSmoothTurn = true;
         }
         else
         {
             var forcedY = m_CurrentFacing == 1 ? 0f : 180f;
-            Transform.rotation = Quaternion.Euler(0f, forcedY, 0f);
+            Entity.transform.rotation = Quaternion.Euler(0f, forcedY, 0f);
             m_TurnTime = -1f;
             m_ManualSmoothTurn = false;
         }
     }
 
-    public void Reset() => Transform.SetPositionAndRotation(m_OriginalPosition, m_OriginalRotation);
+    public void Reset() => Entity.transform.SetPositionAndRotation(m_OriginalPosition, m_OriginalRotation);
 }

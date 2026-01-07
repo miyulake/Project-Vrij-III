@@ -18,6 +18,7 @@
         if (Entity.Get<InputReader>().Grab)
         {
             AudioComp.GetPlay(SoundType.ThrowBreak);
+            ResolverComp.ResetStoredMove();
             Opponent.Get<StateMachine>().ChangeState<ClankState>();
             StateMachine.ChangeState<ClankState>();
             return;

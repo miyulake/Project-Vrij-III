@@ -20,7 +20,7 @@ public class AttackHandler : EntityContext, IEntityComponent, ITickable, IResett
     {
         SetEntity(entity);
         m_Settings = Entity.Character.combat;
-        m_Hitboxes = ViewComp.Hitboxes;
+        m_Hitboxes = Entity.GetComponentsInChildren<Hitbox>(true);
         m_AllMoves = Entity.Character.AllMoves;
     }
 

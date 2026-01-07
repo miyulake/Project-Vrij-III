@@ -9,8 +9,11 @@ public class PaintManager : MonoBehaviour
     [SerializeField] private RenderTexture m_PaintTexture;
     [Range(32, 512)] [SerializeField] private int m_SampleSize = 128;
     [SerializeField] private float m_PaintZ = 3;
+
     private RenderTexture m_SmallTexture;
     private Texture2D m_PaintCopy;
+
+    public float PaintZ => m_PaintZ;
 
     private void Awake() 
     {
@@ -52,8 +55,6 @@ public class PaintManager : MonoBehaviour
     {
         if (m_SmallTexture != null) m_SmallTexture.Release();
     }
-
-    public float GetPaintZ() => m_PaintZ;
 
     // For debugging purposes
     /*

@@ -1,16 +1,17 @@
+using UnityEngine;
 using Game.Entities;
 using System.Linq;
-using UnityEngine;
 
-public class ThrowHandler : EntityComponent, ITickable
+public class ThrowHandler : EntityContext, IEntityComponent, ITickable
 {
     public MoveData Clank { get; private set; }
-    [SerializeField] private GameObject m_ThrowAnchor;
+    private CapsuleCollider2D m_Collider;
     private bool m_GrabConnected;
 
-    public override void Initialize(Entity entity)
+    public void Initialize(Entity entity)
     {
-        base.Initialize(entity);
+        SetEntity(entity);
+        m_Collider = Entity.GetComponent<CapsuleCollider2D>();
         // Refactor this in the future
         Clank = Entity.Character.AllGenerics
             .FirstOrDefault(m => m.name == "MISC_Clank");
@@ -20,20 +21,22 @@ public class ThrowHandler : EntityComponent, ITickable
 
     private void HandleThrow()
     {
+        var throwAnchor = ViewComp.ThrowAnchor;
+
         var shouldThrow =
-            m_ThrowAnchor.activeSelf &&
+            throwAnchor.activeSelf &&
             m_GrabConnected &&
             ThrowEligible() &&
             RoundManager.Instance.CurrentState != RoundState.INTRO;
 
         if (shouldThrow)
         {
-            ViewComp.EntityCollider.enabled = false;
-            Opponent.transform.position = m_ThrowAnchor.transform.position;
+            m_Collider.enabled = false;
+            Opponent.transform.position = throwAnchor.transform.position;
         }
         else
         {
-            ViewComp.EntityCollider.enabled = true;
+            m_Collider.enabled = true;
             m_GrabConnected = false;
         }
     }

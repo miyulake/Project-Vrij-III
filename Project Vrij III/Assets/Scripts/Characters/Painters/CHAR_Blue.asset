@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ea4ff33063428845ab9e456a2f90a6b, type: 3}
   m_Name: CHAR_Blue
   m_EditorClassIdentifier: Assembly-CSharp::CharacterData
-  characterType: 1
+  characterType: 2
   combat: {fileID: 11400000, guid: 34311d4a9e12a534e9019e347ce0ddfd, type: 2}
   orientation: {fileID: 11400000, guid: b27c9bd7dbdf67a4aa345618e07c907f, type: 2}
   m_GenericMoves: {fileID: 11400000, guid: 4d18edd913f5f3b4cb156789ced90ac7, type: 2}
@@ -23,9 +23,13 @@ MonoBehaviour:
       acceleration: 250
       deceleration: 50
     effects:
+      tauntEffectDuration: 7
       taunt:
         additiveMultiplier: 0.15
         flatIncrease: 1
+    visuals:
+      baseMaterial: {fileID: 2100000, guid: 8218615222dca0c46859fa1435e97459, type: 2}
+      deadMaterial: {fileID: 2100000, guid: f7435c9252416a3429eab68ec556a367, type: 2}
     paint:
       color: {r: 0, g: 0, b: 1, a: 1}
   m_AllMoves: {fileID: 11400000, guid: 51c66f1d50e3ab84ebea5825e1a0c706, type: 2}

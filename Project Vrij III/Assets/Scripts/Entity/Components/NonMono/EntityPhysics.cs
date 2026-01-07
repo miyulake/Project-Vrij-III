@@ -1,13 +1,19 @@
 using Game.Entities;
 using UnityEngine;
 
-public class EntityPhysics : IEntityComponent
+public class EntityPhysics : EntityContext, IEntityComponent
 {
-    public void Initialize(Entity entity) { }
+    public Rigidbody2D RigidBodyTwoD { get; private set; }
 
-    public void ApplyKnockback(Rigidbody2D rigidBody, Vector2 knockback)
+    public void Initialize(Entity entity) 
     {
-        rigidBody.linearVelocity = Vector2.zero;
-        rigidBody.AddForce(knockback, ForceMode2D.Impulse);
+        SetEntity(entity);
+        RigidBodyTwoD = Entity.GetComponent<Rigidbody2D>();
+    }
+
+    public void ApplyKnockback(Vector2 knockback)
+    {
+        RigidBodyTwoD.linearVelocity = Vector2.zero;
+        RigidBodyTwoD.AddForce(knockback, ForceMode2D.Impulse);
     }
 }

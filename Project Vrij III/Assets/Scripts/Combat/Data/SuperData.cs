@@ -9,6 +9,6 @@ public class SuperData : MoveData
     public int freezeFrames;
     public int activationFrames;
 
-    public override bool CanExecute(EntityResources resources) =>
+    public override bool HasEnoughMeter(EntityResources resources) =>
         resources.Meter.Current >= meterCost;
 }

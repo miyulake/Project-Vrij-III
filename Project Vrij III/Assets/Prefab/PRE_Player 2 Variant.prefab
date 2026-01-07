@@ -92,6 +92,10 @@ PrefabInstance:
       propertyPath: m_NormalMaterial
       value: 
       objectReference: {fileID: 2100000, guid: 8218615222dca0c46859fa1435e97459, type: 2}
+    - target: {fileID: 3714857277562237865, guid: bf3c91c8ca6848d42bb9004d65c243d6, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 8218615222dca0c46859fa1435e97459, type: 2}
     - target: {fileID: 4538461412856120102, guid: bf3c91c8ca6848d42bb9004d65c243d6, type: 3}
       propertyPath: m_DefaultControlScheme
       value: Gamepad

@@ -8,6 +8,8 @@ public class PlayerManager : MonoBehaviour
     public Entity playerTwo;
     private readonly Entity[] m_All = new Entity[2];
 
+    public IReadOnlyList<Entity> All => m_All;
+
     private void Awake()
     {
         Instance = this;
@@ -16,6 +18,4 @@ public class PlayerManager : MonoBehaviour
         m_All[0] = playerOne;
         m_All[1] = playerTwo;
     }
-
-    public IReadOnlyList<Entity> All => m_All;
 }

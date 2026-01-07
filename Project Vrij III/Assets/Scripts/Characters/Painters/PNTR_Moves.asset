@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7d2479e84be44ee488432edf0cda0bc2, type: 3}
-  m_Name: RED_Moves
+  m_Name: PNTR_Moves
   m_EditorClassIdentifier: Assembly-CSharp::Moves
   entries:
   - {fileID: 11400000, guid: 7a0b0132a70784a45a2e1fd63873f75d, type: 2}

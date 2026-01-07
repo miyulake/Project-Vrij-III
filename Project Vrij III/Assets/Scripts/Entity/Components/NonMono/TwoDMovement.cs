@@ -17,7 +17,7 @@ public class TwoDMovement : EntityContext, IEntityComponent, ITickable
     {
         if (StateMachine.CurrentState is CaughtState || RoundManager.Instance.CurrentState == RoundState.INTRO)
         {
-            ViewComp.RigidBodyTwoD.linearVelocity = Vector2.zero;
+            PhysicsComp.RigidBodyTwoD.linearVelocity = Vector2.zero;
             return;
         }
         m_InputDirection = CanMove() ? InputComp.Movement : Vector2.zero;
@@ -28,8 +28,8 @@ public class TwoDMovement : EntityContext, IEntityComponent, ITickable
     {
         var targetVelocity = m_InputDirection * CurrentSpeed;
         var accelerationRate = m_InputDirection.magnitude > 0 ? m_Settings.acceleration : m_Settings.deceleration;
-        ViewComp.RigidBodyTwoD.linearVelocity = 
-            Vector2.MoveTowards(ViewComp.RigidBodyTwoD.linearVelocity, targetVelocity, accelerationRate * Time.fixedDeltaTime);
+        PhysicsComp.RigidBodyTwoD.linearVelocity = 
+            Vector2.MoveTowards(PhysicsComp.RigidBodyTwoD.linearVelocity, targetVelocity, accelerationRate * Time.fixedDeltaTime);
     }
 
     private bool CanMove() =>
