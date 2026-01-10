@@ -5,7 +5,6 @@ public abstract class EntityContext
 
     // MonoBehaviours
     protected SuperHandler SuperComp            => Entity.Get<SuperHandler>();
-    protected EntityVisuals VisualsComp         => Entity.Get<EntityVisuals>();
     protected EntityView ViewComp               => Entity.Get<EntityView>();
 
     // Non-mono
@@ -14,10 +13,11 @@ public abstract class EntityContext
     protected AttackHandler AttackComp          => Entity.Get<AttackHandler>();
     protected TauntHandler TauntComp            => Entity.Get<TauntHandler>();
     protected ThrowHandler ThrowComp            => Entity.Get<ThrowHandler>();
-    protected EntityResolver ResolverComp       => Entity.Get<EntityResolver>();
     protected EntityResources ResourcesComp     => Entity.Get<EntityResources>();
-    protected EntityEffects EffectsComp         => Entity.Get<EntityEffects>();
+    protected EntityResolver ResolverComp       => Entity.Get<EntityResolver>();
     protected EntityOrientation OrientationComp => Entity.Get<EntityOrientation>();
+    protected EntityEffects EffectsComp         => Entity.Get<EntityEffects>();
+    protected EntityVisuals VisualsComp         => Entity.Get<EntityVisuals>();
     protected EntityVFX VFXComp                 => Entity.Get<EntityVFX>();
     protected EntityPhysics PhysicsComp         => Entity.Get<EntityPhysics>();
     protected EntityAnimator AnimatorComp       => Entity.Get<EntityAnimator>();
