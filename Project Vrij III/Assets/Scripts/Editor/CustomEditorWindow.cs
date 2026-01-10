@@ -49,9 +49,10 @@ public class CustomEditorWindow : EditorWindow
 
         EditorHelpers.SetupRootLayout(root);
         root.Add(EditorHelpers.CreateLabel("© 2026 Jesse Westerlaken", "copyright"));
-        root.Add(EditorHelpers.CreateSecretButton("<b>♡ (˶˃ ᵕ ˂˶) ♡"));
+        root.Add(EditorHelpers.CreateLabel("General development helper tools"));
         root.Add(CreateCoreSection());
         root.Add(CreatePlayModeSection());
+        root.Add(EditorHelpers.CreateSecretButton("<b>♡ (˶˃ ᵕ ˂˶) ♡"));
 
         UpdatePlayModeState();
     }
