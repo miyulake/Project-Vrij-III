@@ -1,20 +1,25 @@
 ﻿#if UNITY_EDITOR
 using UnityEditor;
 using UnityEditor.Compilation;
-using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
+using System.Collections.Generic;
+using UnityEngine;
 
 public class CustomEditorWindow : EditorWindow
 {
-    private Button m_ReloadButton;
+    // Play Mode Buttons
+    private VisualElement m_PlayModeContainer;
     private Label m_DomainLabel;
 
-    [MenuItem("MIYU/Tools")]
+    private readonly List<(Button button, System.Func<bool> activeState)> m_StateButtons =
+        new();
+
+    [MenuItem("MIYU/Tool Window", priority = 0)]
     public static void ShowWindow()
     {
         var window = GetWindow<CustomEditorWindow>("MIYU Tools");
-        window.SetWindowIcon();
+        window.titleContent = EditorAssets.GetWindowIcon();
     }
 
     #region Setup
@@ -29,20 +34,22 @@ public class CustomEditorWindow : EditorWindow
     {
         EditorApplication.playModeStateChanged -= OnPlayModeChanged;
         EditorApplication.update -= EditorTick;
+        m_StateButtons.Clear(); // Clear states in this instance
     }
 
     private void OnDestroy() => EditorAudio.StopAllClips();
 
-    public void CreateGUI()
+    private void CreateGUI()
     {
         var root = rootVisualElement;
         root.Clear();
 
-        var style = GetStyleSheet();
+        var style = EditorAssets.GetStyleSheet();
         if (style != null) root.styleSheets.Add(style);
 
-        SetupRootLayout(root);
-        root.Add(CreateSecretButton("<b>♡ (˶˃ ᵕ ˂˶) ♡"));
+        EditorHelpers.SetupRootLayout(root);
+        root.Add(EditorHelpers.CreateLabel("© 2026 Jesse Westerlaken", "copyright"));
+        root.Add(EditorHelpers.CreateSecretButton("<b>♡ (˶˃ ᵕ ˂˶) ♡"));
         root.Add(CreateCoreSection());
         root.Add(CreatePlayModeSection());
 
@@ -53,14 +60,6 @@ public class CustomEditorWindow : EditorWindow
     {
         if (m_DomainLabel != null) m_DomainLabel.text = GetDomainText();
     }
-
-    private void SetupRootLayout(VisualElement root)
-    {
-        root.style.paddingLeft = 10;
-        root.style.paddingRight = 10;
-        root.style.paddingTop = 10;
-        root.style.flexDirection = FlexDirection.Column;
-    }
     #endregion
 
     #region Sections
@@ -69,15 +68,16 @@ public class CustomEditorWindow : EditorWindow
         var foldout = new Foldout
         {
             text = "Core",
-            value = true
+            value = false
         };
         foldout.AddToClassList("foldout-box");
 
-        m_DomainLabel = CreateLabel(GetDomainText());
+        m_DomainLabel = EditorHelpers.CreateLabel(GetDomainText());
         foldout.Add(m_DomainLabel);
-        foldout.Add(CreateButton("Compile Scripts", 
+
+        foldout.Add(EditorHelpers.CreateButton("Compile Scripts", 
             CompilationPipeline.RequestScriptCompilation, MiyuTooltips.FormatDanger + MiyuTooltips.TipCompile));
-        foldout.Add(CreateButton("Reset Statics", 
+        foldout.Add(EditorHelpers.CreateButton("Reset Statics", 
             StaticUtils.ResetAll, MiyuTooltips.FormatWarning + MiyuTooltips.TipStatics));
 
         return foldout;
@@ -88,92 +88,79 @@ public class CustomEditorWindow : EditorWindow
         var foldout = new Foldout
         {
             text = "Play Mode",
-            value = true
+            value = false
         };
         foldout.AddToClassList("foldout-box");
+        foldout.Add(EditorHelpers.CreateLabel("Enter Play Mode to enable buttons"));
 
-        foldout.Add(CreateLabel("Enter Play Mode to enable buttons"));
-        m_ReloadButton = CreateButton("Reload Scene", ReloadScene, MiyuTooltips.TipScene);
-        foldout.Add(m_ReloadButton);
+        m_PlayModeContainer = new ();
+        m_PlayModeContainer.AddToClassList("playmode-container");
+
+        m_PlayModeContainer.Add(EditorHelpers.CreateButton("Reload Scene", 
+            ReloadScene, MiyuTooltips.TipScene));
+        m_PlayModeContainer.Add(EditorHelpers.CreateButton("Spawn Object",
+            SpawnObject, MiyuTooltips.TipSpawn));
+
+        foldout.Add(m_PlayModeContainer);
 
         return foldout;
     }
     #endregion
 
     #region Helpers
-    private Button CreateButton(string text, System.Action onClick, string tooltip = "")
-    {
-        var button = new Button(() =>
-        {
-            EditorAudio.PlayClip(GetButtonSound("Meow"), true);
-            onClick?.Invoke();
-        }){ text = text, tooltip = tooltip };
-
-        button.AddToClassList("button");
-        return button;
-    }
-
-    private Button CreateSecretButton(string text)
-    {
-        var message = "meow meow meow meow meow meow meow meow meow meow meow meow meow meow meow meow";
-        var button = new Button(() =>
-        {
-            EditorAudio.PlayClip(GetButtonSound("Meow_Long"), true);
-            EditorUtility.DisplayDialog(":3", message, "Miaow");
-        }){ text = text };
-
-        button.AddToClassList("secret-button");
-        return button;
-    }
-
-    private Label CreateLabel(string text)
-    {
-        var label = new Label{ text = text };
-        label.AddToClassList("label");
-        return label;
-    }
-
     private string GetDomainText()
     {
-        var disabled = EditorUtils.IsDomainReloadDisabled();
+        var disabled = EditorHelpers.IsDomainReloadDisabled();
         return
             $"Domain reload disabled: <b><color={(disabled ? "green" : "red")}>{disabled}</color></b>\n" +
             "(Reset Statics auto triggers on play)";
     }
 
-    private void ReloadScene() => SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-
-    private void OnPlayModeChanged(PlayModeStateChange _) => UpdatePlayModeState();
+    private void OnPlayModeChanged(PlayModeStateChange _)
+    {
+        UpdateButtonStates();
+        UpdatePlayModeState();
+    }
 
     private void UpdatePlayModeState()
     {
-        if (m_ReloadButton != null) m_ReloadButton.SetEnabled(EditorApplication.isPlaying);
+        if (m_PlayModeContainer != null) m_PlayModeContainer.SetEnabled(EditorApplication.isPlaying);
     }
 
-    private void SetWindowIcon()
+    private void UpdateButtonStates()
     {
-        var path = AssetDatabase.GUIDToAssetPath("8392c84c83feeb14e92305e81321982a");
-        var icon = AssetDatabase.LoadAssetAtPath<Texture2D>(path);
-        if (icon != null) titleContent = new GUIContent("\u2003MIYU Tools", icon); // \u2003 adds spacing
+        foreach (var (button, predicate) in m_StateButtons) button.SetEnabled(predicate());
+    }
+    #endregion
+
+    #region Functions
+    private void ReloadScene()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        UpdateButtonStates();
     }
 
-    private StyleSheet GetStyleSheet()
+    private void SpawnObject()
     {
-        var path = AssetDatabase.GUIDToAssetPath("1daf168968711714ca3be0f6cb8c9e0a");
-        return AssetDatabase.LoadAssetAtPath<StyleSheet>(path);
+        if (InstantiateSettings.ObjectToSpawn == null)
+        {
+            Debug.LogWarning("No object selected to spawn.");
+            return;
+        }
+
+        GameObject @object;
+        if (PrefabUtility.IsPartOfPrefabAsset(InstantiateSettings.ObjectToSpawn))
+            @object = (GameObject)PrefabUtility.InstantiatePrefab(InstantiateSettings.ObjectToSpawn);
+        else
+        {
+            @object = Instantiate(InstantiateSettings.ObjectToSpawn);
+            @object.name = InstantiateSettings.ObjectToSpawn.name;
+        }
+        @object.transform.SetPositionAndRotation(InstantiateSettings.SpawnPosition, Quaternion.Euler(InstantiateSettings.SpawnRotation));
+
+        Undo.RegisterCreatedObjectUndo(@object, "Spawn Object");
+        Selection.activeGameObject = @object;
     }
-
-    private AudioClip GetButtonSound(string name)
-    {
-        string path = "";
-
-        if (name == "Meow") 
-            path = AssetDatabase.GUIDToAssetPath("890ed5dcd617e0f42b6d42d652745f01");
-        else if (name == "Meow_Long") 
-            path = AssetDatabase.GUIDToAssetPath("0b39c32df0951d648b81833c233dde9f");
-
-        return AssetDatabase.LoadAssetAtPath<AudioClip>(path);
-    } 
     #endregion
 }
 #endif
