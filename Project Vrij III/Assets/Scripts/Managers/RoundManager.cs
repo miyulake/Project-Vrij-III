@@ -33,6 +33,7 @@ public class RoundManager : MonoBehaviour
     [SerializeField] private AudioSource m_AudioSource;
     [SerializeField] private AudioClip m_FightSound;
     [SerializeField] private AudioClip m_KOSound;
+    [SerializeField] private AudioClip m_PerfectSound;
 
     private Coroutine m_RoundFlowRoutine;
 
@@ -44,7 +45,7 @@ public class RoundManager : MonoBehaviour
     {
         ++m_CurrentRound;
 
-        PaintRegister.ClearAll();
+        PaintRegister.Instance.ClearAll();
         PaintResultUI.Instance.ResetPaintResult();
 
         PlayerManager.Instance.playerOne.Reset();
@@ -79,7 +80,7 @@ public class RoundManager : MonoBehaviour
         yield return new WaitForSeconds(introDuration);
 
         RoundUI.Instance.SetRoundText("Fight");
-        m_AudioSource.PlayOneShot(m_FightSound); 
+        m_AudioSource.PlayOneShot(m_FightSound);
         yield return new WaitForSeconds(introDuration / 2);
         // INTRO END
 
@@ -104,12 +105,17 @@ public class RoundManager : MonoBehaviour
         {
             if (CurrentState != RoundState.KNOCKOUT) SetState(RoundState.KNOCKOUT);
 
-            if (IsPerfectKO()) 
+            if (IsPerfectKO())
+            {
                 RoundUI.Instance.SetRoundText("Perfect");
-            else 
+                m_AudioSource.PlayOneShot(m_PerfectSound);
+            }
+            else
+            {
                 RoundUI.Instance.SetRoundText("K.O.");
+                m_AudioSource.PlayOneShot(m_KOSound);
+            }
 
-            m_AudioSource.PlayOneShot(m_KOSound);
             SetSlowMo(0.1f);
             yield return new WaitForSecondsRealtime(knockoutDuration);
 

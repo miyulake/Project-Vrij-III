@@ -1,11 +1,14 @@
 using UnityEngine;
 
-public static class PaintRegister
+public class PaintRegister
 {
-    private static readonly Paint[] m_PaintObjects = new Paint[512];
-    private static int m_Count;
+    public static PaintRegister Instance { get; private set; }
+    private readonly Paint[] m_PaintObjects = new Paint[512];
+    private int m_Count;
 
-    public static void Register(Paint paint)
+    public PaintRegister() { Instance = this; }
+
+    public void Register(Paint paint)
     {
         if (m_Count >= m_PaintObjects.Length)
         {
@@ -15,7 +18,7 @@ public static class PaintRegister
         m_PaintObjects[m_Count++] = paint;
     }
 
-    public static void ClearAll()
+    public void ClearAll()
     {
         for (int i = 0; i < m_Count; i++) Object.Destroy(m_PaintObjects[i].gameObject);
         m_Count = 0;

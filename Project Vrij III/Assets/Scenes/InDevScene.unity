@@ -3441,6 +3441,7 @@ MonoBehaviour:
   m_AudioSource: {fileID: 340937436}
   m_FightSound: {fileID: 8300000, guid: 7e131dfff611cac41b9aa42fb8b8012c, type: 3}
   m_KOSound: {fileID: 8300000, guid: 3d6875c40ac30cd40b9453b36c5cb655, type: 3}
+  m_PerfectSound: {fileID: 8300000, guid: 9388cb84d7ea3304982f7483856d04e7, type: 3}
 --- !u!114 &340937433
 MonoBehaviour:
   m_ObjectHideFlags: 0

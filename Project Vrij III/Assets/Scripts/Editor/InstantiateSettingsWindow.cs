@@ -39,7 +39,6 @@ public class InstantiateSettingsWindow : EditorWindow
         m_ObjectField = EditorHelpers.CreateObjectField("Object to Spawn", InstantiateSettings.ObjectToSpawn, 
             newValue => InstantiateSettings.ObjectToSpawn = newValue);
         foldout.Add(m_ObjectField);
-        AssignObjectField(m_ObjectField, EditorAssets.GetTestObject, value => InstantiateSettings.ObjectToSpawn = value);
 
         // Position
         m_PositionField = EditorHelpers.CreateVector3Field("Spawn Position", InstantiateSettings.SpawnPosition,
@@ -54,7 +53,7 @@ public class InstantiateSettingsWindow : EditorWindow
         foldout.Add(EditorHelpers.CreateButton("Randomize Rotation", RandomizeRotation, MiyuTooltips.TipRandomRot));
 
         // Reset
-        foldout.Add(EditorHelpers.CreateButton("Reset", Reset, MiyuTooltips.TipWindowReset));
+        foldout.Add(EditorHelpers.CreateButton("Reset", ResetWindow, MiyuTooltips.TipWindowReset));
 
         return foldout;
     }
@@ -92,7 +91,7 @@ public class InstantiateSettingsWindow : EditorWindow
             ), value => InstantiateSettings.SpawnRotation = value);
     }
 
-    private void Reset()
+    private void ResetWindow()
     {
         AssignObjectField(m_ObjectField, EditorAssets.GetTestObject, value => InstantiateSettings.ObjectToSpawn = value);
         RandomizeVector3Field(m_PositionField, () => Vector3.zero, value => InstantiateSettings.SpawnPosition = value);

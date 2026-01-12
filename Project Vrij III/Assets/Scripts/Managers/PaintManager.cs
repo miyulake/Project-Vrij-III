@@ -18,6 +18,7 @@ public class PaintManager : MonoBehaviour
     private void Awake() 
     {
         Instance = this;
+        new PaintRegister();
 
         var adjustedAspect = m_PaintTexture.width / m_PaintTexture.height;
         m_SmallTexture = new RenderTexture(m_SampleSize, m_SampleSize / adjustedAspect, 0, RenderTextureFormat.ARGB32)

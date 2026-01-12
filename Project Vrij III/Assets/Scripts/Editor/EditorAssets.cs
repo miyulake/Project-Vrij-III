@@ -31,7 +31,10 @@ public static class EditorAssets
 
     public static GameObject GetTestObject()
     {
+        /*
         var path = AssetDatabase.GUIDToAssetPath("678267692256ab04792d03705ceaa704");
         return AssetDatabase.LoadAssetAtPath<GameObject>(path);
+        '*/
+        return null;
     }
 }
