@@ -20,6 +20,7 @@ public static class EditorHelpers
         root.style.paddingRight = 10;
         root.style.paddingTop = 10;
         root.style.flexDirection = FlexDirection.Column;
+        root.Add(CreateLabel("© 2026 Jesse Westerlaken", "copyright"));
     }
 
     /// <summary>
@@ -103,6 +104,12 @@ public static class EditorHelpers
         if (onChange != null) field.RegisterValueChangedCallback(@event => onChange(@event.newValue));
         field.AddToClassList("vector-3-field");
         return field;
+    }
+
+    public static void RecordUndo(UnityEngine.Object @object,string name)
+    {
+        Undo.RecordObject(@object, name);
+        EditorUtility.SetDirty(@object);
     }
 
     /// <summary>

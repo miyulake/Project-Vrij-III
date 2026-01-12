@@ -48,7 +48,6 @@ public class CustomEditorWindow : EditorWindow
         if (style != null) root.styleSheets.Add(style);
 
         EditorHelpers.SetupRootLayout(root);
-        root.Add(EditorHelpers.CreateLabel("© 2026 Jesse Westerlaken", "copyright"));
         root.Add(EditorHelpers.CreateLabel("General development helper tools"));
         root.Add(CreateCoreSection());
         root.Add(CreatePlayModeSection());

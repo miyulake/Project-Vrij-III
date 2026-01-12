@@ -21,7 +21,6 @@ public class InstantiateSettingsWindow : EditorWindow
         if (style != null) root.styleSheets.Add(style);
 
         EditorHelpers.SetupRootLayout(root);
-        root.Add(EditorHelpers.CreateLabel("© 2026 Jesse Westerlaken", "copyright"));
         root.Add(EditorHelpers.CreateLabel("Settings for the <b>Spawn Object</b> button"));
         root.Add(CreateSettingsSection());
     }
@@ -93,7 +92,7 @@ public class InstantiateSettingsWindow : EditorWindow
 
     private void ResetWindow()
     {
-        AssignObjectField(m_ObjectField, EditorAssets.GetTestObject, value => InstantiateSettings.ObjectToSpawn = value);
+        AssignObjectField(m_ObjectField, null, value => InstantiateSettings.ObjectToSpawn = value);
         RandomizeVector3Field(m_PositionField, () => Vector3.zero, value => InstantiateSettings.SpawnPosition = value);
         RandomizeVector3Field(m_RotationField, () => Vector3.zero, value => InstantiateSettings.SpawnRotation = value);
     }
