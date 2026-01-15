@@ -14,6 +14,10 @@ for example, training mode should have infinite time and a dummy opponent as def
 
 BUG:
 - Hitboxes hit multiple times sometimes
+- combined input,
+- paint screen meer impact uwu,
+- quick turnaround,
+- charged attacks (like smash)
 
 NOTE:
 - 3rd party particles don't work with ortographic when soft particle = true so be sure to turn that off

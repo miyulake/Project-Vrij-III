@@ -85,7 +85,7 @@ public class EntityResolver : EntityContext, IEntityComponent, IResettable
 
         // VFX
         VFXComp.SpawnParticles(data);
-        if (usingPaint && inGameplay) VFXComp.SpawnPaint(move, facingDirection);
+        if (type != ContactType.BLOCK && usingPaint && inGameplay) VFXComp.SpawnPaint(move, facingDirection);
 
         // Visuals
         var stunDuration = data.stun * Time.fixedDeltaTime;
@@ -102,7 +102,7 @@ public class EntityResolver : EntityContext, IEntityComponent, IResettable
             if (!ComboComp.IsPaused) ComboComp.AddHit(finalDamage);
             ResourcesComp.ApplyDamage(finalDamage);
         }
-        else if (usingPaint) ComboComp.AddHit(0);
+        else if (type != ContactType.BLOCK && usingPaint) ComboComp.AddHit(0);
 
         // Audio
         AudioComp.Play(data.sound);

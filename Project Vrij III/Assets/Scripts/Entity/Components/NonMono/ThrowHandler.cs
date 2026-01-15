@@ -5,8 +5,8 @@ using System.Linq;
 public class ThrowHandler : EntityContext, IEntityComponent, ITickable
 {
     public MoveData Clank { get; private set; }
+    public bool GrabConnected { get; private set; }
     private CapsuleCollider2D m_Collider;
-    private bool m_GrabConnected;
 
     public void Initialize(Entity entity)
     {
@@ -25,7 +25,7 @@ public class ThrowHandler : EntityContext, IEntityComponent, ITickable
 
         var shouldThrow =
             throwAnchor.activeSelf &&
-            m_GrabConnected &&
+            GrabConnected &&
             ThrowEligible() &&
             RoundManager.Instance.CurrentState != RoundState.INTRO;
 
@@ -37,7 +37,7 @@ public class ThrowHandler : EntityContext, IEntityComponent, ITickable
         else
         {
             m_Collider.enabled = true;
-            m_GrabConnected = false;
+            GrabConnected = false;
         }
     }
 
@@ -51,5 +51,5 @@ public class ThrowHandler : EntityContext, IEntityComponent, ITickable
             opponentSM.CurrentState is DeadState;
     }
 
-    public void ConnectGrab() => m_GrabConnected = true;
+    public void ConnectGrab() => GrabConnected = true;
 }

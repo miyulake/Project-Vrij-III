@@ -20,6 +20,7 @@ public class SuperHandler : EntityComponent, ITickable
 
     public void Tick()
     {
+        /*
         if (RoundManager.Instance.CurrentState != RoundState.GAMEPLAY) return;
 
         #if UNITY_EDITOR
@@ -27,55 +28,35 @@ public class SuperHandler : EntityComponent, ITickable
         #endif
 
         UpdateAura();
-
         if (InputComp.Super)
         {
             Debug.Log($"Meter before super: {ResourcesComp.Meter.Current}");
             for (int i = 0; i < m_AllSupers.Length; i++)
             {
-                if (m_AllSupers[i].HasEnoughMeter(ResourcesComp) && IsInSuperCondition(m_AllSupers[i]))
+                if (m_AllSupers[i].CanActivate(Entity))
+                {
                     ExecuteSuper(m_AllSupers[i]);
+                    Debug.Log($"Meter after super: {ResourcesComp.Meter.Current}");
+                    break;
+                }
             }
         }
+        */
     }
 
     private void ExecuteSuper(SuperData data)
     {
         // TO-DO: Check for specific scenarios and check if the super can be performed within those scenarios.
-        /*
         switch (data.superType)
         {
-            case SuperType.CHAIN:
-                //ActivateChain();
-                break;
-            case SuperType.TIME:
-                //ActivateTime();
-                break;
-            case SuperType.TAUNT:
-                ActivateTaunt();
-                break;
+            case SuperType.CHAIN: ActivateChain(); break;
+            case SuperType.TIME:  ActivateTime();  break;
+            case SuperType.TAUNT: ActivateTaunt(); break;
         }
-        */
-
-        // TEST
-        ActivateTaunt();
-
         AttackComp.StartMove(data);
         StateMachine.ChangeState<SuperState>(false, data.freezeFrames, data.activationFrames);
         ResourcesComp.Meter.Modify(-data.meterCost);
         Debug.Log($"Meter after super: {ResourcesComp.Meter.Current}");
-    }
-
-    private bool IsInSuperCondition(SuperData data)
-    {
-        return data.superType switch
-        {
-            // TESTING VALUES FOR NOW
-            SuperType.CHAIN => false, // Add check
-            SuperType.TIME => false, // Add check
-            SuperType.TAUNT => StateMachine.IsNeutral(),
-            _ => false,
-        };
     }
 
     private void UpdateAura()
@@ -91,9 +72,19 @@ public class SuperHandler : EntityComponent, ITickable
         if (m_AuraCurveTime <= 0f) m_Aura.SetActive(false);
     }
 
+    private void ActivateChain()
+    {
+        print("Grab Super activated!");
+    }
+
     private void ActivateTaunt()
     {
         m_Aura.SetActive(true);
         m_AuraCurveTime = 0;
+    }
+
+    private void ActivateTime()
+    {
+        //
     }
 }
