@@ -745,7 +745,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1725cc4e27b4d8647801428afd9e6a0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SuperHandler
-  m_CurrentSuper: 3
   m_Aura: {fileID: 7432193986819402968}
   m_AuraCurve:
     serializedVersion: 2
