@@ -174,6 +174,7 @@ public class RoundManager : MonoBehaviour
         PlayerTwoWins = 0;
         m_CurrentRound = 0;
         RoundTracker.Instance.ResetRoundWinUI();
+        MusicManager.Instance.SetRandomMusic(); // FOR PLAYTEST
         StartRound();
     }
 

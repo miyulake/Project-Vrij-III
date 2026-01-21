@@ -1,11 +1,15 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public class MusicManager : MonoBehaviour
 {
     public static MusicManager Instance { get; private set; }
+
     [SerializeField] private AudioSource musicSource;
     [SerializeField] private AudioClip[] music;
-    private int musicIndex = -1;
+
+    private readonly Queue<int> lastPlayed = new Queue<int>();
+    private const int MemorySize = 2;
 
     private void Awake() => Instance = this;
 
@@ -15,21 +19,25 @@ public class MusicManager : MonoBehaviour
     {
         if (music.Length == 0) return;
 
-        if (music.Length == 1) // Avoid the loop
+        if (music.Length <= MemorySize)
         {
-            musicIndex = 0;
-            musicSource.clip = music[0];
-            musicSource.Play();
+            PlayMusic(Random.Range(0, music.Length));
             return;
         }
 
         int newIndex;
         do newIndex = Random.Range(0, music.Length);
-        while (newIndex == musicIndex);
+        while (lastPlayed.Contains(newIndex));
 
-        musicIndex = newIndex;
+        PlayMusic(newIndex);
+    }
 
-        musicSource.clip = music[musicIndex];
+    private void PlayMusic(int index)
+    {
+        musicSource.clip = music[index];
         musicSource.Play();
+
+        lastPlayed.Enqueue(index);
+        if (lastPlayed.Count > MemorySize) lastPlayed.Dequeue();
     }
 }

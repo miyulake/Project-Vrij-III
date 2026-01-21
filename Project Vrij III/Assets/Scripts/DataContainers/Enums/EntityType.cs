@@ -1,6 +1,6 @@
 public enum EntityType
 {
-    PLAYER,
     DUMMY,
+    PLAYER,
     CPU
 }
