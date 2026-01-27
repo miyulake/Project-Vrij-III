@@ -12,6 +12,7 @@ public class PaintManager : MonoBehaviour
 
     private RenderTexture m_SmallTexture;
     private Texture2D m_PaintCopy;
+    private Color32 m_P1Color, m_P2Color;
 
     public float PaintZ => m_PaintZ;
 
@@ -19,6 +20,9 @@ public class PaintManager : MonoBehaviour
     {
         Instance = this;
         new PaintRegister();
+
+        m_P1Color = PlayerManager.Instance.characterOne.Paint.color;
+        m_P2Color = PlayerManager.Instance.characterTwo.Paint.color;
 
         var adjustedAspect = m_PaintTexture.width / m_PaintTexture.height;
         m_SmallTexture = new RenderTexture(m_SampleSize, m_SampleSize / adjustedAspect, 0, RenderTextureFormat.ARGB32)
@@ -37,19 +41,29 @@ public class PaintManager : MonoBehaviour
         RenderTexture.active = null;
 
         var pixels = m_PaintCopy.GetPixels32();
-        var p1Count = 0; var p2Count = 0;
+        var p1Count = 0; 
+        var p2Count = 0;
 
         for (int i = 0; i < pixels.Length; i++)
         {
-            var px = pixels[i];
-            if      (px.r > px.g && px.r > px.b) p1Count++;
-            else if (px.b > px.r && px.b > px.g) p2Count++;
+            var d1 = ColorDistance(pixels[i], m_P1Color);
+            var d2 = ColorDistance(pixels[i], m_P2Color);
+            if      (d1 < d2) p1Count++;
+            else if (d2 < d1) p2Count++;
         }
 
         PlayerOnePercentage = Mathf.RoundToInt(p1Count / (float)pixels.Length * 100f);
         PlayerTwoPercentage = Mathf.RoundToInt(p2Count / (float)pixels.Length * 100f);
 
         Debug.Log($"Player 1: {p1Count} pixels, Player 2: {p2Count} pixels");
+    }
+
+    private int ColorDistance(Color32 a, Color32 b)
+    {
+        var dr = a.r - b.r;
+        var dg = a.g - b.g;
+        var db = a.b - b.b;
+        return dr * dr + dg * dg + db * db;
     }
 
     private void OnDestroy()

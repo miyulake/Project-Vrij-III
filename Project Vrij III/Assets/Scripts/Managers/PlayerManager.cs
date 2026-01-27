@@ -4,8 +4,8 @@ using UnityEngine;
 public class PlayerManager : MonoBehaviour
 {
     public static PlayerManager Instance { get; private set; }
-    public Entity playerOne;
-    public Entity playerTwo;
+    public Entity playerOne, playerTwo;
+    public CharacterData characterOne, characterTwo;
     private readonly Entity[] m_All = new Entity[2];
 
     public IReadOnlyList<Entity> All => m_All;

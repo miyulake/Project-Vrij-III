@@ -3416,6 +3416,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerManager
   playerOne: {fileID: 1263538930171636701}
   playerTwo: {fileID: 1294490561}
+  characterOne: {fileID: 11400000, guid: 0e224ba528c39214590cda33ab30820d, type: 2}
+  characterTwo: {fileID: 11400000, guid: 172aae4d6e3e64345b992d4134d4ee6e, type: 2}
 --- !u!114 &340937432
 MonoBehaviour:
   m_ObjectHideFlags: 0
