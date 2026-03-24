@@ -3438,6 +3438,7 @@ MonoBehaviour:
   m_WinsNeeded: 3
   m_TimerTextMesh: {fileID: 1337338058}
   m_RoundDuration: 60
+  m_LowTimeColor: {r: 1, g: 0.2509804, b: 0.2509804, a: 1}
   m_OnMatchEnd:
     m_PersistentCalls:
       m_Calls: []

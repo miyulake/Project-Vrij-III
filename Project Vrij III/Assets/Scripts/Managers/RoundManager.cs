@@ -21,6 +21,7 @@ public class RoundManager : MonoBehaviour
     [Range(1, 5)][SerializeField] private int m_WinsNeeded = 3;
     [SerializeField] private TextMeshProUGUI m_TimerTextMesh;
     [SerializeField] private int m_RoundDuration = 60;
+    [SerializeField] private Color m_LowTimeColor = Color.red;
     private RoundWinner m_RoundWinner;
     private float m_RoundTimer;
     private int m_CurrentRound;
@@ -30,9 +31,12 @@ public class RoundManager : MonoBehaviour
 
     [Header("Audio")]
     [SerializeField] private AudioSource m_AudioSource;
+    // Announcer
     [SerializeField] private AudioClip m_FightSound;
     [SerializeField] private AudioClip m_KOSound;
     [SerializeField] private AudioClip m_PerfectSound;
+    // UI
+    [SerializeField] private AudioClip m_LowTimeSound;
 
     private Coroutine m_RoundFlowRoutine;
 
@@ -52,6 +56,7 @@ public class RoundManager : MonoBehaviour
 
         m_RoundTimer = m_RoundDuration;
         m_TimerTextMesh.text = IsInfiniteTime() ? "∞" : m_RoundTimer.ToString("00");
+        m_TimerTextMesh.color = Color.white;
 
         if (m_RoundFlowRoutine != null) StopCoroutine(m_RoundFlowRoutine);
         m_RoundFlowRoutine = StartCoroutine(RoundFlow());
@@ -94,6 +99,7 @@ public class RoundManager : MonoBehaviour
 
                 m_RoundTimer -= Time.deltaTime;
                 m_TimerTextMesh.text = Mathf.CeilToInt(m_RoundTimer).ToString("00");
+                if (m_RoundTimer <= 10f) m_TimerTextMesh.color = m_LowTimeColor;
             }
             yield return null;
         }
